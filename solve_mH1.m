@@ -23,7 +23,7 @@ function a=alpha(x)
     else a=-3;
     end
 
-a=0;
+a=4;
 
 end
 
@@ -34,7 +34,7 @@ function delta=delta(x)
     else delta = 2;
     end
 
-delta=0;
+delta=sqrt(8);
 
 
 end
@@ -164,7 +164,8 @@ end
 
 function b=construct_rhs(x)
     b=zeros(2*length(x),1);
-    b(length(x)+1)=exp(1i*x(1));
+b(length(x)+1)=-2*1i*sqrt(2)*exp(1i*sqrt(2)*(-22));
+
 end
 
 
