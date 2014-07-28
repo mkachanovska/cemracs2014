@@ -1,4 +1,4 @@
-function [u,K,x]=solve_mH1(dx,lambda, nu)
+function [u,K,x,r]=solve_mH1(dx,lambda, nu)
 %mesh generation
 L=2;
 H=10;
@@ -23,7 +23,7 @@ function a=alpha(x)
     else a=-3;
     end
 
-a=0.0;
+a=0;
 
 end
 
@@ -34,7 +34,8 @@ function delta=delta(x)
     else delta = 2;
     end
 
- delta=0.0;
+delta=0;
+
 
 end
 
@@ -50,7 +51,7 @@ function K=K_lpl(x)
     diagon(2:1:end-1)=1./(x(2:1:end-1)-x(1:1:end-2))+1./(x(3:1:end)-x(2:1:end-1));
     diagon_und(1:1:end)=-1./(x(2:1:end)-x(1:1:end-1));
 
-    diagon(end-1)=1./(x(end)-x(end-1));
+    diagon(end)=1./(x(end)-x(end-1));
 
     K=sparse(diag(diagon)+diag(diagon_und,-1)+diag(diagon_und,1));
 end
