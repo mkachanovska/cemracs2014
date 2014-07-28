@@ -1,0 +1,1505 @@
+\documentclass[12pt, a4paper]{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[francais,english]{babel}
+\usepackage{refcheck}
+\usepackage{xcolor}
+
+\newcommand{\red}{\textcolor{red!95!black}}
+\newcommand{\redm}{\textcolor{red!85!black}}
+\newcommand{\blue}{\textcolor{blue!60!black}}
+\newcommand{\green}{\textcolor{green!70!black}}
+\newcommand{\black}{\textcolor{black}}
+\newcommand{\orange}{\textcolor{red!50!yellow}}
+\newcommand{\cyan}{\textcolor{green!50!blue}}
+\newcommand{\yellow}{\textcolor{yellow}}
+
+
+\setlength{\topmargin}{-0.5cm} \setlength{\textheight}{24cm}
+\setlength{\textwidth}{15.5cm} \setlength{\oddsidemargin}{0.5cm}
+
+\def\francais{\selectlanguage{francais}\hfuzz2pt }
+\def\english{\selectlanguage{english}}
+
+
+% general defs
+\providecommand\mathbb{\bf}
+\newcommand\R{{\mathbb R}}
+\newcommand\N{{\mathbb N}}
+\newcommand\Z{{\mathbb Z}}
+\newcommand\T{{\mathbb T}}
+
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{prop}{Property}[section]
+\newtheorem{pro}{Proposition}[section]
+\newtheorem{defi}{Definition}[section]
+\newtheorem{coro}{Corollary}[section]
+\newtheorem{remark}{Remark}[section]
+
+
+\newcounter{Remark}
+\newenvironment{Remark}
+{\par\refstepcounter{Remark}
+\medbreak\noindent\textbf{Remark~\theRemark.}} {\medbreak}
+\renewcommand\theRemark{\arabic{Remark}}
+
+
+\newcounter{steps}
+\newenvironment{proof}[1][]{%
+\par\medbreak\setcounter{steps}{0}
+{\noindent\bfseries Proof#1. }} {\hfill\fbox{\ }\medbreak}
+\newcommand\step{\par\smallbreak
+\refstepcounter{steps} \noindent{\bf Step
+\arabic{steps}.\unskip\quad}}
+\newcounter{substeps}[steps]
+\newcommand\substep{\par\smallbreak
+\refstepcounter{substeps} \noindent{\bf Substep
+\arabic{steps}.\alph{substeps}.\unskip\quad}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\xil}[0]{
+\xi^\lambda}
+
+\newcommand{\bl}[0]{
+{\cal B}^\lambda}
+
+\newcommand{\ble}[0]{
+{\cal B}^{\lambda _\varepsilon}}
+
+\newcommand{\cl}[0]{
+{\cal C} ^\lambda}
+
+\newcommand{\cle}[0]{
+{\cal C}^{\lambda _\varepsilon}}
+
+\newcommand{\ol}[0]{
+{\cal O}_\lambda}
+
+\newcommand{\radlo}[0]{
+\sqrt{\lambda ^2 + \omega _c ^2}}
+
+\newcommand{\intxv}[1]{
+\int _{\R^2}\!\int _{\R^2} \!#1 \;\mathrm{d}v\mathrm{d}x}
+
+\newcommand{\intx}[1]{
+\int _{\R ^2} \!#1 \;\mathrm{d}x}
+
+\newcommand{\intv}[1]{
+\int _{\R ^2} \!#1 \;\mathrm{d}v}
+
+\newcommand{\inttxv}[1]{
+\int _{\R_+} \! \int _{\R^2}\!\int _{\R^2} \!#1 \;\mathrm{d}v\mathrm{d}x\mathrm{d}t}
+
+\newcommand{\coctxv}[0]{
+C^1 _c (\R_+ \times \R ^2 \times \R ^2)}
+
+\newcommand{\coct}[0]{
+C^1 _c (\R_+)}
+
+\newcommand{\cocxv}[0]{
+C^1 _c (\R ^2 \times \R ^2)}
+
+\newcommand{\eps}[0]{
+\varepsilon}
+
+\newcommand{\epsk}[0]{
+\varepsilon _k}
+
+\newcommand{\fe}[0]{
+f ^\varepsilon}
+
+\newcommand{\ue}[0]{
+u ^\varepsilon}
+
+\newcommand{\uepsk}[0]{
+u ^{\varepsilon _k}}
+
+\newcommand{\re}[0]{
+r ^\varepsilon}
+
+\newcommand{\rez}[0]{
+r ^{\varepsilon, 0}}
+
+\newcommand{\reo}[0]{
+r ^{\varepsilon, 1}}
+
+\newcommand{\ren}[0]{
+r ^{\varepsilon, n}}
+
+\newcommand{\renpo}[0]{
+r ^{\varepsilon, n + 1}}
+
+\newcommand{\zez}[0]{
+z ^{\varepsilon, 0}}
+
+\newcommand{\zeo}[0]{
+z ^{\varepsilon, 1}}
+
+\newcommand{\zen}[0]{
+z ^{\varepsilon, n}}
+
+\newcommand{\zenpo}[0]{
+z ^{\varepsilon, n + 1}}
+
+\newcommand{\hen}[0]{
+h ^{\varepsilon, n}}
+
+\newcommand{\hez}[0]{
+h ^{\varepsilon, 0}}
+
+\newcommand{\heo}[0]{
+h ^{\varepsilon, 1}}
+
+\newcommand{\henpo}[0]{
+h ^{\varepsilon, n + 1}}
+
+\newcommand{\geps}[0]{
+g ^\varepsilon}
+
+\newcommand{\gez}[0]{
+g ^{\varepsilon, 0}}
+
+\newcommand{\geo}[0]{
+g ^{\varepsilon, 1}}
+
+\newcommand{\gen}[0]{
+g ^{\varepsilon, n}}
+
+\newcommand{\genpo}[0]{
+g ^{\varepsilon, n + 1}}
+
+\newcommand{\fek}[0]{
+f ^{\varepsilon _k}}
+
+\newcommand{\rek}[0]{
+r ^{\varepsilon _k}}
+
+\newcommand{\fo}[0]{
+f ^1}
+
+\newcommand{\fin}[0]{
+f ^{\mathrm{in}}}
+
+\newcommand{\fine}[0]{
+f ^{\mathrm{in}}_{\varepsilon}}
+
+\newcommand{\finek}[0]{
+f ^{\mathrm{in}}_{\varepsilon _k}}
+
+\newcommand{\Be}[0]{
+B ^\varepsilon}
+
+\newcommand{\Divx}[0]{
+\mathrm{div}_x}
+
+\newcommand{\Divv}[0]{
+\mathrm{div}_v}
+
+\newcommand{\Divxv}[0]{
+\mathrm{div}_{x,v}}
+
+\newcommand{\ran}[0]{
+\mathrm{Range\;}}
+
+\newcommand{\bB}[0]{
+{\bold B}}
+
+\newcommand{\ltxv}[0]{
+L^2(\R ^2 \times \R ^2)}
+
+\newcommand{\nxv}[0]{
+\nabla_{x,v}}
+
+\newcommand{\limn}[0]{
+\lim _{n \to +\infty}}
+
+\newcommand{\limk}[0]{
+\lim _{k \to +\infty}}
+
+\newcommand{\oc}[0]{
+\omega _c (x)}
+
+\newcommand{\tc}[0]{
+T_c (x)}
+
+\newcommand{\ave}[1]{
+\left \langle #1 \right \rangle }
+
+\newcommand{\D}[0]{
+\mathrm{D}}
+
+\newcommand{\lime}[0]{
+\lim _{\varepsilon \searrow 0}}
+
+% ----- SPACING -------
+\baselinestretch\renewcommand{\baselinestretch}{1.5}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+\english
+
+
+\title{Asymptotic preserving schemes for transport of charged particles under high magnetic fields}
+
+
+
+\author{Miha\"{\i} Bostan
+\thanks{Laboratoire d'Analyse, Topologie, Probabilit\'es LATP, Centre de Math\'ematiques et Informatique CMI, UMR CNRS 7353, 39 rue Fr\'ed\'eric Joliot Curie, 13453 Marseille  Cedex 13
+France. E-mail : {\tt bostan@cmi.univ-mrs.fr}}
+\!\!
+C\'eline Caldini-Queiros
+\thanks{Laboratoire de
+Math\'ematiques de Besan{\c c}on, UMR CNRS 6623, Universit\'e de
+Franche-Comt\'e, 16 route de Gray, 25030 Besan{\c c}on  Cedex
+France. E-mail : {\tt celine.caldini@gmail.com}}
+\!\!
+Nicolas Crouseilles
+\thanks{INRIA-Rennes Bretagne Atlantique,
+ENS Cachan Bretagne, Projet IPSO France. Email : {\tt nicolas.crouseilles@inria.fr}}
+\!\!
+Mohammed Lemou
+\thanks{IRMAR et Universit\'e de Rennes 1, Campus de Beaulieu 35042 Rennes France. Email : {\tt mohammed.lemou@univ-rennes1.fr}}
+}
+
+
+
+\date{ (\today)}
+
+
+\maketitle
+
+
+
+
+\begin{abstract}
+One of the main topics in plasma physics concerns the energy production through thermonuclear fusion, which is achieved by magnetic confinement. From the mathematical point of view, the transport of charged particles under strong magnetic fields reduces to multiscale analysis. This paper deals with numerical schemes, based on micro-macro decomposition of the particle distribution function, which are uniformly consistent with the pde models for any order of the magnetic field. Numerical simulations, based on this approach, are presented for the resolution of the Vlasov equation.
+\end{abstract}
+
+
+\paragraph{Keywords:}
+Vlasov equation, Gyrokinetic theory, Average operator, Asymptotic preserving scheme.
+
+
+\paragraph{AMS classification:} 35Q75, 78A35, 82D10.
+
+
+\section{Introduction}
+\label{Intro}
+\indent
+
+
+Motivated by the confinement fusion, many research programs in plasma physics focus on strongly magnetized plasmas. Using the kinetic approach, we are led to the Vlasov equation
+\begin{equation}
+\label{Equ1} \partial _t \fe + v \cdot \nabla _x \fe + \frac{q}{m} ( E(x) + v \wedge \bB ^\eps (x) ) \cdot \nabla _v \fe = 0,\;\;(t,x,v) \in \R_+ \times \R ^3 \times \R ^3
+\end{equation}
+with the initial condition
+\begin{equation}
+\label{Equ2} \fe (0,x,v) = \fine (x,v),\;\;(x,v) \in \R ^3 \times \R ^3
+\end{equation}
+where $\fe = \fe (t,x,v) \geq 0$ is the distribution function of the particles in the phase space $(x,v) \in \R ^3 \times \R^3$, $m$ is the particle mass, $q$ is the particle charge and $(E, \bB ^\eps)$ stands for the electro-magnetic field. We consider here only the linear problem \eqref{Equ1}, \eqref{Equ2}, by assuming that $(E, \bB ^\eps)$ is a given smooth field. We are interested on the asymptotic behaviour of \eqref{Equ1} when the magnetic field becomes very large. Therefore we assume that
+\[
+\bB ^\eps (x) = \frac{\bB (x)}{\eps},\;\;\bB (x) = B(x) b(x),\;\;\Divx ( B b) = 0,\;\;0 < \eps <<1
+\]
+for some scalar positive function $B(x)$ and some field of unitary vectors $b(x)$. 
+
+It is well known that the particles turn around the magnetic lines at the cyclotronic frequency $q |\bB ^\eps|/m = q B/(m \eps)  \sim 1/\eps$, on Larmor circles of radius $\rho _L$ proportional to the reciprocal cyclotronic frequency {\it i.e.,} $\rho _L \sim \eps$. In the case of large magnetic fields ($\eps \searrow 0$) we deduce that the particles follow the magnetic lines ($\rho _L \searrow 0 $). Moreover, drift motions along the perpendicular directions (with respect to the magnetic lines) appear only at the next order, for example the electric cross field drift $E \wedge \bB ^\eps /|\bB ^\eps |^2 = \eps E\wedge b /B$. We take as observation unit a long time unit of order $1/\eps$ in such a way that the drift motions become significant at the dominant order
+\[
+\fe (t,x,v) = f^{\;\prime \eps} (t^{\;\prime}, x, v),\;\;t ^{\;\prime} = \eps t.
+\]
+%%
+Denoting by $\oc = qB(x) /m$ the rescaled cyclotronic frequency, the Vlasov equation \eqref{Equ1} writes
+\begin{equation}
+\label{Equ3} \eps \partial _{t ^{\;\prime}} f^{\;\prime \eps} + v \cdot \nabla _x f^{\;\prime \eps} + \frac{q}{m} E(x) \cdot \nabla _v f^{\;\prime \eps} + \frac{\oc }{\eps} (v \wedge b(x) )\cdot \nabla _v f^{\;\prime \eps} = 0.
+\end{equation}
+From now on, we are dropping the prime, and we restrict our attention to the two dimensional problem, by neglecting the curvature of the magnetic field $\bB ^\eps = \frac{B(x)}{\eps} e_3$
+\begin{equation}
+\label{Equ4} \eps \partial _t \fe + \left (v \cdot \nabla _x + \frac{q}{m} E (x) \cdot \nabla _v     \right ) \fe + \frac{\oc }{\eps} \;^{\perp }v \cdot \nabla _v \fe = 0,\;\;(t,x,v) \in \R_+ \times \R ^2 \times \R ^2
+\end{equation}
+with the initial condition
+\begin{equation}
+\label{Equ5} \fe (0,x,v) = \fine (x,v),\;\;(x,v) \in \R ^2 \times \R ^2.
+\end{equation}
+%% 
+A formal Hilbert expansion $\fe = f + \eps \fo + \eps ^2 f ^2 + ...$ leads to the system of transport equations
+\begin{equation}
+\label{Equ6} {\cal T} f = 0
+\end{equation}
+%%
+\begin{equation}
+\label{Equ7} a(x,v) \cdot \nabla _{x,v} f + {\cal T} f^1  = 0
+\end{equation}
+%%
+\begin{equation}
+\label{Equ8} \partial _t f + a(x,v) \cdot \nabla _{x,v} \fo + {\cal T} f^2 = 0
+\end{equation}
+%%
+where $a(x,v) = (v, q E(x)/m)$ and ${\cal T} = \oc \;^{\perp}v\cdot \nabla _v$. The time evolution of the dominant distribution $f$ is given by \eqref{Equ8}, where the multipliers $f^1 (t), f^2(t)$ are such that at any moment $t$, the density $f(t)$ satisfies the constraints \eqref{Equ6}, \eqref{Equ7}. \red{The equation \eqref{Equ7} allows us to compute $\fo$ up to its projection on $\ker {\cal T}$, since ${\cal T}$ restricted to $(\ker {\cal T})^\perp$ is one to one, cf. Proposition \ref{TransportProp}. Denoting the orthogonal projection on $\ker {\cal T}$ by $\ave{\cdot}$ (since it coincides with the average along the flow of ${\cal T}$, cf. Proposition \ref{AverageProp}) we have
+\begin{align}
+\label{EquIntro1} 
+\fo - \ave{\fo} = - {\cal T} ^{-1} ( a \cdot \nabla _{x,v} f).
+\end{align}
+As at any time $f(t,\cdot, \cdot)$ belongs to $\ker {\cal T}$, the closure for $f$ comes by averaging \eqref{Equ8}
+\begin{equation}
+\label{EquIntro2} \ave{\partial _t f } + \ave{a \cdot \nabla _{x,v} ( \fo - \ave{\fo})\;} + \ave{ a \cdot \nabla _{x,v} \ave{\fo}\;} + \ave{{\cal T} f^2} = 0.
+\end{equation}
+Since the flow of ${\cal T}$ is autonomous, the average and time derivative commute. Also notice that the average of any element in $\ran {\cal T}$ vanishes, since ${\cal T}$ is the derivative along its flow. By direct computation, in the case of the field $a = (v, qE(x)/m)$, we show that $\ave{a \cdot \nabla _{x,v} g } = 0$, for any $g \in \ker {\cal T}$. Substituting \eqref{EquIntro1} in \eqref{EquIntro2}, one gets
+\begin{equation}
+\label{EquContClosure} \partial _t f - \ave{ a \cdot \nabla _{x,v} ( {\cal T} ^{-1} ( a \cdot \nabla _{x,v} f ) ) \;} = 0.
+\end{equation}
+Moreover, it is shown that the term $- \ave{ a \cdot \nabla _{x,v} ( {\cal T} ^{-1} ( a \cdot \nabla _{x,v} f ) ) \;}$ reduces to a transport operator ${\cal C} \cdot \nabla _{x,v}f$ (see \eqref{Equ56} for the expression of the field ${\cal C}$), and the limit density $f = \lime \fe$ still satisfies a Vlasov like equation. 
+}
+%%
+\begin{thm}
+\label{WeakConv} Assume that the electro-magnetic field satisfies the hypotheses 
+$$
+E \in W^{1,\infty} (\R^2), \;\;\Divx \;^\perp E = 0,\;\;B \in W^{2,\infty}(\R^2),\;\;\inf _{x \in \R^2} B(x) >0.
+$$
+For any $\eps >0$ we denote by $\fe$ the unique weak solution of the Vlasov equation \eqref{Equ4} supplemented by the initial condition $\fine$. If the family $(\fine )_{\eps >0}$ converges weakly in $\ltxv$, when $\eps \searrow 0$, towards some function $\fin$ (not necessarily in $\ker {\cal T}$), then the family $(\fe)_{\eps>0}$  converges weakly $\star$ in $L^\infty( \R_+; \ltxv)$, when $\eps \searrow 0$, towards the unique weak solution $f$ of the problem
+\begin{equation}
+\label{Equ56} \partial _t f + \left ( \frac{^\perp E}{B} - \frac{|v|^2}{2 \omega _c} \;\frac{^\perp \nabla _x B}{B}     \right ) \cdot \nabla _x f + \frac{1}{2} \left ( \frac{^\perp E}{B} \cdot \frac{\nabla _x B}{B}  \right ) v \cdot \nabla _v f = 0,\;\;(t,x,v) \in \R_+ \times \R ^2\times \R ^2
+\end{equation}
+%%
+\begin{equation}
+\label{Equ57} f(0,\cdot, \cdot) = \mathrm{Proj} _{\ker {\cal T}} \fin.
+\end{equation}
+\end{thm}
+%%
+The proof of this convergence result follows by the arguments introduced in \cite{BosAsyAna}, \cite{BosGuidCent3D}, \cite{Bos12}. It relies on the notion of average along a characteristic flow (cf. \cite{BosTraSin}) and the commutation properties between the average operator and first order differential operators. Previous studies on strongly magnetized plasmas have been obtained in \cite{FreSon98}, \cite{FreSon01}.
+
+Motivated by Theorem \ref{WeakConv}, when $\eps$ is very small, we can approximate the solution of \eqref{Equ4}, \eqref{Equ5} by the solution of \eqref{Equ56}, \eqref{Equ57}. The main advantage for doing this is that the limit model does not depend on $\eps$ and therefore we can appeal to standard explicit numerical schemes for solving it. On the contrary, at a given time step $\Delta t$, it is not possible to solve \eqref{Equ4}, \eqref{Equ5} by explicit methods when $\eps$ becomes small, since the CFL constraint imposes that $\Delta t \sim {\cal O} (\eps ^2)$. 
+
+Clearly, replacing $\fe$ by $f$ means that we neglect all the correction terms of orders $\eps, \eps ^2, ...$ in the Hilbert expansion $\fe = f + \eps \fo + \eps ^2 f ^2 + ...$, which is not reasonable when investigating intermediary regimes with $\eps \in \R_+ ^\star$. Therefore, we intend to design a numerical scheme which allows us to solve numerically \eqref{Equ4}, \eqref{Equ5} by using the same discretization parameters (basically the same time step, phase space grid size, ...) for any value of $\eps$ in the admissible range. Such numerical schemes, which are called Asymptotic Preserving (AP), have been introduced for the numerical simulation of the diffusion limits for kinetic equations \cite{Kla98}, \cite{Kla99}, \cite{JinParTos00}.
+
+It will be shown that our scheme captures well the limit model \eqref{Equ56}, \eqref{Equ57}, since it degenerates to a discretization consistent to \eqref{Equ56}, \eqref{Equ57} when $\eps \searrow 0$. Surely, the main difficulties appear in the range of small $\eps$ and in that cases we know that the density function $\fe$ tends to some element of $\ker {\cal T}$. This motivates the splitting of the unknown $\fe$ into a dominant part, which coincides with the orthogonal projection on $\ker {\cal T}$, and a small reminder ({\it i.e.,} of order of $\eps$). Taking the projection of \eqref{Equ4} on $\ker {\cal T}$ and its orthogonal, leads to a system of two equations for the new independent unknowns $\geps :=\mathrm{Proj}_{\ker {\cal T}} \fe$, $\re :=\fe - \mathrm{Proj}_{\ker {\cal T}} \fe$. 
+\red{More precisely we obtain, thanks to the identities $\ave{a \cdot \nxv \geps} = 0, \ave{{\cal T}\fe } = 0$
+\begin{equation}
+\label{EquIntro3} \partial _t \geps + \frac{1}{\eps} \ave{ a \cdot \nxv \re} = 0
+\end{equation}
+%%
+\begin{equation}
+\label{EquIntro4} \partial _t \re + \frac{1}{\eps} a \cdot \nxv \geps + \frac{1}{\eps} a \cdot \nxv \re - \frac{1}{\eps} \ave{a \cdot \nxv \re} + \frac{1}{\eps ^2} {\cal T} \re = 0.
+\end{equation}
+}
+The high magnetic field affects only the time evolution of the reminder, requiring implicit methods, whereas the dominant part can be treated by explicit schemes. \red{For the moment we focus only on the time discretization
+\begin{equation}
+\label{EquIntro5} \frac{\genpo - \gen }{\Delta t} + \frac{1}{\eps} \ave{ a \cdot \nxv \renpo } = 0
+\end{equation}
+%%
+\begin{equation}
+\label{EquIntro6} \frac{\renpo - \ren}{\Delta t} + \frac{1}{\eps} a \cdot \nxv \gen + \frac{1}{\eps} a \cdot \nxv \ren - \frac{1}{\eps} \ave{ a \cdot \nxv \ren } + \frac{1}{\eps ^2} {\cal T} \renpo = 0,\;\;n \in \N.
+\end{equation}
+The point is that solving \eqref{EquIntro4} by implicit schemes allows us to compute the zero average part of $\fe$, uniformly with respect to $\eps >0$, since $\left ( \frac{\eps ^2}{\Delta t} I + {\cal T} \right ) ^{-1}$ remains uniformly bounded on the subspace of zero average functions (see Proposition \ref{UnifInv})
+\begin{align}
+\label{EquIntro7} \left ( \frac{\eps ^2}{\Delta t } I + {\cal T} \right )  & \frac{\renpo}{\eps}  = \\
+& \frac{\eps ^2}{\Delta t} \left ( \frac{\ren}{\eps} \right ) -  a \cdot \nxv \gen - \eps a \cdot \nxv \left ( \frac{\ren}{\eps} \right ) + \eps \ave{a \cdot \nxv \left ( \frac{\ren}{\eps} \right ) }  .\nonumber 
+\end{align}
+As suggested by the continuous closure \eqref{EquContClosure}, we intend to substitute $\frac{\renpo}{\eps}$ in \eqref{EquIntro5}, which justifies our choice to evaluate $\re$ at time $t^{n+1}$ in \eqref{EquIntro5}. Clearly, the leading order term in \eqref{EquIntro7} is
+\[
+- \left ( \frac{\eps ^2}{\Delta t } I + {\cal T} \right )^{-1} ( a \cdot \nxv \gen ) = - {\cal T}^{-1} (a \cdot \nxv \gen ) + o(\eps)
+\]
+and therefore
+\[
+\frac{\genpo - \gen }{\Delta t} -  \ave{ a \cdot \nxv ( {\cal T}^{-1}(a \cdot \nxv \gen ) ) }  + o(\eps)= 0
+\]
+which proves the consistency with the continuous limit model (see Theorem \ref{Consistency}). Moreover, following the arguments developed when performing the continuous analysis, we show that the dominant term in $\ave{a \cdot \nxv \frac{\renpo}{\eps}}$ reduces to a transport operator ${\cal C}^\eps \cdot \nxv \gen$, whose advection field is determined explicitly, see Proposition \ref{Step3Bis}, and appears as a regular perturbation of the advection field ${\cal C}$ of the limit model \eqref{Equ56}
+\[
+{\cal C}^\eps = {\cal C} + O(\eps ^2).
+\]
+The complete scheme is detailed in \eqref{EquSch5}, \eqref{EquSch6}, \eqref{EquSch7}, \eqref{EquSch8}, \eqref{EquSch9}, \eqref{EquSch10} and by construction, can be solved with the same discretization parameters (time step, grid size) uniformly with respect to small values of $\eps$.} 
+
+Such kind of schemes, based on decomposition into dominant/fluctuation parts have been studied in \cite{BenLemMie08}, \cite{LemMie08}, \cite{CroLem11}. A new formulation, destinated to collisional models (Boltzmann equation for rarefied gases and the Landau-Fokker-Planck equation for plasmas) which avoids the inversion of the collisional operator at each time step, has been developped in \cite{Lem10}.
+
+Our paper is organized as follows. In Section \ref{AveOpe} we introduce the notion of average operator and its main properties. The limit model is derived in Section \ref{LimMod}. After formal computations, a rigorous weak convergence result is presented. The numerical scheme is introduced in Section \ref{NumSch}. When $\eps \searrow 0$, we justify its consistency with respect to the limit model. The last Section \ref{NumSim} is devoted to numerical simulations. 
+
+
+
+\section{The average operator}
+\label{AveOpe}
+We recall briefly the construction of the average operator associated to the dominant advection field in \eqref{Equ4} {\it i.e.,} $(x,v) \to (0, \oc \;^\perp v )$. We consider the linear operator
+\[
+{\cal T} u = \Divv ( u \;\oc \;^\perp v)
+\]
+defined on the domain
+\[
+\D ({\cal T}) = \{ u(x,v) \in \ltxv\;:\; \Divv ( u \;\oc \;^\perp v) \in \ltxv \}.
+\]
+We denote by $\|\cdot \|$ the standard norm of $\ltxv$ and by $(X,V)(s;x,v)$ the characteristics of the field $ (x,v) \to (0, \oc \;^\perp v )$
+\begin{equation}
+\label{Equ21} \frac{\mathrm{d}X}{\mathrm{d}s} = 0,\;\;\frac{\mathrm{d}V}{\mathrm{d}s} = \omega _c (X(s;x,v)) \;^\perp V(s;x,v),\;\;(X,V)(0;x,v) = (x,v).
+\end{equation}
+It is easily seen that 
+\begin{equation}
+\label{Equ22}
+X(s;x,v) = x,\;\;V(s;x,v) = {\cal R}(- \oc s) v
+\end{equation}
+where ${\cal R} (\theta) $ stands for the rotation of angle $\theta$
+\begin{equation}\nonumber
+{\cal R}(\theta) = \left (
+\begin{array}{lll}
+\cos \theta  &  -\sin \theta\\
+\sin \theta  &\;\;\;   \cos \theta
+\end{array}
+\right ),\;\;\theta \in \R.
+\end{equation}
+Notice also that $\{\psi _ 1 = x_1, \psi _2 = x_2, \psi _3 = |v|\}$ is a family of independent prime integrals of this flow. The trajectories $(X,V)(s;x,v)$ are $\tc = 2\pi /\oc $ periodic, for any $(x,v) \in \R^2 \times \R^2$ and we introduce the average operator (cf. \cite{BosTraSin})
+\begin{eqnarray}
+\ave{u} (x,v) & = & \frac{1}{\tc} \int _0 ^{\tc} u (X(s;x,v), V(s;x,v))\;\mathrm{d}s \nonumber \\
+& = & \frac{1}{2\pi} \int _0 ^{2\pi} u (x, {\cal R}(\alpha) v) \;\mathrm{d}\alpha \nonumber 
+\end{eqnarray}
+for any function $u \in \ltxv{}$. Clearly, the average operator depends only on the invariants $x_1, x_2, |v|$ and therefore $\ave{u} \in \ker {\cal T}$, for any 
+$u \in \ltxv{}$. Moreover we prove (see \cite{BosGuidCent3D})
+\begin{pro}
+\label{AverageProp} The average operator is linear continuous. Moreover it coincides with the orthogonal projection on the kernel of ${\cal T}$ {\it i.e.,}
+$$
+\ave{u} \in \ker {\cal T}\;\mbox{ and }\;\intxv{(u - \ave{u}) \varphi } = 0,\;\;\forall \; \varphi \in \ker {\cal T}.
+$$
+\end{pro}
+%%
+Another key point relies on the solvability of the equation ${\cal T}u = w$. It is easily seen that if ${\cal T} u = w $ is solvable ({\it i.e.,} $w \in \ran {\cal T}$) then $\ave{w} = 0$. Indeed, for any function $\varphi \in \ker {\cal T}$ we have
+\[
+\intxv{(w - 0) \varphi } = \intxv{{\cal T} u \;\varphi } = - \intxv{u {\cal T}\varphi} = 0
+\]
+saying that $\ave{w} = 0$. On other words we have established the inclusion $\ran {\cal T} \subset \ker \ave{\cdot}$. Generally we can prove that $\overline{\ran {\cal T}} = \ker \ave{\cdot}$. This comes by using  that $\ave{\cdot} = \mathrm{Proj}_{\ker {\cal T}}$ and ${\cal T} ^\star = - {\cal T}$ as follows
+\[
+\ker \ave{\cdot} = \ker (\mathrm{Proj}_{\ker {\cal T}}) =
+(\ker {\cal T} )^\perp = (\ker {\cal T}^\star ) ^\perp = \overline{\ran {\cal T}}.
+\]
+Under additional hypotheses the range of ${\cal T}$ is closed, leading to the characterization ~: ${\cal T }u  = w$ is solvable iff the right hand side $w$ has zero average. As in \cite{BosGuidCent3D} we establish the Poincar\'e inequality
+\begin{pro}
+\label{TransportProp}
+We assume that $\inf _{x \in \R ^2} B (x)  >0$. \\
+1. Then ${\cal T}$ restricted to $\ker \ave{\cdot}$ is one to one map onto $\ker \ave{\cdot}$. Its inverse, denoted ${\cal T}^{-1}$  belongs to ${\cal L }(\ker \ave{\cdot}, \ker \ave{\cdot} )$ and we have the Poincar\'e inequality
+\begin{equation}
+\label{EquPoincare} \|u \| \leq \frac{2 \pi }{|\omega _0 |} \|{\cal T} u \|,\;\;\omega _0 = \frac{q}{m} \inf _{x \in \R ^2} B(x) \neq 0
+\end{equation}
+for any $u \in \D({\cal T}) \cap \ker \ave{\cdot}$.\\
+2. For any function $w \in \ker \ave{\cdot}$ with compact support
+\[
+\mathrm{supp} \;w \subset \{ (x,v) \in \R ^2 \times \R^2 \;:\; |x| \leq L_x,\;\;|v| \leq L_v\}
+\]
+the unique function $u \in \D({\cal T}) \cap \ker \ave{\cdot}$ such that ${\cal T } u  = w$ has the support contained in the same compact
+\[
+\mathrm{supp} \; u \subset \{ (x,v) \in \R ^2 \times \R^2 \;:\; |x| \leq L_x,\;\;|v| \leq L_v\}.
+\]
+\end{pro}
+%%
+Notice that the first order differential operators $b^1 \cdot \nxv = \partial _{x_1}$,  $b^2 \cdot \nxv = \partial _{x_2}$, $b^3 \cdot \nxv = \frac{v}{|v|} \cdot \nabla _v$ are commuting with the average operator $\ave{\cdot}$. Indeed, for any $u \in \ltxv{}$ such that $\partial _{x_i} u \in \ltxv{}$ we have
+\[
+\partial _{x_i} \ave{u} = \partial _{x_i}\left ( \frac{1}{2\pi} \int _0 ^{2\pi} u (x, {\cal R}(\alpha) v ) \;\mathrm{d}\alpha  \right ) =
+\frac{1}{2\pi} \int _0 ^{2\pi} \partial _{x_i} u (x, {\cal R}(\alpha) v ) \;\mathrm{d}\alpha = \ave{\partial _{x_i} u }
+\] 
+and similarly, for any $u \in \ltxv{}$ such that $\frac{v}{|v|} \cdot \nabla _v u \in \ltxv{}$ we write
+\begin{eqnarray}
+\frac{v}{|v|} \cdot \nabla _v \ave{u} & = & \frac{v}{|v|} \cdot \nabla _v \left ( \frac{1}{2\pi} \int _0 ^{2\pi}  u (x, {\cal R}(\alpha) v ) \;\mathrm{d}\alpha   \right ) \nonumber \\
+& = & \frac{v}{|v|} \cdot \frac{1}{2\pi} \int _0 ^{2\pi}  {^t {\cal R}} (\alpha) (\nabla _v u) (x, {\cal R}(\alpha) v ) \;\mathrm{d}\alpha \nonumber \\
+& = & \frac{1}{2\pi} \int _0 ^{2\pi}  \frac{{\cal R} (\alpha) v}{|{\cal R} (\alpha)  v|} \cdot (\nabla _v u) (x, {\cal R}(\alpha) v ) \;\mathrm{d}\alpha \nonumber \\
+& = & \ave{\frac{v}{|v|} \cdot \nabla _v u } \in \ltxv{}.\nonumber 
+\end{eqnarray}
+More generally, the following commutation formula between divergence and average holds
+
+\begin{pro}
+\label{DivAveCom} For any smooth vector field $\xi = \xi (x,v) \in \R^4$ we have
+\[
+\ave{\Divxv \xi} = \partial _{x_1} \ave{\xi _{x_1}} + \partial _{x_2} \ave{\xi _{x_2}} + \Divv \left \{\ave{\xi _v \cdot \frac{v}{|v|}} \frac{v}{|v|}   \right  \}.
+\]
+\end{pro}
+%%
+\begin{proof}
+The previous computations allow us to write
+\begin{eqnarray}
+\label{EquC1} \ave{\Divxv \xi } & = & \ave{\partial _{x_1} \xi _{x_1}} + \ave{\partial _{x_2} \xi _{x_2}} + \ave{\Divv  \xi _v}  \\
+& = & \partial _{x_1} \ave{\xi _{x_1}} + \partial _{x_2} \ave{\xi _{x_2}} + \ave{\Divv \left \{ \left (\xi _v \cdot \frac{v}{|v|}    \right ) \frac{v}{|v|}   \right \}} + \ave{\Divv \left \{ \left (\xi _v \cdot \frac{^\perp v}{|v|}    \right ) \frac{^\perp v}{|v|}   \right \}}.\nonumber
+\end{eqnarray}
+But 
+\begin{eqnarray}
+\Divv \left \{ \left (\xi _v \cdot \frac{v}{|v|}    \right ) \frac{v}{|v|}   \right \} & = & \left (\xi _v \cdot \frac{v}{|v|}    \right ) \Divv \left ( \frac{v}{|v|} \right ) + \frac{v}{|v|} \cdot \nabla _v \left ( \xi _v \cdot \frac{v}{|v|} \right ) \nonumber \\
+& = &  \left (\xi _v \cdot \frac{v}{|v|}    \right )\frac{1}{|v|} +  \frac{v}{|v|}   \cdot \nabla _v \left (\xi _v \cdot \frac{v}{|v|}    \right ) \nonumber
+\end{eqnarray}
+implying that 
+\begin{eqnarray}
+\label{EquC2} \ave{\Divv \left \{ \left (\xi _v \cdot \frac{v}{|v|}    \right ) \frac{v}{|v|}   \right \}} & = & \Divv \left ( \frac{v}{|v|}  \right ) \ave{\xi _v \cdot \frac{v}{|v|} } + \frac{v}{|v|} \cdot \nabla _v \ave{\xi _v \cdot \frac{v}{|v|}} \nonumber \\
+& = & \Divv \left \{ \ave{\xi _v \cdot \frac{v}{|v|} } \frac{v}{|v|}  \right \}.
+\end{eqnarray}
+The last term in \eqref{EquC1} vanishes since
+\begin{equation}
+\label{EquC3} \Divv \left \{ \left (\xi _v \cdot \frac{^\perp v}{|v|}    \right ) \frac{^\perp v}{|v|}   \right \} = {^\perp v} \cdot \nabla _v \left ( \xi _v \cdot \frac{^\perp v }{|v|^2} \right ) = {\cal T} \left (  \frac{\xi _v}{\omega _c} \cdot \frac{^\perp v}{|v|^2} \right ) \in \ker \ave{\cdot}.
+\end{equation}
+Our conclusion follows by combining \eqref{EquC1}, \eqref{EquC2}, \eqref{EquC3}.
+\end{proof}
+Notice also that the commutators of $b^1 \cdot \nxv$, $b^2 \cdot \nxv$, $b^3 \cdot \nxv$ with respect to ${\cal T}$ are given by
+\[
+[b^i\cdot \nxv , {\cal T}]= \frac{\nabla _x B}{B} {\cal T},\;\;i \in \{1,2\},\;\;
+[b^3 \cdot \nxv, {\cal T}] = 0.
+\]
+
+\section{The limit model}
+\label{LimMod}
+We investigate now the model satisfied by the dominant density $f$. For that we have to eliminate $\fo, f^2$ from \eqref{Equ8}, by taking into account the constraints \eqref{Equ6}, \eqref{Equ7}. The constraint \eqref{Equ6} says that at any time $t$ the distribution $f(t)$ depends only on the invariants $x_1, x_2, |v|$
+\[
+\exists \;g = g(t,x,r)\;\mbox{ such that } f(t,x,v) = g(t,x,r = |v|).
+\]
+Notice that for such densities we have
+\begin{equation}
+\label{Equ34} \ave{a \cdot \nxv f} = \ave{v} \cdot \nabla _x g (t,x,|v|) + \frac{q}{m} E(x) \cdot \frac{\ave{v}}{|v|} \partial _r g (t,x,|v|) = 0
+\end{equation}
+since $\ave{v} = 0$. In that case the constraint \eqref{Equ7} writes
+\[
+{\cal T}(\fo - \ave{\fo} ) = - a(x,v) \cdot \nxv f
+\]
+and therefore 
+\begin{equation}
+\label{Equ35} \fo - \ave{\fo} = - {\cal T} ^{-1} (a(x,v) \cdot \nxv f).
+\end{equation}
+The idea is to construct a smooth divergence free vector field ${\cal B} \cdot \nxv $ satisfying $a \cdot \nxv = [{\cal T}, {\cal B} \cdot \nxv ]$ and mapping $\D({\cal B} \cdot \nxv ) \cap \ker {\cal T}$  to the subspace of zero average functions. Assume for the moment that such a vector field exists and let us see how we can use it.
+%%
+\begin{pro}
+\label{Step2} For any function $f \in \D(a \cdot \nxv) \cap \D ( {\cal B} \cdot \nxv ) \cap \ker {\cal T}$ we have
+\[
+{\cal B} \cdot \nxv f \in \D ({\cal T})\;\mbox{ and } \; 
+{\cal T} ^{-1} (a \cdot \nxv f ) = {\cal B} \cdot \nxv f.
+\]
+\end{pro}
+%%
+\begin{proof}
+Consider a sequence of smooth functions $(f_n)_n$ such that the following convergences hold strongly in $\ltxv{}$
+\[
+\limn a\cdot \nxv f_n = a \cdot \nxv f,\;\;\limn {\cal B} \cdot \nxv f_n = {\cal B} \cdot \nxv f,\;\;\limn {\cal T} f_n = 0.
+\]
+By the definition of the vector field ${\cal B}$ we have
+\[
+a \cdot \nxv f_n = {\cal T} ( {\cal B} \cdot \nxv f_n) - {\cal B} \cdot \nxv ( {\cal T} f_n).
+\]
+Passing to the limit with respect to $n \to +\infty$ we deduce that ${\cal B} \cdot \nxv f \in \D({\cal T})$ and $a \cdot \nxv f = {\cal T} ({\cal B} \cdot \nxv f)$. Since we know that ${\cal B} \cdot \nxv $ maps the kernel of ${\cal T}$ to zero average functions, we deduce that
+\[
+{\cal T} ^{-1} (a \cdot \nxv f ) = {\cal B} \cdot \nxv f
+\]
+meaning that the unique zero average solution of ${\cal T} u = a \cdot \nxv f$ is given by $u = {\cal B} \cdot \nxv f$.  
+
+\end{proof}
+%%
+Combining \eqref{Equ35} and Proposition \ref{Step2}, we deduce that the constraint \eqref{Equ7} reduces to the following relation between the zero average part of the density $\fo$ and the dominant density $f$
+\begin{equation}
+\label{Equ36}
+\fo - \ave{\fo} = - {\cal T} ^{-1} ( a \cdot \nxv f) = - {\cal B} \cdot \nxv f.
+\end{equation}
+Based on that, we eliminate $\fo$ and $f^2$ in \eqref{Equ8} and we will obtain the limit model for $f$. Recall that under the assumption in Proposition \ref{TransportProp} we have
+\[
+\ran {\cal T} = \overline{\ran {\cal T}} = \ker \ave{\cdot}.
+\]
+Then \eqref{Equ8} is equivalent to $\ave{\partial _t f + a \cdot \nxv \fo } = 0$. Taking into account that $\ave{\partial _t f} = \partial _t \ave{f} = \partial _t f $ and $\ave{ a \cdot \nxv \ave{\fo}} = 0$ (cf. \eqref{Equ34}) one gets
+\[
+\partial _t f + \ave{ a \cdot \nxv ( \fo - \ave{\fo}) } = 0.
+\]
+Using now \eqref{Equ36} yields the equation
+\begin{equation}
+\label{Equ37} \partial _t f - \ave{ a \cdot \nxv ( {\cal B} \cdot \nxv f ) } = 0
+\end{equation}
+which is, at least in this form, far from a Vlasov like equation, as expected from \eqref{Equ4}. We will see, performing some computations, that the second order term $a \cdot \nxv ( {\cal B} \cdot \nxv f )$ reduces after average to a first order term and finally the limit model remains a Vlasov like equation.
+%%
+\begin{pro}
+\label{Step3}
+There is a free divergence vector field ${\cal C}$ such that for any smooth function $f \in \ker {\cal T}$
+\[
+- \ave{a \cdot \nxv ( {\cal B} \cdot \nxv f)} = \Divxv ( f {\cal C}).
+\]
+The coordinates of ${\cal C} = ({\cal C}_x, {\cal C}_v) \in \R^4$ are given by
+\[
+{\cal C}_x = \ave{{\cal B}_v},\;\;{\cal C}_v = \ave{{\cal B} \cdot \nxv \frac{q}{m} \left ( E \cdot \frac{v}{|v|} \right ) } \frac{v}{|v|}.
+\]
+\end{pro}
+%%
+\begin{proof}
+Using the formula $a \cdot \nxv = [{\cal T}, {\cal B} \cdot \nxv ]$ we have
+\begin{eqnarray}
+\label{Equ40} - \ave{a \cdot \nxv ( {\cal B} \cdot \nxv f )} & = & - \ave{{\cal T} {\cal B} \cdot \nxv ( {\cal B} \cdot \nxv f)} + \ave{{\cal B} \cdot \nxv ( {\cal T} ( {\cal B} \cdot \nxv f ))} \nonumber \\
+& = & \ave{{\cal B} \cdot \nxv ( a \cdot  \nxv f) } 
+\end{eqnarray}
+since $\ran {\cal T} \subset \ker \ave{\cdot}$ and ${\cal T} ( {\cal B} \cdot \nxv f ) = a \cdot \nxv f$. Therefore there are no second order terms left in the expression of $\ave{a \cdot \nxv ( {\cal B} \cdot \nxv f)}$
+\[
+- \ave{a \cdot \nxv ( {\cal B} \cdot \nxv f)} = \frac{1}{2}\ave{[{\cal B} \cdot \nxv, a \cdot \nxv ]f} = \ave{\xi \cdot \nxv f}
+\]
+where $2\xi$ is the Poisson bracket between the vector fields $ {\cal B}$ and $a$. Since $\Divxv a = \Divxv {\cal B} = 0$, we have
+\[
+\Divxv \xi = \frac{1}{2}{\cal B} \cdot \nxv (\Divxv a) - \frac{1}{2} a \cdot \nxv ( \Divxv {\cal B}) = 0
+\]
+and therefore, by Proposition \ref{DivAveCom}, one gets
+\begin{eqnarray}
+\label{Equ41} - \ave{a \cdot \nxv ( {\cal B} \cdot \nxv f)} & = & \ave{\Divxv (f \xi)} \nonumber \\
+& = & \Divx \ave{f \xi _x} + \Divv \left \{ \ave{f \xi _v \cdot \frac{v}{|v|}} \frac{v}{|v|}  \right \} \nonumber \\
+& = & \Divx (f\ave{ \xi _x}) + \Divv \left \{ f \ave{ \xi _v \cdot \frac{v}{|v|}} \frac{v}{|v|}  \right \} \nonumber \\
+& = & \Divxv (f {\cal C})
+\end{eqnarray}
+where ${\cal C} = \left ( \ave{\xi _x}, \ave{ \xi _v \cdot \frac{v}{|v|}} \frac{v}{|v|}\right )$. It remains to compute explicitely the coordinates of the vector field ${\cal C}$. Using \eqref{Equ40} with the function $\psi _i = x_i$, $i \in \{1,2\}$ we obtain
+\[
+\ave{\xi _{x_i}} = \ave{\xi \cdot \nxv \psi _i } = \frac{1}{2} \ave{[{\cal B} \cdot \nxv, a \cdot \nxv ] \psi _i }  = \ave{{\cal B} \cdot \nxv ( a \cdot \nxv \psi _i )} = \ave{{\cal B}_{v_i}}.
+\]
+Similarly, using the invariant $\psi _3 = |v|$ we deduce 
+\begin{eqnarray}
+\ave{\xi _v \cdot \frac{v}{|v|}} & = & \ave{\xi \cdot \nxv \psi _3 } = \frac{1}{2} \ave{[{\cal B} \cdot \nxv, a \cdot \nxv ] \psi _3 }  = \ave{{\cal B} \cdot \nxv ( a \cdot \nxv \psi _3 )} \nonumber \\
+& = & \ave{{\cal B} \cdot \nxv \frac{q}{m} \left ( E \cdot \frac{v}{|v|} \right ) }\nonumber.
+\end{eqnarray}
+Clearly, taking $f = 1 \in \ker {\cal T}$ in \eqref{Equ41} yields $\Divxv {\cal C} = 0$.
+\end{proof}
+%%
+By direct computation we obtain the following expression for the vector field ${\cal B}$ (see Proposition \ref{Step2Bis} for a more general result)
+\begin{equation}
+\label{Equ42} {\cal B} = \left ( - \frac{^\perp v}{\omega _c}, \frac{^\perp E}{B} - \left ( \frac{\nabla _x B}{B} \cdot \frac{v}{\omega _c} \right ) \;{^\perp v} \right)
+\end{equation}
+and the formula for the vector field ${\cal C}$ is given by
+\begin{pro}
+\label{CCoordinates} Assume that the electric field derives from a potential {\it i.e.,} $\Divx \;^\perp E = 0$. Then the vector field ${\cal C}$ writes
+\begin{equation}
+\label{Equ43} {\cal C} = \left (\frac{^\perp E}{B} - \frac{|v|^2}{2\omega _c} \;\frac{^\perp \nabla _x B}{B}, \frac{1}{2} \left (\frac{^\perp E}{B} \cdot \frac{\nabla _x B}{B}   \right ) v   \right ).
+\end{equation}
+\end{pro}
+%%
+\begin{proof}
+We have 
+$$
+{\cal B}_x  = - \frac{^\perp v}{\omega _c},\;\;{\cal B}_v = \frac{^\perp E}{B} - \frac{^\perp v \otimes v}{B \omega _c} \nabla _x B.
+$$
+We use the formula
+\[
+\ave{v \otimes v} = \frac{|v|^2}{2} Id,\;\;\;\;\ave{^\perp v \otimes v } = \frac{|v|^2}{2} \left (
+\begin{array}{rrr}
+0  &  1\\
+-1 &\;\;\;   0
+\end{array}
+\right )
+\]
+and therefore we obtain
+\[
+{\cal C}_x = \ave{{\cal B}_v} = \frac{^\perp E}{B} - \frac{|v|^2}{2B \omega _c } \;^\perp \nabla _x B = v_\wedge + v_{\mathrm{GD}}
+\]
+where $v _\wedge = {^\perp E}/B$ is the rescaled electric cross field drift and $v_{\mathrm{GD}} $ is the rescaled magnetic gradient drift (see \cite{HazMei03}). It remains to determine ${\cal C}_v$ and for that we need to compute $\ave{{\cal B} \cdot \nxv \left ( E \cdot \frac{v}{|v|}  \right ) }$. Notice that 
+\begin{eqnarray}
+{\cal B } \cdot \nxv  \left ( E \cdot \frac{v}{|v|}  \right ) & = & ({\cal B}_x \cdot \nabla _x ) E \cdot \frac{v}{|v|} + E \cdot ( {\cal B}_v \cdot \nabla _v ) \left ( \frac{v}{|v|} \right ) \nonumber \\
+& = & \left ( \partial _x E\; {\cal B}_x , \frac{v}{|v|} \right ) + \left ( E, \partial _v \left ( \frac{v}{|v|} \right ) {\cal B}_v  \right ) \nonumber \\
+& = & - ^t \partial _x E : \frac{^\perp v \otimes v}{\omega _c |v|} - \frac{E \otimes \nabla _x B}{B \omega _c } : \frac{^\perp v \otimes v}{|v|} - \frac{v \otimes v}{|v|^3} : \frac{^\perp E \otimes E}{B}. \nonumber
+\end{eqnarray}
+Taking the average leads to
+\[
+\ave{{\cal B } \cdot \nxv  \left ( E \cdot \frac{v}{|v|}  \right )} = \frac{1}{2\omega _c} \left ( ^\perp E \cdot \frac{\nabla _x B}{B} \right )
+\]
+and finally we obtain
+\[
+{\cal C}_v = \frac{1}{2}\left ( \frac{^\perp E}{B} \cdot \frac{\nabla _x B}{B} \right )v.
+\]
+\end{proof}
+%%
+\begin{pro}
+\label{InvariantSubSpace} The operator ${\cal C} \cdot \nxv $ leaves invariant the subspaces $\ker {\cal T}$ and $\ker \ave{\cdot}$.
+\end{pro}
+%%
+\begin{proof}
+Notice that ${\cal C}$ is a linear combination of the vector fields $b^1, b^2, b^3$ with coefficients in $\ker {\cal T}$
+\[
+{\cal C} = \left ( \frac{E_2}{B} - \frac{|v|^2}{2\omega _c} \frac{\partial _{x_2}B}{B} \right ) b^1 - \left ( \frac{E_1}{B} - \frac{|v|^2}{2\omega _c} \frac{\partial _{x_1}B}{B} \right ) b^2 + \frac{|v|}{2}\;\frac{^\perp E \cdot \nabla _x B}{B^2} b^3.
+\]
+The fact that $\ker {\cal T}$ is left invariant by ${\cal C} \cdot \nxv$ follows by the same property of $b^i \cdot \nxv$, $i \in \{1,2,3\}$. Using the commutation properties between $b^i \cdot \nxv$ and the average operator, $i \in \{1,2,3\}$, we deduce that $\ker \ave{\cdot}$ is also left invariant by ${\cal C} \cdot \nxv$.
+\end{proof}
+%%
+The previous arguments allow us to establish the weak convergence result stated in Theorem \ref{WeakConv}
+\begin{proof} (of Theorem \ref{WeakConv})
+It is well known that the $L^2$ norm is preserved in time
+\[
+\eps \frac{\mathrm{d}}{\mathrm{d}t} \intxv{ (\fe (t,x,v)) ^2} = 0 
+\]
+and therefore, since $(\fine)_\eps$ converges weakly in $\ltxv$, one gets 
+\[
+\sup _{\eps >0} \|\fe \|_{L^\infty(\R_+;\ltxv{})} = \sup _{\eps >0} \|\fine\| < +\infty.
+\]
+After extraction of a sequence $(\eps _k)_k$, $\limk \eps _k = 0$, we can assume that $(\fek)_k$ converges weakly $\star$ in $L^\infty(\R_+;\ltxv{})$ to some function $f \in L^\infty(\R_+;\ltxv{})$. Multiplying by $\epsk$ the weak formulation \eqref{Equ4} of $\fek$, it is easily seen that
+\[
+\inttxv{f(t,x,v) {\cal T} \varphi } = \limk \inttxv{\fek (t,x,v) {\cal T}\varphi } = 0
+\]
+for any $\varphi \in \coctxv{}$. We deduce that $f(t) \in \ker {\cal T}, t \in \R_+$. We consider now in the weak formulation of \eqref{Equ4} test functions of the form $\eta (t) \varphi (x,v)$ where $\eta \in \coct$ and $\varphi \in \cocxv \cap \ker {\cal T}$. 
+\begin{equation}
+\label{Equ45} - \inttxv{\!\!\eta ^{\;\prime}  \fek \varphi } - \eta (0) \!\!\intxv{\!\!\finek \varphi } - \frac{1}{\epsk} \inttxv{\!\!\eta  \fek \;a \cdot \nxv \varphi} = 0.
+\end{equation}
+Since ${\cal T } \varphi = 0$, we know by \eqref{Equ34} that $\ave{a \cdot \nxv \varphi } = 0$ and therefore
+\[
+\intxv{\ave{\fek (t)} a \cdot \nxv \varphi } = \intxv{\fek (t,x,v) \ave{a \cdot \nxv \varphi }} = 0.
+\]
+The equation \eqref{Equ45} can be written
+\begin{eqnarray}
+\label{Equ46} - \inttxv{\eta ^ {\;\prime} (t) \fek \varphi }  & - & \eta (0)\intxv{\finek \varphi }  \\
+& = &  \inttxv{\eta (t) \frac{\fek - \ave{\fek}}{\epsk} a\cdot \nxv \varphi }.\nonumber
+\end{eqnarray}
+We intend to pass to the limit in \eqref{Equ46} when $k \to +\infty$. Clearly we have
+\begin{equation}
+\label{Equ48} \limk \inttxv{\eta ^{\;\prime} (t) \fek \varphi }= \inttxv{\eta ^{\;\prime} (t) f \varphi }
+\end{equation}
+and
+\begin{equation}
+\label{Equ49}
+\limk \intxv{\finek \varphi } = \intxv{\fin \varphi } = \intxv{\ave{\fin} \varphi }.
+\end{equation} 
+For the treatment of the term in the right hand side of \eqref{Equ46} we introduce $\psi$ the unique smooth zero average function solving 
+\[
+{\cal T} \psi = - a \cdot \nxv \varphi.
+\]
+Indeed, the above equation has a unique zero average solution, by Proposition \ref{TransportProp}, since the right hand side has zero average. Moreover, this solution is given by $\psi = - {\cal B} \cdot \nxv \varphi$ cf. Proposition \ref{Step2}. We appeal one more time to the weak formulation \eqref{Equ4} with the test function $\eta (t) \psi (x,v)$
+\begin{align*}
+- \eps _k \inttxv{\!\!\eta ^{\;\prime}  \fek \psi }  & -  \epsk \eta (0) \!\!\intxv{\finek \psi } -  \!\!\inttxv{\!\!\eta  \fek a \cdot \nxv \psi }  \\
+& = \inttxv{\eta  \frac{\fek - \ave{\fek}}{\epsk} {\cal T} \psi }
+\end{align*}
+leading to 
+\begin{align*}
+ -  \inttxv{\eta (t) & \frac{\fek - \ave{\fek}}{\epsk}  a \cdot \nxv \varphi }  =  
+\inttxv{\eta (t) \frac{\fek - \ave{\fek}}{\epsk} {\cal T} \psi } \\
+& =  - \epsk \inttxv{\eta ^{\;\prime}(t) \fek \psi } 
+-  \epsk \eta (0) \intxv{\finek \psi } \\
+& - \inttxv{\eta (t) \fek a \cdot \nxv \psi }.
+\end{align*}
+Passing to the limit when $k \to +\infty$ yields
+\begin{align}
+\label{Equ47}  - \!\!\limk \inttxv{\!\!\eta (t)  \frac{\fek - \ave{\fek}}{\epsk}  & a \cdot \nxv \varphi }  =  - \!\!\inttxv{\!\!\eta (t)  f a \cdot \nxv \psi }  \nonumber \\
+& =  \inttxv{\eta (t)  f a \cdot \nxv ( {\cal B} \cdot \nxv \varphi ) }  \nonumber \\
+& =  \inttxv{\eta (t) f \ave{a \cdot \nxv ( {\cal B} \cdot \nxv \varphi )}}  \nonumber \\
+& - \inttxv{\eta (t) f \Divxv ( \varphi {\cal C}) }
+\end{align}
+where the last equality comes by Proposition \ref{Step3}. Combining \eqref{Equ46}, \eqref{Equ48}, \eqref{Equ49}, \eqref{Equ47} we deduce 
+\begin{align}
+\label{LimitModelForm}
+ \inttxv{\!\!f \partial _t ( \eta \varphi )} & + \intxv{\!\!\ave{\fin} (\eta \varphi )(0,x,v)} \\
+& +  \inttxv{\!\!f \Divxv (\eta \varphi {\cal C})} = 0 \nonumber
+\end{align}
+for any function $\eta \in \coct{}$ and $\varphi \in \cocxv{} \cap \ker {\cal T}$. Since we already know that $f(t) \in \ker {\cal T}, t \in \R_+$, the previous formula also holds true for any smooth zero average test function $\psi (x,v)$. Indeed, we have
+\[
+\inttxv{f \partial _t ( \eta \psi ) } = 0,\;\;\intxv{\ave{\fin} \eta (0) \psi (x,v)} = 0
+\]
+and
+\[
+\inttxv{f \eta (t)\; {\cal C}\cdot \nxv \psi } = 0
+\]
+since, by Proposition \ref{InvariantSubSpace}, we know that $\ave{{\cal C}\cdot \nxv \psi} = 0$. We deduce that \eqref{LimitModelForm} holds for any smooth test function, saying that $f$ solves weakly the Vlasov problem
+\begin{equation}
+\label{Equ50} \partial _t f + {\cal C} \cdot \nxv f = 0,\;\;(t,x,v) \in \R_+ \times \R ^2 \times \R ^2
+\end{equation}
+%%
+\begin{equation}
+\label{Equ51} f(0,x,v) = \ave{\fin}(x,v),\;\;(x,v) \in \R ^2 \times \R^2.
+\end{equation}
+By the uniqueness of the weak solution for \eqref{Equ50}, \eqref{Equ51} (which coincides with the solution by characteristics) we deduce that all the family $(\fe)_\eps$ converges weakly $\star$ in $L^\infty( \R_+;\ltxv{})$ towards $f$. 
+\end{proof}
+%%
+\begin{remark}
+\label{ConstraintPropag} The equation $\partial _t f + {\cal C} \cdot \nxv f = 0$ propagates the constraint ${\cal T} f = 0$. For checking that, notice that $[{\cal T}, {\cal C} \cdot \nxv ] = - (\;^\perp E \cdot \nabla _x B)/B^2 \;{\cal T}$. It is easily seen that ${\cal T}f$ solves the problem
+\[
+\partial _t ({\cal T}f) + {\cal C} \cdot \nxv ({\cal T}f) - \frac{^\perp E \cdot \nabla _x B}{B^2} \;{\cal T}f = 0,\;\;{\cal T}f |_{t = 0} = {\cal T}\ave{\fin} = 0
+\]
+and therefore, by the uniqueness of the weak solution we deduce that ${\cal T}f = 0$. Actually the point is that ${\cal C}\cdot \nxv $ leaves invariant $\ker {\cal T}$ (since the commutator $[{\cal T}, {\cal C}\cdot \nxv]$ is parallel to ${\cal T}$) and it is well known that, in that case, the translations along the flow of ${\cal C}$ also leave invariant $\ker {\cal T}$. Therefore at any time $t$, $f(t)$ belongs to $\ker {\cal T}$, as translation of the initial condition $\ave{\fin} \in \ker {\cal T}$ along the flow of ${\cal C}$. 
+\end{remark}
+
+\section{The numerical scheme}
+\label{NumSch}
+
+We focus now on the numerical resolution of \eqref{Equ4}, \eqref{Equ5}. As noticed before, when $\eps $ becomes small, the transport equation
+\begin{equation}
+\label{Equ55} \partial _t \fe + \frac{1}{\eps} a \cdot \nxv \fe + \frac{\omega _c}{\eps ^2} \;^\perp v \cdot \nabla _v \fe = 0
+\end{equation}
+is dominated by the advection $\frac{\omega _c}{\eps ^2} \;^\perp v \cdot \nabla _v = - \frac{\omega _c}{\eps ^2} \partial _\theta$, where $\theta$ is the polar angle of the velocity $v \in \R^2$. Notice that the standard CFL constraint leads to a time step $\Delta t \sim \eps ^2$. Therefore, when $\eps$ is small it is not reasonable to appeal to explicit numerical scheme. We will use implicit numerical schemes. Moreover, we are looking for numerical schemes which are consistent with the continuous model for all positive values of $\eps$ and that degenerate into a consistent discretization of \eqref{Equ56} when $\eps \searrow 0 $ and the time step is kept unchanged.
+
+Recall that the limit when $\eps \searrow 0 $ of $(\fe)_\eps $ belongs to $\ker {\cal T}$ implying that for small $\eps >0$, the dominant part of $\fe$ is given by its average $\ave{\fe}$. Indeed, denoting by $\re = \fe - \ave{\fe}$ we have
+\[
+\ave{\re} = \ave{\fe - \ave{\fe}} = 0,\;\;{\cal T} \re = {\cal T} \fe = - \eps ^2 \partial _t \fe - \eps a \cdot \nxv \fe.
+\]
+Passing to the limit when $\eps \searrow 0$ we obtain, at least formally
+\[
+\ave{\lime \re} = 0,\;\;{\cal T} (\lime \re) = 0
+\]
+saying that 
+\begin{equation}
+\label{Equ58} \lime \re = 0.
+\end{equation}
+Based on the orthogonal decomposition $\fe = \ave{\fe} + \re $ in $\ltxv$, we intend to replace \eqref{Equ55} by a system for the unknowns $\ave{\fe}, \re$. This will be achieved by taking the orthogonal projection of \eqref{Equ55} on $\ker {\cal T}$ and its orthogonal. Since the orthogonal projection on $\ker {\cal T}$  coincides with the average operator and $a \cdot \nxv $ maps the functions of $\ker {\cal T}$ to zero average functions, we are led to
+\begin{equation}
+\label{Equ59} \partial _t \ave{\fe} + \frac{1}{\eps} \ave{a \cdot \nxv \re} = 0
+\end{equation}
+and
+\begin{equation}
+\label{Equ60} \partial _t \re + \frac{1}{\eps} a \cdot \nxv \ave{\fe} + \frac{1}{\eps} a \cdot \nxv \re - \frac{1}{\eps} \ave{a \cdot \nxv \re } + \frac{1}{\eps ^2} {\cal T} \re = 0.
+\end{equation}
+Therefore we can replace \eqref{Equ55} by the system
+\begin{equation}
+\label{Equ61} \partial _t \geps + \frac{1}{\eps} \ave{ a \cdot \nxv \re} = 0
+\end{equation}
+%%
+\begin{equation}
+\label{Equ62} \partial _t \re + \frac{1}{\eps} a \cdot \nxv \geps + \frac{1}{\eps} a \cdot \nxv \re - \frac{1}{\eps} \ave{a \cdot \nxv \re} + \frac{1}{\eps ^2} {\cal T} \re = 0.
+\end{equation}
+Naturally, we take as initial conditions
+\begin{equation}
+\label{Equ63} \geps | _{t = 0} = \ave{\fine},\;\;\re |_{t = 0} = \fine - \ave{\fine}.
+\end{equation}
+\begin{remark}
+\label{Equivalence} It is easily seen that we have $\geps = \ave{\fe}$ and $\re = \fe - \ave{\fe}$. Indeed, applying the operator ${\cal T}$ to \eqref{Equ61} one gets
+$
+\partial _t {\cal T} \geps = 0
+$
+and thus ${\cal T} \geps (t) = {\cal T} \geps (0) = {\cal T} \ave{\fine} = 0$, saying that $\geps (t) \in \ker {\cal T}, t \in \R_+$. Applying now the average operator to \eqref{Equ62}, we deduce that $\partial _t \ave{\re} = 0$, since $\ave{a \cdot \nxv \geps (t)} = 0, t \in \R_+$ and thus $\ave{\re (t)} = \ave{\re (0)} = \ave{\fine - \ave{\fine}} = 0$. Taking the sum of \eqref{Equ61}, \eqref{Equ62} we obtain
+\[
+\partial _t ( \geps + \re) + \frac{1}{\eps} a \cdot \nxv ( \geps + \re) + \frac{1}{\eps ^2} {\cal T} ( \geps + \re) = 0
+\]
+%%
+\[
+( \geps + \re)|_{t = 0} = \fine.
+\]
+Therefore $\geps + \re$ and $\fe$ solve the same problem, and thanks to the uniqueness of the solution one gets $\geps + \re = \fe$. Since we already know that ${\cal T}\geps = 0, \ave{\re} = 0$ we deduce that 
+\[
+\geps = \ave{\geps + \re} = \ave{\fe},\;\;\re = \fe - \geps = \fe - \ave{\fe}.
+\]
+\end{remark}
+%%
+
+\subsection{Time discretization}
+
+We propose now a numerical scheme for the system \eqref{Equ61}, \eqref{Equ62}, \eqref{Equ63}. For the moment we investigate only the time discretization. Pick a time step $\Delta t >0$ and let us denote by $t ^n = n \Delta t, n \in \N$, a uniform grid of $\R_+$. We consider the implicit time scheme
+\begin{equation}
+\label{Equ65} \frac{\renpo - \ren}{\Delta t} + \frac{1}{\eps} a \cdot \nxv \gen + \frac{1}{\eps} a \cdot \nxv \ren - \frac{1}{\eps} \ave{ a \cdot \nxv \ren } + \frac{1}{\eps ^2} {\cal T} \renpo = 0,\;\;n \in \N
+\end{equation}
+%%
+\begin{equation}
+\label{Equ66} \rez = \fine - \ave{\fine}.
+\end{equation}
+We recall here the following standard result
+\begin{pro}
+\label{UnifInv} For any $\lambda >0$ and $w \in \ltxv{}$, the equation $\lambda u + {\cal T} u = w$ has a unique solution $u$. The application $w \to (\lambda I + {\cal T})^{-1} w = u$ is linear continuous on $\ltxv{}$ and
+\[
+\| (\lambda I + {\cal T})^{-1}  \|_{{\cal L} (L^2, L^2)} \leq \frac{1}{\lambda},\;\;\lambda >0.
+\] 
+\red{Moreover, under the hypothesis $\inf _{x \in \R^2} B(x) >0$, if $w \in \ker \ave{\cdot}$, then $\|(\lambda I + {\cal T} ) ^{-1} w \| \leq \|{\cal T} ^{-1} w\|,\;\;\lambda >0$, saying that 
+\[
+\sup _{\lambda >0} \| (\lambda I + {\cal T} ) ^{-1}\|_{{\cal L} ( \ker \ave{\cdot}, \ave{\cdot})} \leq \|{\cal T}^{-1} \|_{{\cal L} ( \ker \ave{\cdot}, \ave{\cdot})} \leq \frac{2\pi}{|\omega _0|},\;\;\omega _0 = \frac{q}{m} \inf _{x \in \R^2} B(x) \neq 0.
+\]
+}
+\end{pro}
+%%
+\begin{proof}
+\red{Observe that the solution of $\lambda u_\lambda + {\cal T}u_\lambda = w$ is given by
+\begin{equation}
+\label{Equ67}
+u_\lambda(x,v) = \int _{\R_-} e ^ {\lambda s} \;w (X(s;x,v), V(s;x,v))\;\mathrm{d}s
+\end{equation}
+where $(X,V)(s;x,v)$ is the flow associated to the first order operator ${\cal T}$. Therefore we obtain
+\[
+\|u_\lambda\| \leq \int _{\R_ -} e ^ {\lambda s}\;\|w((X,V)(s;\cdot,\cdot))\|\;\mathrm{d}s = \|w\| \int _{\R_ -} e ^ {\lambda s}\;\mathrm{d}s =\frac{\|w\|}{\lambda},\;\;\lambda >0
+\]
+saying that $\|(\lambda I + {\cal T})^{-1} \|_{{\cal L}(L^2, L^2)} \leq 1/\lambda,\; \lambda >0$. Consider now $w \in \ker \ave{\cdot}$. Clearly $u_\lambda \in \ker \ave{\cdot}$ since
+\[
+\lambda \ave{u_\lambda} = \ave{w - {\cal T}u_\lambda} = \ave{w} - \ave{{\cal T}u_\lambda } = 0.
+\]
+Let us denote by $u_0$ the unique zero average solution of ${\cal T} u_0 = w$, cf. Proposition \ref{TransportProp}, and thus we have
+\[
+\lambda u_\lambda + {\cal T} (u_\lambda - u_0) = 0.
+\]
+Multiplying by $u_\lambda-u_0$ we obtain $\lambda (u_\lambda, u_\lambda -u_0) = 0$, and by Cauchy-Schwarz inequality it comes that
+\[
+\|u_\lambda \| \leq \| u_0 \| = \|{\cal T} ^{-1} w \| \leq \|{\cal T}^{-1}\|_{{\cal L} ( \ker \ave{\cdot}, \ave{\cdot})} \|w\|.
+\]
+Finally, for any $\lambda >0$ we have
+\[
+\| (\lambda I + {\cal T} ) ^{-1}\|_{{\cal L} ( \ker \ave{\cdot}, \ave{\cdot})} \leq \|{\cal T}^{-1} \|_{{\cal L} ( \ker \ave{\cdot}, \ave{\cdot})} \leq \frac{2\pi}{|\omega _0|}.
+\]
+Notice that $(u_\lambda)_{\lambda >0}$ converges strongly in $\ltxv{}$, as $\lambda \searrow 0$, towards $u_0$. Indeed, it is easily seen that $(u_\lambda)_{\lambda >0}$ converges weakly in $\ltxv{}$, as $\lambda \searrow 0$, towards $u_0$, and that the convergence is strong, thanks to the inequality $\limsup _{\lambda \searrow 0} \|u _\lambda\| \leq \|u_0\|$.
+}
+
+\end{proof}
+Thanks to Proposition \ref{UnifInv} we can solve for $\renpo$ in \eqref{Equ65}, uniformly with respect to $\eps, \Delta t$, since we need to invert $\frac{\eps ^2}{\Delta t} I + {\cal T}$ only on zero average functions. The time discretization \eqref{Equ65} uniquely determines $\renpo{}$ and we have
+\begin{equation}
+\label{Equ68} \renpo = \left ( \frac{\eps ^2}{\Delta t } I + {\cal T} \right ) ^{-1} \left (\frac{\eps ^2}{\Delta t} \ren - \eps a \cdot \nxv \gen - \eps a \cdot \nxv \ren + \eps \ave{a \cdot \nxv \ren }     \right ).
+\end{equation}
+We need to discretize \eqref{Equ61} as well. We complete our scheme by
+\begin{equation}
+\label{Equ69} \frac{\genpo - \gen }{\Delta t} + \frac{1}{\eps} \ave{ a \cdot \nxv \renpo } = 0
+\end{equation}
+%%
+\begin{equation}
+\label{Equ70}  \gez = \ave{\fine }.
+\end{equation}
+The choice of $t^{n+1}$ instead of $t^n$ as time evaluation for the term $\ave{a \cdot \nxv \re}$ will be clarified in the next proposition. The reason is that, with that choice, the numerical scheme degenerates into a consistent discretization of \eqref{Equ56} when $\eps \searrow 0$. In other words, our numerical scheme captures correctly the limit model of \eqref{Equ55} when $\eps \searrow 0$, for a time step range not depending on $\eps >0$. For the sake of simplicity we only state a formal result. Nevertheless, the properties of our numerical scheme will be emphasized by numerical simulations. 
+%%
+\begin{thm}
+\label{Consistency} Assume that the electro-magnetic field satisfies the hypotheses
+\[
+E \in W^{1,\infty} (\R^2),\;\;\Divx \;^\perp E = 0,\;\;B \in W^{2,\infty} (\R^2),\;\; \inf _{x \in \R^2} B(x) >0
+\]
+and that \red{the initial conditions $(\fine)_\eps$ converge weakly in $\ltxv{}$, when $\eps \searrow 0$, towards some function $\fin$ (not necessarily in $ \ker {\cal T}$)}. The numerical scheme \eqref{Equ65}, \eqref{Equ66}, \eqref{Equ69}, \eqref{Equ70} remains consistent with the limit model \eqref{Equ56}, \eqref{Equ57} when $\eps \searrow 0$.  
+\end{thm}
+%%
+\begin{proof}
+It is easily seen that $\ave{\ren} = 0, {\cal T} \gen = 0, n \in \N$. Indeed, for $n = 0$ we have
+\[
+\ave{\rez} = \ave{\fine - \ave{\fine}} = 0,\;\;{\cal T} \gez = {\cal T} \ave{\fine} = 0.
+\]
+Assume now that $\ave{r ^{\eps, k}} = 0$ and ${\cal T}g ^{\eps, k} = 0$, for some $ k \in \N$. Taking the average in \eqref{Equ65} we obtain
+\[
+\frac{\ave{r ^{\eps, k+1}}}{\Delta t} + \frac{1}{\eps} \ave{a \cdot \nxv g ^{\eps, k}} = 0.
+\]
+Since ${\cal T} g ^{\eps, k} = 0$, we know that $\ave{a \cdot \nxv g ^{\eps, k}} = 0$ (cf. \eqref{Equ34}) and thus $\ave{r ^{\eps, k+1}} = 0$. Applying the operator ${\cal T} $ in \eqref{Equ69} implies ${\cal T} g ^{\eps, k+1} = {\cal T} g ^{\eps, k} = 0$. 
+
+We follow exactly the same steps as those in the continuous case, see Theorem \ref{WeakConv}. Multiplying \eqref{Equ65} by $\eps$ one gets
+\[
+{\cal T} \left ( \frac{\renpo}{\eps} \right ) = - a \cdot \nxv \gen - \eps \frac{\renpo - \ren}{\Delta t} - a\cdot \nxv \ren + \ave{a \cdot \nxv \ren}
+\]
+and since the right hand side is zero average
+\[
+\ave{ a \cdot \nxv \gen } = 0,\;\;\ave{ \renpo - \ren } = 0,\;\;\ave{a \cdot \nxv \ren - \ave{a \cdot \nxv \ren }} = 0
+\]
+we can solve for $\renpo / \eps$
+\[
+\frac{\renpo}{\eps} = - {\cal T} ^{-1} ( a \cdot \nxv \gen ) - \frac{\eps}{\Delta t } {\cal T} ^{-1} ( \renpo - \ren ) - {\cal T} ^ {-1} ( a \cdot \nxv \ren - \ave{a \cdot \nxv \ren } ).
+\]
+\red{The equality \eqref{Equ68}, which is a consequence of \eqref{Equ65}, says, at least formally, that $\ren = O(\eps), n \geq 1$, thanks to Proposition \ref{UnifInv}. By Proposition \ref{Step2} we obtain
+\[
+\frac{\renpo}{\eps} = - {\cal T} ^ {-1} ( a \cdot \nxv \gen ) + O (\eps) = - {\cal B} \cdot \nxv \gen + O(\eps),\;\;n \geq 1.
+\]
+}
+Applying now Proposition \ref{Step3} yields
+\begin{eqnarray}
+\label{Equ73} \frac{1}{\eps} \ave{a \cdot \nxv \renpo} & = & - \ave{a \cdot \nxv ( {\cal B} \cdot \nxv \gen )} + O (\eps) \nonumber \\
+& = & \Divxv(\gen {\cal C}) + O (\eps) \nonumber \\
+& = & {\cal C} \cdot \nxv \gen + O (\eps).
+\end{eqnarray}
+Notice that the left hand side in \eqref{Equ73} coincides with the second term in the left hand side of \eqref{Equ69}. This is why we need to evaluate $\ave{a \cdot \nxv \re} /\eps $ at time $t^{n+1}$ instead of $t^n$, when looking for a time discretization of \eqref{Equ61}. Finally one gets
+\[
+\frac{\genpo - \gen}{\Delta t} + {\cal C} \cdot \nxv \gen + O(\eps) = 0,\;\;\gez = \ave{\fine} \rightharpoonup \ave{\fin}
+\]
+which is consistent with \eqref{Equ56}, \eqref{Equ57} when $\eps \searrow 0$. 
+\end{proof}
+\red{
+Notice that \eqref{Equ68} writes 
+\begin{align}
+\label{EquExactExp}
+\frac{\renpo}{\eps} & = - \left ( \frac{\eps ^2}{\Delta t}I + {\cal T}\right ) ^{-1} ( a \cdot \nxv \gen) - \left ( \frac{\eps ^2}{\Delta t}I + {\cal T}\right ) ^{-1} ( a \cdot \nxv \ren - \ave{a \cdot \nxv \ren } ) \nonumber \\
+&  + \frac{\eps}{\Delta t } \left ( \frac{\eps ^2}{\Delta t}I + {\cal T}\right ) ^{-1} \ren
+\end{align}
+and thus, we expect that the leading order tem in the formula for $\frac{\renpo}{\eps}$ is 
+\[
+- \left ( \frac{\eps ^2}{\Delta t}I + {\cal T}\right ) ^{-1} (a\cdot \nxv \gen).
+\]
+In order to avoid the numerical errors coming from the discretization of this dominant term, we compute it analytically, following the result in Proposition \ref{Step2}.
+%%
+\begin{pro}
+\label{Step2Bis}
+$\;$\\
+1. For any $\lambda >0$ there is a smooth divergence free vector field $\bl \cdot \nxv $ satisfying
+\begin{equation}
+\label{EquLambdaDecomp}
+a\cdot \nxv = [{\cal T}, \bl \cdot \nxv] + \lambda \bl \cdot \nxv
+\end{equation}
+mapping $\D ( \bl \cdot \nxv ) \cap \ker {\cal T} $ to the subspace of zero average functions. This field is given by
+\begin{equation}
+\label{EquExpressionBLambda}
+\bl \cdot \nxv =  \frac{\ol v}{\radlo}\cdot \nabla _x + \frac{q}{m \radlo} {^t \ol }E \cdot \nabla _v + \left ( \frac{{^\perp v} \otimes v }{\lambda ^2 + \omega _c ^2} \;{^t \ol} ^2 \;\;\nabla _x \omega _c \right ) \cdot \nabla _v
+\end{equation}
+with 
+\[
+\ol = \left(
+\begin{array}{cc}
+\frac{\lambda}{\radlo}   & - \frac{\omega _c}{\radlo}    \\
+\frac{\omega _c}{\radlo}  &   \frac{\lambda}{\radlo}    
+\end{array}
+\right).
+\]
+2. For any function $f \in \D ( a \cdot \nxv ) \cap \D (\bl \cdot \nxv ) \cap \ker {\cal T}$ we have
+\[
+\bl \cdot \nxv f \in \D ({\cal T})\;\;\mbox{and} \;\; (\lambda I + {\cal T})^{-1} (a \cdot \nxv f) = \bl \cdot \nxv f.
+\]
+\end{pro}
+%%
+\begin{proof}
+1. We consider the vector field basis
+\[
+b^0 \cdot \nxv = \;{^\perp v \cdot \nabla _v},\;\;b^1 \cdot \nxv = \partial _{x_1},\;\;b^2 \cdot \nxv = \partial _{x_2},\;\;b^3 \cdot \nxv = \frac{v}{|v|} \nabla _v
+\]
+and we search for $\bl \cdot \nxv = \sum _{i = 0} ^3 \beta _j b^j \cdot \nxv$, where $\beta _j$ are zero average coefficients to be determined. These coefficients come from the equalities
+\[
+a\cdot \nxv \psi _i = {\cal T} (\bl \cdot \nxv \psi _i ) - \bl \cdot \nxv ( {\cal T} \psi _i ) + \lambda \bl \cdot \nxv \psi _i 
+\]
+where $\psi _1 = x_1, \psi _2 = x_2, \psi _3 = |v|$ and $\psi _0 = - \theta (v)$, with $v = |v|(\cos \theta(v), \sin \theta (v))$ ($\psi _0 $ is multi-valued, but its gradient is well defined $\nxv \psi _0 = (0, {^\perp v}/|v|^2)$). Since $\psi_1, \psi _2, \psi _3$ are left invariant by ${\cal T}$, the coefficients $\beta _i = \bl \cdot \nxv \psi _i$ follow by solving 
+\[
+{\cal T} \beta _i + \lambda \beta _i = {\cal T} ( \bl \cdot \nxv \psi _i ) - \bl \cdot \nxv ( {\cal T} \psi _i ) + \lambda \bl \cdot \nxv \psi _i = a \cdot \nxv \psi _i,\;\;\ave{\beta _i} = 0,\;\;1\leq i \leq 3
+\]
+whose solution is given, cf. Proposition \ref{UnifInv}, by
+\[
+\beta _i = \int _{\R_ -} e ^{\lambda s} ( a \cdot \nxv \psi _i ) (x, {\cal R}(-\omega _c s) v)\;\mathrm{d}s.
+\]
+For the coefficient $\beta _0$, observe that ${\cal T} \psi _0 = \omega _c $, and use
+\[
+{\cal T} \beta _0 + \lambda \beta _0 = a \cdot \nxv \psi _0 + \bl \cdot \nxv \omega _c,\;\;\ave{\beta _0 } = 0.
+\]
+We obtain
+\[
+(\beta _1, \beta _2) = \frac{\ol v}{\radlo},\;\;\beta _3 = \frac{q}{m \radlo} E \cdot \ol \frac{v}{|v|}
+\]
+%%
+\[
+\beta _0 = \left ( {^t \ol}^2 \frac{\nabla _x \omega _c}{\lambda ^2 + \omega _c ^2} - \frac{q}{m \radlo} \;{^t \ol } \frac{^\perp E}{|v|^2}     \right ) \cdot v
+\]
+and \eqref{EquExpressionBLambda} follows. Taking the divergence in \eqref{EquLambdaDecomp} yields
+\[
+{\cal T} (\Divxv \bl) + \lambda \Divxv \bl = \Divxv a = 0
+\]
+and thus $\Divxv \bl = 0$. It remains to check that $\bl \cdot \nxv $ maps $\D (\bl \cdot \nxv ) \cap \ker {\cal T}$ to zero average functions. This is a consequence of the fact that $(b^i \cdot \nxv ) _{0 \leq i \leq 3}$ leave invariant $\ker {\cal T} $ and that $\ave{\beta _i}= 0, 0 \leq i \leq 3$. \\
+2. For any $f \in \D ( a \cdot \nxv ) \cap \D ( \bl \cdot \nxv ) \cap \ker {\cal T}$ we have
+\[
+a\cdot \nxv f = {\cal T} ( \bl \cdot \nxv f ) + \lambda \bl \cdot \nxv f 
+\]
+and therefore
+\[
+\bl \cdot \nxv f \in \D ({\cal T})\;\;\mbox{ and } \;\;( \lambda I + {\cal T}) ^{-1} ( a \cdot \nxv f) = \bl \cdot \nxv f.
+\]
+\end{proof}
+Thanks to Proposition \ref{Step2Bis}, the dominant term in the right hand side of \eqref{EquExactExp} writes
+\[
+- \left ( \frac{\eps ^2}{\Delta t} I + {\cal T} \right ) ^{-1} ( a \cdot \nxv \gen) = - \ble \cdot \nxv \gen
+\]
+with $\lambda _\eps = \frac{\eps ^2}{\Delta t}$, which will generate the following leading order term in $\frac{1}{\eps} \ave{a \cdot \nxv \renpo}$, appearing in \eqref{Equ69}
+\[
+- \ave{ a \cdot \nxv ( \ble \cdot \nxv \gen)}.
+\]
+The evaluation of the above term requires many approximations, since we need to discretize two transport operators and one average. Following Proposition \ref{Step3} we compute exactly such terms (see Appendix \ref{CLambda} for proof details).
+%%
+\begin{pro}
+\label{Step3Bis} For any $\lambda >0$ there is a divergence free vector field $\cl$ such that  for any smooth function $f \in \ker {\cal T}$ 
+\[
+- \ave{( a - \lambda \bl ) \cdot \nxv ( \bl \cdot \nxv f )} = \Divxv ( f \cl ).
+\]
+The coordinates of $\cl = (\cl _x, \cl _v)$ are given by
+\[
+\cl _x = \ave{\xil _x},\;\;\cl _v = \ave{\xil _v \cdot \frac{v}{|v|}} \frac{v}{|v|},\;\;\xil = \frac{1}{2}[\bl, a].
+\]
+If the electric field derives from a potential, then the vector field $\cl$ writes
+\begin{equation}
+\label{EquExpressionCLambda}
+\cl \cdot \nxv = \left [\frac{\omega _c ^2}{\lambda ^2 + \omega _c ^2} \frac{^\perp E}{B} + \frac{|v|^2}{2} \;{^\perp \nabla _x } \left ( \frac{\omega _c}{\lambda ^2 + \omega _c ^2 } \right ) \right ] \cdot \nabla _x - \frac{1}{2} \frac{^\perp E}{B} \cdot \nabla _x \left ( \frac{\omega _c}{\lambda ^2 + \omega _c ^2 } \right ) \omega _c v \cdot \nabla _v.
+\end{equation}
+\end{pro}
+%%
+\begin{remark}
+\label{RemStep3Bis} It is easily seen that $\cl $ is a regular perturbation of ${\cal C}$
+\[
+\lim _{\lambda \searrow 0} \cl = \left ( \frac{^\perp E}{B} - \frac{|v|^2}{2\omega _c} \frac{^\perp \nabla _x B}{B}, \frac{1}{2} \left ( \frac{^\perp E}{B}\cdot \frac{\nabla _x B}{B} \right ) v \right ) = {\cal C}.
+\]
+\end{remark}
+Combining Propositions \ref{Step2Bis}, \ref{Step3Bis}, the numerical scheme \eqref{Equ65}, \eqref{Equ66}, \eqref{Equ69}, \eqref{Equ70} becomes
+\begin{equation}
+\label{EquSch1} \frac{\renpo}{\eps} = - \ble \cdot \nxv \gen - \left (  \frac{\eps ^2}{\Delta t}I + {\cal T}\right )^{-1} \!\!\!\!( a \cdot \nxv \ren - \ave{a \cdot \nxv \ren } ) + \frac{\eps}{\Delta t} \left (  \frac{\eps ^2}{\Delta t}I + {\cal T}\right )^{-1} \!\!\!\!\!\!\ren
+\end{equation}
+%%
+\begin{equation}
+\label{EquSch2}
+\left (  \frac{\eps ^2}{\Delta t}I + {\cal T}\right ) \hen = - \left ( a \cdot \nxv \left ( \frac{\ren }{\eps } \right )- \ave{a \cdot \nxv \left ( \frac{\ren }{\eps }\right ) } \right ) + \frac{\eps}{\Delta t} \left ( \frac{\ren}{\eps} \right )
+\end{equation}
+%%
+\begin{equation}
+\label{EquSch3} \frac{\genpo - \gen}{\Delta t} + \cle \cdot \nxv \gen - \lambda _\eps \ave{\ble \cdot \nxv ( \ble \cdot \nxv \gen )} + \eps \ave{a \cdot \nxv \hen} = 0
+\end{equation}
+with $\lambda _\eps = \eps ^2 /\Delta t$ and
+\begin{equation}
+\label{EquSch4}
+\rez = \fine - \ave{\fine},\;\;\gez = \ave{\fine}.
+\end{equation}
+By \eqref{EquSch1} we have $\renpo = O(\eps), n \geq 0$, since $\left ( \frac{\eps ^2}{\Delta t} I + {\cal T} \right ) ^{-1}$ is uniformly bounded on the subspace of zero average functions. Therefore we introduce $\zen = \frac{\ren}{\eps}$, for any $n \geq 1$, and the previous scheme writes
+\begin{enumerate}
+\item Compute $\zeo, \heo, \geo$ using
+\begin{align}
+\label{EquSch5}
+\zeo  = \frac{\reo}{\eps} = - \ble \cdot \nxv \gez - \left (  \frac{\eps ^2}{\Delta t}I + {\cal T}\right )^{-1} \!\!\!\!\left ( a \cdot \nxv \rez - \ave{a \cdot \nxv \rez } - \frac{\eps}{\Delta t}\rez \right )
+\end{align}
+%%
+\begin{align}
+\label{EquSch6}
+\left (  \frac{\eps ^2}{\Delta t}I + {\cal T}\right )\heo = 
+- \left ( 
+a \cdot \nxv \zeo- \ave{a \cdot \nxv \zeo} 
+\right ) + 
+\frac{\eps}{\Delta t} 
+\zeo
+\end{align}
+%%
+\begin{align}
+\label{EquSch7}
+\frac{\geo - \gez}{\Delta t} + \cle \cdot \nxv \gez - \lambda _\eps \ave{\ble \cdot \nxv ( \ble \cdot \nxv \gez )} +  \ave{a \cdot \nxv \tilde{h}^{\eps, 0}} = 0
+\end{align}
+%%
+with $\tilde{h}^{\eps, 0}$ given by
+\[
+\left (  \frac{\eps ^2}{\Delta t}I + {\cal T}\right )\tilde{h}^{\eps, 0} = - ( a \cdot \nxv \rez - \ave{a \cdot \nxv \rez}) + \frac{\eps}{\Delta t} \rez.
+\]
+%%
+\item Given $(\zen, \hen, \gen)$ with $n \geq 1$, compute $(\zenpo, \henpo, \genpo)$ using
+\begin{equation}
+\label{EquSch8}
+\zenpo = - \ble \cdot \nxv \gen + \eps \hen
+\end{equation}
+%%
+\begin{align}
+\label{EquSch9}
+\left (  \frac{\eps ^2}{\Delta t}I + {\cal T}\right )\henpo = 
+- \left ( 
+a \cdot \nxv \zenpo- \ave{a \cdot \nxv \zenpo} 
+\right ) + 
+\frac{\eps}{\Delta t} 
+\zenpo
+\end{align}
+%%
+\begin{align}
+\label{EquSch10}
+\frac{\genpo - \gen}{\Delta t} + \cle \cdot \nxv \gen - \lambda _\eps \ave{\ble \cdot \nxv ( \ble \cdot \nxv \gen )} +  \eps\ave{a \cdot \nxv \hen} = 0.
+\end{align}
+%%
+\end{enumerate}
+%%
+\begin{remark}
+Clearly, when $\eps \searrow 0$, \eqref{EquSch10} remains consistent with \eqref{Equ56}, since
+\[
+\cle \cdot \nxv \to \cl \cdot \nxv\;\;\mbox{ and } \;\;\lambda _\eps \ave{\ble \cdot \nxv ( \ble \cdot \nxv )} \to 0.
+\]
+\end{remark}
+}
+
+
+
+\subsection{Phase space discretization}
+
+mettre tout ce qu'il faut pour definir le schema de Lax-Ritchmyer (p130 de la these) : 
+\begin{itemize}
+\item definition de $\Phi$ 
+\item definition de ${\cal B}\cdot \nabla_{x,v} g^n$
+\item definition de ${\cal C}\cdot \nabla_{x,v} g^n$
+\end{itemize}
+
+
+\section{Numerical simulations}
+\label{NumSim}
+
+This section is devoted to numerical validation. 
+
+\subsection{Analytic test case}
+correspond au 5.6.1 de la these p131
+
+\subsection{Two stream instability}
+correspond au test  de la these p 134 et 135 
+\begin{itemize}
+\item $\varepsilon_B  \rightarrow +\infty$ (p134)
+\item $\varepsilon  \rightarrow 0$ (p135)
+\end{itemize}
+
+\subsection{Kelvin-Helmholtz}
+correspond au test  de la these p 137
+\begin{itemize}
+\item tracer mode$(t)$ pour $t_{final}=50$ en  $N=64^4$ et $\Delta t$ 
+$\varepsilon=1, 0.75, 0.5, 0.25, 0.01, 10^{-6}$ (cf p21 de munich13crous.pdf)
+\item tracer $w/k$ en fonction de $(1-k)$ quand $\varepsilon$ petit 
+\item plot 2d $(x,y)$
+\end{itemize}
+
+\subsection{Collision}
+Expliquer rapidement le modele (scaling) et le modele asymptotique correspondant. 
+Expliquer si besoin les modifications numeriques.  
+
+Meme condition initiale que Kelvin-Helmholtz
+\begin{itemize}
+\item tracer mode$(t)$ pour $t_{final}=50$ en  $64^4$ et $\Delta t$ 
+$\varepsilon=1, 0.75, 0.5, 0.25, 0.01, 10^{-6}$ (cf p21 de munich13crous.pdf)
+\item tracer $w/k$ en fonction de $(1-k)$ quand $\varepsilon$ petit 
+\item plot 2d $(x,y)$
+\end{itemize}
+Objectif : exhiber l'influence des collisions. 
+
+
+\appendix
+
+\section{Proof of Proposition \ref{Step3Bis}}
+\label{CLambda}
+%%
+\begin{proof}
+Using the formula $a \cdot \nxv - \lambda \bl \cdot \nxv = [{\cal T}, \bl \cdot \nxv ]$ we have
+\begin{align*}
+- \ave{(a - \lambda \bl) \cdot \nxv ( \bl \cdot \nxv f ) } & = - \ave{{\cal T} \bl \cdot \nxv ( \bl \cdot \nxv f ) } \\
+& + \ave{\bl \cdot \nxv ( {\cal T} (\bl \cdot \nxv f ))} \\
+& = \ave{\bl \cdot \nxv ( ( a - \lambda \bl ) \cdot \nxv f ) }
+\end{align*}
+since $\ran {\cal T} \subset \ker \ave{\cdot}$ and ${\cal T} ( \bl \cdot \nxv f ) = (a - \lambda \bl ) \cdot \nxv f$. Therefore
+\begin{align*}
+- \ave{(a - \lambda \bl) \cdot \nxv ( \bl \cdot \nxv f ) } & =\frac{1}{2} \ave{[\bl \cdot \nxv, (a - \lambda \bl ) \cdot \nxv ]f} \\
+& = \frac{1}{2} \ave{[\bl \cdot \nxv, a \cdot \nxv ]f}\\
+& = \ave{\xil \cdot \nxv f}
+\end{align*}
+where $2 \xil $ is the Poisson bracket between the vector fields $\bl$ and $a$. Since $\Divxv a = \Divxv \bl = 0$, we have $\Divxv \xil = 0$ and therefore, thanks to Proposition \ref{DivAveCom}, one gets
+\begin{align*}
+- \ave{(a - \lambda \bl) \cdot \nxv ( \bl \cdot \nxv f ) } & = \ave{\Divxv(f \xil)} \\
+& = \Divx ( f \ave{\xil _x}) + \Divv \left \{ f  \ave{\xil _v \cdot \frac{v}{|v|}} \frac{v}{|v|} \right \}\\
+& = \Divxv(f \cl)
+\end{align*}
+where $\cl = \left ( \ave{\xil _x},  \ave{\xil _v \cdot \frac{v}{|v|}} \frac{v}{|v|}\right )$. In particular, taking $f = 1 \in \ker {\cal T}$, one gets $\Divxv \cl = 0$. \\
+\underline{Computation of $\cl _x$}\\
+We use the invariant $\psi _1 = x_1$. Taking into account that 
+\begin{align*}
+\xil _{x_1} & = \xil \cdot \nxv \psi _1 = \frac{1}{2} [\bl \cdot \nxv, a \cdot \nxv ]\psi _1 \\
+& = \frac{1}{2} \bl \cdot \nxv ( a \cdot \nxv \psi _1) - \frac{1}{2} a \cdot \nxv ( \bl \cdot \nxv \psi _1 ) \\
+& = \frac{1}{2} \bl \cdot \nxv v_1 - \frac{1}{2} a \cdot \nxv \bl _{x_1}
+\end{align*}
+we deduce, thanks to Proposition \ref{DivAveCom}
+\begin{align*}
+\ave{\xil _{x_1}} & = \frac{1}{2}\ave{\Divxv( v_1 \bl)} - \frac{1}{2} \ave{\Divxv(\bl _{x_1} a)} \\
+& = \frac{1}{2}\Divx \ave{v_1 \bl _x } + \frac{1}{2}\Divv \left [ \ave{v_1 \bl _v \cdot \frac{v}{|v|}}\frac{v}{|v|}  \right ]\\
+& - \frac{1}{2}\Divx \ave{\bl _{x_1} v } - \frac{1}{2}\Divv \left [ \ave{\bl _{x_1} \frac{qE}{m}\cdot \frac{v}{|v|}}\frac{v}{|v|}  \right ]\\
+& = - \frac{1}{2} \partial _{x_2} \ave{\frac{\ol}{\radlo}: {^\perp v} \otimes v}\\ 
+& + \frac{1}{2} \Divv \left [\ave{\frac{q v \otimes v}{m \radlo |v|} : ( {^t \ol} E \otimes e_1 - E \otimes {^t \ol} e_1 ) } \frac{v}{|v|}    \right]\\
+& = \frac{|v|^2}{2} \partial _{x_2} \left (   \frac{\omega _c}{\lambda ^2 + \omega _c ^2} \right ) + \frac{1}{2}\Divv \left (\frac{\omega _c ^2 }{\lambda ^2 + \omega _c ^2} \left ( \frac{^\perp E}{B} \right )_1 v   \right )\\
+& = \frac{|v|^2}{2} \partial _{x_2} \left (   \frac{\omega _c}{\lambda ^2 + \omega _c ^2}\right ) 
++\frac{\omega _c ^2 }{\lambda ^2 + \omega _c ^2}\left ( \frac{^\perp E}{B} \right )_1.
+\end{align*}
+Similarly 
+\[
+\ave{\xil _{x_2}} = -\frac{|v|^2}{2} \partial _{x_1} \left (   \frac{\omega _c}{\lambda ^2 + \omega _c ^2}\right ) 
++\frac{\omega _c ^2 }{\lambda ^2 + \omega _c ^2}\left ( \frac{^\perp E}{B} \right )_2
+\]
+and therefore 
+\[
+\cl _x = \ave{\xil _x} = \frac{\omega _c ^2}{\lambda ^2 + \omega _c ^2}\frac{^\perp E}{B} + \frac{|v|^2}{2} \;{^\perp \nabla _x } \left ( \frac{\omega _c}{\lambda ^2 + \omega _c ^2}\right ).
+\]
+\underline{Computation of $\cl _v$}\\
+We use the invariant $\psi _3 = |v|$. Taking into account that 
+\begin{align*}
+\xil _v \cdot \frac{v}{|v|} & = \xil \cdot \nxv \psi _3 = \frac{1}{2} [\bl \cdot \nxv, a \cdot \nxv ] \psi _3\\
+& = \frac{1}{2} \bl \cdot \nxv ( a \cdot \nxv \psi _3) - \frac{1}{2} a \cdot \nxv ( \bl \cdot \nxv \psi _3) \\
+& = \frac{1}{2} \bl \cdot \nxv \left ( \frac{qE}{m} \cdot \frac{v}{|v|} \right ) - \frac{1}{2} a \cdot \nxv \left ( \frac{q }{m \radlo} {^t \ol }E \cdot \frac{v}{|v|} \right )
+\end{align*}
+we deduce by Proposition \ref{DivAveCom}
+\begin{align*}
+\ave{\xil _v \cdot \frac{v}{|v|}} & = \frac{1}{2}\ave{\Divxv \left (\frac{qE}{m} \cdot \frac{v}{|v|} \bl \right )} - \frac{1}{2} \ave{\Divxv\left ( \frac{q}{m\radlo} \;{^t \ol} E \cdot \frac{v}{|v|} a   \right ) }\\
+& = \frac{1}{2} \Divx \ave{\frac{qE}{m} \cdot \frac{v}{|v|} \frac{\ol v}{\radlo}} + 
+\frac{1}{2}\Divv \left [ \ave{\frac{qE}{m} \cdot \frac{v}{|v|} \frac{q \;{^t \ol} E}{m \radlo}\cdot \frac{v}{|v|}   }\frac{v}{|v|}  \right ]\\
+& - \frac{1}{2} \Divx \ave{\frac{q\;{^t \ol}E}{m\radlo} \cdot  \frac{v}{|v|} v} -
+\frac{1}{2}\Divv \left [ \ave{ \frac{q \;{^t \ol} E}{m \radlo}\cdot \frac{v}{|v|} \frac{qE}{m} \cdot \frac{v}{|v|}  }\frac{v}{|v|}  \right ]\\
+& = \frac{1}{2}\Divx \ave{\frac{q}{m \radlo |v|} [ \ol (v\otimes v) E - (v \otimes v) \;{^t \ol} E]}\\
+& = - \frac{1}{2} \Divx \left ( \frac{q}{m} \frac{\omega _c}{\lambda ^2 + \omega _c ^2} |v| \;{^\perp E} \right ).
+\end{align*}
+Finally 
+\[
+\cl _v = \ave{\xil _v \cdot \frac{v}{|v|}} \frac{v}{|v|} = - \frac{1}{2} \frac{q}{m} \left ( {^\perp E} \cdot \nabla _x \left ( \frac{\omega _c}{\lambda ^2 + \omega _c ^2} \right ) \right )v
+\]
+and \eqref{EquExpressionCLambda} follows.
+\end{proof}
+%%
+
+
+%%--------------------------------------
+%%-------- Bibliographie ---------------
+%%--------------------------------------
+
+
+\begin{thebibliography}{999}
+
+
+
+\bibitem{BenLemMie08} M. Bennoune, M. Lemou, L. Mieussens, Uniformly stable numerical scheme for the Boltzmann equation preserving compressible Navier-Stokes asymptotics, J. Comput. Phys. 227(2008) 3781-3803.
+
+
+\bibitem{BosAsyAna} M. Bostan, {The Vlasov-Poisson system with strong external magnetic field. Finite Larmor radius regime}, Asymptot. Anal., 61(2009) 91-123.
+
+
+\bibitem{BosTraSin} {M. Bostan}, {Transport equations with disparate advection fields. Application to the gyrokinetic models in plasma physics}, J. Differential Equations 249(2010) 1620-1663.
+
+
+\bibitem{BosGuidCent3D} {M. Bostan}, {Gyrokinetic Vlasov equation in three dimensional setting. Second order approximation}, SIAM J. Multiscale Model. Simul. 8(2010) 1923-1957.
+
+
+\bibitem{Bos12} {M. Bostan}, {Transport of charged particles under fast oscillating magnetic fields}, SIAM J. Math. Anal. 44(2012) 1415-1447.
+
+
+\bibitem{CroLem11} N. Crouseilles, M. Lemou, {An asymptotic preserving scheme based on a micro-macro decomposition for collisional Vlasov equations: diffusion and high-field scaling limits}, Kinet. Relat. Models 4(2011) 441-477.
+
+
+\bibitem{FreSon98} {E. Fr\'enod, E. Sonnendr\"ucker},
+{Homogenization of the Vlasov equation and of the Vlasov-Poisson
+system with strong external magnetic field}, Asymptotic Anal.
+18(1998) 193-213.
+
+
+\bibitem{FreSon01} {E. Fr\'enod, E. Sonnendr\"ucker}, The finite
+Larmor radius approximation, SIAM J. Math. Anal. 32(2001) 1227-1247.
+
+
+%\bibitem{GraBruBer06} V. Grandgirard, M. Brunetti, P. Bertrand, N.
+%Besse, X. Garbet, P. Ghendrih, G. Manfredi, Y. Sarazin, O. Sauter,
+%E. Sonnendr\"ucker, J. Vaclavik, L. Villard, A drift-kinetic
+%semi-Lagrangian 4D code for ion turbulence simulation, J. Comput.
+%Phys. 217(2006) 395-423.
+
+
+\bibitem{HazMei03} R.D. Hazeltine, J.D. Meiss, Plasma confinement, Dover Publications, Inc. Mineola, New York, 2003.
+
+
+\bibitem{JinParTos00} S. Jin, L. Pareschi, G. Toscani, Uniformly accurate diffusive relaxation schemes for multiscale transport equations, SIAM J. Num. Anal. 38(2000) 913-936.
+
+
+\bibitem{Kla98} A. Klar, An asymptotic-induced scheme for nonstationary transport equations in the diffusion limit, SIAM J. Num. Anal. 35(1998) 1073-1094.
+
+
+\bibitem{Kla99} A. Klar, An asymptotic preserving numerical scheme for kinetic equations in the low Mach number limit, SIAM J. Num. Anal. 36(1999) 1507-1527.
+
+
+\bibitem{LemMie08} M. Lemou, L. Mieussens, A new asymptotic preserving scheme based on micro-macro formulation for linear kinetic equations in the diffusion limit, SIAM J. Sci. Comp. 31(2008) 334-368.
+
+
+\bibitem{Lem10} M. Lemou, Relaxed micro-macro schemes for kinetic equations, C. R. Acad. Sci. Paris, S\'er. I Math. 348(2010) 455-460.
+
+
+
+\end{thebibliography}
+
+\end{document}
+
+
+
+
+%%----------------------------------------------------------
+%%------------ Exemples de solutions exactes ---------------
+%%----------------------------------------------------------
+
+For further comparison of the numerical solutions, it is useful to introduce exact solutions for the Vlasov equation \eqref{Equ55}, for any $\eps >0$. For example, when the electric field vanishes and the magnetic field is homogeneous, we consider two classes of exact solutions (see Appendix \ref{B} for the proof).
+
+\begin{pro}
+\label{ExactSol} Assume that $E = 0$ and $\nabla _x B = 0$.\\
+1. (space homogeneous solution) If the initial condition is 
+\[
+f^{\mathrm{in}} (x,v) = \frac{1}{2\pi} \exp \left (- \frac{|v|^2}{2}   \right ) ( 1 + v_1 )
+\]
+then the solution of \eqref{Equ55} is 
+\[
+\fe(t,x,v) = \frac{1}{2\pi} \exp \left (- \frac{|v|^2}{2}   \right ) \left [ 1 + \cos \left ( \frac{\omega _c}{\eps ^2} t \right ) v_1 - \sin \left ( \frac{\omega _c}{\eps ^2} t \right ) v_2 \right ].
+\]
+The average and the fluctuation around the average are
+\[
+\geps (t)  = \ave{\fe (t)}=  \frac{1}{2\pi} \exp \left (- \frac{|v|^2}{2}   \right )
+\]
+%%
+\[
+\re (t) = \fe (t) - \ave{\fe (t)} = \frac{1}{2\pi} \exp \left (- \frac{|v|^2}{2}   \right ) \left [  \cos \left ( \frac{\omega _c}{\eps ^2} t \right ) v_1 - \sin \left ( \frac{\omega _c}{\eps ^2} t \right ) v_2  \right ].
+\] 
+%2. (stationary solution) If the initial condition is
+%\[
+%\fine (x,v) = \frac{1}{2\pi} \exp \left (- \frac{|v|^2}{2}   \right ) \left [ 1 + \alpha \cos \left ( x_1 + \frac{\eps}{\omega _c} v_2 \right ) \right ]
+%\]
+%then the solution of \eqref{Equ55} is $ \fe(t,x,v)  = \fine (x,v) $. The average and the fluctuation around the average are
+%\[
+%\geps = \ave{\fe } =  \frac{1}{2\pi} \exp \left (- \frac{|v|^2}{2}   \right ) \left [ 1 + \alpha J_0 \left ( \frac{\eps}{\omega _c} |v| \right ) \;\cos x_1 \right ]
+%\]
+%%
+%\[
+%\re = \fe - \ave{\fe} = \frac{1}{2\pi} \exp \left (- \frac{|v|^2}{2}   \right ) \alpha \left [ \cos \left ( x_1 + \frac{\eps}{\omega _c} v_2 \right )  -  J_0 \left ( \frac{\eps}{\omega _c} |v| \right ) \;\cos x_1  \right ]
+%\]
+%%
+2. If the initial condition is
+\[
+\fine (x,v) = \frac{1}{2\pi} \exp \left (- \frac{|v|^2}{2}   \right ) \left ( 1 + \beta \cos x_1 \right )
+\]
+then the solution of \eqref{Equ55} is 
+\[
+\fe  = \frac{1}{2\pi} \exp \left (- \frac{|v|^2}{2}   \right ) \left [ 1 + \beta \cos \left ( x_1   + \frac{\eps}{\omega _c }v_2 - \frac{\eps}{\omega _c} \left (  \sin \left (\frac{\omega _c t }{ \eps ^2}   \right ) v_1 +  \cos  \left (\frac{\omega _c t }{ \eps ^2}   \right ) v_2 \right )   \right )  \right ].
+\]
+The average and the fluctuation around the average are
+\[
+\geps = \ave{\fe } =  \frac{1}{2\pi} \exp \left (- \frac{|v|^2}{2}   \right ) \left [ 1 + \beta J_0 \left ( \frac{2\eps}{|\omega _c|}\left | \sin \left ( \frac{\omega _c t }{2 \eps ^2 } \right )   \right | |v| \right ) \;\cos x_1 \right ]
+\]
+%%
+\begin{eqnarray}
+\re & = &  \fe - \ave{\fe} \nonumber \\
+& = &  \frac{1}{2\pi} \exp \left (- \frac{|v|^2}{2}   \right ) \beta  \cos \left ( x_1 + \frac{\eps}{\omega _c} v_2  - \frac{\eps}{\omega _c} \left (  \sin \left (\frac{\omega _c t }{ \eps ^2}   \right ) v_1 +  \cos  \left (\frac{\omega _c t }{ \eps ^2}   \right ) v_2 \right ) \right  ) \nonumber \\
+&  - &  \frac{1}{2\pi} \exp \left (- \frac{|v|^2}{2}   \right ) \beta  J_0 \left ( \frac{2\eps}{|\omega _c|}\left | \sin \left ( \frac{\omega _c t }{2 \eps ^2 } \right )   \right | |v| \right ) \;\cos x_1  \nonumber 
+\end{eqnarray}
+where $J_0$ is the Bessel function
+\[
+J_0 (r) : =  \frac{1}{2\pi} \int _0 ^{2\pi} e ^ { - i r \cos \theta } \;\mathrm{d}\theta = \frac{1}{2\pi} \int _0 ^{2\pi} \cos ( r \cos \theta) \;\mathrm{d}\theta.
+\]
+\end{pro}
+
+
+\section{Exact solutions}
+\label{B}
+\begin{proof} (of Proposition \ref{ExactSol}) 
+When the electric field vanishes and the magnetic field is space homogeneous, we determine easily the flow associated to the advection operator $\frac{v}{\eps} \cdot \nabla _x  + \frac{\omega _c}{\eps ^2} \;^\perp v \cdot \nabla _v $ appearing in \eqref{Equ55}. Actually it is easily seen that $ x + \frac{\eps}{\omega _c } \;^\perp v, |v|$ are left invariant by the flow
+\[
+\frac{d{\cal X}}{ds} = \frac{{\cal V}(s)}{\eps},\;\;\frac{d{\cal V}}{ds} = \frac{\omega _c}{\eps ^2} \;^\perp {\cal V}(s)
+\]
+%%
+\[
+{\cal X}(0;x,v) = x, {\cal V}(0;x,v) = v
+\]
+and we deduce that 
+\begin{equation}\nonumber
+{\cal X}(s;x,v) = x + \frac{\eps}{\omega _c} \left (
+\begin{array}{lll}
+\sin \left (\frac{\omega _c }{\eps ^2} s   \right )  &  1 - \cos \left (\frac{\omega _c }{\eps ^2} s   \right )\\
+\cos \left (\frac{\omega _c }{\eps ^2} s   \right ) - 1  &\;\;\;   \sin \left (\frac{\omega _c }{\eps ^2} s   \right )
+\end{array}
+\right )\;v
+\end{equation}
+and
+\[
+{\cal V}(s;x,v)  = {\cal R} \left ( - \frac{\omega _c}{\eps ^2} s \right ) \;v.
+\]
+Therefore the exact solution of the Vlasov equation \eqref{Equ55} is given 
+\[
+\fe (t,x,v) = \fin ( {\cal X}(-t;x,v), {\cal V}(-t;x,v))
+\]
+and the assertions of 1. come immediately. 
+Notice that the initial condition in 2 writes
+\[
+\fine (x,v) = \frac{1}{2\pi}  \exp \left (- \frac{|v|^2}{2}   \right )\left [ 1 + \beta \cos \left ( x_1 + \frac{\eps}{\omega _c} v_2 - \frac{\eps}{\omega _c }v_2 \right ) \right ].
+\]
+Since $|v|$ and $x_1 + \frac{\eps}{\omega _c} v_2$ are left invariant by the flow $({\cal X}, {\cal V})$, we have
+\begin{eqnarray}
+\fe  & = &  \frac{1}{2\pi} \exp \left (- \frac{|v|^2}{2}   \right ) \left [ 1 + \beta \cos \left ( x_1   + \frac{\eps}{\omega _c }v_2 - \frac{\eps}{\omega _c} {\cal V}_2 ( -t;x,v) \right ) \right ] \nonumber \\
+& = & \frac{1}{2\pi} \exp \left (- \frac{|v|^2}{2}   \right ) \left [ 1 + \beta \cos \left ( \frac{\eps}{\omega _c} v_2 - \frac{\eps}{\omega _c} {\cal V}_2 ( -t;x,v) \right ) \cos x_1\right ]\nonumber \\
+&  - &  \frac{1}{2\pi} \exp \left (- \frac{|v|^2}{2}   \right )\beta \sin \left ( \frac{\eps}{\omega _c} v_2 - \frac{\eps}{\omega _c} {\cal V}_2 ( -t;x,v) \right ) \sin x_1. \nonumber
+\end{eqnarray}
+We are done if we compute the average of the functions 
+\[
+(x,v) \to \cos \left ( \frac{\eps}{\omega _c} v_2 - \frac{\eps}{\omega _c} {\cal V}_2 ( -t;x,v) \right ),\;\;(x,v) \to \sin \left ( \frac{\eps}{\omega _c} v_2 - \frac{\eps}{\omega _c} {\cal V}_2 ( -t;x,v) \right )
+\]
+for any fixed $t \in \R_+$. Observe that we have
+\[
+{\cal R}(\alpha ) v - {\cal V}(-t;x, {\cal R}(\alpha ) v ) = 2 \sin \left ( \frac{\omega _c t }{2 \eps ^2}\right ) {\cal R} \left ( \frac{\omega _c t }{2 \eps ^2} - \frac{\pi}{2} + \alpha   \right ) v
+\]
+and therefore
+\[
+\ave{\cos \left ( \frac{\eps}{\omega _c} v_2 - \frac{\eps}{\omega _c} {\cal V}_2 ( -t;x,v) \right )} = \ave{\cos \left (  \frac{2\eps}{\omega _c} \sin \left (  \frac{\omega _c t}{2 \eps ^2}  \right )v_2   \right )}
+\]
+%%
+\[
+\ave{\sin \left ( \frac{\eps}{\omega _c} v_2 - \frac{\eps}{\omega _c} {\cal V}_2 ( -t;x,v) \right )} = \ave{\sin \left (  \frac{2\eps}{\omega _c} \sin \left (  \frac{\omega _c t}{2 \eps ^2}  \right )v_2   \right )}.
+\]
+Based on the formula
+\[
+\ave{\cos \left ( \gamma v_2 \right )} = J_0 \left ( |\gamma | \;|v| \right ),\;\;\ave{\sin \left ( \gamma v_2 \right ) } = 0,\;\;\gamma \in \R
+\]
+we obtain
+\[
+\ave{\cos \left ( \frac{\eps}{\omega _c} v_2 - \frac{\eps}{\omega _c} {\cal V}_2 ( -t;x,v) \right )} = J_0 \left ( \frac{2\eps}{|\omega _c|}\left | \sin \left ( \frac{\omega _c t }{2 \eps ^2 } \right )   \right | |v| \right )
+\]
+%%
+\[
+\ave{\sin \left ( \frac{\eps}{\omega _c} v_2 - \frac{\eps}{\omega _c} {\cal V}_2 ( -t;x,v) \right )} =0
+\]
+and the last assertions in 2. follow.
+\end{proof}
+
+
