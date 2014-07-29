@@ -1,17 +1,23 @@
-function [u,K,x,r]=solve_mH1(dx,lambda, nu)
+function [e1, e2, A,B,C,D,precond, x]=solve_mH1(dx,lambda, nu)
 %mesh generation
 L=2;
 H=10;
 
 x=-L:dx:H;
 
-tic
-K=construct_block_matrix(x,nu,lambda);
+
+[A,B,C,D]=construct_block_matrix(x,nu,lambda);
+
+
 r=construct_rhs(x);
-toc
-disp( "formed the matrix and the RHS");
+
+
+N=length(x);
+
 tic
-u=K\r;
+precond=schur_diagonal_precond(A,B,C,D);
+diagon_precond=@(x)precond.*x;
+[e1, e2]=solve_block_system(A,B,C,D,r(1:N), r((N+1):end),diagon_precond);
 toc
 end
 
@@ -92,7 +98,7 @@ function M=mass_matrixP1P1_scaled(x, func_kernel, nq)
 
 %nq is a number of quadrature points
     if(~nargin<3)
-        nq=5;
+        nq=2;
     end
     diagon=zeros(length(x),1);
     subdiagon=zeros(length(x)-1,1);
@@ -107,8 +113,13 @@ function M=mass_matrixP1P1_scaled(x, func_kernel, nq)
     quad_pts_current=@(a,b,quad_pts)(b-a)./2*quad_pts+(a+b)./2;
     w_current=@(a,b,w)(b-a)./2*w;
 
+
     if length(nq)==1
         [quad_pts,w]=lgwt(nq, -1, 1);
+
+
+
+
         for j=2:1:length(x)
             %integrate 1st part of diagonal ('left hat') and the subdiagonal
             %1) translate the quadrature points
@@ -146,20 +157,33 @@ function M=mass_matrixP1P1_scaled(x, func_kernel, nq)
 end
 
 
-function K=construct_block_matrix(x,nu,lambda)
+function [A,B,C,D]=construct_block_matrix(x,nu,lambda)
     L=length(x);
     K=zeros(2*L,2*L);
-    Mdelta=mass_matrixP1P1_scaled(x, @delta, 3);
-    Malpha=mass_matrixP1P1_scaled(x,@alpha,3);
-    M=mass_matrixP1(x);
-    S=K_lpl(x);
-    K(1:L,1:L)=-Malpha-1i*nu*M;
-    K(1:L,(L+1):(2*L))=-1i*Mdelta;
-    K((L+1):(2*L),1:L)=1i*Mdelta;
-    K((L+1):(2*L),(L+1):(2*L))=S-Malpha-1i*nu*M;
-    %adding a boundary condition
+    
+    Mdelta=mass_matrixP1P1_scaled(x, @delta,3);
 
-    K(L+1,L+1)=K(L+1,L+1)-1i*lambda;
+    Malpha=mass_matrixP1P1_scaled(x,@alpha,3);
+
+    M=mass_matrixP1(x);
+
+    S=K_lpl(x);
+
+ %   K(1:L,1:L)=sparse(-Malpha-1i*nu*M);
+ %   K(1:L,(L+1):(2*L))=sparse(-1i*Mdelta);
+ %   K((L+1):(2*L),1:L)=sparse(1i*Mdelta);
+ %   K((L+1):(2*L),(L+1):(2*L))=sparse(S-Malpha-1i*nu*M);
+    %adding a boundary condition
+ %   K(L+1,L+1)=K(L+1,L+1)-1i*lambda;
+
+A=sparse(-Malpha-1i*nu*M);
+B=sparse(-1i*Mdelta);
+C=sparse(1i*Mdelta);
+D=sparse(S-Malpha-1i*nu*M);
+%adding a boundary condition
+
+D(1,1)=D(1,1)-1i*lambda;
+
 end
 
 function b=construct_rhs(x)
@@ -167,6 +191,118 @@ function b=construct_rhs(x)
 b(length(x)+1)=-2*1i*sqrt(2)*exp(1i*sqrt(2)*(-22));
 
 end
+
+
+
+
+
+%multiplies (A-BD^{-1}C)x
+function r=multiply_schur_complement(A,B,C,D,x)
+
+r1=A*x;
+
+r_a1=C*x;
+
+
+r_a2=D\r_a1;
+
+r2=B*r_a2;
+r=r1-r2;
+end
+
+
+%computes the diagonal elements of the inverse of the tridiagonal matrix D
+%(Rybicky-Hummer http://www.lanl.gov/DLDSTP/fast/diagonal.pdf)
+function lambda=compute_diag_inv(D)
+  b=diag(D);
+  a=-[0; diag(D,-1)];
+  c=-[diag(D,+1); 0];
+  n=length(D);
+  e=zeros(n+1,1);
+  d=zeros(n+1,1);
+  e(n+1)=0;
+  d(1)=0;
+  for k=n:-1:1
+  e(k)=a(k)./(b(k)-c(k)*e(k+1));
+  end
+  for k=2:1:n+1
+  d(k)=c(k-1)./(b(k-1)-a(k-1)*d(k-1));
+  end
+  lambda=zeros(n,1);
+  lambda(1:1:end)=(1-d(2:1:end).*e(2:1:end)).^(-1).*(b(1:1:end)-a(1:1:end).*d(1:1:end-1)).^(-1);
+end
+
+
+%forms the diagonal preconditioner for A-BD^{-1}C
+function p=schur_diagonal_precond(A,B,C,D)
+  dd=compute_diag_inv(D);
+  ad=diag(A);
+  bd=diag(B);
+  cd=diag(C);
+  p=ad-bd.*dd.*cd;
+end
+%solves the block system
+%Ax+By=alpha
+%Cx+Dy=beta
+%by Schur complement and GMRES
+function [x,y]=solve_block_system(A,B,C,D,alpha,beta,diagon_precond)
+%first solve the system (A-BD^{-1}C)x=alpha-BD^{-1}beta
+%1. form the rhs
+f=D\beta;
+rhs=alpha-B*f;
+%2. solve the system with GMRES
+
+mv=@(x)multiply_schur_complement(A,B,C,D,x);
+
+%maxit num : 40
+%gmres iteration restart: 5 is numerically good for the case without the preconditioner as well
+  [x, flag, relres, iter, resvec] = gmres(mv, rhs, 5, [], 40,diagon_precond);
+
+%for debugging purposes
+display "gmres res: ";
+display(flag);
+display(iter);
+display(relres);
+
+
+%next solve the remaining system Dy=-Cx+beta;
+
+rhs=-C*x+beta;
+y=D\rhs;
+
+end
+
+  
+  %solves the same system with the help of stabilized biconjugate gradients
+  function [x,y]=solve_block_system_bicg(A,B,C,D,alpha,beta,diagon_precond)
+  %first solve the system (A-BD^{-1}C)x=alpha-BD^{-1}beta
+  %1. form the rhs
+  f=D\beta;
+  rhs=alpha-B*f;
+  %2. solve the system with GMRES
+  
+  mv=@(x)multiply_schur_complement(A,B,C,D,x);
+  
+  [x, flag, relres, iter, resvec] =bicgstab(mv,rhs,[],[],diagon_precond);
+
+  display "bicgstab res: ";
+  display(flag);
+  display(iter);
+  display(relres);
+  
+  
+  %next solve the remaining system Dy=-Cx+beta;
+  
+  rhs=-C*x+beta;
+  y=D\rhs;
+  
+  end
+  
+  
+  
+
+
+
 
 
 
