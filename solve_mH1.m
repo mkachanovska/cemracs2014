@@ -1,13 +1,14 @@
-function [e1, e2, A,B,C,D,precond, x]=solve_mH1(dx,lambda, nu)
+function [e1, e2, A,B,C,D,precond, x,]=solve_mH1(dx,lambda, nu)
 %mesh generation
 L=2;
 H=10;
 
 x=-L:dx:H;
 
-
+tic
 [A,B,C,D]=construct_block_matrix(x,nu,lambda);
-
+toc
+display "for construction of the matrix"
 
 r=construct_rhs(x);
 
@@ -19,6 +20,7 @@ precond=schur_diagonal_precond(A,B,C,D);
 diagon_precond=@(x)precond.*x;
 [e1, e2]=solve_block_system(A,B,C,D,r(1:N), r((N+1):end),diagon_precond);
 toc
+display
 end
 
 
@@ -117,9 +119,6 @@ function M=mass_matrixP1P1_scaled(x, func_kernel, nq)
     if length(nq)==1
         [quad_pts,w]=lgwt(nq, -1, 1);
 
-
-
-
         for j=2:1:length(x)
             %integrate 1st part of diagonal ('left hat') and the subdiagonal
             %1) translate the quadrature points
@@ -156,14 +155,80 @@ function M=mass_matrixP1P1_scaled(x, func_kernel, nq)
     M=sparse(diag(diagon)+diag(subdiagon,-1)+diag(subdiagon,1));
 end
 
+% a (presumably) faster implementaiton of mass_matrixP1P1_scaled
+function M=mass_matrixP1P1_scaled_fast(x, func_kernel, nq)
+
+fleft_diagon=@(x_left,x_center,x)func_kernel(x).*(x-x_left).^2./(x_center-x_left).^2;
+fright_diagon=@(x_center,x_right,x)func_kernel(x).*(x-x_right).^2./(x_right-x_center).^2;
+
+
+fsubdiagon=@(x_left,x_right,x)-func_kernel(x).*bsxfun(@rdivide,bsxfun(@minus,x,x_left).*bsxfun(@minus,x,x_right),(x_right-x_left).^2);
+
+
+%nq is a number of quadrature points
+if(~nargin<3)
+nq=2;
+end
+
+diagon=zeros(1,length(x));
+subdiagon=zeros(1,length(x)-1);
+
+
+%translating quadpoints
+quad_pts_current=@(a,b,quad_pts)(b-a)./2*quad_pts+(a+b)./2;
+w_current=@(a,b,w)(b-a)./2*w;
+
+
+[quad_pts,w]=lgwt(nq, -1, 1);
+quad_pts=quad_pts';
+w=w';
+W=@(weights)w_current(x(1:1:end-1)',x(2:1:end)',weights);
+
+weight_matrix=W(w);
+
+Q=quad_pts_current(x(1:1:end-1)',x(2:1:end)',quad_pts);
+
+
+
+%form the matrix (length(x)-1)\times nq
+%consisting of the evaluations of fleft_diagon in the quad point inside the intervals [x_i,x_i+1]
+func_interval_evaluator=@(q)fleft_diagon(x(1:1:end-1)',x(2:1:end)',q);
+Mleft=zeros(length(x)-1,nq);
+Mleft(1:1:(length(x)-1),:)=func_interval_evaluator(Q);
+
+result=bsxfun(@times,weight_matrix,Mleft);
+
+diagon_left=sum(result.');
+
+                
+%similarly for fright_diagon
+func_interval_evaluator=@(q)fright_diagon(x(1:1:end-1)',x(2:1:end)',q);
+Mleft(1:1:(length(x)-1),:)=func_interval_evaluator(Q);
+result=bsxfun(@times,weight_matrix,Mleft);
+diagon_right=sum(result.');
+                 
+diagon(1)=diagon_right(1);
+diagon(2:1:end-1)=diagon_right(2:1:end)+diagon_left(1:1:end-1);
+diagon(end)=diagon_left(end);
+                 
+func_interval_evaluator=@(q)fsubdiagon(x(1:1:end-1)',x(2:1:end)',q);
+
+Mleft(1:1:(length(x)-1),1:end)=func_interval_evaluator(Q);
+result=bsxfun(@times,weight_matrix,Mleft);
+subdiagon=sum(result.');
+
+M=sparse(diag(diagon)+diag(subdiagon,-1)+diag(subdiagon,1));
+
+
+end
 
 function [A,B,C,D]=construct_block_matrix(x,nu,lambda)
     L=length(x);
     K=zeros(2*L,2*L);
     
-    Mdelta=mass_matrixP1P1_scaled(x, @delta,3);
+    Mdelta=mass_matrixP1P1_scaled_fast(x, @delta,3);
 
-    Malpha=mass_matrixP1P1_scaled(x,@alpha,3);
+    Malpha=mass_matrixP1P1_scaled_fast(x,@alpha,3);
 
     M=mass_matrixP1(x);
 
@@ -203,7 +268,6 @@ r1=A*x;
 
 r_a1=C*x;
 
-
 r_a2=D\r_a1;
 
 r2=B*r_a2;
@@ -241,6 +305,8 @@ function p=schur_diagonal_precond(A,B,C,D)
   cd=diag(C);
   p=ad-bd.*dd.*cd;
 end
+  
+  
 %solves the block system
 %Ax+By=alpha
 %Cx+Dy=beta
