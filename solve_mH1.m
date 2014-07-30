@@ -1,4 +1,4 @@
-function [e1, e2, A,B,C,D,precond, x,]=solve_mH1(dx,lambda, nu)
+function [e1, e2, A,B,C,D,precond, x, M, G, Morig, Gorig]=solve_mH1(dx,lambda, nu)
 %mesh generation
 L=2;
 H=10;
@@ -8,9 +8,10 @@ x=-L:dx:H;
 tic
 [A,B,C,D]=construct_block_matrix(x,nu,lambda);
 toc
-display "for construction of the matrix"
+display ("for the construction of the matrix");
 
 r=construct_rhs(x);
+
 
 
 N=length(x);
@@ -20,29 +21,40 @@ precond=schur_diagonal_precond(A,B,C,D);
 diagon_precond=@(x)precond.*x;
 [e1, e2]=solve_block_system(A,B,C,D,r(1:N), r((N+1):end),diagon_precond);
 toc
-display
+display(" for the solution of the system of eqs");
 end
 
 
 function a=alpha(x)
-
+if length(x)==1
     if x<=-1 a=1;
     elseif x<=3 a=-x;
     else a=-3;
     end
-
-a=4;
+else
+a=zeros(size(x));
+a(x<=-1)=1;
+P=(x<=3)&(x>-1);
+a(P)=-x(P);
+a(x>3)=-3;
+end
 
 end
 
 function delta=delta(x)
-
+if length(x)==1
     if x<=-1 delta=0;
     elseif x<=3 delta=0.5*(x+1);
     else delta = 2;
     end
+else
+delta=zeros(size(x));
+delta(x<=-1)=0;
+P=(x<=3)&(x>-1);
+delta(P)=0.5*(x(P)+1);
+delta(x>3)=2;
+end
 
-delta=sqrt(8);
 
 
 end
@@ -158,8 +170,8 @@ end
 % a (presumably) faster implementaiton of mass_matrixP1P1_scaled
 function M=mass_matrixP1P1_scaled_fast(x, func_kernel, nq)
 
-fleft_diagon=@(x_left,x_center,x)func_kernel(x).*(x-x_left).^2./(x_center-x_left).^2;
-fright_diagon=@(x_center,x_right,x)func_kernel(x).*(x-x_right).^2./(x_right-x_center).^2;
+fleft_diagon=@(x_left,x_center,x)bsxfun(@rdivide, func_kernel(x).*(bsxfun(@minus, x, x_left)).^2, (x_center-x_left).^2);
+fright_diagon=@(x_center,x_right,x)bsxfun(@rdivide, func_kernel(x).*(bsxfun(@minus, x, x_right)).^2,(x_right-x_center).^2);
 
 
 fsubdiagon=@(x_left,x_right,x)-func_kernel(x).*bsxfun(@rdivide,bsxfun(@minus,x,x_left).*bsxfun(@minus,x,x_right),(x_right-x_left).^2);
@@ -175,8 +187,8 @@ subdiagon=zeros(1,length(x)-1);
 
 
 %translating quadpoints
-quad_pts_current=@(a,b,quad_pts)(b-a)./2*quad_pts+(a+b)./2;
-w_current=@(a,b,w)(b-a)./2*w;
+quad_pts_current=@(a,b,quad_pts)bsxfun(@plus,bsxfun(@minus,b,a)./2*quad_pts,bsxfun(@plus,b,a)./2);
+w_current=@(a,b,w)bsxfun(@minus,b,a)./2*w;
 
 
 [quad_pts,w]=lgwt(nq, -1, 1);
