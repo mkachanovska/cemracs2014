@@ -1,15 +1,21 @@
-function [e1, e2, A,B,D,x]=solve_mH1(dx,lambda, nu)
+function [e1, e2, A,B,D,x, e11, e21]=solve_mH1(dx,lambda, nu, uniform)
 %mesh generation
-L=2;
+L=20;
 H=10;
-
+if uniform
 x=-L:dx:H;
+else
+phi=-pi/2:dx:pi/2;
+ x=(H+L)*sin(phi)/2.0+(H-L)./2.0;
+ %x=-L:dx/2.0:H/2;
+ %x=[x (H./2+dx):dx:H];
 
+end
 tic
 [A,B,D]=construct_block_matrix(x,nu,lambda);
 time_passed=toc();
 display (strcat(num2str(time_passed)," for the construction of the matrix"));
-p=schur_diagonal_precond(A,B,-1i*B,D);
+p=schur_diagonal_precond(A,B,B,D);
 r=construct_rhs(x);
 
 
@@ -17,8 +23,9 @@ r=construct_rhs(x);
 N=length(x);
 
 tic
-[e1, e2]=solve_block_system(A,B,D,r(1:N), r((N+1):end),p);
-time_passed=toc()
+[e1, e2]=solve_block_system_gmres(A,B,D,r);%(A,B,B,D,r(1:N), r((N+1):end),p);
+[e11,e21]=solve_block_system_naively(A,B,D,r(1:N), r((N+1):end),p);
+time_passed=toc();
 display(strcat(num2str(time_passed)," for the solution of the system of eqs"));
 
 end
@@ -33,9 +40,9 @@ a=zeros(size(x));
 %P=(x<=3)&(x>-1);
 %a(P)=-x(P);
 %a(x>3)=-3;
-a=x;
+%a=x;
 
-%a=4;
+a=x;
 
 end
 
@@ -180,19 +187,17 @@ fright_diagon=@(x_center,x_right,x)bsxfun(@rdivide, func_kernel(x).*(bsxfun(@min
 
 fsubdiagon=@(x_left,x_right,x)-func_kernel(x).*bsxfun(@rdivide,bsxfun(@minus,x,x_left).*bsxfun(@minus,x,x_right),(x_right-x_left).^2);
 
-
 %nq is a number of quadrature points
-if(~nargin<3)
+if(nargin<3)
 nq=2;
 end
-
-diagon=zeros(1,length(x));
-subdiagon=zeros(1,length(x)-1);
+%diagon=zeros(1,length(x));
+%subdiagon=zeros(1,length(x)-1);
 
 
 %translating quadpoints
 quad_pts_current=@(a,b,quad_pts)bsxfun(@plus,bsxfun(@minus,b,a)./2*quad_pts,bsxfun(@plus,b,a)./2);
-w_current=@(a,b,w)bsxfun(@minus,b,a)./2*w;
+w_current=@(a,b,w)(b-a)./2*w;
 
 
 [quad_pts,w]=lgwt(nq, -1, 1);
@@ -204,17 +209,17 @@ weight_matrix=W(w);
 
 Q=quad_pts_current(x(1:1:end-1)',x(2:1:end)',quad_pts);
 
-
-
 %form the matrix (length(x)-1)\times nq
 %consisting of the evaluations of fleft_diagon in the quad point inside the intervals [x_i,x_i+1]
 func_interval_evaluator=@(q)fleft_diagon(x(1:1:end-1)',x(2:1:end)',q);
 Mleft=zeros(length(x)-1,nq);
 Mleft(1:1:(length(x)-1),:)=func_interval_evaluator(Q);
 
+
 result=bsxfun(@times,weight_matrix,Mleft);
 
 diagon_left=sum(result.');
+
 
                 
 %similarly for fright_diagon
@@ -231,8 +236,8 @@ func_interval_evaluator=@(q)fsubdiagon(x(1:1:end-1)',x(2:1:end)',q);
 
 Mleft(1:1:(length(x)-1),1:end)=func_interval_evaluator(Q);
 result=bsxfun(@times,weight_matrix,Mleft);
-M(1:1:(L-1),2)=sum(result.');
-
+M(1:1:(L-1),2)=(sum(result.'))';
+save('M.mat','M');
 
 
 end
@@ -247,16 +252,16 @@ function [A,B,D]=construct_block_matrix(x,nu,lambda)
     
     Mdelta=mass_matrixP1P1_scaled_fast(x, @delta,4);
 
-    Malpha=mass_matrixP1P1_scaled_fast(x,@alpha,4);
+    Malpha=mass_matrixP1P1_scaled_fast(x, @alpha,4);
+    
     
     M=mass_matrixP1(x);
 
     S=K_lpl(x);
-              
 
-                   A=-Malpha-1i*nu*M;
-                   B=-1i*Mdelta;
-                   D=S-Malpha-1i*nu*M;
+                   A=Malpha+1i*nu*M;
+                   B=1i*Mdelta;
+                   D=S-(Malpha+1i*nu*M);
 %adding a boundary condition
                    D(1,1)=D(1,1)-1i*lambda;
 
@@ -274,13 +279,11 @@ end
 %multiplies (A-BD^{-1}C)x
 
 function r=multiply_schur_complement(A,B,C,D,x)
-r1=multiply_tri_sym(A,x);
-                   n=length(x);
-
-r_a1=multiply_tri_sym(C,x);
-r_a2 = D\r_a1;
-r2=multiply_tri_sym(B,r_a2);
-r=r1-r2;
+                    f1=multiply_tri_sym(C,x);
+                    f2=D\f1;
+                    f=multiply_tri_sym(B,f2);
+                    f0=multiply_tri_sym(A,x);
+                    r=f0-f;              
 end
 
 
@@ -316,47 +319,82 @@ end
   
 %solves the block system
 %Ax+By=a
-  %B'x+Dy=b
+  %B'x+Dy=br
 %by Schur complement and GMRES
-function [x,y]=solve_block_system(A,B,D,a,b, diagon_precond)
+function [x,y]=solve_block_system_naively(A,B,D,a,br)
+  K=zeros(length(A)+length(B));
+  L=length(A);
+  K(1:1:L,1:1:L)=sparse(diag(A(:,1))+diag(A(1:1:L-1,2),-1)+diag(A(1:1:L-1,2),1));
+  K((L+1):1:(2*L),1:1:L)=sparse(diag(B(:,1))+diag(B(1:1:L-1,2),-1)+diag(B(1:1:L-1,2),1));
+  K(1:1:L,(L+1):1:(2*L))=sparse(diag(B(:,1))+diag(B(1:1:L-1,2),-1)+diag(B(1:1:L-1,2),1));
+  K((L+1):1:(2*L), (L+1):1:(2*L))=sparse(diag(D(:,1))+diag(D(1:1:L-1,2),-1)+diag(D(1:1:L-1,2),1));
+  r=[a;br];
+  R=K\r;
+  x=R(1:1:L);
+  y=R((L+1):1:(2*L));
+end
+
+
+function [x,y]=solve_block_system_gmres(A,B,D,rhs)
+mv=@(x)block_mv(A,B,B,D,x);
+[h, flag, relres, iter, resvec] = gmres(mv, rhs, 5, 1e-5, 1000);
+save("h.mat", 'h');
+%for debugging purposes
+display "gmres res: ";
+display(flag);
+display(iter);
+display(relres);
+Lx=length(A);
+Ly=length(B);
+x=h(1:1:Lx);
+y=h((Lx+1):1:(Lx+Ly));
+end
+
+
+
+function [x,y]=solve_block_system(A,B,C,D,a,br, diagon_precond)
   
-  n=length(b);
+n=length(br);
 %transform D into a format known to octave
 Dmat=spdiags([D(:,2) D(:,1) circshift(D(:,2),1)], -1:1, length(D), length(D));
 
-%first solve the system (A-BD^{-1}C)x=a-BD^{-1}b
+%first solve the system (A-BD^{-1}C)x=a-BD^{-1}br
 %1. form the rhs
-  
-  
-f=Dmat\b;
+f=Dmat\br;
+h=multiply_tri_sym(B,f);
+rhs=a-h;
 
-save("f.mat", 'f'); 
-rhs=a-multiply_tri_sym(B,f);
-save("rhs.mat", 'rhs'); 
+ 
   
 %2. solve the system with GMRES
 
-mv=@(x)multiply_schur_complement(A,B,conj(B),Dmat,x);
+mv=@(x)multiply_schur_complement(A,B,C,Dmat,x);
 prec_mul=@(x)diagon_precond.*x;
 
 %maxit num : 40
 %gmres iteration restart: 5 is numerically good for the case without the preconditioner as well
 
 [x, flag, relres, iter, resvec] = gmres(mv, rhs, 5, 1e-12, 40, prec_mul);
-save("x.mat", 'x');
-%for debugging purposes
-display "gmres res: ";
-display(flag);
-display(iter);
-display(relres);
 
 
-%next solve the remaining system Dy=-Cx+b;
 
-rhs=-multiply_tri_sym(conj(B),x)+b;
+%next solve the remaining system Dy=-Cx+br;
+h=multiply_tri_sym(C,x);
+rhs=br-h;
 y=Dmat\rhs;
 
 end
+
+function r=block_mv(A,B,C,D,h)
+Lx=size(A);
+Ly=size(C);
+Lx=Lx(1);
+Ly=Ly(1);
+r1=multiply_tri_sym(A,h(1:1:Lx))+multiply_tri_sym(B, h((Lx+1):1:(Lx+Ly)));
+r2=multiply_tri_sym(C,h(1:1:Lx))+multiply_tri_sym(D, h((Lx+1):1:(Lx+Ly)));
+r=[r1;r2];
+end
+
 
   
 
