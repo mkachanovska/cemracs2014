@@ -20,32 +20,37 @@ tic
 [e1, e2]=solve_block_system(A,B,D,r(1:N), r((N+1):end),p);
 time_passed=toc()
 display(strcat(num2str(time_passed)," for the solution of the system of eqs"));
+
 end
+
+
 
 
 function a=alpha(x)
 
 a=zeros(size(x));
-a(x<=-1)=1;
-P=(x<=3)&(x>-1);
-a(P)=-x(P);
-a(x>3)=-3;
+%a(x<=-1)=1;
+%P=(x<=3)&(x>-1);
+%a(P)=-x(P);
+%a(x>3)=-3;
+a=x;
 
-a=4;
+%a=4;
+
 end
 
 function delta=delta(x)
 
 delta=zeros(size(x));
-delta(x<=-15)=0;
-P=(x>-15)&(x<=0);
-delta(P)=1+x(P)./15;
-P=(x>0)&(x<=3);
-delta(P)=1+x(P)./3;
-delta(x>3)=2;
+%delta(x<=-15)=0;
+%P=(x>-15)&(x<=0);
+%delta(P)=1+x(P)./15;
+%P=(x>0)&(x<=3);
+%delta(P)=1+x(P)./3;
+%delta(x>3)=2;
 
+delta=0;
 
-delta=8;
 end
 
 %since the matrices are symmetric tridiagonal, each matrix constructor returns 
@@ -240,9 +245,9 @@ end
 function [A,B,D]=construct_block_matrix(x,nu,lambda)
               L=length(x);
     
-    Mdelta=mass_matrixP1P1_scaled_fast(x, @delta,3);
+    Mdelta=mass_matrixP1P1_scaled_fast(x, @delta,4);
 
-    Malpha=mass_matrixP1P1_scaled_fast(x,@alpha,3);
+    Malpha=mass_matrixP1P1_scaled_fast(x,@alpha,4);
     
     M=mass_matrixP1(x);
 
@@ -259,8 +264,7 @@ end
 
 function b=construct_rhs(x)
     b=zeros(2*length(x),1);
-b(length(x)+1)=-2*1i*sqrt(2)*exp(1i*sqrt(2)*(-22));
-
+    b(length(x)+1)=-2*1i*sqrt(2)*exp(1i*sqrt(2)*(-22));
 end
 
 
@@ -311,28 +315,24 @@ end
   
   
 %solves the block system
-%Ax+By=alpha
-  %B'x+Dy=beta
+%Ax+By=a
+  %B'x+Dy=b
 %by Schur complement and GMRES
-function [x,y]=solve_block_system(A,B,D,alpha,beta, diagon_precond)
+function [x,y]=solve_block_system(A,B,D,a,b, diagon_precond)
   
-  n=length(beta);
+  n=length(b);
 %transform D into a format known to octave
 Dmat=spdiags([D(:,2) D(:,1) circshift(D(:,2),1)], -1:1, length(D), length(D));
-P=sparse(diag(D(:,1))+diag(D(1:1:length(D)-1,2),-1)+diag(D(1:1:length(D)-1,2),1));
 
-
-q=Dmat-P;
-save('diff.mat', 'q');
-%first solve the system (A-BD^{-1}C)x=alpha-BD^{-1}beta
+%first solve the system (A-BD^{-1}C)x=a-BD^{-1}b
 %1. form the rhs
   
   
-f=Dmat\beta;
+f=Dmat\b;
 
-  
-rhs=alpha-multiply_tri_sym(B,f);
-  
+save("f.mat", 'f'); 
+rhs=a-multiply_tri_sym(B,f);
+save("rhs.mat", 'rhs'); 
   
 %2. solve the system with GMRES
 
@@ -342,8 +342,8 @@ prec_mul=@(x)diagon_precond.*x;
 %maxit num : 40
 %gmres iteration restart: 5 is numerically good for the case without the preconditioner as well
 
-[x, flag, relres, iter, resvec] = gmres(mv, rhs, 5, [], 40, prec_mul);
-
+[x, flag, relres, iter, resvec] = gmres(mv, rhs, 5, 1e-12, 40, prec_mul);
+save("x.mat", 'x');
 %for debugging purposes
 display "gmres res: ";
 display(flag);
@@ -351,9 +351,9 @@ display(iter);
 display(relres);
 
 
-%next solve the remaining system Dy=-Cx+beta;
+%next solve the remaining system Dy=-Cx+b;
 
-rhs=-multiply_tri_sym(-1i*B,x)+beta;
+rhs=-multiply_tri_sym(conj(B),x)+b;
 y=Dmat\rhs;
 
 end
