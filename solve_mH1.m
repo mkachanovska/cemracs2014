@@ -7,36 +7,64 @@ x=-L:dx:H;
 else
 phi=-pi/2:dx:pi/2;
  x=(H+L)*sin(phi)/2.0+(H-L)./2.0;
- %x=-L:dx/2.0:H/2;
- %x=[x (H./2+dx):dx:H];
+
 
 end
 tic
 [A,B,D]=construct_block_matrix(x,nu,lambda);
 time_passed=toc();
 display (strcat(num2str(time_passed)," for the construction of the matrix"));
-p=schur_diagonal_precond(A,B,B,D);
 r=construct_rhs(x);
 
-
-
-N=length(x);
-
 tic
-%[e1, e2]=solve_block_system_gmres(A,B,D,r);%(A,B,B,D,r(1:N), r((N+1):end),p);
-[e1,e2]=solve_block_system(A,B,B,D,r(1:N), r((N+1):end),p);
+[M,rhs]=permute(A,B,D,r);
+sol=M\rhs;
+size(sol)
+size(M)
+size(rhs)
+
+[e1, e2]=permute_solution_back(sol);
+
 time_passed=toc();
 display(strcat(num2str(time_passed)," for the solution of the system of eqs"));
 
-Dmat=spdiags([D(:,2) D(:,1) circshift(D(:,2),1)], -1:1, length(D), length(D));
-Amat=spdiags([A(:,2) A(:,1) circshift(A(:,2),1)], -1:1, length(A), length(A));
-Bmat=spdiags([B(:,2) B(:,1) circshift(B(:,2),1)], -1:1, length(B), length(B));
 
 
 end
 
 
+function [M,rhs]=permute(A,B,D,rhs_old)
+n1=size(A);
+n2=size(B);
+band=zeros(n1(1)+n2(1), 4);%7-diagonal symmetric system
+%column permutation
+%e_new_{j}=e_{1,(j+1)/2} if j is odd
+%e_new_{j}=e_{2,j/2} if j is even
+rhs=zeros(length(rhs_old),1);
+rhs(2)=rhs_old(n1(1)+1);
+%forming the new symmetric matrix, with the row permutation being the same as the column permutation
+%main diagonal
+band(1:2:(end-1),1)=A(:,1);
+band(2:2:end, 1)=D(:,1);
+%subdiagonal
+band(1:2:(end-1),2)=B(:,1);
+band(2:2:(end),2)=B(:,2);
+%subsubiagonal
+band(1:2:(end-1),3)=A(:,2);
+band(2:2:end, 3)=D(:,2);
+%subsubsubdiagonal
+band(1:2:(end-1),4)=B(:,2);
 
+M=spdiags([band(:,4) band(:,3) band(:,2) band(:,1) ...
+  circshift(band(:,2),1) circshift(band(:,3),2) circshift(band(:,4),3)], -3:3, n1(1)+n2(1), n1(1)+n2(1));
+
+
+end
+function [e1, e2]=permute_solution_back(sol)
+e1=sol(1:2:(end-1));
+e2=sol(2:2:end);
+
+end
 
 function a=alpha(x)
 
@@ -45,9 +73,9 @@ a=zeros(size(x));
 %P=(x<=3)&(x>-1);
 %a(P)=-x(P);
 %a(x>3)=-3;
-%a=x;
-
 a=-x;
+
+%a=x.^2+1;
 
 end
 
@@ -60,8 +88,8 @@ delta=zeros(size(x));
 %P=(x>0)&(x<=3);
 %delta(P)=1+x(P)./3;
 %delta(x>3)=2;
-
 delta=0;
+%delta=sqrt((x.^2+1)).*sqrt(x.^2+1+x);
 
 end
 
@@ -347,7 +375,7 @@ end
 
 function [x,y]=solve_block_system_gmres(A,B,D,rhs)
 mv=@(x)block_mv(A,B,B,D,x);
-[h, flag, relres, iter, resvec] = gmres(mv, rhs, 10, 1e-5, 1000);
+[h, flag, relres, iter, resvec] = gmres(mv, rhs, 100, 1e-5, 1000);
 save("h.mat", 'h');
 %for debugging purposes
 display "gmres res: ";
@@ -384,7 +412,7 @@ prec_mul=@(x)diagon_precond.*x;
 %maxit num : 40
 %gmres iteration restart: 5 is numerically good for the case without the preconditioner as well
 
-[x, flag, relres, iter, resvec] = gmres(mv, rhs, 5, 1e-12, 40, prec_mul);
+[x, flag, relres, iter, resvec] = gmres(mv, rhs, 5, 1e-12, 1e4, prec_mul);
 %for debugging purposes
 display "gmres res: ";
 display(flag);
