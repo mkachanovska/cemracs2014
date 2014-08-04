@@ -1,4 +1,4 @@
-function [e1, e2, Amat,Bmat,Dmat,x, e11, e21]=solve_mH1(dx,lambda, nu, uniform)
+function [e1, e2,A,B,D,x]=solve_mH1(dx,lambda, nu, uniform)
 %mesh generation
 L=20;
 H=10;
@@ -18,6 +18,7 @@ r=construct_rhs(x);
 
 tic
 [M,rhs]=permute(A,B,D,r);
+save('M.mat', 'M');
 sol=M\rhs;
 size(sol)
 size(M)
@@ -36,7 +37,7 @@ end
 function [M,rhs]=permute(A,B,D,rhs_old)
 n1=size(A);
 n2=size(B);
-band=zeros(n1(1)+n2(1), 4);%7-diagonal symmetric system
+band=zeros(n1(1)+n2(1), 4);%7-diagonal symmetric system; the 'band' contains the diagonals and subdiagonals
 %column permutation
 %e_new_{j}=e_{1,(j+1)/2} if j is odd
 %e_new_{j}=e_{2,j/2} if j is even
@@ -69,10 +70,10 @@ end
 function a=alpha(x)
 
 a=zeros(size(x));
-%a(x<=-1)=1;
-%P=(x<=3)&(x>-1);
-%a(P)=-x(P);
-%a(x>3)=-3;
+a(x<=-1)=1;
+P=(x<=3)&(x>-1);
+a(P)=-x(P);
+a(x>3)=-3;
 a=-x;
 
 %a=x.^2+1;
@@ -82,15 +83,14 @@ end
 function delta=delta(x)
 
 delta=zeros(size(x));
-%delta(x<=-15)=0;
-%P=(x>-15)&(x<=0);
-%delta(P)=1+x(P)./15;
-%P=(x>0)&(x<=3);
-%delta(P)=1+x(P)./3;
-%delta(x>3)=2;
-delta=0;
+delta(x<=-15)=0;
+P=(x>-15)&(x<=0);
+delta(P)=1+x(P)./15;
+P=(x>0)&(x<=3);
+delta(P)=1+x(P)./3;
+delta(x>3)=2;
 %delta=sqrt((x.^2+1)).*sqrt(x.^2+1+x);
-
+delta=0;
 end
 
 %since the matrices are symmetric tridiagonal, each matrix constructor returns 
@@ -256,6 +256,7 @@ diagon_left=sum(result.');
 
                 
 %similarly for fright_diagon
+
 func_interval_evaluator=@(q)fright_diagon(x(1:1:end-1)',x(2:1:end)',q);
 Mleft(1:1:(length(x)-1),:)=func_interval_evaluator(Q);
 result=bsxfun(@times,weight_matrix,Mleft);
@@ -307,135 +308,6 @@ function b=construct_rhs(x)
 end
 
 
-
-
-
-%multiplies (A-BD^{-1}C)x
-
-function r=multiply_schur_complement(A,B,C,D,x)
-                    f1=multiply_tri_sym(C,x);
-                    f2=D\f1;
-                    f=multiply_tri_sym(B,f2);
-                    f0=multiply_tri_sym(A,x);
-                    r=f0-f;              
-end
-
-
-%computes the diagonal elements of the inverse of the tridiagonal matrix D
-%(Rybicky-Hummer http://www.lanl.gov/DLDSTP/fast/diagonal.pdf)
-function lambda=compute_diag_inv(D)
-  b=D(:,1);
-  n=length(D);
-  a=-[0; D(1:1:n-1,2)];
-  c=-[D(1:1:n-1,2); 0];
-  n=length(D);
-  e=zeros(n+1,1);
-  d=zeros(n+1,1);
-  e(n+1)=0;
-  d(1)=0;
-  for k=n:-1:1
-  e(k)=a(k)./(b(k)-c(k)*e(k+1));
-  end
-  for k=2:1:n+1
-  d(k)=c(k-1)./(b(k-1)-a(k-1)*d(k-1));
-  end
-  lambda=zeros(n,1);
-  lambda(1:1:end)=(1-d(2:1:end).*e(2:1:end)).^(-1).*(b(1:1:end)-a(1:1:end).*d(1:1:end-1)).^(-1);
-end
-
-
-%forms the diagonal preconditioner for A-BD^{-1}C
-function p=schur_diagonal_precond(A,B,C,D)
-  dd=compute_diag_inv(D);
-  p=A(:,1)-B(:,1).*dd.*C(:,1);
-end
-  
-  
-%solves the block system
-%Ax+By=a
-  %B'x+Dy=br
-%by Schur complement and GMRES
-
-
-function [x,y]=solve_block_system_naively(A,B,D,a,br)
-  
-  
-  K=zeros(length(A)+length(B));
-  L=length(A);
-  K(1:1:L,1:1:L)=sparse(diag(A(:,1))+diag(A(1:1:L-1,2),-1)+diag(A(1:1:L-1,2),1));
-  K((L+1):1:(2*L),1:1:L)=sparse(diag(B(:,1))+diag(B(1:1:L-1,2),-1)+diag(B(1:1:L-1,2),1));
-  K(1:1:L,(L+1):1:(2*L))=sparse(diag(B(:,1))+diag(B(1:1:L-1,2),-1)+diag(B(1:1:L-1,2),1));
-  K((L+1):1:(2*L), (L+1):1:(2*L))=sparse(diag(D(:,1))+diag(D(1:1:L-1,2),-1)+diag(D(1:1:L-1,2),1));
-  r=[a;br];
-  R=K\r;
-  x=R(1:1:L);
-  y=R((L+1):1:(2*L));
-end
-
-
-function [x,y]=solve_block_system_gmres(A,B,D,rhs)
-mv=@(x)block_mv(A,B,B,D,x);
-[h, flag, relres, iter, resvec] = gmres(mv, rhs, 100, 1e-5, 1000);
-save("h.mat", 'h');
-%for debugging purposes
-display "gmres res: ";
-display(flag);
-display(iter);
-display(relres);
-Lx=length(A);
-Ly=length(B);
-x=h(1:1:Lx);
-y=h((Lx+1):1:(Lx+Ly));
-end
-
-
-
-function [x,y]=solve_block_system(A,B,C,D,a,br, diagon_precond)
-  
-n=length(br);
-%transform D into a format known to octave
-Dmat=spdiags([D(:,2) D(:,1) circshift(D(:,2),1)], -1:1, length(D), length(D));
-
-%first solve the system (A-BD^{-1}C)x=a-BD^{-1}br
-%1. form the rhs
-f=Dmat\br;
-h=multiply_tri_sym(B,f);
-rhs=a-h;
-
- 
-  
-%2. solve the system with GMRES
-
-mv=@(x)multiply_schur_complement(A,B,C,Dmat,x);
-prec_mul=@(x)diagon_precond.*x;
-
-%maxit num : 40
-%gmres iteration restart: 5 is numerically good for the case without the preconditioner as well
-
-[x, flag, relres, iter, resvec] = gmres(mv, rhs, 5, 1e-12, 1e4, prec_mul);
-%for debugging purposes
-display "gmres res: ";
-display(flag);
-display(iter);
-display(relres);
-
-
-
-%next solve the remaining system Dy=-Cx+br;
-h=multiply_tri_sym(C,x);
-rhs=br-h;
-y=Dmat\rhs;
-end
-
-function r=block_mv(A,B,C,D,h)
-Lx=size(A);
-Ly=size(C);
-Lx=Lx(1);
-Ly=Ly(1);
-r1=multiply_tri_sym(A,h(1:1:Lx))+multiply_tri_sym(B, h((Lx+1):1:(Lx+Ly)));
-r2=multiply_tri_sym(C,h(1:1:Lx))+multiply_tri_sym(D, h((Lx+1):1:(Lx+Ly)));
-r=[r1;r2];
-end
 
 
   
