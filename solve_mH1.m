@@ -1,4 +1,4 @@
-function [e1, e2, A,B,D,x, e11, e21]=solve_mH1(dx,lambda, nu, uniform)
+function [e1, e2, Amat,Bmat,Dmat,x, e11, e21]=solve_mH1(dx,lambda, nu, uniform)
 %mesh generation
 L=20;
 H=10;
@@ -23,10 +23,15 @@ r=construct_rhs(x);
 N=length(x);
 
 tic
-[e1, e2]=solve_block_system_gmres(A,B,D,r);%(A,B,B,D,r(1:N), r((N+1):end),p);
-[e11,e21]=solve_block_system_naively(A,B,D,r(1:N), r((N+1):end),p);
+%[e1, e2]=solve_block_system_gmres(A,B,D,r);%(A,B,B,D,r(1:N), r((N+1):end),p);
+[e1,e2]=solve_block_system(A,B,B,D,r(1:N), r((N+1):end),p);
 time_passed=toc();
 display(strcat(num2str(time_passed)," for the solution of the system of eqs"));
+
+Dmat=spdiags([D(:,2) D(:,1) circshift(D(:,2),1)], -1:1, length(D), length(D));
+Amat=spdiags([A(:,2) A(:,1) circshift(A(:,2),1)], -1:1, length(A), length(A));
+Bmat=spdiags([B(:,2) B(:,1) circshift(B(:,2),1)], -1:1, length(B), length(B));
+
 
 end
 
@@ -42,7 +47,7 @@ a=zeros(size(x));
 %a(x>3)=-3;
 %a=x;
 
-a=x;
+a=-x;
 
 end
 
@@ -269,7 +274,8 @@ end
 
 function b=construct_rhs(x)
     b=zeros(2*length(x),1);
-    b(length(x)+1)=-2*1i*sqrt(2)*exp(1i*sqrt(2)*(-22));
+ %   b(length(x)+1)=-2*1i*sqrt(2)*exp(1i*sqrt(2)*(-22));
+     b(length(x)+1)=(0.17641*i*2-0.89286);
 end
 
 
@@ -321,7 +327,11 @@ end
 %Ax+By=a
   %B'x+Dy=br
 %by Schur complement and GMRES
+
+
 function [x,y]=solve_block_system_naively(A,B,D,a,br)
+  
+  
   K=zeros(length(A)+length(B));
   L=length(A);
   K(1:1:L,1:1:L)=sparse(diag(A(:,1))+diag(A(1:1:L-1,2),-1)+diag(A(1:1:L-1,2),1));
@@ -337,7 +347,7 @@ end
 
 function [x,y]=solve_block_system_gmres(A,B,D,rhs)
 mv=@(x)block_mv(A,B,B,D,x);
-[h, flag, relres, iter, resvec] = gmres(mv, rhs, 5, 1e-5, 1000);
+[h, flag, relres, iter, resvec] = gmres(mv, rhs, 10, 1e-5, 1000);
 save("h.mat", 'h');
 %for debugging purposes
 display "gmres res: ";
@@ -375,6 +385,11 @@ prec_mul=@(x)diagon_precond.*x;
 %gmres iteration restart: 5 is numerically good for the case without the preconditioner as well
 
 [x, flag, relres, iter, resvec] = gmres(mv, rhs, 5, 1e-12, 40, prec_mul);
+%for debugging purposes
+display "gmres res: ";
+display(flag);
+display(iter);
+display(relres);
 
 
 
@@ -382,7 +397,6 @@ prec_mul=@(x)diagon_precond.*x;
 h=multiply_tri_sym(C,x);
 rhs=br-h;
 y=Dmat\rhs;
-
 end
 
 function r=block_mv(A,B,C,D,h)
