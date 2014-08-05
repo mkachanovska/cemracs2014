@@ -1,97 +1,138 @@
-function [e1, e2, A,B,C,D,precond, x, M, G, Morig, Gorig]=solve_mH1(dx,lambda, nu)
+function [e1, e2,M,x]=solve_mH1(dx,lambda, nu, uniform)
 %mesh generation
 L=2;
 H=10;
-
+if uniform
 x=-L:dx:H;
+else
+phi=-pi/2:dx:pi/2;
+ x=(H+L)*sin(phi)/2.0+(H-L)./2.0;
 
+
+end
 tic
-[A,B,C,D]=construct_block_matrix(x,nu,lambda);
-toc
-display ("for the construction of the matrix");
-
+[A,B,D]=construct_block_matrix(x,nu,lambda);
+time_passed=toc();
+display (strcat(num2str(time_passed)," for the construction of the matrix"));
 r=construct_rhs(x);
 
-
-
-N=length(x);
-
 tic
-precond=schur_diagonal_precond(A,B,C,D);
-diagon_precond=@(x)precond.*x;
-[e1, e2]=solve_block_system(A,B,C,D,r(1:N), r((N+1):end),diagon_precond);
-toc
-display(" for the solution of the system of eqs");
+[M,rhs]=permute(A,B,D,r);
+save('M.mat', 'M');
+sol=M\rhs;
+size(sol)
+
+
+[e1, e2]=permute_solution_back(sol);
+
+time_passed=toc();
+display(strcat(num2str(time_passed)," for the solution of the system of eqs"));
+
+
+
 end
 
 
+function [M,rhs]=permute(A,B,D,rhs_old)
+n1=size(A);
+n2=size(B);
+band=zeros(n1(1)+n2(1), 4);%7-diagonal symmetric system; the 'band' contains the diagonals and subdiagonals
+%column permutation
+%e_new_{j}=e_{1,(j+1)/2} if j is odd
+%e_new_{j}=e_{2,j/2} if j is even
+rhs=zeros(length(rhs_old),1);
+rhs(2)=rhs_old(n1(1)+1);
+%forming the new symmetric matrix, with the row permutation being the same as the column permutation
+%main diagonal
+band(1:2:(end-1),1)=A(:,1);
+band(2:2:end, 1)=D(:,1);
+%subdiagonal
+band(1:2:(end-1),2)=B(:,1);
+band(2:2:(end),2)=B(:,2);
+%subsubiagonal
+band(1:2:(end-1),3)=A(:,2);
+band(2:2:end, 3)=D(:,2);
+%subsubsubdiagonal
+band(1:2:(end-1),4)=B(:,2);
+
+M=spdiags([band(:,4) band(:,3) band(:,2) band(:,1) ...
+  circshift(band(:,2),1) circshift(band(:,3),2) circshift(band(:,4),3)], -3:3, n1(1)+n2(1), n1(1)+n2(1));
+
+
+end
+function [e1, e2]=permute_solution_back(sol)
+e1=sol(1:2:(end-1));
+e2=sol(2:2:end);
+
+end
+
+
+
+
+
+
 function a=alpha(x)
-if length(x)==1
-    if x<=-1 a=1;
-    elseif x<=3 a=-x;
-    else a=-3;
-    end
-else
+
 a=zeros(size(x));
 a(x<=-1)=1;
 P=(x<=3)&(x>-1);
 a(P)=-x(P);
 a(x>3)=-3;
-end
+%a=-x;
+
+%a=x.^2+1;
 
 end
 
 function delta=delta(x)
-if length(x)==1
-    if x<=-1 delta=0;
-    elseif x<=3 delta=0.5*(x+1);
-    else delta = 2;
-    end
-else
+
+
 delta=zeros(size(x));
 delta(x<=-1)=0;
 P=(x<=3)&(x>-1);
 delta(P)=0.5*(x(P)+1);
 delta(x>3)=2;
-end
-
-
 
 end
+
+%since the matrices are symmetric tridiagonal, each matrix constructor returns 
+%a vector K of size $L\times 2$, where L is the size of the matrix
+%the K(:,1) is the diagonal
+%K(:,2) contains off-diagonal entries, with the last entry set to zero
+
 
 
 
 %stiffness for P1
 function K=K_lpl(x)
     L=length(x);
-    diagon=zeros(L,1);
-    diagon_und=zeros(L-1,1);
-    diagon(1)=1/(x(2)-x(1));
+    K=zeros(L,2);
 
-    diagon(2:1:end-1)=1./(x(2:1:end-1)-x(1:1:end-2))+1./(x(3:1:end)-x(2:1:end-1));
-    diagon_und(1:1:end)=-1./(x(2:1:end)-x(1:1:end-1));
+    K(1,1)=1/(x(2)-x(1));
 
-    diagon(end)=1./(x(end)-x(end-1));
+    K(2:1:L-1,1)=1./(x(2:1:end-1)-x(1:1:end-2))+1./(x(3:1:end)-x(2:1:end-1));
+    K(1:1:L-1,2)=-1./(x(2:1:end)-x(1:1:end-1));
 
-    K=sparse(diag(diagon)+diag(diagon_und,-1)+diag(diagon_und,1));
+    K(L,1)=1./(x(end)-x(end-1));
+    
+
 end
 
 %mass matrix for P1
-function K=mass_matrixP1(x)
+function M=mass_matrixP1(x)
 
     L=length(x);
-    diagon=zeros(L,1);
-    diagon_und=zeros(L-1,1);
-    diagon(1)=(x(2)-x(1))/3;
+    M=zeros(L,2);
+
+    M(1,1)=(x(2)-x(1))/3;
 
 
-    diagon(2:1:end-1)=(x(2:1:end-1)-x(1:1:end-2))./3+(x(3:1:end)-x(2:1:end-1))./3;
-    diagon_und(1:1:end)=(x(2:1:end)-x(1:1:end-1))./6;
+    M(2:1:(L-1),1)=(x(2:1:end-1)-x(1:1:end-2))./3+(x(3:1:end)-x(2:1:end-1))./3;
+    M(1:1:L-1,2)=(x(2:1:end)-x(1:1:end-1))./6;
 
-    diagon(end)=(x(end)-x(end-1))./3;
+    M(L,1)=(x(end)-x(end-1))./3;
 
 
-    K=sparse(diag(diagon)+diag(diagon_und, -1)+diag(diagon_und, 1));
 end
 
 %mass matrix for piecewise-constants
@@ -102,6 +143,9 @@ end
 
 %matrix M_{ij}=\int\limits_{-L}^{H}func_kernel(x)\phi_i(x) \phi_j(x)
 function M=mass_matrixP1P1_scaled(x, func_kernel, nq)
+
+    L=length(x);
+    M=zeros(L,2);
 
     fleft_diagon=@(x_left,x_center,x)func_kernel(x).*(x-x_left).^2./(x_center-x_left).^2;
     fright_diagon=@(x_center,x_right,x)func_kernel(x).*(x-x_right).^2./(x_right-x_center).^2;
@@ -114,12 +158,10 @@ function M=mass_matrixP1P1_scaled(x, func_kernel, nq)
     if(~nargin<3)
         nq=2;
     end
-    diagon=zeros(length(x),1);
-    subdiagon=zeros(length(x)-1,1);
 
     %first value of the diagonal part is computed separately
     [quad_pts,w]=lgwt(nq(1),x(1),x(2));
-    diagon(1)=w'*fright_diagon(x(1),x(2),quad_pts);
+    M(1,1)=w'*fright_diagon(x(1),x(2),quad_pts);
 
 
 
@@ -137,14 +179,14 @@ function M=mass_matrixP1P1_scaled(x, func_kernel, nq)
             qpts=quad_pts_current(x(j-1),x(j),quad_pts);
             wc=w_current(x(j-1),x(j),w);
             %2) integrate 
-            diagon(j)=wc'*fleft_diagon(x(j-1),x(j),qpts);
+            M(j,1)=wc'*fleft_diagon(x(j-1),x(j),qpts);
 
-            subdiagon(j-1)=wc'*fsubdiagon(x(j-1),x(j),qpts);
+            M(j-1,2)=wc'*fsubdiagon(x(j-1),x(j),qpts);
             %integrate 2nd part (for all values but the last one)
             if j<length(x)
                 qpts=quad_pts_current(x(j),x(j+1),quad_pts);
                 wc=w_current(x(j),x(j+1),w);
-                diagon(j)=diagon(j)+wc'*fright_diagon(x(j),x(j+1),qpts);
+                M(j,1)=M(j,1)+wc'*fright_diagon(x(j),x(j+1),qpts);
             end
         end
        
@@ -152,23 +194,27 @@ function M=mass_matrixP1P1_scaled(x, func_kernel, nq)
     %generate quadrature points for every subinterval separately
         for j=2:1:length(x)
             [qpts,wc]=lgwt(x(j-1),x(j), nq(j));
-            diagon(j)=wc'*fleft_diagon(x(j-1),x(j),qpts);
+            M(j,1)=wc'*fleft_diagon(x(j-1),x(j),qpts);
 
-            subdiagon(j-1)=wc'*fsubdiagon(x(j-1),x(j),qpts);
+            M(j-1,2)=wc'*fsubdiagon(x(j-1),x(j),qpts);
             %integrate 2nd part (for all values but the last one)
             if j<length(x)
                 [qpts,wc]=lgwt(x(j+1),x(j),nq(j));
-                diagon(j)=diagon(j)+wc'*fright_diagon(x(j),x(j+1),qpts);
+                M(j,1)=M(j,1)+wc'*fright_diagon(x(j),x(j+1),qpts);
             end
         end
 
     end
     
-    M=sparse(diag(diagon)+diag(subdiagon,-1)+diag(subdiagon,1));
 end
 
 % a (presumably) faster implementaiton of mass_matrixP1P1_scaled
 function M=mass_matrixP1P1_scaled_fast(x, func_kernel, nq)
+
+L=length(x);
+
+M=zeros(L,2);
+
 
 fleft_diagon=@(x_left,x_center,x)bsxfun(@rdivide, func_kernel(x).*(bsxfun(@minus, x, x_left)).^2, (x_center-x_left).^2);
 fright_diagon=@(x_center,x_right,x)bsxfun(@rdivide, func_kernel(x).*(bsxfun(@minus, x, x_right)).^2,(x_right-x_center).^2);
@@ -176,19 +222,17 @@ fright_diagon=@(x_center,x_right,x)bsxfun(@rdivide, func_kernel(x).*(bsxfun(@min
 
 fsubdiagon=@(x_left,x_right,x)-func_kernel(x).*bsxfun(@rdivide,bsxfun(@minus,x,x_left).*bsxfun(@minus,x,x_right),(x_right-x_left).^2);
 
-
 %nq is a number of quadrature points
-if(~nargin<3)
+if(nargin<3)
 nq=2;
 end
-
-diagon=zeros(1,length(x));
-subdiagon=zeros(1,length(x)-1);
+%diagon=zeros(1,length(x));
+%subdiagon=zeros(1,length(x)-1);
 
 
 %translating quadpoints
 quad_pts_current=@(a,b,quad_pts)bsxfun(@plus,bsxfun(@minus,b,a)./2*quad_pts,bsxfun(@plus,b,a)./2);
-w_current=@(a,b,w)bsxfun(@minus,b,a)./2*w;
+w_current=@(a,b,w)(b-a)./2*w;
 
 
 [quad_pts,w]=lgwt(nq, -1, 1);
@@ -200,182 +244,76 @@ weight_matrix=W(w);
 
 Q=quad_pts_current(x(1:1:end-1)',x(2:1:end)',quad_pts);
 
-
-
 %form the matrix (length(x)-1)\times nq
 %consisting of the evaluations of fleft_diagon in the quad point inside the intervals [x_i,x_i+1]
 func_interval_evaluator=@(q)fleft_diagon(x(1:1:end-1)',x(2:1:end)',q);
 Mleft=zeros(length(x)-1,nq);
 Mleft(1:1:(length(x)-1),:)=func_interval_evaluator(Q);
 
+
 result=bsxfun(@times,weight_matrix,Mleft);
 
 diagon_left=sum(result.');
 
+
                 
 %similarly for fright_diagon
+
 func_interval_evaluator=@(q)fright_diagon(x(1:1:end-1)',x(2:1:end)',q);
 Mleft(1:1:(length(x)-1),:)=func_interval_evaluator(Q);
 result=bsxfun(@times,weight_matrix,Mleft);
 diagon_right=sum(result.');
                  
-diagon(1)=diagon_right(1);
-diagon(2:1:end-1)=diagon_right(2:1:end)+diagon_left(1:1:end-1);
-diagon(end)=diagon_left(end);
+M(1,1)=diagon_right(1);
+M(2:1:L-1,1)=diagon_right(2:1:end)+diagon_left(1:1:end-1);
+M(L,1)=diagon_left(end);
                  
 func_interval_evaluator=@(q)fsubdiagon(x(1:1:end-1)',x(2:1:end)',q);
 
 Mleft(1:1:(length(x)-1),1:end)=func_interval_evaluator(Q);
 result=bsxfun(@times,weight_matrix,Mleft);
-subdiagon=sum(result.');
-
-M=sparse(diag(diagon)+diag(subdiagon,-1)+diag(subdiagon,1));
+M(1:1:(L-1),2)=(sum(result.'))';
+save('M.mat','M');
 
 
 end
-
-function [A,B,C,D]=construct_block_matrix(x,nu,lambda)
-    L=length(x);
-    K=zeros(2*L,2*L);
+%returns the symmetrical tridiagonal matrices for the block matrix
+%(A B)
+%(C D)
+              %A(:,1) are the $L$ diagonal entries of the matrix A
+              %A(:,2) are the $L-1$ offdiagonal entries (and the last entry of the vector is set to zero)
+%C is the complex conjugate of B
+function [A,B,D]=construct_block_matrix(x,nu,lambda)
+              L=length(x);
     
-    Mdelta=mass_matrixP1P1_scaled_fast(x, @delta,3);
+    Mdelta=mass_matrixP1P1_scaled_fast(x, @delta,4);
 
-    Malpha=mass_matrixP1P1_scaled_fast(x,@alpha,3);
-
+    Malpha=mass_matrixP1P1_scaled_fast(x, @alpha,4);
+    
+    
     M=mass_matrixP1(x);
 
     S=K_lpl(x);
 
- %   K(1:L,1:L)=sparse(-Malpha-1i*nu*M);
- %   K(1:L,(L+1):(2*L))=sparse(-1i*Mdelta);
- %   K((L+1):(2*L),1:L)=sparse(1i*Mdelta);
- %   K((L+1):(2*L),(L+1):(2*L))=sparse(S-Malpha-1i*nu*M);
-    %adding a boundary condition
- %   K(L+1,L+1)=K(L+1,L+1)-1i*lambda;
-
-A=sparse(-Malpha-1i*nu*M);
-B=sparse(-1i*Mdelta);
-C=sparse(1i*Mdelta);
-D=sparse(S-Malpha-1i*nu*M);
+                   A=Malpha+1i*nu*M;
+                   B=1i*Mdelta;
+                   D=S-(Malpha+1i*nu*M);
 %adding a boundary condition
-
-D(1,1)=D(1,1)-1i*lambda;
+                   D(1,1)=D(1,1)-1i*lambda;
 
 end
 
 function b=construct_rhs(x)
     b=zeros(2*length(x),1);
-b(length(x)+1)=-2*1i*sqrt(2)*exp(1i*sqrt(2)*(-22));
-
+ %   b(length(x)+1)=-2*1i*sqrt(2)*exp(1i*sqrt(2)*(-22));
+     b(length(x)+1)=(0.17641*i*2-0.89286);
 end
 
 
 
 
-
-%multiplies (A-BD^{-1}C)x
-function r=multiply_schur_complement(A,B,C,D,x)
-
-r1=A*x;
-
-r_a1=C*x;
-
-r_a2=D\r_a1;
-
-r2=B*r_a2;
-r=r1-r2;
-end
-
-
-%computes the diagonal elements of the inverse of the tridiagonal matrix D
-%(Rybicky-Hummer http://www.lanl.gov/DLDSTP/fast/diagonal.pdf)
-function lambda=compute_diag_inv(D)
-  b=diag(D);
-  a=-[0; diag(D,-1)];
-  c=-[diag(D,+1); 0];
-  n=length(D);
-  e=zeros(n+1,1);
-  d=zeros(n+1,1);
-  e(n+1)=0;
-  d(1)=0;
-  for k=n:-1:1
-  e(k)=a(k)./(b(k)-c(k)*e(k+1));
-  end
-  for k=2:1:n+1
-  d(k)=c(k-1)./(b(k-1)-a(k-1)*d(k-1));
-  end
-  lambda=zeros(n,1);
-  lambda(1:1:end)=(1-d(2:1:end).*e(2:1:end)).^(-1).*(b(1:1:end)-a(1:1:end).*d(1:1:end-1)).^(-1);
-end
-
-
-%forms the diagonal preconditioner for A-BD^{-1}C
-function p=schur_diagonal_precond(A,B,C,D)
-  dd=compute_diag_inv(D);
-  ad=diag(A);
-  bd=diag(B);
-  cd=diag(C);
-  p=ad-bd.*dd.*cd;
-end
   
-  
-%solves the block system
-%Ax+By=alpha
-%Cx+Dy=beta
-%by Schur complement and GMRES
-function [x,y]=solve_block_system(A,B,C,D,alpha,beta,diagon_precond)
-%first solve the system (A-BD^{-1}C)x=alpha-BD^{-1}beta
-%1. form the rhs
-f=D\beta;
-rhs=alpha-B*f;
-%2. solve the system with GMRES
 
-mv=@(x)multiply_schur_complement(A,B,C,D,x);
-
-%maxit num : 40
-%gmres iteration restart: 5 is numerically good for the case without the preconditioner as well
-  [x, flag, relres, iter, resvec] = gmres(mv, rhs, 5, [], 40,diagon_precond);
-
-%for debugging purposes
-display "gmres res: ";
-display(flag);
-display(iter);
-display(relres);
-
-
-%next solve the remaining system Dy=-Cx+beta;
-
-rhs=-C*x+beta;
-y=D\rhs;
-
-end
-
-  
-  %solves the same system with the help of stabilized biconjugate gradients
-  function [x,y]=solve_block_system_bicg(A,B,C,D,alpha,beta,diagon_precond)
-  %first solve the system (A-BD^{-1}C)x=alpha-BD^{-1}beta
-  %1. form the rhs
-  f=D\beta;
-  rhs=alpha-B*f;
-  %2. solve the system with GMRES
-  
-  mv=@(x)multiply_schur_complement(A,B,C,D,x);
-  
-  [x, flag, relres, iter, resvec] =bicgstab(mv,rhs,[],[],diagon_precond);
-
-  display "bicgstab res: ";
-  display(flag);
-  display(iter);
-  display(relres);
-  
-  
-  %next solve the remaining system Dy=-Cx+beta;
-  
-  rhs=-C*x+beta;
-  y=D\rhs;
-  
-  end
-  
   
   
 
