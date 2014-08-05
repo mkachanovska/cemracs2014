@@ -1,6 +1,6 @@
-function [e1, e2,A,B,D,x]=solve_mH1(dx,lambda, nu, uniform)
+function [e1, e2,M,x]=solve_mH1(dx,lambda, nu, uniform)
 %mesh generation
-L=20;
+L=2;
 H=10;
 if uniform
 x=-L:dx:H;
@@ -21,8 +21,7 @@ tic
 save('M.mat', 'M');
 sol=M\rhs;
 size(sol)
-size(M)
-size(rhs)
+
 
 [e1, e2]=permute_solution_back(sol);
 
@@ -67,6 +66,11 @@ e2=sol(2:2:end);
 
 end
 
+
+
+
+
+
 function a=alpha(x)
 
 a=zeros(size(x));
@@ -74,7 +78,7 @@ a(x<=-1)=1;
 P=(x<=3)&(x>-1);
 a(P)=-x(P);
 a(x>3)=-3;
-a=-x;
+%a=-x;
 
 %a=x.^2+1;
 
@@ -82,15 +86,13 @@ end
 
 function delta=delta(x)
 
+
 delta=zeros(size(x));
-delta(x<=-15)=0;
-P=(x>-15)&(x<=0);
-delta(P)=1+x(P)./15;
-P=(x>0)&(x<=3);
-delta(P)=1+x(P)./3;
+delta(x<=-1)=0;
+P=(x<=3)&(x>-1);
+delta(P)=0.5*(x(P)+1);
 delta(x>3)=2;
-%delta=sqrt((x.^2+1)).*sqrt(x.^2+1+x);
-delta=0;
+
 end
 
 %since the matrices are symmetric tridiagonal, each matrix constructor returns 
