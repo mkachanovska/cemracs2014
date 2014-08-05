@@ -1,0 +1,204 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\newtheorem{theor}{Theorem}
+\newtheorem{Lemma}{Lemma}
+\newtheorem{remark}{Remark}
+\newtheorem{assumption}{Assumption}\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+                                        % Activate to display a given date or no date
+\newcommand{\bs}{\left\{}
+\newcommand{\es}{\right.}
+\newcommand{\ba}{\begin{array}}
+\newcommand{\ea}{\end{array}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\ora}{\overrightarrow}
+\newcommand{\x}{{\bf x}}
+\newcommand{\E}{{\bf E}}
+\newcommand{\n}{{\bf n}}
+\newcommand{\f}{{\bf f}}
+\begin{document}
+\begin{subsection}{Discretization}
+Idea:
+
+
+Clearly, $u$ solves the well-posed problem 
+\begin{align*}
+a(u, v)=(f,v)\text{ for all } v=(v_{1},v_{2})^{T}\in V^2, 
+\end{align*}
+if and only if (this can be easily checked)
+\begin{align*}
+a(u,(v_{1},0)^{T})=(f,(v_{1},0)^{T}),\\
+a(u,(0,v_{2})^{T})=(f,(0,v_{2})^{T}).
+\end{align*}
+For us it may be sufficient to check that the first equation is uniquely solvable in the sense of distributions (and if $\delta, \alpha$ are positive, we can probably even bound the norm of the solution), and thus the second equation is uniquely solvable as well (because it will be the bilinear form for the Helmholtz equation, see the thesis of Lise-Marie).
+
+\begin{remark}
+The application of the above to the variational formulation (\ref{}) allows to obtain the following system of two equations:
+\[\begin{array}{l}
+i\theta \displaystyle \int_{-L}^H (E_2' -\imath\theta E_1)\overline{\tilde E_1} - \int_{-L}^H \left((\epsilon_0 +\imath\nu \operatorname{Id}) \E\right)_{1} \overline{\tilde E}_{1}
+=0
+\end{array}
+\]
+and 
+\begin{align}
+\label{eq:E2}
+\begin{array}{l}
+\displaystyle \int_{-L}^H (E_2' -\imath\theta E_1)\tilde {E_2'} - \int_{-L}^H\left( (\epsilon_0 +\imath\nu\operatorname{Id}) \E\right)_{2}\overline{\tilde{E}}_{2}
+\\ \displaystyle  - \imath \sqrt{\alpha(-L)} E_2 (-L) \tilde E_2 (-L) = -g_{inc} (-L) \overline{( \tilde E_2(-L) )} 
+\end{array}
+\end{align}
+Let us consider the case $\theta=0$; in particular, from the first equation we obtain:
+\begin{align*}
+\int_{-L}^{H}\left((\alpha+i\nu)E_{1}+i\delta E_{2}\right)\overline{\tilde E}_{1}=0
+\end{align*}
+for all ${\tilde E}_{1}\in L_{2}(\Omega)$. 
+
+If the following operator
+\begin{align*}
+M\psi = \frac{i\delta}{(\alpha+i\nu)}\psi
+\end{align*}
+defines an isomorphism from $L_{2}(\Omega)$ to $L_{2}(\Omega)$, it can be shown that 
+$ \frac{i\delta}{(\alpha+i\nu)}\left((\alpha+i\nu)E_{1}+i\delta E_{2}\right)$ also belongs to $L_{2}(\Omega)$ and equals zero.
+
+Hence, we can add the second expression (\ref{eq:E2}) to
+\begin{align*}
+\int_{-L}^{H}\left(i\delta E_{1}-\delta^2(\alpha+i\nu)^{-1} E_{2}\right)\overline{\tilde E}_{2}=0
+\end{align*}
+to obtain the variational formulation for $E_{2}$, that will coincide with the variational formulation for the Helmholtz equation, and thus will be well-posed (see the thesis of L.M.I.G.).
+\end{remark}
+
+
+
+Introducing two basis spaces, $V_{E_{1}}=\{\psi_{j}\}_{j=1}^{N_{1}}$ and $V_{E_{2}}=\{\phi_{i}\}_{i=1}^{N_{2}}$, we look for the solution of the problem (\ref{}) in the form:
+\begin{align*}
+E_{1}=\sum\limits_{k=1}^{N_{1}}e_{1k}\psi_{k},\; E_{2}=\sum\limits_{k=1}^{N_{2}}e_{2k}\phi_{k}.
+\end{align*}
+Substituting $\tilde{E}_{1}=\psi_{m}, \; m=1,\ldots,N_{1}$ and $\tilde{E}_{2}=0$ into the variational formulation (\ref{}), we obtain:
+\begin{align*}
+i\theta\sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\phi'_{k}\bar{\psi}_{m}dx+\theta^2\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\psi_{k}\bar{\psi}_{m}dx\\
+-\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}(\alpha(x)+i\nu)\psi_{k}\bar{\psi}_{m}dx-i\sum\limits_{1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\delta(x)\phi_{k}(x)\bar{\psi}_{m}dx=0.
+\end{align*}
+Similarly, for $\tilde{E}_{1}=0$ and $\tilde{E}_{2}=\phi_{\ell},\; \ell=1,\ldots, N_{2}$:
+\begin{align*}
+\sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\phi'_{k}(x)\bar{\phi}'_{\ell}(x)dx-i\theta\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\psi_{k}(x)\bar{\phi}'_{\ell}(x)dx\\
++i
+\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\delta(x)\psi_{k}\bar{\phi}_{m}dx-\sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}(\alpha(x)+i\nu)\phi_{k}\bar{\phi}_{m}dx\\
+-
+i\lambda\sum\limits_{k=1}^{N_{2}}e_{2k}\phi_{k}(-L)\bar{\phi}_{m}(-L)=-g_{inc}(x)\bar{\phi}_{m}(-L).
+\end{align*}
+After introduction 
+\begin{align*}
+\left(K^{\psi,\phi'}\right)_{mk}=\int\limits_{-L}^{H}\bar{\psi}_{m}\phi'_{k}dx,\qquad \left(M^{\psi}\right)_{mk}=\int\limits_{-L}^{H}\psi_{k}\bar{\psi}_{m}dx,\\
+\left(M^{\alpha,\psi}\right)_{mk}=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\psi_{m}\bar{\psi}_{k}dx, \qquad \left(M^{\delta,\psi,\phi}\right)_{mk}=\int\limits_{-L}^{H}\delta(x)\bar{\psi}_{m}\phi_{k}dx,\\
+K_{\ell k}=\int\limits_{-L}^{H}\phi'_{k}(x)\bar{\phi}'_{\ell}(x)dx,\qquad \left(M^{\alpha,\phi}\right)_{\ell k}=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\bar{\phi}_{\ell}\phi_{k}dx,\\
+I_{km}^{\Gamma}=\bar{\phi}_{m}(-L)\phi_{k}(-L),\\
+\boldsymbol{e}_{1}=\left(e_{11},\ldots,e_{1 N_{1}}\right)^{T},\; \boldsymbol{e}_{2}=\left(e_{21},\ldots,e_{2 N_{1}}\right)^{T},\\
+\boldsymbol{0}_{n} \text{ is an $n$-dimensional column vector with all zeros}.
+\end{align*}
+the above system of equations can be rewritten in an antisymmetric block form:
+\begin{align*}
+\left(\begin{matrix}
+\theta^2 M_{\psi}-M^{\alpha,\psi} & i\theta K^{\psi,\phi'}-i M^{\delta,\psi,\phi} \\
+-i\theta (K^{\psi,\phi'})^{*}+i (M^{\delta,\psi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
+\end{matrix}\right)
+\left(
+\begin{matrix}
+\boldsymbol{e}_1\\
+\boldsymbol{e}_2
+\end{matrix}
+\right)=-g_{inc}(-L)
+\left(
+\begin{matrix}
+\boldsymbol{0}_{N_{1}}\\
+\bar{\phi}_{1}(-L)\\
+\bar{\phi}_{2}(-L)\\
+\vdots\\
+\bar{\phi}_{N_{2}}(-L)
+\end{matrix}
+\right).
+\end{align*}
+This expression greatly simplifies when choosing $V_{E_{1}}=V_{E_{2}}=\left(\phi_{m}\right)_{m=1}^{N_{2}}$ and in the case $\theta=0$:
+\begin{align*}
+\left(\begin{matrix}
+M^{\alpha,\phi} & i M^{\delta,\phi,\phi} \\
+i (M^{\delta,\phi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
+\end{matrix}\right)
+\left(
+\begin{matrix}
+\boldsymbol{e}_1\\ 
+\boldsymbol{e}_2
+\end{matrix}
+\right)=-g_{inc}(-L)
+\left(
+\begin{matrix}
+\boldsymbol{0}_{N_{1}}\\
+\bar{\phi}_{1}(-L)\\
+\bar{\phi}_{2}(-L)\\
+\vdots\\
+\bar{\phi}_{N_{2}}(-L)
+\end{matrix}
+\right).
+\end{align*}
+\end{subsection}
+\begin{subsection}{Numerical Experiments}
+We implemented the above scheme for a simple case 
+
+
+To check the validity of the code, we perform a numerical experiment with parameters:
+\begin{align*}
+\alpha(x)=x^2+1,\qquad \delta(x)=\left(\alpha^2+x\alpha\right)^{\frac{1}{2}}.
+\end{align*}
+Additionally, the boundary conditions read as 
+\begin{align}
+\label{eq:bcs}
+\partial_{1}E_{2}(-L)+2iE_{2}(-L)=2iAi(-L)+Ai'(-L),\\
+\partial_{1}E_{2}(H)=0,
+\end{align}
+where $Ai(x)$ is the Airy function.
+
+It can be shown that 
+\begin{align*}
+E_{2}=Ai(x),\\
+E_{1}=-i\frac{\delta(x)}{\alpha(x)}Ai(x)
+\end{align*}
+is the solution to the problem (\ref{}) with the boundary condition (\ref{eq:bcd}).
+
+
+
+In Figure \ref{} we show the convergence rate for the problem.
+
+
+The next experiment we perform for the case of the resonance. 
+
+We consider the dependence of the condition number of the obtained matrix on $\nu$, for various values $h$.
+
+$L=-20$, $H=10$, the parameters are like in the thesis of LMIG, and $\lambda=2$.
+
+
+\begin{figure}
+\end{figure}
+
+\end{subsection}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}  
