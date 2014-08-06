@@ -20,14 +20,14 @@ tfinal = 10
 #constants 
 me = 9.11e-31#electron mass (kg)
 Ne = 1e19 #density of e- f(x)
-e =  1.6e-19 #electron charge (coulombs)
+e =  -1.6e-19 #electron charge (coulombs)
 eps0 = 8.85e-12 #permeability  (F/m)
-nu = 1000#friction
+nu = 0#friction
 B0 = 1 #given
 c = 3e8 
 
 gamma = e*dt / (me*c*c*eps0)
-beta = e*B0*dt/(c*me)
+beta = abs(e)*B0*dt/(c*me)
 nud = nu*dt/c
 
 alphamL = 2
@@ -42,7 +42,7 @@ def airy_two(x):
 
 #initialisation
 def g(t) : 
-    return (airy_two(mL) + complex(0,alphamL)*airy_one(mL))*np.exp(complex(0,t))
+    return (airy_two(mL)+complex(0,alphamL)*airy_one(mL))*np.exp(complex(0,t))*eps0*c
 X    = map(lambda i: mL + i*dx, range(N+2))
 X12  = map(lambda i: mL+0.5*dx + i*dx, range(N+1))
 #Ex   = map(lambda x: np.exp(complex(0,k*x)),X)
@@ -56,17 +56,26 @@ Ey   = map(lambda x: airy_one(x),X12)
 AiryVec = map(lambda x: airy_one(x),X12)
 #uy   = map(lambda x: np.exp(complex(0,k*x)),X12)
 uy    = map(lambda x: 0, X)
+wc= abs(e*B0)/me
+kappa = wc/(c*(c*c-wc*wc))
+psi = 1/(c*c-wc*wc)
 def Ne(x) : 
-    a = (gamma*gamma- beta*beta)*e*e*e*e/(me*me*eps0*eps0)
-    b =  (x*beta+2*beta)*(e/(me*eps0))
+    a = (kappa*kappa- psi*psi)*e*e*e*e/(me*me*eps0*eps0)
+    b =  (x*psi+2*psi)*(e/(me*eps0))
     c = x-1
-    delta = (x*beta+2*beta-beta*beta)**2 - 4*(x-1)*(gamma*gamma*e*e*e*e/(me*me*eps0*eps0))
+    delta = (x*psi+2*psi-psi*psi)**2 - 4*(x-1)*(kappa*kappa*e*e*e*e/(me*me*eps0*eps0))
+    print delta 
     if (delta == 0):
         return -b/(2*a)
     elif (delta >0):
         return (-b + np.sqrt(delta))/(2*a)
     else : 
         return (-b +complex(0,1)*np.sqrt(-delta))/(2*a)
+
+def wp(x) : 
+    return np.sqrt(e*e*Ne(x)/(me*eps0))
+    
+
 def plot_real():
     
     fig = plt.figure() 
@@ -91,12 +100,7 @@ def plot_imag():
     leg = ax.legend(shadow = True, loc = 3)
     plt.show()
     clf()
-NE = map(lambda x: 1e9, X)
 
-
-print "gamma", gamma
-print "beta", beta
-print "nud", nud
 #time loop
 H12 = H
 tux = ux
@@ -170,11 +174,6 @@ for t in range(tfinal):
     uy = tuy
     Ey = tEy
     H  = H12
-
-print len(Ey)
-print len(AiryVec)
-print len(X12)
-print X12
 
 plot_real()
 plot_imag()
