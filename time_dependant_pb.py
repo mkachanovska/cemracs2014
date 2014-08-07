@@ -6,6 +6,7 @@ import os
 from time import time
 import numpy as np
 from pylab import *
+import scipy.io
 from scipy.special import airy
 import copy
 
@@ -65,8 +66,8 @@ def g(t) :
 #-----------------------------------------------#
 #------table and functions initialisation-------#
 #-----------------------------------------------#
-X    = map(lambda i: mL + i*dx, range(N+2))
-X12  = map(lambda i: mL+0.5*dx + i*dx, range(N+1))
+X    = map(lambda i: mL + i*dx, range(N+1))
+X12  = map(lambda i: mL+0.5*dx + i*dx, range(N))
 #Ex   = map(lambda x: np.exp(complex(0,k*x)),X)
 Ex   = map(lambda x: 0, X)
 #ux   = map(lambda x: np.exp(complex(0,k*x)),X)
@@ -80,6 +81,7 @@ Ey   = map(lambda x: np.exp(-alpha*x),X12)
 uy    = map(lambda x: 0, X12)
 
 H12 = map(lambda x: -np.exp(-alpha*dt/2)*np.exp(-alpha*x),X)
+
 tux = copy.deepcopy(ux)
 tuy = copy.deepcopy(uy)
 tEx = copy.deepcopy(Ex)
@@ -175,56 +177,64 @@ def Kcoeff(x):
 #------------------------time loop--------------------------#
 #-----------------------------------------------------------#
 t = 1
-while (t<Ntime):
+
+while (t<=Ntime):
     
 
     #------------------- ux -> tux
-    for i in range(N+1):
+    for i in range(N-1):
         
-        [K1,K2,K1x,K2x] = Kcoeff(NE[i])
+       # [K1,K2,K1x,K2x] = Kcoeff(NE[i])
         tux[i] =  0 #(1/K1x) * (K2x*ux[i] + gamma*Ex[i] + ((beta*gamma)/(2*K1))*Ey[i]\
                     #           - beta*gamma*dt/(4*K1)*((H12[i] - H12[i-1])/dx)   \
                     #           + (beta/2)*(K2/K1 + 1)*uy[i])
         
     #left BC (if i = N) (H(i+1) = 0) ????
-    [K1,K2,K1x,K2x] = Kcoeff(NE[N+1])
-    tux[N+1] =  0#(1/K1x)*(K2x*ux[N+1] + gamma*Ex[N+1] + ((beta*gamma)/(2*K1))*Ey[N]\
+  #  [K1,K2,K1x,K2x] = Kcoeff(NE[N+1])
+    tux[N] =  0#(1/K1x)*(K2x*ux[N+1] + gamma*Ex[N+1] + ((beta*gamma)/(2*K1))*Ey[N]\
                  #             - beta*gamma*dt/(4*K1)*(H12[N+1] - H12[N])/dx   \
                  #             + (beta/2)*(K2/K1 + 1)*uy[N])
 
     #-------------------- u y->tuy
-    for i in range(N):
-        [K1,K2,K1x,K2x] = Kcoeff(NE[i])
+    for i in range(N-2):
+      #  [K1,K2,K1x,K2x] = Kcoeff(NE[i])
         tuy[i] = 0# (1/K1)*(K2*uy[i] + gamma*Ey[i] - gamma*dt/2 *(H12[i+1] - H12[i])/dx\
                   #            - beta*(tux[i] + ux[i])/2)
     #left BC (if i = N)(H(i+1) = 0) ????
-    [K1,K2,K1x,K2x] = Kcoeff(NE[N+1])
-    tuy[N] =  0#(1/K1)*(K2*uy[N] + gamma*Ey[N] - gamma*dt/2 *(H12[N+1] - H12[N])/dx\
+  #  [K1,K2,K1x,K2x] = Kcoeff(NE[N+1])
+    tuy[N-1] =  0#(1/K1)*(K2*uy[N] + gamma*Ey[N] - gamma*dt/2 *(H12[N+1] - H12[N])/dx\
                #           - beta*(tux[N] + ux[N])/2)
         
     #------------------- E -> tE
-    
-    for i in range(N):
+    scipy.io.savemat('H12.mat',  {'H12': H12});
+    scipy.io.savemat('Eyo.mat',  {'Eyo': Ey});
+
+
+    for i in range(N-1):
         tEx[i] = Ex[i] + e*NE[i]*dt* (tux[i] + ux[i])/2
 
         tEy[i] = Ey[i] - (dt) * (H12[i+1] - H12[i])/dx# \
            # + (dt*e*NE[i]/2)*(tuy[i] + uy[i])
 
    #left BC (if i = N)(H(i+1) = 0) ????
-    tEx[N]    = Ex[N] - (dt*e*NE[N])*(tux[N] + ux[N])/2
-    tEx[N+1]  = Ex[N+1] - (dt*e*NE[N+1])*(tux[N+1] + ux[N+1])/2
-    tEy[N]    = Ey[N] - (dt) * (H12[N+1]- H12[N])/dx #\
+  
+    tEx[N-1]    = Ex[N-1] - (dt*e*NE[N-1])*(tux[N-1] + ux[N-1])/2
+    tEx[N]  = Ex[N] - (dt*e*NE[N])*(tux[N] + ux[N])/2
+    #tEy[N-1]    = Ey[N-1] - (dt) * (H12[N]- H12[N-1])/dx #\
         #- (dt*e*NE[N]/2)*(tuy[N] + uy[N])
+    scipy.io.savemat('Ey.mat',  {'arr': tEy});
     #---------------- H -> H12
-    #H12[0] = H[0] -  dt/dx * (tEy[0] \
-    #                              - (1/alphaey) * (g(t*dt) -  complex(0,alphamL)/2 * tEy[0] \
-    #                                                   - (1/dx)* tEy[0]))
-    H12[0] = H[0] - dt/dx *(tEy[0] - np.exp(-alpha*(mL-dx/2))*np.exp(-alpha*t*dt))
+    H12[0] = H12[0] -  dt/dx * (tEy[0] \
+                                  - (1/alphaey) * (g(t*dt) -  complex(0,alphamL)/2 * tEy[0] \
+                                                       - (1/dx)* tEy[0]))
+
+    #H12[0] = H12[0] - dt/dx *(tEy[0] - np.exp(-alpha*(mL-dx/2))*np.exp(-alpha*t*dt))
     i = 1
-    while (i<N+1):
-        H12[i] = H[i] - dt/dx*(Ey[i] - Ey[i-1])
+    while (i<N):
+        H12[i] = H12[i] - dt/dx*(tEy[i] - tEy[i-1])
         i      = i +1
-    H12[N+1] = H[N+1] 
+    H12[N] = H12[N]
+    scipy.io.savemat('H12.mat', {'H12': H12}); 
 
 
     #----------f^n <- f^n+1
@@ -237,13 +247,14 @@ while (t<Ntime):
     Eyex   = map(lambda x: np.exp(-alpha*x)*np.exp(-alpha*time),X12)
     Hex    = map(lambda x: - np.exp(-alpha*(time+dt/2))*np.exp(-alpha*x),X)
     temp = 0
-    #for i in range(N):
-    #   temp = temp + (H[i]+np.exp(-alpha*X[i])*np.exp(-alpha*(t+1/2)*dt))**2
-    #print np.sqrt(dx*temp)
-    #plot_real2(X12,Ey,Eyex,'b-','r-','Ey','re',"Eyex")
-    #plot_imag2(X12,Ey,Eyex,'b-','r-','Ey','im',"Eyex")
-    #plot_real2(X,H ,Hex,'b-','r-','H','re',"Hex")
-    #plot_imag2(X,H ,Hex,'b-','r-','H','im',"Hex")
+    for i in range(N):
+      temp = temp + np.abs((H[i]+np.exp(-alpha*X[i])*np.exp(-alpha*(t+1/2)*dt))**2)
+    print np.sqrt(dx*temp)
+    #if t==Ntime:
+    #    plot_real2(X12,Ey,Eyex,'b-','r-','Ey','re',"Eyex")
+    #    plot_imag2(X12,Ey,Eyex,'b-','r-','Ey','im',"Eyex")
+    #    plot_real2(X,H ,Hex,'b-','r-','H','re',"Hex")
+    #    plot_imag2(X,H ,Hex,'b-','r-','H','im',"Hex")
     t = t+1           
     
 
@@ -259,7 +270,7 @@ while (t<Ntime):
 #plot_imag(X,Ex,'b-','Ex','Im')
 #plot_real(X,H,'b-','H','Re')
 
-plot_real2(X12,Ey,Eyex,'b-','r-','Ey','re',"Eyex")
-plot_imag2(X12,Ey,Eyex,'b-','r-','Ey','im',"Eyex")
-plot_real2(X,H ,Hex,'b-','r-','H','re',"Hex")
-plot_imag2(X,H ,Hex,'b-','r-','H','im',"Hex")
+#plot_real2(X12,Ey,Eyex,'b-','r-','Ey','re',"Eyex")
+#plot_imag2(X12,Ey,Eyex,'b-','r-','Ey','im',"Eyex")
+#plot_real2(X,H ,Hex,'b-','r-','H','re',"Hex")
+#plot_imag2(X,H ,Hex,'b-','r-','H','im',"Hex")
