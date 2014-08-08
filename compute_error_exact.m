@@ -25,7 +25,7 @@ Q=quad_pts_current(x(1:1:end-1)',x(2:1:end)',quad_pts);
 F=bsxfun(@times, weight_matrix, (f(Q)+q(Q)-exact(Q)).^2);
 
 
-e1=sqrt(sum(sum(F)))
+e1=sqrt(sum(sum(abs(F))))
 
 
 end
@@ -51,7 +51,7 @@ F=bsxfun(@times, weight_matrix, A);
 P=F;
 
 
-e2=sqrt(sum(sum(F)))
+e2=sqrt(sum(sum(abs(F))))
 
 
 %B=zeros(size(A));
