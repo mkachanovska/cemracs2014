@@ -28,18 +28,19 @@ Ntime = 50
 me     = 1#9.11e-31               #electron mass (kg)
 e      = 1#1.6e-19               #electron charge (coulombs)
 eps0   = 1#8.85e-12               #permeability  (F/m)
-nu     = 1                     #friction
+nu     = 0                     #friction
 B0     = 0                      #given
 c      = 1#3e8 
 
 
 #gamma/beta/nudelta
-gamma  = -e*dt / (me*c*c*eps0)
-beta   = -abs(e)*B0*dt/(c*me)
-nud    = nu*dt/c
-print 'gamma',gamma
-print 'beta',beta
-print 'nudelta', nud
+#gamma  = -e*dt / (me*c*c*eps0)
+
+#beta   = -abs(e)*B0*dt/(c*me)
+#nud    = nu*dt/c
+#print 'gamma',gamma
+#print 'beta',beta
+#print 'nudelta', nud
 #alpha(-L)
 alphamL = 2
 
@@ -48,44 +49,15 @@ alphaey = complex(0,alphamL)/2 - 1/dx
 print 'alphaey', alphaey
 #-------------airy functions------------------#
 #return A
-def airy_one(x):
-    [A,B,C,D] = airy(x)
-    return A
+#def airy_one(x):
+#    [A,B,C,D] = airy(x)
+#    return A
 #return A'
-def airy_two(x):
-    [A,B,C,D] = airy(x)
-    return B
+#def airy_two(x):
+#    [A,B,C,D] = airy(x)
+#    return B
 #-----------------------------------------------#
 
-#--------------G for left BC -------------------#
-alpha = 2
-omega = 0
-def g(t) : 
-    return np.exp(-alpha*t)*(-alpha*np.exp(-alpha*mL)+ complex(0,alphamL)*np.exp(-alpha*mL)) #(airy_two(mL)+complex(0,alphamL)*airy_one(mL))*np.exp(complex(0,t))*eps0*c
-
-#-----------------------------------------------#
-#------table and functions initialisation-------#
-#-----------------------------------------------#
-X    = map(lambda i: mL + i*dx, range(N+1))
-X12  = map(lambda i: mL+0.5*dx + i*dx, range(N))
-#Ex   = map(lambda x: np.exp(complex(0,k*x)),X)
-Ex   = map(lambda x: 0, X)
-#ux   = map(lambda x: np.exp(complex(0,k*x)),X)
-ux   = map(lambda x: 0, X)
-#H    = map(lambda x: np.exp(complex(0,k*x)),X)
-H    = map(lambda x: -np.exp(-alpha*x), X)
-Ey   = map(lambda x: np.exp(-alpha*x),X12)
-#Ey   = map(lambda x: 0,X12)
-#AiryVec = map(lambda x: airy_one(x),X12)
-#uy   = map(lambda x: np.exp(complex(0,k*x)),X12)
-uy    = map(lambda x: 0, X12)
-
-H12 = map(lambda x: -np.exp(-alpha*dt/2)*np.exp(-alpha*x),X)
-
-tux = copy.deepcopy(ux)
-tuy = copy.deepcopy(uy)
-tEx = copy.deepcopy(Ex)
-tEy = copy.deepcopy(Ey)
 #-------------------------- NE --------------------------#
 # Ne constants definition
 wc    = e*abs(B0)/me
@@ -104,13 +76,47 @@ def Ne(x) :
     
     return  - a1 /(2*a2)
 
-NE    = map(lambda x: Ne(x), X)
-
+#NE    = map(lambda x: 3*me/(e*e),  X)
+omega = np.sqrt(7)
+wp = np.sqrt(3)
+gamma = np.sqrt(omega*omega-wp*wp)
 #---------------------------------------------------------#
 
+#--------------G for left BC -------------------#
+alpha = 2
+
+def g(t) : 
+    return (1/dt)*np.exp(complex(0,omega*t)-gamma*mL)*(1-np.exp(-gamma*dx))+complex(0,alphamL)*np.exp(-gamma*mL+complex(0,omega*t)) 
+#(airy_two(mL)+complex(0,alphamL)*airy_one(mL))*np.exp(complex(0,t))*eps0*c
+#-----------------------------------------------#
+#------table and functions initialisation-------#
+#-----------------------------------------------#
+X    = map(lambda i: mL + i*dx, range(N+1))
+NE    = map(lambda x: 3*me/(e*e),  X)
+X12  = map(lambda i: mL+0.5*dx + i*dx, range(N))
+#Ex   = map(lambda x: np.exp(complex(0,k*x)),X)
+Ex   = map(lambda x: 0, X)
+#ux   = map(lambda x: np.exp(complex(0,k*x)),X)
+ux   = map(lambda x: 0, X)
+#H    = map(lambda x: np.exp(complex(0,k*x)),X)
+H    = map(lambda x: (gamma/complex(0,omega))*np.exp(-gamma*x), X)
+Ey   = map(lambda x: np.exp(-gamma*x),X12)
+#Ey   = map(lambda x: 0,X12)
+#AiryVec = map(lambda x: airy_one(x),X12)
+#uy   = map(lambda x: np.exp(complex(0,k*x)),X12)
+uy    = map(lambda x: -e/(me*complex(0,omega))*np.exp(-gamma*x), X12)
+
+#H12 = map(lambda x: -np.exp(-alpha*dt/2)*np.exp(-alpha*x),X)
+
+tux = copy.deepcopy(ux)
+tuy = copy.deepcopy(uy)
+tEx = copy.deepcopy(Ex)
+tEy = copy.deepcopy(Ey)
+H12 = copy.deepcopy(H)
+
 #----------------------- omega_p -------------------------#
-def wp(x) : 
-    return np.sqrt(e*e*Ne(x)/(me*eps0))
+#def wp(x) : 
+#    return np.sqrt(e*e*Ne(x)/(me*eps0))
 
 
 #---------------------------------------------------------#
@@ -183,7 +189,18 @@ def Kcoeff(x):
 t = 1
 
 while (t<=Ntime):
-    
+    #---------------- H -> H12
+    H12[0] = H12[0] -  dt/dx * (tEy[0] \
+                                  - (1/alphaey) * (g(t*dt) -  complex(0,alphamL)/2 * tEy[0] \
+                                                       - (1/dx)* tEy[0]))
+
+    #H12[0] = H12[0] - dt/dx *(tEy[0] - np.exp(-alpha*(mL-dx/2))*np.exp(-alpha*t*dt))
+    i = 1
+    while (i<N):
+        H12[i] = H12[i] - dt/dx*(tEy[i] - tEy[i-1])
+        i      = i +1
+    H12[N] = H12[N]
+    scipy.io.savemat('H12.mat', {'H12': H12});
 
     #------------------- ux -> tux
     for i in range(N-1):
@@ -229,19 +246,8 @@ while (t<=Ntime):
     #tEy[N-1]    = Ey[N-1] - (dt) * (H12[N]- H12[N-1])/dx #\
         #- (dt*e*NE[N]/2)*(tuy[N] + uy[N])
     scipy.io.savemat('Ey.mat',  {'arr': tEy});
-    #---------------- H -> H12
-    H12[0] = H12[0] -  dt/dx * (tEy[0] \
-                                  - (1/alphaey) * (g(t*dt) -  complex(0,alphamL)/2 * tEy[0] \
-                                                       - (1/dx)* tEy[0]))
-
-    #H12[0] = H12[0] - dt/dx *(tEy[0] - np.exp(-alpha*(mL-dx/2))*np.exp(-alpha*t*dt))
-    i = 1
-    while (i<N):
-        H12[i] = H12[i] - dt/dx*(tEy[i] - tEy[i-1])
-        i      = i +1
-    H12[N] = H12[N]
-    scipy.io.savemat('H12.mat', {'H12': H12}); 
-
+     
+    
 
     #----------f^n <- f^n+1
     ux = copy.deepcopy(ux)
@@ -250,12 +256,22 @@ while (t<=Ntime):
     Ey = copy.deepcopy(tEy)
     H  = copy.deepcopy(H12)
     time = t*dt
-    Eyex   = map(lambda x: np.exp(-alpha*x)*np.exp(-alpha*time),X12)
-    Hex    = map(lambda x: - np.exp(-alpha*(time+dt/2))*np.exp(-alpha*x),X)
+    Eyex   = map(lambda x: np.exp(complex(0,omega*time))*np.exp(-gamma*x),X12)
+    Hex    = map(lambda x: (gamma/complex(0,omega))*np.exp(-gamma*x)*np.exp(complex(0,omega*time)),X)
+    Uyex   = map(lambda x: -(e/me)*np.exp(complex(0,omega*time)-gamma*x),X12)
     temp = 0
     for i in range(N):
-      temp = temp + np.abs((H[i]+np.exp(-alpha*X[i])*np.exp(-alpha*(t+1/2)*dt))**2)
-    print np.sqrt(dx*temp)
+        temp = temp + np.abs((H[i]-Hex[i]))
+    print time, 'norm err H', np.sqrt(dx*temp)
+    temp = 0
+    for i in range(N) : 
+        temp = temp + np.abs((uy[i]-Uyex[i]))
+    print 'norm err uy',np.sqrt(dx*temp)
+    
+    temp = 0
+    for i in range(N) : 
+        temp = temp + np.abs((Ey[i]-Eyex[i]))
+    print 'norm err Ey', np.sqrt(dx*temp)                         
     #if t==Ntime:
     #    plot_real2(X12,Ey,Eyex,'b-','r-','Ey','re',"Eyex")
     #    plot_imag2(X12,Ey,Eyex,'b-','r-','Ey','im',"Eyex")
