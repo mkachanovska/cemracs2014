@@ -192,7 +192,7 @@ t = 1
 while (t<=Ntime):
     #---------------- H -> H12
     H12[0] = H12[0] -  dt/dx * (tEy[0] \
-                                  - (1/alphaey) * (g(t*dt) -  complex(0,alphamL)/2 * tEy[0] \
+                                  - (1/alphaey) * (g(t*dt-dt) -  complex(0,alphamL)/2 * tEy[0] \
                                                        - (1/dx)* tEy[0]))
 
     #H12[0] = H12[0] - dt/dx *(tEy[0] - np.exp(-alpha*(mL-dx/2))*np.exp(-alpha*t*dt))
@@ -258,7 +258,7 @@ while (t<=Ntime):
     H  = copy.deepcopy(H12)
     time = t*dt
     Eyex   = map(lambda x: np.exp(complex(0,omega*time))*np.exp(-gamma*x),X12)
-    Hex    = map(lambda x: (gamma/complex(0,omega))*np.exp(-gamma*x)*np.exp(complex(0,omega*time)),X)
+    Hex    = map(lambda x: (gamma/complex(0,omega))*np.exp(-gamma*x)*np.exp(complex(0,omega*(time+dt/2))),X)
     Uyex   = map(lambda x: -(e/me)*np.exp(complex(0,omega*time)-gamma*x),X12)
     temp = 0
     for i in range(N):
