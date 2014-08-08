@@ -86,7 +86,8 @@ gamma = np.sqrt(omega*omega-wp*wp)
 alpha = 2
 
 def g(t) : 
-    return (1/dt)*np.exp(complex(0,omega*t)-gamma*mL)*(1-np.exp(-gamma*dx))+complex(0,alphamL)*np.exp(-gamma*mL+complex(0,omega*t)) 
+    return np.exp(complex(0,omega*t))*np.exp(-gamma*mL)*(-gamma+complex(0,alphamL));
+#(1/dt)*np.exp(complex(0,omega*t)-gamma*mL)*(1-np.exp(-gamma*dx))+complex(0,alphamL)*np.exp(-gamma*mL+complex(0,omega*t)) 
 #(airy_two(mL)+complex(0,alphamL)*airy_one(mL))*np.exp(complex(0,t))*eps0*c
 #-----------------------------------------------#
 #------table and functions initialisation-------#
