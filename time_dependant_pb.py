@@ -169,9 +169,9 @@ def plot_imag2(X,T,U,s,s5,s2,s3,s4):
 #--------------------K1&K2 s def function-------------------#
 def Kcoeff(x): 
     #K1     =  1 + nud/2. - (gamma*dt)*e*x/4
-    K1     =  1 + nu * dt/2 + dt*dt*Ne*e*e/(4*me)
+    K1     =  1 + nu * dt/2 + dt*dt*x*e*e/(4*me)
     #K2     =  1 - nud/2. + (gamma*dt)*e*x/4
-    K2     =  1 - nu * dt/2 - dt*dt*Ne*e*e/(4*me)
+    K2     =  1 - nu * dt/2 - dt*dt*x*e*e/(4*me)
     #K1x    =  K1 + beta*beta/(4*K1)
     #K2x    =  K2 - beta*beta/(4*K1)
     K1x = 0
@@ -210,7 +210,7 @@ while (t<=Ntime):
   #  [K1,K2,K1x,K2x] = Kcoeff(NE[N+1])
     #tuy[N-1] =  0#(1/K1)*(K2*uy[N] + gamma*Ey[N] - gamma*dt/2 *(H12[N+1] - H12[N])/dx\
                #           - beta*(tux[N] + ux[N])/2)
-    tuy[N-1] = (1/K1) * (K2 * uy[N-1] - dt * e / me * Ey[N-1] + dt*dt*e/(2*me) * (H12[N+1] - H12[N])/dx)
+    tuy[N-1] = (1/K1) * (K2 * uy[N-1] - dt * e / me * Ey[N-1] + dt*dt*e/(2*me) * (H12[N] - H12[N-1])/dx)
     #------------------- E -> tE
     scipy.io.savemat('H12.mat',  {'H12': H12});
     scipy.io.savemat('Eyo.mat',  {'Eyo': Ey});
