@@ -12,15 +12,14 @@ result_pwe2=zeros(length(nu), length(h));
 
 for k=1:1:16
 	%compute the reference solution for nu(k)
-	[e1ref,e2ref]=solve_mH1(href,2.0,nu(k),1);
+	[e1ref,e2ref,M,xref]=solve_mH1(href,2.0,nu(k),1);
 	for l=1:1:20
 		%compute the solution for the current h(l)
 		[e1,e2,M,x,Kstiff, Mmass]=solve_mH1(h(l),2.0,nu(k),1);
 		%compute the reference solutions on the coarser mesh
-		e1rc=e1ref(1:(2^l):end);
-		e2rc=e2ref(1:(2^l):end);
+	
 		
-		[result_l2e1(k,l), result_h1e2(k,l), result_l2e2(k,l), result_pwe1(k,l), result_pwe2(k,l)]=compute_error(Kstiff, Mmass, e1, e2, e1rc, e2rc);
+		[result_l2e1(k,l), result_l2e2(k,l)]=compute_error( e1, e2, e1ef, e2ref, x, xref);
 	end
 end
 
