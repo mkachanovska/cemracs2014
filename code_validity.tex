@@ -6,9 +6,14 @@
 \usepackage{graphicx}
 \usepackage{amssymb}
 \usepackage{epstopdf}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{slashbox}
 \newtheorem{theor}{Theorem}
 \newtheorem{Lemma}{Lemma}
 \newtheorem{remark}{Remark}
+\usepackage[font=small,skip=0pt]{caption}
+\setlength{\abovecaptionskip}{20pt plus 3pt minus 2pt}
 \newtheorem{assumption}{Assumption}\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
                                         % Activate to display a given date or no date
 \newcommand{\bs}{\left\{}
@@ -126,7 +131,8 @@ the above system of equations can be rewritten in an antisymmetric block form:
 \right).
 \end{align*}
 This expression greatly simplifies when choosing $V_{E_{1}}=V_{E_{2}}=\left(\phi_{m}\right)_{m=1}^{N_{2}}$ and in the case $\theta=0$:
-\begin{align*}
+\begin{align}
+\label{eq:simple_system}
 \left(\begin{matrix}
 M^{\alpha,\phi} & i M^{\delta,\phi,\phi} \\
 i (M^{\delta,\phi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
@@ -146,16 +152,16 @@ i (M^{\delta,\phi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
 \bar{\phi}_{N_{2}}(-L)
 \end{matrix}
 \right).
-\end{align*}
+\end{align}
 \end{subsection}
 \begin{subsection}{Numerical Experiments}
-We implemented the above scheme for a simple case 
+We implemented the above scheme for a simple case of $P_{1}$-space used for the approximation of $E_{1}$ and $E_{2}$, $\theta=0$. 
 
-
-To check the validity of the code, we perform a numerical experiment with parameters:
-\begin{align*}
+To check the validity of the code, we perform a numerical experiment with (formally chosen) parameters:
+\begin{align}
+\label{eq:parameters}
 \alpha(x)=x^2+1,\qquad \delta(x)=\left(\alpha^2+x\alpha\right)^{\frac{1}{2}}.
-\end{align*}
+\end{align}
 Additionally, the boundary conditions read as 
 \begin{align}
 \label{eq:bcs}
@@ -169,22 +175,85 @@ It can be shown that
 E_{2}=Ai(x),\\
 E_{1}=-i\frac{\delta(x)}{\alpha(x)}Ai(x)
 \end{align*}
-is the solution to the problem (\ref{}) with the boundary condition (\ref{eq:bcd}).
+is the solution to the problem with parameters (\ref{eq:parameters}) with the boundary condition (\ref{eq:bcs}).
 
-
-
-In Figure \ref{} we demonstrate the convergence rate for the problem.
-
-
-The next experiment we perform for the case of the resonance. 
-
-We consider the dependence of the condition number of the obtained matrix on $\nu$, for various values $h$.
-
-$L=-20$, $H=10$, the parameters are like in the thesis of LMIG, and $\lambda=2$.
-
+In Figure \ref{fig:conv_rate} we demonstrate the convergence rates for this problem, with 
+\begin{align*}
+\|E_{1}-E_{1}^{c}\|_{L_{2}(\Omega)}=\left(\int\limits_{\Omega}\left|E_{1}-\sum\limits_{k=0}^{N}E_{1i}\phi_{i}\right|^2dx\right),
+\end{align*}
+where $\left(\phi_{i}\right)$ are $P_{1}$-finite elements. Similarly $\|E_{2}-E_{2}^{c}\|_{L_{2}(\Omega)}$ and $\|E_{2}-E_{2}^{c}\|_{H_{1}(\Omega)}$ are defined. 
 
 \begin{figure}
+\begin{tikzpicture}
+    \begin{loglogaxis}[
+        xlabel=$h$,
+        ylabel=$Error$,
+        legend style={
+at={(0.2,1.5)},
+legend pos= south east,
+anchor=south east, 
+draw=none
+}
+]
+    \addplot[mark=*,blue] table {E1L2.dat}; 
+    \addlegendentry{$\|E_{1}-E_{1}^{c}\|_{L_{2}}$};
+    \addplot[mark=*,red] table {E2H1.dat};
+        \addlegendentry{$\|E_{2}-E_{2}^{c}\|_{H_{1}}$};
+        
+          \addplot[mark=*,cyan] table {E2L2.dat};
+        \addlegendentry{$\|E_{2}-E_{2}^{c}\|_{L_{2}}$};  
+        \addplot[dotted] table{E_h2.dat};
+         \addlegendentry{$O(h^2)$};
+         \addplot[dashed] table{H.dat};
+         \addlegendentry{$O(h)$};
+    \end{loglogaxis}
+    \end{tikzpicture}
+    \caption{Convergence rates for the problem with parameters (\ref{eq:parameters}) with the boundary condition (\ref{eq:bcs}).}
+    \label{fig:conv_rate}
 \end{figure}
+
+Note that in the last 3 experiments the accuracy of the solution of the system of equations, namely $\|Ae-r\|$ (where $e$ is the solution vector, $r$ is the right hand side and $A$ us the matrix) exceeded 1.6e-9 (namely, it was 1.6e-9 ($h=3.2e-5$), 1.3e-08 ($h=8e-6$), 1.04e-07 ($h=2e-6$))
+
+
+
+
+
+The next experiment we perform for the case of the resonance. $L=-2$, $H=10$, the parameters are like in the thesis of LMIG, and the boundary condition (\ref{eq:bcs}) with $g^{inc}=2, \lambda=2.0$.
+
+We consider the dependence of the condition number of the block matrix on $\nu$, for several values of $h$ (see Table \ref{tab:cond_number}).
+\begin{table}[ht!]
+\begin{tabular}{c|ccccccccc}
+\backslashbox{$h$}{$\nu$}
+ & 100 & 10 & 1 & 0.1 & 1e-2 & 1e-3 & 1e-4 & 1e-8 & 0\\
+ \hline
+1 & 3.9634&4.3787 &4.987&36.949&42.394& 42.757 &42.79&42.793&42.793\\
+\hline
+0.5&      3.9931& 6.87&48.473 & 168.41  &207.34  & 209.63 & 209.83 & 209.85&  209.85\\
+\hline
+ 0.1&      16.09  &     159.56  &     1146.1   &    8304.1   &     19169  &      20270   &     20344   &     20352   &     20352\\
+ \hline
+0.05&      64.046  &     637.18  &     4686.2   &     38876 &  1.4e5 &  1.58e5 &   1.58e5 &  1.58e5 &  1.58e5\\
+\hline
+ 0.01&       1600    &   15921 & 1.2e5  & 1.1e6 & 8.3e6  & 1.8e7   & 1.93e7  & 1.93e7  & 1.93e7\\
+\end{tabular}
+\caption{The condition number of the matrix of the system (\ref{eq:simple_system}) for different values of $\nu$ and $h$. }
+\label{tab:cond_number}
+\end{table}
+
+
+
+For $\nu=0$ the computed matrices are not singular; perhaps the bilinear form $a(u,v)$ is coercive on the chosen discrete subspace of $(L_{2}(\Omega); H^{1}(\Omega)$ (? $\alpha(x)$ enters the discretized problem only through a computation of $\int\limits_{\tau}\alpha(x)\phi_{i}(x)\phi_{j}(x)dx$, and for coarse enough meshes the discretization probably won't 'see' $\alpha(0)=0$).
+
+
+
+At the next step we are numerically determining an optimal relation of $h$ to $\nu$. We fix $\nu$ and compute the error of the solution comparing it to the finest mesh.
+\begin{figure}
+
+\end{figure} 
+
+
+
+
 
 \end{subsection}
 
