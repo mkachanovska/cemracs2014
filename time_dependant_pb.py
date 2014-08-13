@@ -12,7 +12,7 @@ import copy
 
 #---------------CONSTANTS--------------------#
 # mesh size
-N      = 124
+N      = 500
 # domain ]-L ; H[, (mL=-L)
 mL     = -1
 H      =  10
@@ -23,12 +23,12 @@ print "dx", dx
 dt     = 0.5*dx
 print "dt",dt
 # Number of time steps
-Ntime = 1
+Ntime = 100
 # constants 
 me     = 1#9.11e-31               #electron mass (kg)
 e      = 1#1.6e-19               #electron charge (coulombs)
 eps0   = 1#8.85e-12               #permeability  (F/m)
-nu     = 0                     #friction
+nu     = 0                   #friction
 B0     = 0                      #given
 c      = 1#3e8 
 
@@ -67,13 +67,13 @@ def Ne(x) :
     return  - a1 /(2*a2)
 
 #NE    = map(lambda x: 3*me/(e*e),  X)
-omega = np.sqrt(7)
-wp = np.sqrt(3)
+omega = np.sqrt(3)
+wp = np.sqrt(7)
 gamma = 2
 #---------------------------------------------------------#
 
 #--------------G for left BC -------------------#
-alpha = 2
+alpha = 1
 
 def g(t) : 
     return np.exp(complex(0,omega*t))*np.exp(-gamma*mL)*(-gamma+complex(0,alphamL))
@@ -81,9 +81,9 @@ def g(t) :
 #------table and functions initialisation-------#
 #-----------------------------------------------#
 X    = map(lambda i: mL + i*dx, range(N+1))
-NE   = map(lambda x: 3*me/(e*e),  X)
+NE   = map(lambda x: wp**2*me/(e*e),  X)
 X12  = map(lambda i: mL+0.5*dx + i*dx, range(N))
-NEy  = map(lambda x: 3*me/(e*e),  X12)
+NEy  = map(lambda x: wp**2*me/(e*e),  X12)
 Ex   = map(lambda x: 0, X)
 ux   = map(lambda x: 0, X)
 H    = map(lambda x: (gamma/complex(0,omega))*np.exp(-gamma*x)*np.exp(complex(0,-omega*dt/2)), X)
@@ -112,7 +112,7 @@ def Kcoeff(x):
     K1x = 0
     K2x = 0
     return [K1,K2,K1x,K2x]
-[K1,K2,K1x,K2x] = Kcoeff(3*me/(e*e))
+
 
 #-----------------------------------------------------------#
 #------------------------time loop--------------------------#
@@ -120,7 +120,6 @@ def Kcoeff(x):
 
 
 t = 1
-
 #coeff alpha (1/alpha_Ey)Ey in left BC
 alphaey = complex(0,alphamL)/2 - 1/dx
 print 'alphaey', alphaey
@@ -131,7 +130,7 @@ while (t<=Ntime):
     #---------------- H -> H12
     H12[0] = H[0] -  dt/dx* (Ey[0] - 1/alphaey * (Ey[0] *(- 1/dx - complex(0,alphamL)/2)+g((t-1)*dt)))
     time = t*dt
-    Hex    = map(lambda x: (gamma/complex(0,omega))*np.exp(-gamma*x)*np.exp(complex(0,omega*(time+dt/2))) ,X)
+    Hex    = map(lambda x: (gamma/complex(0,omega))*np.exp(-gamma*x)*np.exp(complex(0,omega*(time-dt/2))) ,X)
     print H12[0] - Hex[0]
 
     
@@ -160,16 +159,16 @@ while (t<=Ntime):
     #-------------------- u y->tuy
 
     for i in range(N):
-
+        [K1,K2,K1x,K2x] = Kcoeff(NEy[i])
         tuy[i] = (1/K1) * (K2 * uy[i] -dt * e / me * Ey[i] +dt*dt*e/(2*me) * (H12[i+1] - H12[i])/dx)
-
+       # tuy[i] = -e/(me*complex(0,omega))*np.exp(complex(0,omega*time)-gamma*X12[i])
     #------------------- E -> tE
                         
 
     for i in range(N):
        # tEx[i] = Ex[i] + e*NE[i]*dt* (tux[i] + ux[i])/2
-
-        tEy[i] = Ey[i] - (dt) * (H12[i+1] - H12[i])/dx  +(dt*e*NEy[i]/(2*me))*(tuy[i] + uy[i])
+        tEy[i] = Ey[i] - (dt) * (H12[i+1] - H12[i])/dx  +(dt*e*NEy[i]/2)*(tuy[i] + uy[i])
+        #tEy[i]=np.exp(complex(0, omega*time)-gamma*X12[i]);
 
     #left BC (if i = N)(H(i+1) = 0) ????
   
