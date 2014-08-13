@@ -12,7 +12,7 @@ import copy
 
 #---------------CONSTANTS--------------------#
 # mesh size
-N      = 1024
+N      = 124
 # domain ]-L ; H[, (mL=-L)
 mL     = -1
 H      =  10
@@ -23,7 +23,7 @@ print "dx", dx
 dt     = 0.5*dx
 print "dt",dt
 # Number of time steps
-Ntime = 50
+Ntime = 1
 # constants 
 me     = 1#9.11e-31               #electron mass (kg)
 e      = 1#1.6e-19               #electron charge (coulombs)
@@ -69,7 +69,7 @@ def Ne(x) :
 #NE    = map(lambda x: 3*me/(e*e),  X)
 omega = np.sqrt(7)
 wp = np.sqrt(3)
-gamma = np.sqrt(omega*omega-wp*wp)
+gamma = 2
 #---------------------------------------------------------#
 
 #--------------G for left BC -------------------#
@@ -112,6 +112,8 @@ def Kcoeff(x):
     K1x = 0
     K2x = 0
     return [K1,K2,K1x,K2x]
+[K1,K2,K1x,K2x] = Kcoeff(3*me/(e*e))
+
 #-----------------------------------------------------------#
 #------------------------time loop--------------------------#
 #-----------------------------------------------------------#
@@ -127,10 +129,12 @@ while (t<=Ntime):
     print "iter : ",t,"time : ", t*dt
 
     #---------------- H -> H12
-    H12[0] = H[0] -  dt/dx * (Ey[0] \
-                                    - (1/alphaey) * (g((t-1)*dt) -  complex(0,alphamL)/2 * Ey[0] \
-                                                         - (1/dx)* Ey[0]))
+    H12[0] = H[0] -  dt/dx* (Ey[0] - 1/alphaey * (Ey[0] *(- 1/dx - complex(0,alphamL)/2)+g((t-1)*dt)))
+    time = t*dt
+    Hex    = map(lambda x: (gamma/complex(0,omega))*np.exp(-gamma*x)*np.exp(complex(0,omega*(time+dt/2))) ,X)
+    print H12[0] - Hex[0]
 
+    
     i = 1
     while (i<N):
         H12[i] = H[i] - dt/dx*(Ey[i] - Ey[i-1])
@@ -156,7 +160,7 @@ while (t<=Ntime):
     #-------------------- u y->tuy
 
     for i in range(N):
-        [K1,K2,K1x,K2x] = Kcoeff(NE[i])
+
         tuy[i] = (1/K1) * (K2 * uy[i] -dt * e / me * Ey[i] +dt*dt*e/(2*me) * (H12[i+1] - H12[i])/dx)
 
     #------------------- E -> tE
@@ -165,7 +169,7 @@ while (t<=Ntime):
     for i in range(N):
        # tEx[i] = Ex[i] + e*NE[i]*dt* (tux[i] + ux[i])/2
 
-        tEy[i] = Ey[i] - (dt) * (H12[i+1] - H12[i])/dx   #+(dt*e*NEy[i]/(2*me))*(tuy[i] + uy[i])
+        tEy[i] = Ey[i] - (dt) * (H12[i+1] - H12[i])/dx  +(dt*e*NEy[i]/(2*me))*(tuy[i] + uy[i])
 
     #left BC (if i = N)(H(i+1) = 0) ????
   
@@ -184,9 +188,10 @@ while (t<=Ntime):
 
     time = t*dt
 
-    scipy.io.savemat('H12.mat',  {'H12': H12})
-    scipy.io.savemat('Eyo.mat',  {'Eyo': Ey})
-    scipy.io.savemat('tuy.mat',  {'tuy': tuy})
+    scipy.io.savemat('H.mat',  {'H': H})
+    scipy.io.savemat('Ey.mat',  {'Ey': Ey})
+    scipy.io.savemat('uy.mat',  {'uy': uy})
+
     Eyex   = map(lambda x: np.exp(complex(0,omega*time))*np.exp(-gamma*x),X12)
     Hex    = map(lambda x: (gamma/complex(0,omega))*np.exp(-gamma*x)*np.exp(complex(0,omega*(time-dt/2))) ,X)
     Uyex   = map(lambda x: -e/(me*complex(0,omega))*np.exp(complex(0,omega*time)-gamma*x),X12)
@@ -204,12 +209,13 @@ while (t<=Ntime):
     for i in range(N) : 
         temp = temp + np.abs((uy[i]-Uyex[i]))**2
     print 'norm err uy',np.sqrt(dx*temp)
-    
+
     temp = 0
     for i in range(N) : 
         temp = temp + np.abs((Ey[i]-Eyex[i]))**2
     print 'norm err Ey', np.sqrt(dx*temp)                         
-
+    temp = 0
+  
     t = t+1           
 
 
