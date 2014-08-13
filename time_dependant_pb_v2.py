@@ -67,9 +67,9 @@ def Ne(x) :
     return  - a1 /(2*a2)
 
 #NE    = map(lambda x: 3*me/(e*e),  X)
-omega = np.sqrt(7)
-wp = np.sqrt(3)
-gamma = np.sqrt(omega*omega-wp*wp)
+omega = np.sqrt(3)
+wp = np.sqrt(7)
+gamma = np.sqrt(-omega*omega+wp*wp)
 #---------------------------------------------------------#
 
 #--------------G for left BC -------------------#
@@ -81,7 +81,8 @@ def g(t) :
 #------table and functions initialisation-------#
 #-----------------------------------------------#
 X    = map(lambda i: mL + i*dx, range(N+1))
-NE   = map(lambda x: 3*me/(e*e),  X)
+NE   = map(lambda x: (wp**2)*me/(e*e),  X)
+scipy.io.savemat('NE.mat', {'NE':NE});
 X12  = map(lambda i: mL+0.5*dx + i*dx, range(N))
 NEy  = map(lambda x: 3*me/(e*e),  X12)
 Ex   = map(lambda x: 0, X)
@@ -122,7 +123,7 @@ t = 1
 #coeff alpha (1/alpha_Ey)Ey in left BC
 alphaey = complex(0,alphamL)/2 - 1/dx
 print 'alphaey', alphaey
-Ntime=10;
+Ntime=1;
 while (t<=Ntime):
     print "iter : ",t,"time : ", t*dt
 
@@ -153,9 +154,10 @@ while (t<=Ntime):
 
 
     #-------------------- u y->tuy
-
     for i in range(N):
         [K1,K2,K1x,K2x] = Kcoeff(NE[i])
+        print K1
+        print K2
         tuy[i] = (1/K1) * (K2 * uy[i] -dt * e / me * Ey[i] +dt*dt*e/(2*me) * (H12[i+1] - H12[i])/dx)
 
     #------------------- E -> tE
@@ -163,8 +165,8 @@ while (t<=Ntime):
 
     for i in range(N):
        # tEx[i] = Ex[i] + e*NE[i]*dt* (tux[i] + ux[i])/2
-
-        tEy[i] = Ey[i] - (dt) * (H12[i+1] - H12[i])/dx +(dt*e*NEy[i]/(2*me))*(tuy[i] + uy[i])
+        tEy[i] = Ey[i] - (dt) * (H12[i+1] - H12[i])/dx +(dt*e*NEy[i]/2.0)*(tuy[i] + uy[i])
+ 
 
 
 
