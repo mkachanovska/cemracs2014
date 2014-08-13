@@ -1,7 +1,9 @@
 function [err1, err2]=compute_error(e1,e2,e1c,e2c,x,xc)
-
+tic;
 err1=compute_L2_error(e1,e1c,x,xc);
 err2=compute_L2_error(e2,e2c,x,xc);
+t=toc();
+display (strcat(num2str(t)," for the computation of the total error"));
 
 end
 
