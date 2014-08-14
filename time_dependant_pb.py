@@ -159,7 +159,7 @@ while (t<=Ntime):
     #-------------------- u y->tuy
 
     for i in range(N):
-        [K1,K2,K1x,K2x] = Kcoeff(NEy[i])
+        [K1,K2,K1x,K2x] = Kcoeff(NEy[i]);
         tuy[i] = (1/K1) * (K2 * uy[i] -dt * e / me * Ey[i] +dt*dt*e/(2*me) * (H12[i+1] - H12[i])/dx)
        # tuy[i] = -e/(me*complex(0,omega))*np.exp(complex(0,omega*time)-gamma*X12[i])
     #------------------- E -> tE
