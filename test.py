@@ -28,7 +28,7 @@ Ntime = 1
 me     = 1#9.11e-31               #electron mass (kg)
 e      = 1#1.6e-19               #electron charge (coulombs)
 eps0   = 1#8.85e-12               #permeability  (F/m)
-nu     = 0                     #friction
+nu     = 0                    #friction
 B0     = 0                      #given
 c      = 1#3e8 
 
@@ -41,8 +41,8 @@ alphamL = 2
 wc    = e*abs(B0)/me
 print "omega_c" ,wc
 
-omega = np.sqrt(7)
-wp = np.sqrt(3)
+wp = np.sqrt(3);
+omega=wp;
 gamma = 2
 #--------------G for left BC -------------------#
 def g(t) :
@@ -52,11 +52,11 @@ def g(t) :
 #------table and functions initialisation-------#
 #-----------------------------------------------#
 X    = map(lambda i: mL + i*dx, range(N+1))
-NE   = map(lambda x: omega*omega*me,  X)
+NE   = map(lambda x: wp**2*me/(e**2),  X)
 X12  = map(lambda i: mL+0.5*dx + i*dx, range(N))
-NEy  = map(lambda x: omega*omega*me,  X12)
+NEy  = map(lambda x: wp**2*me/(e**2),  X12)
 Ex   = map(lambda x: np.exp(-gamma*x), X)
-ux   = map(lambda x: -(e/me)*(1/(complex(0,alphamL)))*x, Ex)
+ux   = map(lambda x: -(e/me)*(1/(complex(0,omega)))*x, Ex)
 H    = map(lambda x: 0,X)#(gamma/complex(0,omega))*np.exp(-gamma*x), X)
 Ey   = map(lambda x: 0,X12)#np.exp(-gamma*x),X12)
 uy   = map(lambda x: 0,X12)#-(e/me)*(1/complex(0,omega))*np.exp(-gamma*x), X12)
@@ -74,19 +74,19 @@ scipy.io.savemat('H120.mat', {'H120':H12})
 def Kcoeff(x): 
     #K1     =  1 + nu * dt/2 + dt*dt*x*e*e/(4*me)
     #K2     =  1 - nu * dt/2 - dt*dt*x*e*e/(4*me)
-    K1x =  1 + dt*dt*x*e*e/(4*me)
-    K2x =  1 - dt*dt*x*e*e/(4*me)
+    K1x =  1 + nu*dt/2+(dt**2)*e*x/(4*me);
+    K2x =  1 - nu*dt/2-(dt**2)*e*x/(4*me);
     K1  = 0
     K2  = 0
     return [K1,K2,K1x,K2x]
-[K1,K2,K1x,K2x] = Kcoeff( omega*omega*me)
+[K1,K2,K1x,K2x] = Kcoeff(wp**2*me/e**2)
 
 
 #coeff alpha (1/alpha_Ey)Ey in left BC
 alphaey = complex(0,alphamL)/2 - 1/dx
 print 'alphaey', alphaey
 t = 1
-Ntime = 4
+Ntime = 120
 while (t<=Ntime):
     time = t*dt
 
@@ -95,12 +95,15 @@ while (t<=Ntime):
         tux[i] =  (1/K1x) * (K2x*ux[i]-e*dt/me * Ex[i])
         tEx[i] = Ex[i] + e*NE[i]*dt* (tux[i] + ux[i])/2
         
-    ux = copy.deepcopy(ux)
+    ux = copy.deepcopy(tux)
     Ex = copy.deepcopy(tEx)
-
+    scipy.io.savemat('Ex.mat', {'Ex':Ex});
+    scipy.io.savemat('ux.mat', {'ux': ux});
     Exex   = map(lambda x: np.exp(complex(0,omega*time))*np.exp(-gamma*x),X)
     Uxex   = map(lambda x: (-e/(me*complex(0,omega)))*x,Exex)
-    
+    scipy.io.savemat('Exex.mat', {'Exex':Exex});
+    scipy.io.savemat('uxex.mat', {'Uxex':Uxex});
+
     
         
     temp = 0
