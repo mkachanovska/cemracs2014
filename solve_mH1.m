@@ -1,6 +1,6 @@
-function [e1, e2,M,x]=solve_mH1(dx,lambda, nu, uniform)
+function [e1, e2,M,x, Kstiff, Mmass]=solve_mH1(dx,lambda, nu, uniform)
 %mesh generation
-L=2;
+L=15;
 H=10;
 if uniform
 x=-L:dx:H;
@@ -18,18 +18,21 @@ r=construct_rhs(x);
 
 tic
 [M,rhs]=permute(A,B,D,r);
-save('M.mat', 'M');
+%save('M.mat', 'M');
 sol=M\rhs;
-size(sol)
 
+norm(M*sol-rhs)
 
 [e1, e2]=permute_solution_back(sol);
 
 time_passed=toc();
 display(strcat(num2str(time_passed)," for the solution of the system of eqs"));
 
-
-
+%auxiliary matrices, namely the mass matrix and the stiffness matrix
+Kst=K_lpl(x);
+Mm=mass_matrixP1(x);
+Kstiff=spdiags([Kst(:,2) Kst(:,1) circshift(Kst(:,2),1)], -1:1, length(Kst), length(Kst));
+Mmass=spdiags([Mm(:,2) Mm(:,1) circshift(Mm(:,2),1)], -1:1, length(Mm), length(Mm));
 end
 
 
@@ -74,24 +77,21 @@ end
 function a=alpha(x)
 
 a=zeros(size(x));
-a(x<=-1)=1;
-P=(x<=3)&(x>-1);
+a(x<=-10)=10;
+P=(x<=5)&(x>-10);
 a(P)=-x(P);
-a(x>3)=-3;
-%a=-x;
-
-%a=x.^2+1;
-
+a(x>5)=-5;
 end
 
 function delta=delta(x)
 
 
 delta=zeros(size(x));
-delta(x<=-1)=0;
-P=(x<=3)&(x>-1);
-delta(P)=0.5*(x(P)+1);
-delta(x>3)=2;
+delta(x<=-10)=0;
+P=(x<=5)&(x>-10);
+delta(P)=4/30*x(P)+4/3;
+delta(x>5)=2;
+%delta=sqrt(x.^2+1).*sqrt(x.^2+1+x);
 
 end
 
@@ -155,7 +155,7 @@ function M=mass_matrixP1P1_scaled(x, func_kernel, nq)
 
 
 %nq is a number of quadrature points
-    if(~nargin<3)
+    if(nargin<3)
         nq=2;
     end
 
@@ -224,7 +224,7 @@ fsubdiagon=@(x_left,x_right,x)-func_kernel(x).*bsxfun(@rdivide,bsxfun(@minus,x,x
 
 %nq is a number of quadrature points
 if(nargin<3)
-nq=2;
+nq=2
 end
 %diagon=zeros(1,length(x));
 %subdiagon=zeros(1,length(x)-1);
@@ -273,7 +273,7 @@ func_interval_evaluator=@(q)fsubdiagon(x(1:1:end-1)',x(2:1:end)',q);
 Mleft(1:1:(length(x)-1),1:end)=func_interval_evaluator(Q);
 result=bsxfun(@times,weight_matrix,Mleft);
 M(1:1:(L-1),2)=(sum(result.'))';
-save('M.mat','M');
+%save('M.mat','M');
 
 
 end
@@ -285,10 +285,11 @@ end
 %C is the complex conjugate of B
 function [A,B,D]=construct_block_matrix(x,nu,lambda)
               L=length(x);
-    
-    Mdelta=mass_matrixP1P1_scaled_fast(x, @delta,4);
+   %default: 4 quad pts
+    nq=4; 
+    Mdelta=mass_matrixP1P1_scaled_fast(x, @delta,nq);
 
-    Malpha=mass_matrixP1P1_scaled_fast(x, @alpha,4);
+    Malpha=mass_matrixP1P1_scaled_fast(x, @alpha,nq);
     
     
     M=mass_matrixP1(x);
@@ -305,8 +306,9 @@ end
 
 function b=construct_rhs(x)
     b=zeros(2*length(x),1);
- %   b(length(x)+1)=-2*1i*sqrt(2)*exp(1i*sqrt(2)*(-22));
-     b(length(x)+1)=(0.17641*i*2-0.89286);
+    b(length(x)+1)=-2*1i*sqrt(2)*exp(1i*sqrt(2)*(-22));
+ %    b(length(x)+1)=(-airy(-20)*i*2-airy(1,-20));
+ %   b(length(x)+1)=-i*2*0.2-0.1;
 end
 
 

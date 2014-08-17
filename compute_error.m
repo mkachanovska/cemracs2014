@@ -37,7 +37,7 @@ for c=1:1:length(x)-1
 	FQ(P,:)=e(c+1)*(Q(P,:)-x(c))./(x(c+1)-x(c))+e(c)*(x(c+1)-Q(P,:))./(x(c+1)-x(c));
 end
 
-
+save('FQ2.mat', 'FQ');
 
 
 F=bsxfun(@times, weight_matrix, (abs(FQ-fexact(Q)-qexact(Q))).^2);

@@ -29,9 +29,6 @@
 \newcommand{\f}{{\bf f}}
 \begin{document}
 \begin{subsection}{Discretization}
-Idea:
-
-
 Clearly, $u$ solves the well-posed problem 
 \begin{align*}
 a(u, v)=(f,v)\text{ for all } v=(v_{1},v_{2})^{T}\in V^2, 
@@ -41,7 +38,7 @@ if and only if (this can be easily checked)
 a(u,(v_{1},0)^{T})=(f,(v_{1},0)^{T}),\\
 a(u,(0,v_{2})^{T})=(f,(0,v_{2})^{T}).
 \end{align*}
-For us it may be sufficient to check that the first equation is uniquely solvable in the sense of distributions (and if $\delta, \alpha$ are positive, we can probably even bound the norm of the solution), and thus the second equation is uniquely solvable as well (because it will be the bilinear form for the Helmholtz equation, see the thesis of Lise-Marie).
+
 
 \begin{remark}
 The application of the above to the variational formulation (\ref{}) allows to obtain the following system of two equations:
@@ -106,7 +103,7 @@ After introduction
 K_{\ell k}=\int\limits_{-L}^{H}\phi'_{k}(x)\bar{\phi}'_{\ell}(x)dx,\qquad \left(M^{\alpha,\phi}\right)_{\ell k}=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\bar{\phi}_{\ell}\phi_{k}dx,\\
 I_{km}^{\Gamma}=\bar{\phi}_{m}(-L)\phi_{k}(-L),\\
 \boldsymbol{e}_{1}=\left(e_{11},\ldots,e_{1 N_{1}}\right)^{T},\; \boldsymbol{e}_{2}=\left(e_{21},\ldots,e_{2 N_{1}}\right)^{T},\\
-\boldsymbol{0}_{n} \text{ is an $n$-dimensional column vector with all zeros}.
+\boldsymbol{0}_{n} \text{ is an $n$-dimensional zero column vector}.
 \end{align*}
 the above system of equations can be rewritten in an antisymmetric block form:
 \begin{align*}
@@ -179,9 +176,9 @@ is the solution to the problem with parameters (\ref{eq:parameters}) with the bo
 
 In Figure \ref{fig:conv_rate} we demonstrate the convergence rates for this problem, with 
 \begin{align*}
-\|E_{1}-E_{1}^{c}\|_{L_{2}(\Omega)}=\left(\int\limits_{\Omega}\left|E_{1}-\sum\limits_{k=0}^{N}E_{1i}\phi_{i}\right|^2dx\right),
+\|E_{1}-E_{1}^{c}\|_{L_{2}(\Omega)}=\left(\int\limits_{\Omega}\left|E_{1}(x)-\sum\limits_{k=0}^{N}E_{1i}\phi_{i}\right|^2dx\right),
 \end{align*}
-where $\left(\phi_{i}\right)$ are $P_{1}$-finite elements. Similarly $\|E_{2}-E_{2}^{c}\|_{L_{2}(\Omega)}$ and $\|E_{2}-E_{2}^{c}\|_{H_{1}(\Omega)}$ are defined. 
+where $\left(\phi_{i}\right)_{i=1}^{N}$ are $P_{1}$-finite elements and $E_{1}(x)$ is a known analytic solution. Similarly $\|E_{2}-E_{2}^{c}\|_{L_{2}(\Omega)}$ and $\|E_{2}-E_{2}^{c}\|_{H_{1}(\Omega)}$ are defined. 
 
 \begin{figure}
 \begin{tikzpicture}
@@ -195,16 +192,16 @@ anchor=south east,
 draw=none
 }
 ]
-    \addplot[mark=*,blue] table {E1L2.dat}; 
+    \addplot[mark=*,blue] table {pics/E1L2.dat}; 
     \addlegendentry{$\|E_{1}-E_{1}^{c}\|_{L_{2}}$};
-    \addplot[mark=*,red] table {E2H1.dat};
+    \addplot[mark=*,red] table {pics/E2H1.dat};
         \addlegendentry{$\|E_{2}-E_{2}^{c}\|_{H_{1}}$};
         
-          \addplot[mark=*,cyan] table {E2L2.dat};
+          \addplot[mark=*,cyan] table {pics/E2L2.dat};
         \addlegendentry{$\|E_{2}-E_{2}^{c}\|_{L_{2}}$};  
-        \addplot[dotted] table{E_h2.dat};
+        \addplot[dotted] table{pics/E_h2.dat};
          \addlegendentry{$O(h^2)$};
-         \addplot[dashed] table{H.dat};
+         \addplot[dashed] table{pics/H.dat};
          \addlegendentry{$O(h)$};
     \end{loglogaxis}
     \end{tikzpicture}
@@ -212,13 +209,35 @@ draw=none
     \label{fig:conv_rate}
 \end{figure}
 
-Note that in the last 3 experiments the accuracy of the solution of the system of equations, namely $\|Ae-r\|$ (where $e$ is the solution vector, $r$ is the right hand side and $A$ us the matrix) exceeded 1.6e-9 (namely, it was 1.6e-9 ($h=3.2e-5$), 1.3e-08 ($h=8e-6$), 1.04e-07 ($h=2e-6$))
+Note that in the last 3 experiments the error of the solution of the system of equations, namely $\|Ae-r\|$ (where $e$ is the solution vector, $r$ is the right hand side and $A$ is the block matrix (\ref{eq:simple_system}) ) exceeded 1.6e-9 (namely, it was 1.6e-9 ($h=3.2e-5$), 1.3e-08 ($h=8e-6$), 1.04e-07 ($h=2e-6$))
 
 
 
 
 
-The next experiment we perform for the case of the resonance. $L=-2$, $H=10$, the parameters are like in the thesis of LMIG, and the boundary condition (\ref{eq:bcs}) with $g^{inc}=2, \lambda=2.0$.
+The next experiment we perform for the case of the resonance. The parameters for the problem are given in Table \ref{tab:parameters}.
+\begin{table}
+\begin{tabular}{lr}
+$\alpha(x)$ & $\left\{\begin{array}{cc}
+10, & x\leq -10,\\
+-x, & -10<x\leq 5,\\
+-5, & x>5.
+\end{array}\right.$ \\
+$\delta(x)$ & 
+$\left\{\begin{array}{cc}
+0, & x\leq -10,\\
+4/30x+4/3,& -10<x\leq 5,\\
+2, & x>5.
+\end{array}\right.$ \\
+$g^{inc}(-L)$ & $-2 \sqrt{2}i\exp(-22\sqrt{2}i)$\\
+$\lambda$ & 
+$\sqrt{10}$\\
+$L$& 15\\
+$H$ & 10 \\
+\end{tabular}
+\caption{The parameters for the problem with the resonance}
+\label{tab:parameters}
+\end{table}
 
 We consider the dependence of the condition number of the block matrix on $\nu$, for several values of $h$ (see Table \ref{tab:cond_number}).
 \begin{table}[ht!]
@@ -246,10 +265,124 @@ For $\nu=0$ the computed matrices are not singular; perhaps the bilinear form $a
 
 
 
-At the next step we are numerically determining an optimal relation of $h$ to $\nu$. We fix $\nu$ and compute the error of the solution comparing it to the finest mesh.
-\begin{figure}
+At the next step we are numerically determining an optimal relation of $h$ to $\nu$. We fix $\nu$ and compute the error of the solution compared to the solution computed on the finest mesh  (with $h=2e-6$). The results are depicted in Figures \ref{fig:l2_err_e1} and \ref{fig:l2_err_e2}.
 
+
+\begin{figure}
+\begin{tikzpicture}
+    \begin{loglogaxis}[
+    	width=0.7\textwidth,
+        xlabel=$h$,
+        ylabel=$Error$,
+        legend style={
+at={(0.2,1.5)},
+legend pos= south east,
+anchor=south east, 
+draw=none
+}
+]
+\addplot[mark=*,blue] table {pics/result_l2e1.1.dat}; 
+\addlegendentry{$\nu=1$};
+\addplot[mark=*,green] table {pics/result_l2e1.0.25.dat}; 
+\addlegendentry{$\nu=2^{-2}$};
+\addplot[mark=*,red] table {pics/result_l2e1.0.0625.dat}; 
+\addlegendentry{$\nu=2^{-4}$};
+\addplot[mark=square,blue] table {pics/result_l2e1.0.015625.dat}; 
+\addlegendentry{$\nu=2^{-6}$};
+\addplot[mark=square,green] table {pics/result_l2e1.0.0039062.dat}; 
+\addlegendentry{$\nu=2^{-8}$};
+\addplot[mark=square,red] table {pics/result_l2e1.0.0039062.dat}; 
+\addlegendentry{$\nu=2^{-10}$};
+\addplot[mark=triangle,blue] table {pics/result_l2e1.0.00097656.dat}; 
+\addlegendentry{$\nu=2^{-12}$};
+\addplot[mark=triangle,green] table {pics/result_l2e1.0.00024414.dat}; 
+\addlegendentry{$\nu=2^{-12}$};
+\addplot[mark=triangle, red] table {pics/result_l2e1.6.1035e-05.dat};
+\addlegendentry{$\nu=2^{-14}$};
+\addplot[mark=*, violet] table{pics/result_l2e1.1.5259e-05.dat};
+\addlegendentry{$\nu=2^{-16}$};
+\end{loglogaxis}
+\end{tikzpicture} 
+\caption{The $L_{2}$-error of $E_{1}(x)$}
+\label{fig:l2_err_e1}
 \end{figure} 
+
+
+\begin{figure}
+\begin{tikzpicture}
+    \begin{loglogaxis}[
+    	width=0.7\textwidth,
+        xlabel=$h$,
+        ylabel=$Error$,
+        legend style={
+at={(0.2,1.5)},
+legend pos= south east,
+anchor=south east, 
+draw=none
+}
+]
+\addplot[mark=*,blue] table {pics/result_l2e2.1.dat}; 
+\addlegendentry{$\nu=1$};
+\addplot[mark=*,green] table {pics/result_l2e2.0.25.dat}; 
+\addlegendentry{$\nu=2^{-2}$};
+\addplot[mark=*,red] table {pics/result_l2e2.0.0625.dat}; 
+\addlegendentry{$\nu=2^{-4}$};
+\addplot[mark=square,blue] table {pics/result_l2e2.0.015625.dat}; 
+\addlegendentry{$\nu=2^{-6}$};
+\addplot[mark=square,green] table {pics/result_l2e2.0.0039062.dat}; 
+\addlegendentry{$\nu=2^{-8}$};
+\addplot[mark=square,red] table {pics/result_l2e2.0.0039062.dat}; 
+\addlegendentry{$\nu=2^{-10}$};
+\addplot[mark=triangle,blue] table {pics/result_l2e2.0.00097656.dat}; 
+\addlegendentry{$\nu=2^{-12}$};
+\addplot[mark=triangle,green] table {pics/result_l2e2.0.00024414.dat}; 
+\addlegendentry{$\nu=2^{-12}$};
+\addplot[mark=triangle, red] table{pics/result_l2e2.6.1035e-05.dat};
+\addlegendentry{$\nu=2^{-14}$};
+\addplot[mark=*, violet] table{pics/result_l2e2.1.5259e-05.dat};
+\addlegendentry{$\nu=2^{-16}$};
+\end{loglogaxis}
+\end{tikzpicture} 
+\caption{The $L_{2}$-error of $E_{2}(x)$}
+\label{fig:l2_err_e2}
+\end{figure} 
+
+Let us denote by $E_{1}^{h}$ the solution $E_{1}(x)$ computed on the mesh with a width $h$, and by $E_{1}^{c}$ the solution computed on the finest mesh. We introduce 
+\begin{align}
+\label{eq:def_epsilon}
+h_{\epsilon}=\sup\{h: \|E_{1}^{h'}-E_{1}^{c}\|<\epsilon \text{ for all } h'<h\}.
+\end{align}
+The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Figure \ref{}.
+\begin{figure}
+\begin{tikzpicture}
+    \begin{loglogaxis}[
+    	width=0.7\textwidth,
+        xlabel=$\nu$,
+        ylabel=$h_{\epsilon}$,
+        legend style={
+at={(0.2,1.5)},
+legend pos= south east,
+anchor=south east, 
+draw=none
+}
+]
+\addplot[mark=*,blue] table {pics/h1e-1.dat}; 
+\addlegendentry{$\epsilon=1e-1$};
+\addplot[mark=o,red] table {pics/h1e-2.dat}; 
+\addlegendentry{$\epsilon=1e-2$};
+\addplot[mark=triangle,green] table {pics/h1e-3.dat}; 
+\addlegendentry{$\epsilon=1e-3$};
+\addplot[mark=square,cyan] table {pics/h1e-4.dat}; 
+\addlegendentry{$\epsilon=1e-4$};
+\addplot[dashed, red] table {pics/nu1.dat}; 
+\addlegendentry{$O(\nu)$};
+\addplot[dashed, blue] table {pics/nu32.dat}; 
+\addlegendentry{$O(\nu^{\frac{3}{2}})$};
+\end{loglogaxis}
+\end{tikzpicture} 
+\caption{The dependence of $h_{\epsilon}$ as defined by (\ref{eq:def_epsilon}) on $\nu$.}
+\end{figure}
+
 
 
 
