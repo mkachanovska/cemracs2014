@@ -69,7 +69,7 @@ def g(t) :
 #------table and functions initialisation-------#
 #-----------------------------------------------#
 X    = map(lambda i: mL + i*dx, range(N+1))
-NE   = map(lambda x: wp**2*me/(e*e),  X)
+NE   = map(lambda x:3.13895515115395 + 3.66439242009228*complex(0,1) ,  X)
 X12  = map(lambda i: mL+0.5*dx + i*dx, range(N))
 NEy  = map(lambda x: wp**2*me/(e*e),  X12)
 Ey   = map(lambda x: np.exp(-gamma*x),X12)
@@ -77,10 +77,6 @@ H    = map(lambda x: -(gamma/complex(0,omega))*np.exp(-gamma*x)*np.exp(complex(0
 uy   = map(lambda x:-(1/(e*NE[1]))*(eps0*complex(0,omega)-complex(0,gamma*gamma/omega))*np.exp(-gamma*x), X12)
 ux   = map(lambda x: (1/(B0*e)*(-me/(e*NE[1])*(eps0*omega*omega+gamma*gamma)-e+nu*me/(e*NE[1])*(complex(0,-omega-gamma*gamma/omega))))*np.exp(-gamma*x), X)
 Ex   = map(lambda x: ((e*NE[1])/(eps0*complex(0,omega)))*x, ux)
-
-
-
-
 
 #H12 = map(lambda x: -np.exp(-alpha*dt/2)*np.exp(-alpha*x),X)
 
