@@ -23,13 +23,13 @@ print "dx", dx
 dt     = 0.5*dx
 print "dt",dt
 # Number of time steps
-Ntime = 10
+Ntime = 400
 # constants 
-me     = 9.11e-31               #electron mass (kg)
-e      = -1.6e-19               #electron charge (coulombs)
-eps0   = 8.85e-12               #permeability  (F/m)
-nu     = 0                        #friction
-B0     = 0.95                        #given
+me     = 1#9.11e-31               #electron mass (kg)
+e      = -1#1.6e-19              #electron charge (coulombs)
+eps0   = 1#8.85e-12               #permeability  (F/m)
+nu     = 1                       #friction
+B0     = 1#0.95                        #given
 c      = 3e8 
 
 
@@ -50,14 +50,15 @@ alphamL = 2
 
 #-------------------------- NE --------------------------#
 # Ne constants definition
-wc    = e*abs(B0)/me
+wc    = abs(e)*B0/me
 print "omega_c" ,wc
 def Ne(x) : 
-    return (2*B0)/(1+exp(-x)) ;
+    return 4#(2*B0)/(1+exp(-x)) ;
     
 
-omega = np.sqrt(3)
-wp = np.sqrt(7)
+omega = 1#np.sqrt(3)
+wp = 2
+
 gamma = 2
 #---------------------------------------------------------#
 
@@ -65,25 +66,31 @@ gamma = 2
 alpha = 1
 
 def g(t) : 
-    return np.exp(complex(0,omega*t))*np.exp(-gamma*mL)*(-gamma+complex(0,alphamL))
+    #return np.exp(complex(0,omega*t))*np.exp(-gamma*mL)*(-gamma+complex(0,alphamL))
+    return 1/2*(1+tanh((t-2)/0.1))
+print g(0)
 #-----------------------------------------------#
 #------table and functions initialisation-------#
 #-----------------------------------------------#
-X    = map(lambda i: mL + i*dx, range(N+1))
-#NE   = map(lambda x:3.13895515115395 + 3.66439242009228*complex(0,1) ,  X)
-NE   = map(lambda x:Ne(x) ,  X)
-X12  = map(lambda i: mL+0.5*dx + i*dx, range(N))
-#NEy  = map(lambda x: 3.13895515115395 + 3.66439242009228*complex(0,1),  X12)
-NEy   = map(lambda x:Ne(x),X12)
+X    = map(lambda i : mL + i*dx, range(N+1))
+NE   = map(lambda x : Ne(x) ,  X)
+X12  = map(lambda i : mL+0.5*dx + i*dx, range(N))
+NEy  = map(lambda x : Ne(x),X12)
+Ey   = map(lambda x : 0, X12)
+H    = map(lambda x : 0, X)
+uy   = map(lambda x : 0, X12)
+ux   = map(lambda x : 0, X) 
+Ex   = map(lambda x : 0, X)
 
-Ey   = map(lambda x: np.exp(-gamma*x),X12)
-H    = map(lambda x: -(gamma/complex(0,omega))*np.exp(-gamma*x)*np.exp(complex(0,-omega*dt/2)), X)
-uy   = map(lambda x,n:-(1/(e*n))*(eps0*complex(0,omega)-complex(0,gamma*gamma/omega))\
-               *np.exp(-gamma*x), X12,NEy)
-ux   = map(lambda x,n: (1/(B0*e)*(-me/(e*n)*(eps0*omega*omega+gamma*gamma)-e+nu*me/(e*n)*(complex(0,-omega-gamma*gamma/omega))))*np.exp(-gamma*x), X,NE)
-Ex   = map(lambda x,n: ((e*n)/(eps0*complex(0,omega)))*x, ux,NE)
+#NE  = map(lambda x : 3.13895515115395 + 3.66439242009228*complex(0,1) ,  X)
+#NEy = map(lambda x : 3.13895515115395 + 3.66439242009228*complex(0,1),  X12)
+#Ey  = map(lambda x : np.exp(-gamma*x),X12)
+#H   = map(lambda x : -(gamma/complex(0,omega))*np.exp(-gamma*x)*np.exp(complex(0,-omega*dt/2)), X)
+#uy  = map(lambda x,n : -(1/(e*n))*(eps0*complex(0,omega)-complex(0,gamma*gamma/omega))\
+#               *np.exp(-gamma*x), X12,NEy)
+#ux   = map(lambda x,n: (1/(B0*e)*(-me/(e*n)*(eps0*omega*omega+gamma*gamma)-e+nu*me/(e*n)*(complex(0,-omega-gamma*gamma/omega))))*np.exp(-gamma*x), X,NE)
+#Ex   = map(lambda x,n: ((e*n)/(eps0*complex(0,omega)))*x, ux,NE)
 
-#H12 = map(lambda x: -np.exp(-alpha*dt/2)*np.exp(-alpha*x),X)
 
 tux = copy.deepcopy(ux)
 tuy = copy.deepcopy(uy)
