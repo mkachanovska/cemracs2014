@@ -200,7 +200,7 @@ while (t<=Ntime):
     tEx[N]  = Ex[N] - (dt*e*NE[N])*(tux[N] + ux[N])/(2*eps0)
 
     #----------f^n <- f^n+1
-    ux = copy.deepcopy(ux)
+    ux = copy.deepcopy(tux)
     Ex = copy.deepcopy(tEx)
     uy = copy.deepcopy(tuy)
     Ey = copy.deepcopy(tEy)
