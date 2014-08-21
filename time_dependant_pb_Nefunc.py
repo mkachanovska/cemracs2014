@@ -14,8 +14,8 @@ import copy
 # mesh size
 N      = 500
 # domain ]-L ; H[, (mL=-L)
-mL     = -2
-H      =  50
+mL     = -1
+H      =  10
 # space step 
 dx     = (H-mL)/N
 print "dx", dx
@@ -28,9 +28,9 @@ Ntime = 400
 me     = 1#9.11e-31               #electron mass (kg)
 e      = -1#1.6e-19              #electron charge (coulombs)
 eps0   = 1#8.85e-12               #permeability  (F/m)
-nu     = 1                       #friction
+nu     = 0                       #friction
 B0     = 1#0.95                        #given
-c      = 3e8 
+c      = 1#3e8 
 
 
 
@@ -67,7 +67,8 @@ alpha = 1
 
 def g(t) : 
     #return np.exp(complex(0,omega*t))*np.exp(-gamma*mL)*(-gamma+complex(0,alphamL))
-    return 1/2*(1+tanh((t-2)/0.1))
+    return 1/2*(1+tanh((t-2)/0.1))*np.exp(omega*t*complex(0,1))
+
 print g(0)
 #-----------------------------------------------#
 #------table and functions initialisation-------#
@@ -108,8 +109,8 @@ delta  = e*dt/(me)
 def Kcoeff(x): 
     K1     =  1 + nu * dt/2 + dt*dt*x*e*e/(4*me*eps0)
     K2     =  1 - nu * dt/2 - dt*dt*x*e*e/(4*me*eps0)
-    K1x    =  K1 - beta*beta/(4*K1)
-    K2x    =  K2 + beta*beta/(4*K1)
+    K1x    =  K1 + beta*beta/(4*K1)
+    K2x    =  K2 - beta*beta/(4*K1)
     
     return [K1,K2,K1x,K2x]
 
@@ -159,7 +160,7 @@ while (t<=Ntime):
 
     for i in range(N):
         [K1,K2,K1x,K2x] = Kcoeff(NEy[i]);
-        tuy[i] = (1/K1) * (K2 * uy[i] -dt * e / me * Ey[i] +dt*dt*e/(2*me*eps0) * (H12[i+1] - H12[i])/dx)+ beta*(tux[i]+ux[i])/2
+        tuy[i] = (1/K1) * (K2 * uy[i] -dt * e / me * Ey[i] +dt*dt*e/(2*me*eps0) * (H12[i+1] - H12[i])/dx)- beta*(tux[i]+ux[i])/2
     
     #------------------- E -> tE
                         
