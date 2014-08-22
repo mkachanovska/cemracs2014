@@ -12,10 +12,10 @@ import copy
 
 #---------------CONSTANTS--------------------#
 # mesh size
-N      = 500
+N      = 1000
 # domain ]-L ; H[, (mL=-L)
 mL     = -1
-H      =  10
+H      =  50
 # space step 
 dx     = (H-mL)/N
 print "dx", dx
@@ -28,7 +28,7 @@ Ntime = 4000
 me     = 1#9.11e-31               #electron mass (kg)
 e      = -1#1.6e-19              #electron charge (coulombs)
 eps0   = 1#8.85e-12               #permeability  (F/m)
-nu     = 1                       #friction
+nu     = 0                       #friction
 B0     = 0.95                        #given
 c      = 1
 
@@ -49,7 +49,7 @@ c      = 1
 wc    = abs(e)*B0/me
 print "omega_c" ,wc
 def Ne(x) : 
-    return 7#(2*B0)/(1+exp(-x)) ;
+    return  7# (2*B0)/(1+exp(-x)) ;
     
 
 omega = 2#np.sqrt(3)
@@ -102,30 +102,28 @@ tEx = copy.deepcopy(Ex)
 tEy = copy.deepcopy(Ey)
 H12 = copy.deepcopy(H)
 scipy.io.savemat('H120.mat', {'H120':H12})
-fig = plt.figure() 
-ax = fig.add_subplot(111)
+f, axarr = plt.subplots(2, sharex=True)
+
 
 plt.ion()
 plt.show()
-def plot_real(X,T,s,s2,s3):
-    clf()
-    plot(X,real(T),s,label=s2)
-    xlabel(r'$x$',fontsize =16)
-    ylabel(s3,fontsize =16)
+def plot2(X,T,s,s2,s3):
+    axarr[0].hold(False)
+    axarr[1].hold(False)
     #ylim(-20,20)
-    leg = ax.legend(shadow = True, loc = 3)
-    plt.draw()
-    time.sleep(0.05)
-def plot_imag(X,T,s,s2,s3):
-    #ax.set_xlim(mL,H)
+    
 
-    clf()
-    plot(X,np.imag(T),s,label=s2)
-    xlabel(r'$x$',fontsize =16)
-    ylabel(s3,fontsize =16)
-    leg = ax.legend(shadow = True, loc = 3)
+    axarr[0].plot(X, real(T))
+    axarr[0].set_title('real '+s3)
+    axarr[1].plot(X, imag(T))
+    axarr[1].set_title('imag '+s3)
+    #axarr.plot(X,np.imag(T),s,label=s2)
+    #xlabel(r'$x$',fontsize =16)
+    #ylabel('im',fontsize =16)
+    #leg = axarr.legend(shadow = True, loc = 3)
     plt.draw()
-    time.sleep(0.05)
+    
+    time.sleep(0.001)
 
 
 #---------------------------------------------------------#
@@ -163,15 +161,15 @@ while (t<=Ntime):
     while (i<N):
         H12[i] = H[i] - dt/dx*(Ey[i] - Ey[i-1])
         i      = i + 1
-    H12[N] = H[N]
+    H12[N] = H[N] 
 
     #------------------- ux -> tux
     for i in range(N):
         
         [K1,K2,K1x,K2x] = Kcoeff(WP[i])
-        tux[i] =  (1/K1x) * (K2x*ux[i] -(wc/B0)*dt*Ex[i] + (((wc*wc/B0)*dt*dt)/(2*K1))*Ey[i]\
+        tux[i] =  (1/K1x) * (K2x*ux[i] -(wc/B0)*dt*Ex[i] - (((wc*wc/B0)*dt*dt)/(2*K1))*Ey[i]\
                                  + (wc*wc/B0)*dt*dt*dt/(4*K1)*((H12[i] - H12[i-1])/dx)   \
-                                 - (wc*dt/2)*(K2/K1 + 1)*uy[i])
+                                 + (wc*dt/2)*(K2/K1 + 1)*uy[i])
         
     #left BC (if i = N) (H(i+1) = 0) ????
     [K1,K2,K1x,K2x] = Kcoeff(WP[N])
@@ -187,14 +185,14 @@ while (t<=Ntime):
     for i in range(N):
         [K1,K2,K1x,K2x] = Kcoeff(WPy[i]);
         tuy[i] = (1/K1) * (K2 * uy[i] -dt * wc/B0* Ey[i] +dt*(dt/2)*(wc/(B0*eps0)) * (H12[i+1] - H12[i])/dx) +wc*dt*(tux[i]+ux[i])/2
-    plot_real(X12,tuy,'b','$u_y$','u_y')
+    plot2(X12,tuy,'b','$u_y$','u_yw')
     
-    
+
     #------------------- E -> tE
                         
 
     for i in range(N):
-        tEx[i] = Ex[i] - e*NE[i]*dt* (tux[i] + ux[i])/(2*eps0)
+        tEx[i] = Ex[i] - (dt*(WP[N]*WP[N]/wc)*B0)* (tux[i] + ux[i])/(2)
         tEy[i] = Ey[i] - (dt/eps0) * (H12[i+1] - H12[i])/dx  +(dt/2)*(WP[i]*WP[i]/wc)*B0*(tuy[i] + uy[i])
     
     #left BC (if i = N)(H(i+1) = 0) ????
