@@ -3,7 +3,7 @@
 
 from __future__ import division
 import os
-from time import time
+import time
 import numpy as np
 from pylab import *
 import scipy.io
@@ -12,10 +12,10 @@ import copy
 
 #---------------CONSTANTS--------------------#
 # mesh size
-N      = 128
+N      = 500
 # domain ]-L ; H[, (mL=-L)
-mL     = -2
-H      =  50
+mL     = -1
+H      =  10
 # space step 
 dx     = (H-mL)/N
 print "dx", dx
@@ -23,7 +23,7 @@ print "dx", dx
 dt     = 0.5*dx
 print "dt",dt
 # Number of time steps
-Ntime = 400
+Ntime = 4000
 # constants 
 me     = 1#9.11e-31               #electron mass (kg)
 e      = -1#1.6e-19              #electron charge (coulombs)
@@ -49,10 +49,10 @@ c      = 1
 wc    = abs(e)*B0/me
 print "omega_c" ,wc
 def Ne(x) : 
-    return 4#(2*B0)/(1+exp(-x)) ;
+    return 7#(2*B0)/(1+exp(-x)) ;
     
 
-omega = 1#np.sqrt(3)
+omega = 2#np.sqrt(3)
 
 
 gamma = 2
@@ -102,7 +102,30 @@ tEx = copy.deepcopy(Ex)
 tEy = copy.deepcopy(Ey)
 H12 = copy.deepcopy(H)
 scipy.io.savemat('H120.mat', {'H120':H12})
+fig = plt.figure() 
+ax = fig.add_subplot(111)
 
+plt.ion()
+plt.show()
+def plot_real(X,T,s,s2,s3):
+    clf()
+    plot(X,real(T),s,label=s2)
+    xlabel(r'$x$',fontsize =16)
+    ylabel(s3,fontsize =16)
+    #ylim(-20,20)
+    leg = ax.legend(shadow = True, loc = 3)
+    plt.draw()
+    time.sleep(0.05)
+def plot_imag(X,T,s,s2,s3):
+    #ax.set_xlim(mL,H)
+
+    clf()
+    plot(X,np.imag(T),s,label=s2)
+    xlabel(r'$x$',fontsize =16)
+    ylabel(s3,fontsize =16)
+    leg = ax.legend(shadow = True, loc = 3)
+    plt.draw()
+    time.sleep(0.05)
 
 
 #---------------------------------------------------------#
@@ -147,8 +170,8 @@ while (t<=Ntime):
         
         [K1,K2,K1x,K2x] = Kcoeff(WP[i])
         tux[i] =  (1/K1x) * (K2x*ux[i] -(wc/B0)*dt*Ex[i] + (((wc*wc/B0)*dt*dt)/(2*K1))*Ey[i]\
-                                 - (wc*wc/B0)*dt*dt*dt/(4*K1)*((H12[i] - H12[i-1])/dx)   \
-                                 + (B0/2)*(K2/K1 + 1)*uy[i])
+                                 + (wc*wc/B0)*dt*dt*dt/(4*K1)*((H12[i] - H12[i-1])/dx)   \
+                                 - (wc*dt/2)*(K2/K1 + 1)*uy[i])
         
     #left BC (if i = N) (H(i+1) = 0) ????
     [K1,K2,K1x,K2x] = Kcoeff(WP[N])
@@ -163,7 +186,9 @@ while (t<=Ntime):
 
     for i in range(N):
         [K1,K2,K1x,K2x] = Kcoeff(WPy[i]);
-        tuy[i] = (1/K1) * (K2 * uy[i] +dt * wc/B0* Ey[i] -dt*(dt/2)*(wc/(B0*eps0)) * (H12[i+1] - H12[i])/dx) -wc*dt*(tux[i]+ux[i])/2
+        tuy[i] = (1/K1) * (K2 * uy[i] -dt * wc/B0* Ey[i] +dt*(dt/2)*(wc/(B0*eps0)) * (H12[i+1] - H12[i])/dx) +wc*dt*(tux[i]+ux[i])/2
+    plot_real(X12,tuy,'b','$u_y$','u_y')
+    
     
     #------------------- E -> tE
                         
@@ -184,7 +209,7 @@ while (t<=Ntime):
     Ey = copy.deepcopy(tEy)
     H  = copy.deepcopy(H12)
 
-    time = t*dt
+    #time = t*dt
 
     scipy.io.savemat('H.mat',  {'H': H})
     scipy.io.savemat('Ey.mat',  {'Ey': Ey})
