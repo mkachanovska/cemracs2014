@@ -46,13 +46,13 @@ c      = 1
 
 #-------------------------- NE --------------------------#
 # Ne constants definition
-wc    = abs(e)*B0/me
-print "omega_c" ,wc
+#wc    = abs(e)*B0/me
+#print "omega_c" ,wc
 def Ne(x) : 
     return  7# (2*B0)/(1+exp(-x)) ;
     
 
-omega = 2#np.sqrt(3)
+omega = 0.5#np.sqrt(3)
 
 
 gamma = 2
@@ -63,7 +63,7 @@ alpha = 1
 
 def g(t) : 
     #return np.exp(complex(0,omega*t))*np.exp(-gamma*mL)*(-gamma+complex(0,alphamL))
-    return 1/2*(1+tanh((t-2)/0.1))*np.exp(omega*t*complex(0,1))
+    return 1/2*(1+tanh((t-2)/0.1))*np.exp(-omega*t*complex(0,1))
 
 print g(0)
 #-----------------------------------------------#
