@@ -23,10 +23,10 @@ print "dx", dx
 dt     = 0.5*dx
 print "dt",dt
 # Number of time steps
-Ntime = 100
+Ntime = 1000
 # constants 
 me     = 1#9.11e-31               #electron mass (kg)
-e      = 1#1.6e-19               #electron charge (coulombs)
+e      = -1#1.6e-19               #electron charge (coulombs)
 eps0   = 1#8.85e-12               #permeability  (F/m)
 nu     = 0                   #friction
 B0     = 0                      #given
@@ -76,8 +76,7 @@ gamma = 2
 alpha = 1
 
 def g(t) : 
-    return np.exp(complex(0,omega*t))*np.exp(-gamma*mL)*(-gamma+complex(0,alphamL))
-#-----------------------------------------------#
+    return 1/2*(1+tanh((t-2)/0.1))*np.exp(omega*t*complex(0,1));#-----------------------------------------------#
 #------table and functions initialisation-------#
 #-----------------------------------------------#
 X    = map(lambda i: mL + i*dx, range(N+1))
@@ -86,9 +85,9 @@ X12  = map(lambda i: mL+0.5*dx + i*dx, range(N))
 NEy  = map(lambda x: wp**2*me/(e*e),  X12)
 Ex   = map(lambda x: 0, X)
 ux   = map(lambda x: 0, X)
-H    = map(lambda x: (gamma/complex(0,omega))*np.exp(-gamma*x)*np.exp(complex(0,-omega*dt/2)), X)
-Ey   = map(lambda x: np.exp(-gamma*x),X12)
-uy   = map(lambda x: -e/(me*complex(0,omega))*np.exp(-gamma*x), X12)
+H    = map(lambda x: 0, X)
+Ey   = map(lambda x: 0,X12)
+uy   = map(lambda x: 0, X12)
 
 #H12 = map(lambda x: -np.exp(-alpha*dt/2)*np.exp(-alpha*x),X)
 
@@ -107,8 +106,6 @@ scipy.io.savemat('H120.mat', {'H120':H12})
 def Kcoeff(x): 
     K1     =  1 + nu * dt/2 + dt*dt*x*e*e/(4*me)
     K2     =  1 - nu * dt/2 - dt*dt*x*e*e/(4*me)
-    #K1x    =  K1 + beta*beta/(4*K1)
-    #K2x    =  K2 - beta*beta/(4*K1)
     K1x = 0
     K2x = 0
     return [K1,K2,K1x,K2x]
@@ -160,14 +157,14 @@ while (t<=Ntime):
 
     for i in range(N):
         [K1,K2,K1x,K2x] = Kcoeff(NEy[i]);
-        tuy[i] = (1/K1) * (K2 * uy[i] -dt * e / me * Ey[i] +dt*dt*e/(2*me) * (H12[i+1] - H12[i])/dx)
+        tuy[i] = (1/K1) * (K2 * uy[i] +dt * e / me * Ey[i] -dt*dt*e/(2*me) * (H12[i+1] - H12[i])/dx)
        # tuy[i] = -e/(me*complex(0,omega))*np.exp(complex(0,omega*time)-gamma*X12[i])
     #------------------- E -> tE
                         
 
     for i in range(N):
        # tEx[i] = Ex[i] + e*NE[i]*dt* (tux[i] + ux[i])/2
-        tEy[i] = Ey[i] - (dt) * (H12[i+1] - H12[i])/dx  +(dt*e*NEy[i]/2)*(tuy[i] + uy[i])
+        tEy[i] = Ey[i] - (dt) * (H12[i+1] - H12[i])/dx  -(dt*e*NEy[i]/2)*(tuy[i] + uy[i])
         #tEy[i]=np.exp(complex(0, omega*time)-gamma*X12[i]);
 
     #left BC (if i = N)(H(i+1) = 0) ????
@@ -191,28 +188,28 @@ while (t<=Ntime):
     scipy.io.savemat('Ey.mat',  {'Ey': Ey})
     scipy.io.savemat('uy.mat',  {'uy': uy})
 
-    Eyex   = map(lambda x: np.exp(complex(0,omega*time))*np.exp(-gamma*x),X12)
-    Hex    = map(lambda x: (gamma/complex(0,omega))*np.exp(-gamma*x)*np.exp(complex(0,omega*(time-dt/2))) ,X)
-    Uyex   = map(lambda x: -e/(me*complex(0,omega))*np.exp(complex(0,omega*time)-gamma*x),X12)
+#Eyex   = map(lambda x: np.exp(complex(0,omega*time))*np.exp(-gamma*x),X12)
+#Hex    = map(lambda x: (gamma/complex(0,omega))*np.exp(-gamma*x)*np.exp(complex(0,omega*(time-dt/2))) ,X)
+#Uyex   = map(lambda x: -e/(me*complex(0,omega))*np.exp(complex(0,omega*time)-gamma*x),X12)
 
-    scipy.io.savemat('Hex.mat',  {'Hex': Hex})
-    scipy.io.savemat('Eyex.mat',  {'Eyex': Eyex})
-    scipy.io.savemat('uyex.mat',  {'uyex': Uyex})   
-
-    temp = 0
-    for i in range(N):
-        temp = temp + np.abs((H[i]-Hex[i]))**2
-    print time, 'norm err H', np.sqrt(dx*temp)
+# scipy.io.savemat('Hex.mat',  {'Hex': Hex})
+#scipy.io.savemat('Eyex.mat',  {'Eyex': Eyex})
+#  scipy.io.savemat('uyex.mat',  {'uyex': Uyex})
 
     temp = 0
-    for i in range(N) : 
-        temp = temp + np.abs((uy[i]-Uyex[i]))**2
-    print 'norm err uy',np.sqrt(dx*temp)
+        #for i in range(N):
+#   temp = temp + np.abs((H[i]-Hex[i]))**2
+#  print time, 'norm err H', np.sqrt(dx*temp)
 
     temp = 0
-    for i in range(N) : 
-        temp = temp + np.abs((Ey[i]-Eyex[i]))**2
-    print 'norm err Ey', np.sqrt(dx*temp)                         
+        # for i in range(N) :
+#     temp = temp + np.abs((uy[i]-Uyex[i]))**2
+# print 'norm err uy',np.sqrt(dx*temp)
+
+    temp = 0
+        # for i in range(N) :
+#      temp = temp + np.abs((Ey[i]-Eyex[i]))**2
+#  print 'norm err Ey', np.sqrt(dx*temp)
     temp = 0
   
     t = t+1           
