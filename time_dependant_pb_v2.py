@@ -3,7 +3,7 @@
 
 from __future__ import division
 import os
-from time import time
+import time
 import numpy as np
 from pylab import *
 import scipy.io
