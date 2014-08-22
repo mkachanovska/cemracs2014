@@ -109,8 +109,8 @@ delta  = e*dt/(me)
 def Kcoeff(x): 
     K1     =  1 + nu * dt/2 + dt*dt*x*e*e/(4*me*eps0)
     K2     =  1 - nu * dt/2 - dt*dt*x*e*e/(4*me*eps0)
-    K1x    =  K1 + beta*beta/(4*K1)
-    K2x    =  K2 - beta*beta/(4*K1)
+    K1x    =  K1 - beta*beta/(4*K1)
+    K2x    =  K2 + beta*beta/(4*K1)
     
     return [K1,K2,K1x,K2x]
 
@@ -168,9 +168,9 @@ while (t<=Ntime):
     for i in range(N):
         
         [K1,K2,K1x,K2x] = Kcoeff(NE[i])
-        tux[i] =  (1/K1x) * (K2x*ux[i] + delta*Ex[i] + ((beta*delta)/(2*K1))*Ey[i]\
-                                 - beta*delta*dt/(4*K1)*((H12[i] - H12[i-1])/dx)   \
-                                 + (B0/2)*(K2/K1 + 1)*uy[i])
+        tux[i] =  (1/K1x) * (K2x*ux[i] + delta*Ex[i] - ((beta*delta)/(2*K1))*Ey[i]\
+                                 + beta*delta*dt/(4*K1)*((H12[i] - H12[i-1])/dx)   \
+                                 -(B0/2)*(K2/K1 + 1)*uy[i])
         
     #left BC (if i = N) (H(i+1) = 0) ????
     [K1,K2,K1x,K2x] = Kcoeff(NE[N])
