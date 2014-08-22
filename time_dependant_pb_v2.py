@@ -115,6 +115,30 @@ def Kcoeff(x):
 #------------------------time loop--------------------------#
 #-----------------------------------------------------------#
 
+fig = plt.figure() 
+ax = fig.add_subplot(111)
+
+plt.ion()
+plt.show()
+def plot_real(X,T,s,s2,s3):
+    #ax.set_xlim(mL,H)
+    clf()
+    plot(X,real(T),s,label=s2)
+    xlabel(r'$x$',fontsize =16)
+    ylabel(s3,fontsize =16)
+    leg = ax.legend(shadow = True, loc = 3)
+    plt.draw()
+    time.sleep(0.05)
+def plot_imag(X,T,s,s2,s3):
+    #ax.set_xlim(mL,H)
+
+    clf()
+    plot(X,np.imag(T),s,label=s2)
+    xlabel(r'$x$',fontsize =16)
+    ylabel(s3,fontsize =16)
+    leg = ax.legend(shadow = True, loc = 3)
+    plt.draw()
+    time.sleep(0.05)
 
 t = 1
 #coeff alpha (1/alpha_Ey)Ey in left BC
@@ -126,9 +150,9 @@ while (t<=Ntime):
 
     #---------------- H -> H12
     H12[0] = H[0] -  dt/dx* (Ey[0] - 1/alphaey * (Ey[0] *(- 1/dx - complex(0,alphamL)/2)+g((t-1)*dt)))
-    time = t*dt
-    Hex    = map(lambda x: (gamma/complex(0,omega))*np.exp(-gamma*x)*np.exp(complex(0,omega*(time-dt/2))) ,X)
-    print H12[0] - Hex[0]
+    #time = t*dt
+    #Hex    = map(lambda x: (gamma/complex(0,omega))*np.exp(-gamma*x)*np.exp(complex(0,omega*(time-dt/2))) ,X)
+    #print H12[0] - Hex[0]
 
     
     i = 1
@@ -158,6 +182,7 @@ while (t<=Ntime):
     for i in range(N):
         [K1,K2,K1x,K2x] = Kcoeff(NEy[i]);
         tuy[i] = (1/K1) * (K2 * uy[i] +dt * e / me * Ey[i] -dt*dt*e/(2*me) * (H12[i+1] - H12[i])/dx)
+    plot_real(X12,tuy,'b','$u_y$','u_y')
        # tuy[i] = -e/(me*complex(0,omega))*np.exp(complex(0,omega*time)-gamma*X12[i])
     #------------------- E -> tE
                         
@@ -182,7 +207,7 @@ while (t<=Ntime):
     Ey = copy.deepcopy(tEy)
     H  = copy.deepcopy(H12)
 
-    time = t*dt
+    #time = t*dt
 
     scipy.io.savemat('H.mat',  {'H': H})
     scipy.io.savemat('Ey.mat',  {'Ey': Ey})

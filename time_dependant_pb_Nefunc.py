@@ -23,13 +23,13 @@ print "dx", dx
 dt     = 0.5*dx
 print "dt",dt
 # Number of time steps
-Ntime = 400
+Ntime = 4000
 # constants 
 me     = 1#9.11e-31               #electron mass (kg)
 e      = -1#1.6e-19              #electron charge (coulombs)
 eps0   = 1#8.85e-12               #permeability  (F/m)
 nu     = 0                       #friction
-B0     = 1#0.95                        #given
+B0     = 0#0.95                        #given
 c      = 1#3e8 
 
 
@@ -53,11 +53,11 @@ alphamL = 2
 wc    = abs(e)*B0/me
 print "omega_c" ,wc
 def Ne(x) : 
-    return 4#(2*B0)/(1+exp(-x)) ;
+    return 7#(2*B0)/(1+exp(-x)) ;
     
 
-omega = 3#np.sqrt(3)
-wp = 2
+omega = np.sqrt(3)
+wp = np.sqrt(7)
 
 gamma = 2
 #---------------------------------------------------------#
@@ -181,12 +181,13 @@ while (t<=Ntime):
 
     scipy.io.savemat('uy.mat',  {'uy': uy});
  
-    plot_real(X,tux,'b','$u_x$','u_x')
+    #plot_real(X,tux,'b','$u_x$','u_x')
     #-------------------- u y->tuy
 
     for i in range(N):
         [K1,K2,K1x,K2x] = Kcoeff(NEy[i]);
-        tuy[i] = (1/K1) * (K2 * uy[i] -dt * e / me * Ey[i] +dt*dt*e/(2*me*eps0) * (H12[i+1] - H12[i])/dx)- beta*(tux[i]+ux[i])/2
+        tuy[i] = (1/K1) * (K2 * uy[i] + dt* e / me * Ey[i] -dt*dt*e/(2*me*eps0) * (H12[i+1] - H12[i])/dx)- beta*(tux[i]+ux[i])/2
+    plot_real(X12,tuy,'b','$u_y$','u_y')
     
     #------------------- E -> tE
                         
