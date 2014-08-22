@@ -175,7 +175,7 @@ while (t<=Ntime):
     #left BC (if i = N) (H(i+1) = 0) ????
     [K1,K2,K1x,K2x] = Kcoeff(NE[N])
     tux[N] =  (1/K1x)*(K2x*ux[N] + delta*Ex[N]\
-                           - beta*delta*dt/(4*K1)*(H12[N] - H12[N-1])/dx )
+                           + beta*delta*dt/(4*K1)*(H12[N] - H12[N-1])/dx )
                        #+ ((beta*delta)/(2*K1))*Ey[N]\
                        # + (beta/2)*(K2/K1 + 1)*uy[N])
 
