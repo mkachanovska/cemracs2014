@@ -3,7 +3,7 @@
 
 from __future__ import division
 import os
-from time import time
+import time
 import numpy as np
 from pylab import *
 import scipy.io
@@ -56,7 +56,7 @@ def Ne(x) :
     return 4#(2*B0)/(1+exp(-x)) ;
     
 
-omega = 1#np.sqrt(3)
+omega = 3#np.sqrt(3)
 wp = 2
 
 gamma = 2
@@ -109,8 +109,8 @@ delta  = e*dt/(me)
 def Kcoeff(x): 
     K1     =  1 + nu * dt/2 + dt*dt*x*e*e/(4*me*eps0)
     K2     =  1 - nu * dt/2 - dt*dt*x*e*e/(4*me*eps0)
-    K1x    =  K1 + beta*beta/(4*K1)
-    K2x    =  K2 - beta*beta/(4*K1)
+    K1x    =  K1 - beta*beta/(4*K1)
+    K2x    =  K2 + beta*beta/(4*K1)
     
     return [K1,K2,K1x,K2x]
 
@@ -119,6 +119,31 @@ def Kcoeff(x):
 #-----------------------------------------------------------#
 #------------------------time loop--------------------------#
 #-----------------------------------------------------------#
+fig = plt.figure() 
+ax = fig.add_subplot(111)
+
+plt.ion()
+plt.show()
+def plot_real(X,T,s,s2,s3):
+    #ax.set_xlim(mL,H)
+    clf()
+    plot(X,real(T),s,label=s2)
+    xlabel(r'$x$',fontsize =16)
+    ylabel(s3,fontsize =16)
+    leg = ax.legend(shadow = True, loc = 3)
+    plt.draw()
+    time.sleep(0.05)
+def plot_imag(X,T,s,s2,s3):
+    #ax.set_xlim(mL,H)
+
+    clf()
+    plot(X,np.imag(T),s,label=s2)
+    xlabel(r'$x$',fontsize =16)
+    ylabel(s3,fontsize =16)
+    leg = ax.legend(shadow = True, loc = 3)
+    plt.draw()
+    time.sleep(0.05)
+
 
 
 t = 1
@@ -143,19 +168,20 @@ while (t<=Ntime):
     for i in range(N):
         
         [K1,K2,K1x,K2x] = Kcoeff(NE[i])
-        tux[i] =  (1/K1x) * (K2x*ux[i] + delta*Ex[i] + ((beta*delta)/(2*K1))*Ey[i]\
-                                 - beta*delta*dt/(4*K1)*((H12[i] - H12[i-1])/dx)   \
-                                 + (B0/2)*(K2/K1 + 1)*uy[i])
+        tux[i] =  (1/K1x) * (K2x*ux[i] + delta*Ex[i] - ((beta*delta)/(2*K1))*Ey[i]\
+                                 + beta*delta*dt/(4*K1)*((H12[i] - H12[i-1])/dx)   \
+                                 -(beta/2)*(K2/K1 + 1)*uy[i])
         
     #left BC (if i = N) (H(i+1) = 0) ????
     [K1,K2,K1x,K2x] = Kcoeff(NE[N])
     tux[N] =  (1/K1x)*(K2x*ux[N] + delta*Ex[N]\
-                           - beta*delta*dt/(4*K1)*(H12[N] - H12[N-1])/dx )
+                           + beta*delta*dt/(4*K1)*(H12[N] - H12[N-1])/dx )
                        #+ ((beta*delta)/(2*K1))*Ey[N]\
                        # + (beta/2)*(K2/K1 + 1)*uy[N])
 
-    scipy.io.savemat('uy.mat',  {'uy': uy}); 
-
+    scipy.io.savemat('uy.mat',  {'uy': uy});
+ 
+    plot_real(X,tux,'b','$u_x$','u_x')
     #-------------------- u y->tuy
 
     for i in range(N):
@@ -172,16 +198,15 @@ while (t<=Ntime):
     #left BC (if i = N)(H(i+1) = 0) ????
   
     tEx[N]  = Ex[N] - (dt*e*NE[N])*(tux[N] + ux[N])/(2*eps0)
-      
 
     #----------f^n <- f^n+1
-    ux = copy.deepcopy(ux)
+    ux = copy.deepcopy(tux)
     Ex = copy.deepcopy(tEx)
     uy = copy.deepcopy(tuy)
     Ey = copy.deepcopy(tEy)
     H  = copy.deepcopy(H12)
 
-    time = t*dt
+    
 
     scipy.io.savemat('H.mat',  {'H': H})
     scipy.io.savemat('Ey.mat',  {'Ey': Ey})
