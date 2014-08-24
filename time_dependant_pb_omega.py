@@ -12,10 +12,10 @@ import copy
 
 #---------------CONSTANTS--------------------#
 # mesh size
-N      = 500
+N      = 1000
 # domain ]-L ; H[, (mL=-L)
 mL     = -1
-H      =  10
+H      =  100
 # space step 
 dx     = (H-mL)/N
 print "dx", dx
@@ -28,8 +28,8 @@ Ntime = 4000
 me     = 1#9.11e-31               #electron mass (kg)
 e      = -1#1.6e-19              #electron charge (coulombs)
 eps0   = 1#8.85e-12               #permeability  (F/m)
-nu     = 0                       #friction
-B0     = 1#0.95                        #given
+nu     = 0.5                      #friction
+B0     = 0.95                        #given
 c      = 1
 
 
@@ -49,10 +49,10 @@ c      = 1
 #wc    = abs(e)*B0/me
 #print "omega_c" ,wc
 def Ne(x) : 
-    return  7# (2*B0)/(1+exp(-x)) ;
+    return (2*B0)/(1+exp(-x)) ;
     
 
-omega = 0.5#np.sqrt(3)
+omega = 3
 
 
 gamma = 2
@@ -63,8 +63,9 @@ alpha = 1
 
 def g(t) : 
     #return np.exp(complex(0,omega*t))*np.exp(-gamma*mL)*(-gamma+complex(0,alphamL))
-    return 1/2*(1+tanh((t-2)/0.1))*np.exp(-omega*t*complex(0,1))
-
+    #return 1/2*(1+tanh((t-2)/0.1))*np.exp(-omega*t*complex(0,1))
+    return B0*sin(omega*t)
+    
 print g(0)
 #-----------------------------------------------#
 #------table and functions initialisation-------#
@@ -82,7 +83,7 @@ WP   = map(lambda x   : sqrt(e*e*x/(me*eps0)), NE)
 wc   = abs(e)*B0/me
 WPy  = map(lambda x   : sqrt(e*e*x/(me*eps0)), NEy)
 Wy   = map(lambda x   : x*x + wc*wc, WPy)
-
+print 'wp = ', WP[1]
 #NE  = map(lambda x : 3.13895515115395 + 3.66439242009228*complex(0,1) ,  X)
 #NEy = map(lambda x : 3.13895515115395 + 3.66439242009228*complex(0,1),  X12)
 #Ey  = map(lambda x : np.exp(-gamma*x),X12)
@@ -152,30 +153,33 @@ print 'alphaey', alphaey
 
 
 while (t<=Ntime):
-    print "iter : ",t,"time : ", t*dt
+    #print "iter : ",t,"time : ", t*dt
 
     #---------------- H -> H12
-    H12[0] = H[0] -  dt/dx* (Ey[0] - 1/alphaey * (g((t-1)*dt)-Ey[0]*(1/dx+complex(0,alphamL)/2)))
+    #left BC : Robin BC
+    H12[0] = H[0] -  (dt/dx)* (Ey[0] - 1/alphaey * (g((t-1)*dt)-Ey[0]*(1/dx+complex(0,alphamL)/2)))
 
     i = 1
     while (i<N):
-        H12[i] = H[i] - dt/dx*(Ey[i] - Ey[i-1])
+        H12[i] = H[i] - (dt/dx)*(Ey[i] - Ey[i-1])
         i      = i + 1
     #right BC : Ey[N] = 0
-    H12[N] = H[N] +dt/dx*(Ey[N-1])
+    H12[N] = H[N] +(dt/dx)*(Ey[N-1])
 
     #------------------- ux -> tux
     for i in range(N):
         
         [K1,K2,K1x,K2x] = Kcoeff(WP[i])
         tux[i] =  (1/K1x) * (K2x*ux[i] -(wc/B0)*dt*Ex[i] + (((wc*wc/B0)*dt*dt)/(2*K1))*Ey[i]\
-                                 - (wc*wc/B0)*dt*dt*dt/(4*K1)*((H12[i] - H12[i-1])/dx)   \
+                                 - (wc*wc/B0)*dt*dt*dt/(4*K1)*((H12[i+1] - H12[i])/dx)   \
+
                                  - (wc*dt/2)*(K2/K1 + 1)*uy[i])
+#H[i+1]-H[i] ou H[i]-H[i-1]??
         
     #right BC (Ey(N) = 0, uy(N) = 0)
     [K1,K2,K1x,K2x] = Kcoeff(WP[N])
     tux[N] =  (1/K1x)*(K2x*ux[N] -(wc/B0)*dt*Ex[N]\
-                           -(wc*wc/B0)*dt*dt*dt/(4*K1)*(H12[N] - H12[N-1])/dx )
+                           -(wc*wc/B0)*dt*dt*dt/(4*K1)*(- H12[N])/dx )
                            #+ (((wc*wc/B0)*dt*dt)/(2*K1))*Ey[N-1]\
                            #- (wc*dt/2)*(K2/K1 + 1)*uy[N-1])
 
@@ -185,8 +189,8 @@ while (t<=Ntime):
 
     for i in range(N):
         [K1,K2,K1x,K2x] = Kcoeff(WPy[i]);
-        tuy[i] = (1/K1) * (K2 * uy[i] -dt * wc/B0* Ey[i] +dt*(dt/2)*(wc/(B0*eps0)) * (H12[i+1] - H12[i])/dx) +wc*dt*(tux[i]+ux[i])/2
-    plot2(X12,tuy,'b','$u_y$','u_yw')
+        tuy[i] = (1/K1) * (K2 * uy[i] -dt * (wc/B0)* Ey[i] +dt*(dt/2)*(wc/(B0*eps0)) * (H12[i+1] - H12[i])/dx) +wc*dt*(tux[i]+ux[i])/2
+
     
 
     #------------------- E -> tE
@@ -207,7 +211,7 @@ while (t<=Ntime):
     uy = copy.deepcopy(tuy)
     Ey = copy.deepcopy(tEy)
     H  = copy.deepcopy(H12)
-
+    plot2(X12,Ey,'b','$E_y$','E_yw')
     #time = t*dt
 
     #scipy.io.savemat('H.mat',  {'H': H})
