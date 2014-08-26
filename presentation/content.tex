@@ -29,7 +29,7 @@
 
 \end{center}
 \end{frame}}
-\begin{frame}{Model}
+\begin{frame}{Physical context and model}
  \begin{minipage}{0.45\linewidth}
  \begin{figure}
        		\includegraphics[scale = 0.7]{./images/ITER_cut}
@@ -55,7 +55,7 @@
 
 
 \end{frame}
-\begin{frame}{Some references}
+\begin{frame}{Some references on numerical simulation}
 \begin{itemize}
 \item Décomposition de domaines pour la simulation "full wave" dans un plasma froid, T. Hattori (thesis) \\ 
 \item Analyse mathématique et numérique de problèmes d’ondes apparaissant dans les plasmas
@@ -66,40 +66,53 @@ magnétiques, L.-M. Imbert-Gérard (thesis)\\
 \end{itemize}
 \end{frame}
 \begin{frame}{Frequency domain study}
-In 1D : $\partial_t = \imath \theta$. Unknowns : $\ubf =(E_1,E_2) = (E_x,E_y)$
+In 1D : $\partial_t = i \theta$. Unknowns : $\ubf =(E_1,E_2) = (E_x,E_y)$
 
 
 \alert{Variational formulation :}
 \[
 \begin{array}{l}
-\displaystyle \int_{-L}^H (E_2' -\imath\theta E_1)\overline{(\tilde E_2' -\imath \theta \tilde E_1)} - \int_{-L}^H (\eps_0 +\imath\nu Id) \E \cdot \overline{\tilde \E}
-\\ \displaystyle  - \imath \sqrt{\alpha(-L)} E_2 (-L) \tilde E_2 (-L) = -g_{inc} (-L) \overline{( \tilde E_2(-L) )} 
+\displaystyle \int_{-L}^H (E_2' -i\theta E_1)\overline{(\tilde E_2' -i \theta \tilde E_1)} - \int_{-L}^H (\eps_0 +i\nu Id) \E \cdot \overline{\tilde \E}
+\\ \displaystyle  - i \sqrt{\alpha(-L)} E_2 (-L) \tilde E_2 (-L) = -g_{inc} (-L) \overline{( \tilde E_2(-L) )} 
 \end{array}
 \]
 \[
-a(\ubf,\vbf) = a_1 (\ubf,\vbf) +\imath a_2(\ubf,\vbf)\  \text{ and } \  l(\vbf) = -g_{inc} (-L) \overline{(v_2(-L) )} 
+a(\ubf,\vbf) = a_1 (\ubf,\vbf) +i a_2(\ubf,\vbf)\  \text{ and } \  l(\vbf) = -g_{inc} (-L) \overline{(v_2(-L) )} 
 \]
 \[
 \left\{\begin{array}{l}
-a_1(\ubf,\vbf) = \int_{-L}^H (u_2' -\imath\theta u_1)\overline{(v_2' -\imath \theta v_1)} - \int_{-L}^H \eps_0 \ubf\cdot \overline{\vbf}, 
+a_1(\ubf,\vbf) = \int_{-L}^H (u_2' -i\theta u_1)\overline{(v_2' -i \theta v_1)} - \int_{-L}^H \eps_0 \ubf\cdot \overline{\vbf}, 
 \\ a_2(\ubf,\vbf) = -\nu \int_{-L}^H  \ubf\cdot \overline{\vbf} -  \sqrt{\alpha(-L)} u_2 (-L) \overline{v_2 (-L)} , 
 \end{array}\right.
 \]
 where $a_1= a_1^*$ and $a_2=a_2^*$ are hermitian.
+\[
+\ubf,\vbf \in V =  \{ (E_1,E_2) |\; E_1,E_2,E_2'  \in L^2\}
+\]
+\[
+\|u\|_{V}^2 = \|E_1\|^2_{L^2} + \|E_2\|^2_{L^2} + \|E_2'\|_{L^2}
+\]
 \end{frame}
 \begin{frame}{Frequency domain study}
 \[
 |a(\ubf,\ubf)| \geq \frac{1}{4} \sqrt{\frac{\nu}{\heps + \theta^2}}\|u_2'\|^2_{L^2} +  \frac{\nu}{4} \|\ubf\|_{L^2}^2,
 \]
-\begin{block}{}
+
 \[
 |a(u,u)| \geq \min\left(\frac{1}{4} \frac{\sqrt{\alpha(-L)}}{|\Omega|} , \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\right) \|u\|^2_{L^2}
 \]
+\begin{block}{}
+\begin{itemize}
+\item The problem is well-posed (existence/uniqueness)
+\item Passing to the limit $\nu \rightarrow 0^+$ is the limit absorption principle
+\end{itemize}
 \end{block}
 \end{frame}
 
 \begin{frame}{Simulation in frequency domain}
 \ALERT{Matlab code, $P^1$ FEM}
+
+For physically adapted coefficients $N_e$, $B_0$ it yields the hybrid resonnance 
 
 \ \\
 
@@ -121,41 +134,43 @@ where $a_1= a_1^*$ and $a_2=a_2^*$ are hermitian.
 \end{figure} 
 \end{minipage}
 \[
-E_x^\nu \approx \frac{c}{x + \imath \nu}
+E_x^\nu \approx \frac{c}{x + i \nu}
 \]
 
 \end{frame}
 \begin{frame}
 \begin{figure}[ht]
-\subfigure[Convergence rates]{
-    \includegraphics[width=0.4\textwidth]{./images/fig1}
+\subfigure[\footnotesize{Convergence non sigular case}]{
+    \includegraphics[width=0.38\textwidth]{./images/fig1}
   }
-  \subfigure[The $L_2$ error of $E_x(x)$]{
-    \includegraphics[width=0.4\textwidth]{./images/fig2}
+  \subfigure[\footnotesize{$E_x(x)$ error (singular case)}]{
+    \includegraphics[width=0.38\textwidth]{./images/fig2}
   }
   
-  \subfigure[The $L_2$ error of $E_y(x)$]{
-    \includegraphics[width=0.4\textwidth]{./images/fig3}
+  \subfigure[$E_y(x)$ error (singular case)]{
+    \includegraphics[width=0.38\textwidth]{./images/fig3}
   }
-  \subfigure[The dependance of $h_\veps$ in $\nu$]{
-    \includegraphics[width=0.4\textwidth]{./images/fig4}
+  \subfigure[$h_\veps$  vs $\nu$ (sing.)]{
+    \includegraphics[width=0.38\textwidth]{./images/fig4}
   }
   
 \end{figure}
 \end{frame}
 
-\begin{frame}{Time dependant problem}
+\begin{frame}{Time dependent problem}
+Harmonic forcing on the boundary : recover the limiting amplitude principle\footnote{C. Morawetz, CPAM, 1962} at the limit $t\rightarrow \infty$ 
 \[
 \begin{cases}
 - \veps_0 \partial_t E_x = e N_e u_x \\
-- \veps_0 \partial_t E_y - \partial_x E_y = 0 e N_e u_y \\
+- \veps_0 \partial_t E_y - \partial_x E_y =  e N_e u_y \\
 \partial_t H_z + \partial_x E_y = 0 \\
 m_e \partial_t u_x = e (E_x + u_y B_0) - \nu m_e u_x
 m_e \partial_t u_y = e (E_x - u_x B_0) - \nu m_e u_y
 \end{cases}
 \]
 
-\alert{Finite difference, 1D energy conservative scheme\footnote{ Stable coupling of the Yee scheme with a linear current model, F. Da Silva, M. Campos-Pinto, B. Després, S. Heuraux, HAL preprint 2014}}
+\alert{Finite difference, 1D energy conservative leap-frog scheme\footnote{ Stable coupling of the Yee scheme with a linear current model, F. Da Silva, M. Campos-Pinto, B. Després, S. Heuraux, HAL preprint 2014}}
+
 
 
 \end{frame}
