@@ -66,7 +66,7 @@ magnétiques, L.-M. Imbert-Gérard (thesis)\\
 \end{itemize}
 \end{frame}
 \begin{frame}{Frequency domain study}
-In 1D : $\partial_t = i \theta$. Unknowns : $\ubf =(E_1,E_2) = (E_x,E_y)$
+In 1D :  $\partial_y = i \theta$. Unknowns : $\ubf =(E_1,E_2) = (E_x,E_y)$
 
 
 \alert{Variational formulation :}
@@ -98,9 +98,7 @@ where $a_1= a_1^*$ and $a_2=a_2^*$ are hermitian.
 |a(\ubf,\ubf)| \geq \frac{1}{4} \sqrt{\frac{\nu}{\heps + \theta^2}}\|u_2'\|^2_{L^2} +  \frac{\nu}{4} \|\ubf\|_{L^2}^2,
 \]
 
-\[
-|a(u,u)| \geq \min\left(\frac{1}{4} \frac{\sqrt{\alpha(-L)}}{|\Omega|} , \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\right) \|u\|^2_{L^2}
-\]
+\vspace*{0.5cm}
 \begin{block}{}
 \begin{itemize}
 \item The problem is well-posed (existence/uniqueness)
@@ -112,7 +110,7 @@ where $a_1= a_1^*$ and $a_2=a_2^*$ are hermitian.
 \begin{frame}{Simulation in frequency domain}
 \ALERT{Matlab code, $P^1$ FEM}
 
-For physically adapted coefficients $N_e$, $B_0$ it yields the hybrid resonnance 
+For physically adapted coefficients $N_e$, $B_0$ it yields the hybrid resonance 
 
 \ \\
 
@@ -164,13 +162,14 @@ Harmonic forcing on the boundary : recover the limiting amplitude principle\foot
 - \veps_0 \partial_t E_x = e N_e u_x \\
 - \veps_0 \partial_t E_y - \partial_x E_y =  e N_e u_y \\
 \partial_t H_z + \partial_x E_y = 0 \\
-m_e \partial_t u_x = e (E_x + u_y B_0) - \nu m_e u_x
+m_e \partial_t u_x = e (E_x + u_y B_0) - \nu m_e u_x \\
 m_e \partial_t u_y = e (E_x - u_x B_0) - \nu m_e u_y
 \end{cases}
 \]
 
 \alert{Finite difference, 1D energy conservative leap-frog scheme\footnote{ Stable coupling of the Yee scheme with a linear current model, F. Da Silva, M. Campos-Pinto, B. Després, S. Heuraux, HAL preprint 2014}}
 
+ \begin{center} \href{run:test.mp4}{\Alert{$\diamondsuit$}} \end{center}
 
 
 \end{frame}
