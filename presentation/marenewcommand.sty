@@ -1,0 +1,77 @@
+\providecommand\mathbb{\bf}
+
+
+%%%%%%%%%%%% espaces%%%%%%%%%%%
+\newcommand{\im}{\mathrm{Im}\;}
+\newcommand\R{{\mathbb R}}
+\newcommand\N{{\mathbb N}}
+\newcommand\Z{{\mathbb Z}}
+\newcommand\T{{\mathbb T}}
+%%%%%%%%%%%%%%%%%Espace L^n %%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\bs}{\left\{}
+\newcommand{\es}{\right.}
+\newcommand{\ba}{\begin{array}}
+\newcommand{\ea}{\end{array}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\ora}{\overrightarrow}
+\newcommand{\x}{{\bf x}}
+\newcommand{\E}{{\bf E}}
+\newcommand{\n}{{\bf n}}
+\newcommand{\f}{{\bf f}}
+
+\newcommand{\ubf}{{\bf u}}
+\newcommand{\vbf}{{\bf v}}
+\newcommand{\curl}{{\bf curl}}
+\newcommand{\eps}{{\bf \varepsilon}}
+\newcommand{\veps}{\varepsilon}
+\newcommand{\heps}{{\hat{\eps}}}
+\newcommand{\inp}{\mid_i^{n+1}}
+\newcommand{\midin}{\mid_i^{n}}
+\newcommand{\ihnp}{\mid_{i+1/2}^{n+1}}
+\newcommand{\ihn}{\mid_{i+1/2}^{n}}
+\newcommand{\imhn}{\mid_{i-1/2}^{n}}
+\newcommand{\ipnh}{\mid_{i+1}^{n+1/2}}
+\newcommand{\inh}{\mid_{i}^{n+1/2}}
+\newcommand{\inmh}{\mid_{i}^{n-1/2}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newboxedtheorem[titlecolor = black, titlebackground = white,
+titleboxcolor = black!50, boxcolor = black!50, thcounter=chapter, size =0.95 \textwidth]{pro}{Proposition}{compteurP}
+\renewcommand{\thecompteurP}{\arabic{chapter}.\arabic{compteurP}}
+\newboxedtheorem[titlecolor = black, titlebackground = white,
+titleboxcolor = black!50, boxcolor = black!50, thcounter=chapter, size =0.95 \textwidth]{CoroL}{Corollaire}{compteurP}
+%\renewcommand{\thecompteurCoR}{\arabic{chapter}.\arabic{compteurCoR}}
+\newboxedtheorem[titlecolor = black, titlebackground = white,
+titleboxcolor = black!50, boxcolor = black!50, thcounter=chapter, size = 0.95\textwidth]{theo}{Théorème}{compteurP}
+%\renewcommand{\thecompteurTH}{\arabic{chapter}.\arabic{compteurTH}}
+
+\newboxedtheorem[titlecolor = black, titlebackground = white,
+titleboxcolor = black!50, boxcolor = black!50, thcounter=chapter, size =0.95
+\textwidth]{deff}{Définition}{compteurP}
+%\renewcommand{\thecompteurD}{\arabic{chapter}.\arabic{compteurD}}
+
+\newboxedtheorem[titlecolor = black, titlebackground = white,
+titleboxcolor = black!50, boxcolor = black!50, thcounter=chapter, size =0.95\textwidth]{eq}{Équation}{compteurE}
+\renewcommand{\thecompteurE}{}
+
+\newboxedtheorem[titlecolor = black, titlebackground = white,
+titleboxcolor = black!30, boxcolor = black!30, thcounter=chapter, size =0.95\textwidth]{lem}{Lemme}{compteurP}
+
+
+
+%\newcommand{\ajout}[1]{ {{\textcolor{blue}{ #1 }}}}
+\newcommand{\unsure}[1]{ {\em \textcolor{blue}{ #1 }}}
+% \newtheorem{pro}{Proposition}[section]
+\newcommand{\bleu}[1]{{#1}}
+\newenvironment{preuve}
+ {\par
+\noindent\textcolor{black!50}{\textit{Preuve.}}\par}
+ {\par\textcolor{black!50}{\hfill $\mathbf{\blacksquare}$}\par}
+\newtheorem{remark}[compteurP]{Remarque}
+\newenvironment{preuvearg}[1]
+ {\par
+\noindent\textcolor{black!50}{\textit{Preuve (#1).}}\par}
+ {\par\textcolor{black!50}{\hfill $\mathbf{\blacksquare}$}\par}
