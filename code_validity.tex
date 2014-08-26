@@ -271,7 +271,7 @@ At the next step we are numerically determining an optimal relation of $h$ to $\
 \begin{figure}
 \begin{tikzpicture}
     \begin{loglogaxis}[
-    	width=0.7\textwidth,
+    	width=0.9\textwidth,
         xlabel=$h$,
         ylabel=$Error$,
         legend style={
@@ -291,15 +291,13 @@ draw=none
 \addlegendentry{$\nu=2^{-6}$};
 \addplot[mark=square,green] table {pics/result_l2e1.0.0039062.dat}; 
 \addlegendentry{$\nu=2^{-8}$};
-\addplot[mark=square,red] table {pics/result_l2e1.0.0039062.dat}; 
+\addplot[mark=triangle,red] table {pics/result_l2e1.0.00097656.dat}; 
 \addlegendentry{$\nu=2^{-10}$};
-\addplot[mark=triangle,blue] table {pics/result_l2e1.0.00097656.dat}; 
+\addplot[mark=triangle,blue] table {pics/result_l2e1.0.00024414.dat}; 
 \addlegendentry{$\nu=2^{-12}$};
-\addplot[mark=triangle,green] table {pics/result_l2e1.0.00024414.dat}; 
-\addlegendentry{$\nu=2^{-12}$};
-\addplot[mark=triangle, red] table {pics/result_l2e1.6.1035e-05.dat};
+\addplot[mark=triangle, green] table {pics/result_l2e1.6.1035e-05.dat};
 \addlegendentry{$\nu=2^{-14}$};
-\addplot[mark=*, violet] table{pics/result_l2e1.1.5259e-05.dat};
+\addplot[mark=triangle, red] table{pics/result_l2e1.1.5259e-05.dat};
 \addlegendentry{$\nu=2^{-16}$};
 \end{loglogaxis}
 \end{tikzpicture} 
@@ -311,7 +309,7 @@ draw=none
 \begin{figure}
 \begin{tikzpicture}
     \begin{loglogaxis}[
-    	width=0.7\textwidth,
+    	width=0.9\textwidth,
         xlabel=$h$,
         ylabel=$Error$,
         legend style={
@@ -331,15 +329,13 @@ draw=none
 \addlegendentry{$\nu=2^{-6}$};
 \addplot[mark=square,green] table {pics/result_l2e2.0.0039062.dat}; 
 \addlegendentry{$\nu=2^{-8}$};
-\addplot[mark=square,red] table {pics/result_l2e2.0.0039062.dat}; 
+\addplot[mark=square, red] table {pics/result_l2e2.0.00097656.dat}; 
 \addlegendentry{$\nu=2^{-10}$};
-\addplot[mark=triangle,blue] table {pics/result_l2e2.0.00097656.dat}; 
+\addplot[mark=triangle,blue] table {pics/result_l2e2.0.00024414.dat}; 
 \addlegendentry{$\nu=2^{-12}$};
-\addplot[mark=triangle,green] table {pics/result_l2e2.0.00024414.dat}; 
-\addlegendentry{$\nu=2^{-12}$};
-\addplot[mark=triangle, red] table{pics/result_l2e2.6.1035e-05.dat};
+\addplot[mark=triangle, green] table{pics/result_l2e2.6.1035e-05.dat};
 \addlegendentry{$\nu=2^{-14}$};
-\addplot[mark=*, violet] table{pics/result_l2e2.1.5259e-05.dat};
+\addplot[mark=triangle, red] table{pics/result_l2e2.1.5259e-05.dat};
 \addlegendentry{$\nu=2^{-16}$};
 \end{loglogaxis}
 \end{tikzpicture} 
