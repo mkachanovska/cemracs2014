@@ -1,5 +1,4 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
+#!/usr/bin/python# -*- coding: utf-8 -*-
 
 from __future__ import division
 import os
@@ -14,22 +13,23 @@ import copy
 # mesh size
 N      = 400
 # domain ]-L ; L[, (mL=-L)
-mL     = -20
-pL      =  20
+mL     =  -15
+pL      = 10
 # space step 
 dx     = (pL-mL)/N
 print "dx", dx
 # time step
-dt     = 0.5*dx
+dt     = 0.3*dx
 print "dt",dt
 # Number of time steps
-Ntime = 100
+Ntime = 20000
+tempsmax= 200
 # constants 
 me     = 1#9.11e-31               #electron mass (kg)
 e      = -1#1.6e-19              #electron charge (coulombs)
 eps0   = 1#8.85e-12               #permeability  (F/m)
-nu     = 0                    #friction
-B0     = 1#0.95                        #given
+nu     = .0               #friction
+B0     = 4./3./sqrt(10) #0.95                        #given
 c      = 1
 
 
@@ -50,17 +50,17 @@ c      = 1
 #print "omega_c" ,wc
 def Ne(x) : 
     if (x < -10) :
-        return 0
-    elif (x >= -10) and (x <= 10 ):
-        return 36*(x+10)/20
+            return 0
+    elif (x <= 5 ):
+            return 1.5*(10-16/90)*(x+10)/15
     else :
-        return 36
+            return 1.5*(10-16/90)
     
 
-omega = 3
+omega = sqrt(10)
 
 
-gamma = 2
+#gamma = 2
 #---------------------------------------------------------#
 
 #--------------G for left BC -------------------#
@@ -69,7 +69,7 @@ alpha = 1
 def g(t) : 
     #return np.exp(complex(0,omega*t))*np.exp(-gamma*mL)*(-gamma+complex(0,alphamL))
     #return 1/2*(1+tanh((t-2)/0.1))*np.exp(-omega*t*complex(0,1))
-    return cos(omega*t)
+    return sin(omega*t)
     
 print g(0)
 #-----------------------------------------------#
@@ -81,17 +81,22 @@ X12  = map(lambda i : mL+0.5*dx + i*dx, range(N))
 NEy  = map(lambda x : Ne(x),X12)
 Ey   = map(lambda x : 0, X12)
 H    = map(lambda x : 0, X)
-uy   = map(lambda x : 0, X12)
+NH   = map(lambda x : Ne(x)-B0**2-omega**2 ,  X)
 
+#H[200]=1
+
+uy   = map(lambda x : 0, X12)
+#uy[199]=1.
 ux   = map(lambda x : 0, X)
+#ux[199]=1.
  
 Ex   = map(lambda x : 0, X)
 WP   = map(lambda x   : sqrt(e*e*x/(me*eps0)), NE)
 wc   = abs(e)*B0/me
 WPy  = map(lambda x   : sqrt(e*e*x/(me*eps0)), NEy)
 Wy   = map(lambda x   : x*x + wc*wc, WPy)
-print 'wp = ', WP[1]
-print 'wc = ', wc
+#print 'wp = ', WP[1]
+#print 'wc = ', wc
 #NE  = map(lambda x : 3.13895515115395 + 3.66439242009228*complex(0,1) ,  X)
 #NEy = map(lambda x : 3.13895515115395 + 3.66439242009228*complex(0,1),  X12)
 #Ey  = map(lambda x : np.exp(-gamma*x),X12)
@@ -113,59 +118,62 @@ H12 = copy.deepcopy(H)
 scipy.io.savemat('H120.mat', {'H120':H12})
 T = []
 nEx = []
-f, axarr = plt.subplots(4,2)
-f.subplots_adjust(hspace=.5)
-axarr[3,1].axis('off')
-plt.tight_layout()
+f, axarr = plt.subplots(2,4)
+
+
 plt.ion()
 plt.show()
-def plot2(X,T,X2,T2,X3,T3,X4,T4,X5,T5,X6,T6,X7,T7,s,s2,s3):
+def plot2(X,T,X2,T2,X3,T3,X4,T4,X5,T5,X6,T6,X7,T7,X8,T8):
     axarr[0,0].hold(False)
     axarr[1,0].hold(False)
-    axarr[2,0].hold(False)
-    axarr[1,1].hold(False)
     axarr[0,1].hold(False)
-    axarr[2,1].hold(False)
-    axarr[3,0].hold(False)
+    axarr[1,1].hold(False)   
+    axarr[0,2].hold(False)
+    axarr[1,2].hold(False)
+    axarr[0,3].hold(False)
+    axarr[1,3].hold(False)
+    #ylim(-20,20)
     
-#ylim(-20,20)
+
+    axarr[0,0].plot(X, T)
+    axarr[0,0].set_title('Ey ')
+    axarr[1,0].plot(X2, T2)
+    axarr[1,0].set_title('Ex ')
+    axarr[0,1].plot(X3, T3)
+    axarr[0,1].set_title('uy ')
+    axarr[1,1].plot(X4, T4)
+    axarr[1,1].set_title('ux ')
+    axarr[0,2].plot(X5, T5)
+    axarr[0,2].set_title('H ')
+    axarr[1,2].plot(X6, T6)
+    axarr[1,2].set_title('NH ')
+    axarr[0,3].plot(X7, T7)
+    axarr[0,3].set_title('Energie ')
+    axarr[1,3].plot(X8, T8)
+    axarr[1,3].set_title('||Ex||')
+    #axarr.plot(X,np.imag(T),s,label=s2)
+    #xlabel(r'$x$',fontsize =16)
+    #ylabel('im',fontsize =16)
+    #leg = axarr.legend(shadow = True, loc = 3)
+    plt.draw()
     
-    axarr[1,0].plot(X, T)
-    axarr[1,0].set_title('Ey ')
-    axarr[1,1].plot(X2, T2)
-    axarr[1,1].set_title('Ex ')
-    
-    axarr[0,1].plot(X4, T4)
-    axarr[0,1].set_title('ux ')
-    axarr[0,0].plot(X5, T5)
-    axarr[0,0].set_title('uy ')
-    axarr[2,1].plot(X6, T6)
-    axarr[2,1].set_title('||Ex||')
-    axarr[2,0].plot(X3, T3)
-    axarr[2,0].set_title('H')
-    axarr[3,0].plot(X7, T7)
-    axarr[3,0].set_title('Energy')
-#axarr.plot(X,np.imag(T),s,label=s2)
-#xlabel(r'$x$',fontsize =16)
-#ylabel('im',fontsize =16)
-#leg = axarr.legend(shadow = True, loc = 3)
-    #plt.draw()
+    #time.sleep(1)
 
 
 #---------------------------------------------------------#
 #beta = B0 *dt*e/me
 #delta  = e*dt/(me)
 #--------------------K1&K2 s def function-------------------#
-def Kcoeff(x): 
+#def Kcoeff(x): 
     #K1     =  1 + nu * dt/2 + dt*dt*x*x/(4)
     #K2     =  1 - nu * dt/2 - dt*dt*x*x/(4)
     #K1x    =  K1 + wc*dt*wc*dt/(4*K1)
     #K2x    =  K2 - wc*dt*wc*dt/(4*K1)
-    K1     =  1 + nu * dt/2 + dt*dt*x*e*e/(4*me*eps0)
-    K2     =  1 - nu * dt/2 - dt*dt*x*e*e/(4*me*eps0)
-    K1x    =  K1 + dt*dt*e*e*B0*B0/(4*K1*me*me)
-    K2x    =  K2 -  dt*dt*e*e*B0*B0/(4*K1*me*me)
-    return [K1,K2,K1x,K2x]
+#    K1     =  1 + nu * dt/2 + dt*dt*x*e*e/(4*me*eps0)
+#    K2     =  1 - nu * dt/2 - dt*dt*x*e*e/(4*me*eps0)
+#    K1x    =  K1 + dt*dt*e*e*B0*B0/(4*K1*me*me)
+#    K2x    =  K2 -  dt*dt*e*e*B0*B0/(4*K1*me*me)
+#    return [K1,K2,K1x,K2x]
 
 
 
@@ -174,60 +182,74 @@ def Kcoeff(x):
 #-----------------------------------------------------------#
 
 
+#print NEy
+#print NE
+
+
 t = 1
 #coeff alpha (1/alpha_Ey)Ey in left BC
 #alphaey = complex(0,alphamL)/2 - 1/dx
 #print 'alphaey', alphaey
 
 Et = []
-while (t<=Ntime):
-    #print "iter : ",t,"time : ", t*dt
-
-    #---------------- H -> H12
-    #left BC : Robin BC
+while (t*dt<=tempsmax):
     T.append(t*dt)
-    H12[0] =  g(t*dt)
-
+    #    H12[0] =  g(t*dt)
+    
+    H12[0]= H[0] - (dt/dx)*(Ey[0]     - (-H[0] + 2*g(t*dt) )  )
+    
     i = 1
     while (i<N):
-        H12[i] = H[i] - (dt/dx)*(Ey[i] - Ey[i-1])
+        H12[i] = H[i] - (dt/dx)*(Ey[i] - Ey[i-1]  )
         i      = i + 1
+        
     #right BC : Ey[N] = 0
-    H12[N] = H[N] +(dt/dx)*(Ey[N-1])
+    H12[N] = H[N] -(dt/dx)*(H[N]   -Ey[N-1])
 
     #------------------- ux -> tux
     for i in range(N):
-        [K1,K2,K1x,K2x] = Kcoeff(NEy[i])
-        #[K1,K2,K1x,K2x] = Kcoeff(WP[i])
-
-        #tux[i] =  (1/K1x) * (K2x*ux[i] -(wc/B0)*dt*Ex[i] + (((wc*wc/B0)*dt*dt)/(2*K1))*Ey[i]\
+            # [K1,K2,K1x,K2x] = Kcoeff(NEy[i])
+                #[K1,K2,K1x,K2x] = Kcoeff(WP[i])
+                
+                #tux[i] =  (1/K1x) * (K2x*ux[i] -(wc/B0)*dt*Ex[i] + (((wc*wc/B0)*dt*dt)/(2*K1))*Ey[i]\
         #                         - (wc*wc/B0)*dt*dt*dt/(4*K1)*((H12[i+1] - H12[i])/dx)   \
-
-        #                         - (wc*dt/2)*(K2/K1 + 1)*uy[i])
-        tux[i] =  (1/K1x) * (K2x*ux[i] +(e/me)*dt*Ex[i] + (((e*e*B0/(me*me))*dt*dt)/(2*K1))*Ey[i]\
-                                 - (e*e*B0/(me*me*eps0))*dt*dt*dt/(4*K1)*((H12[i+1] - H12[i])/dx)   \
-                                 + (e*B0*dt/(2*me))*(K2/K1 + 1)*uy[i])
-#H[i+1]-H[i] ou H[i]-H[i-1]??
         
-    #right BC (Ey(N) = 0, uy(N) = 0)
-    #[K1,K2,K1x,K2x] = Kcoeff(WP[N])
-    [K1,K2,K1x,K2x] = Kcoeff(NE[N])
-    #tux[N] =  (1/K1x)*(K2x*ux[N] -(wc/B0)*dt*Ex[N]\
-                           #-(wc*wc/B0)*dt*dt*dt/(4*K1)*(- H12[N])/dx )
-                           #+ (((wc*wc/B0)*dt*dt)/(2*K1))*Ey[N-1]\
-                           #- (wc*dt/2)*(K2/K1 + 1)*uy[N-1])
-    tux[N] =  (1/K1x) * (K2x*ux[N] +(e/me)*dt*Ex[N] \
-                             - (e*e*B0/(me*me*eps0))*dt*dt*dt/(4*K1)*(( - H12[N])/dx)  )
-    
-    #scipy.io.savemat('uy.mat',  {'uy': uy}); 
+                #                         - (wc*dt/2)*(K2/K1 + 1)*uy[i])
 
+#    print i
+                
+        aa=( me*(1- nu * dt/2) -NEy[i]*(e*dt/2)**2 )*ux[i] +(e*dt/2)*B0*uy[i] + e* dt * Ex[i]
+        bb=( me*(1- nu * dt/2) -NEy[i]*(e*dt/2)**2 )*uy[i] -(e*dt/2)*B0*ux[i] + e* dt * (Ey[i] -(dt/eps0) * (H12[i+1] - H12[i])/dx /2)
+        
+        cc=  me*(1+ nu * dt/2) +NEy[i]*(e*dt/2)**2
+        dd=(e*dt/2)*B0
+        ee=cc**2+dd**2
+        
+        tux[i]=( cc*aa + dd*bb)/ee
+        tuy[i]=(-dd*aa + cc*bb)/ee
+        
+
+
+    aa=( me*(1- nu * dt/2) -NE[N]*(e*dt/2)**2 )*ux[N] + e* dt * Ex[N]
+    ba= -(e*dt/2)*B0*ux[N]
+
+    cc=  me*(1+ nu * dt/2) +NE[N]*(e*dt/2)**2
+    dd=(e*dt/2)*B0
+    ee=cc**2+dd**2
+    tux[N]=( cc*aa + dd*bb)/ee
+
+    #tux[N] =  (1/K1x) * (K2x*ux[N] +(e/me)*dt*Ex[N] \
+    #                            - (e*e*B0/(me*me*eps0))*dt*dt*dt/(4*K1)*(( - H12[N])/dx)  )
+    
+    #scipy.io.savemat('uy.mat',  {'uy': uy});
+        
     #-------------------- u y->tuy
 
-    for i in range(N):
-        [K1,K2,K1x,K2x] = Kcoeff(NEy[i])
-        #[K1,K2,K1x,K2x] = Kcoeff(WPy[i]);
-        #tuy[i] = (1/K1) * (K2 * uy[i] -dt * (wc/B0)* Ey[i] +dt*(dt/2)*(wc/(B0*eps0)) * (H12[i+1] - H12[i])/dx) +wc*dt*(tux[i]+ux[i])/2
-        tuy[i] = (1/K1) * (K2 * uy[i] +dt * (e/me)* Ey[i] -dt*(dt/2)*(e/(eps0*me)) * (H12[i+1] - H12[i])/dx) -(e*B0/me)*dt*(tux[i]+ux[i])/2
+    #for i in range(N):
+    #        [K1,K2,K1x,K2x] = Kcoeff(NEy[i])
+    #        #[K1,K2,K1x,K2x] = Kcoeff(WPy[i]);
+    #        #tuy[i] = (1/K1) * (K2 * uy[i] -dt * (wc/B0)* Ey[i] +dt*(dt/2)*(wc/(B0*eps0)) * (H12[i+1] - H12[i])/dx) +wc*dt*(tux[i]+ux[i])/2
+    #        tuy[i] = (1/K1) * (K2 * uy[i] +dt * (e/me)* Ey[i] -dt*(dt/2)*(e/(eps0*me)) * (H12[i+1] - H12[i])/dx) -(e*B0/me)*dt*(tux[i]+ux[i])/2
 
     
 
@@ -238,12 +260,12 @@ while (t<=Ntime):
         #tEx[i] = Ex[i] + (dt*(WP[i]*WP[i]/wc)*B0)* (tux[i] + ux[i])/(2)
         tEx[i] = Ex[i] - dt*(e*NEy[i]/eps0)* (tux[i] + ux[i])/(2)
         #tEy[i] = Ey[i] - (dt/eps0) * (H12[i+1] - H12[i])/dx  +(dt/2)*(WPy[i]*WPy[i]/wc)*B0*(tuy[i] + uy[i])
-        tEy[i] = Ey[i] - (dt/eps0) * (H12[i+1] - H12[i])/dx  -(dt/2)*(e*NEy[i]/eps0)*(tuy[i] + uy[i])
+        tEy[i] = Ey[i] -(dt/2)*(e*NEy[i]/eps0)*(tuy[i] + uy[i]) - (dt/eps0) * (H12[i+1] - H12[i])/dx
         
-    #right BC (nothing to do)
+        #right BC (nothing to do)
   
-    #tEx[N]  = Ex[N] + (dt*(WP[N]*WP[N]/wc)*B0)*(tux[N] + ux[N])/(2) 
-    tEx[N] = Ex[N] - dt*(e*NEy[N]/eps0)* (tux[N] + ux[N])/(2)
+        #tEx[N]  = Ex[N] + (dt*(WP[N]*WP[N]/wc)*B0)*(tux[N] + ux[N])/(2)
+    tEx[N] = Ex[N] - dt*(e*NE[N]/eps0)* (tux[N] + ux[N])/(2)
     
     Ec = 0
     for i in range(N):
@@ -252,16 +274,16 @@ while (t<=Ntime):
     corr = 0
     
     for i in range(N-2) : 
-        corr = corr + (Ey[i+1]-Ey[i])*H12[i+1]
+        corr = corr - (Ey[i+1]-Ey[i])*H[i+1]
         
     E = (dt/dx)*corr + Ec
     for i in range(N) :
-        E = E+ Ey[i]**2+Ex[i]**2 + H12[i]**2 
-    
+        E = E+ Ey[i]**2+Ex[i]**2 + H[i]**2
 
+    E=E*dx
 
     Et.append(E)
-    #print "E",Et
+    print t*dt,t,E
 
     #----------f^n <- f^n+1
     ux = copy.deepcopy(tux)
@@ -270,8 +292,9 @@ while (t<=Ntime):
     Ey = copy.deepcopy(tEy)
     H  = copy.deepcopy(H12)
     nEx.append(max(np.absolute(Ex)))
-  
-    plot2(X12,Ey,X,Ex,X,H,X,ux,T,Et,T,nEx,'b','$E$','E')
+
+    if (np.mod(t,100)==0):
+        plot2(X12,Ey,X,Ex,X12,uy,X,ux,X,H,X,NH,T,Et,T,nEx)
     #time = t*dt
 
     scipy.io.savemat('H.mat',  {'H': H})
@@ -283,7 +306,13 @@ while (t<=Ntime):
     scipy.io.savemat('X2.mat', {'X2': X12})
     scipy.io.savemat('T',{'T':T})
     scipy.io.savemat('nEx',{'nEx':nEx})
-    t = t+1           
+    t = t+1
+
+
+plot2(X12,Ey,X,Ex,X12,uy,X,ux,X,H,X,NH,T,Et,T,nEx)
+
+
+savefig('res.pdf',dpi=70)
 
 
 
