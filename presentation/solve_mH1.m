@@ -1,3 +1,4 @@
+%lambda=2
 function [e1, e2,M,x, Kstiff, Mmass]=solve_mH1(dx,lambda, nu, uniform)
 %mesh generation
 L=7;
