@@ -113,41 +113,43 @@ H12 = copy.deepcopy(H)
 scipy.io.savemat('H120.mat', {'H120':H12})
 T = []
 nEx = []
-f, axarr = plt.subplots(3,2)
-
-
+f, axarr = plt.subplots(4,2)
+f.subplots_adjust(hspace=.5)
+axarr[3,1].axis('off')
+plt.tight_layout()
 plt.ion()
 plt.show()
-def plot2(X,T,X2,T2,X3,T3,X4,T4,X5,T5,X6,T6,s,s2,s3):
+def plot2(X,T,X2,T2,X3,T3,X4,T4,X5,T5,X6,T6,X7,T7,s,s2,s3):
     axarr[0,0].hold(False)
     axarr[1,0].hold(False)
     axarr[2,0].hold(False)
-    axarr[1,1].hold(False)   
+    axarr[1,1].hold(False)
     axarr[0,1].hold(False)
     axarr[2,1].hold(False)
-
-    #ylim(-20,20)
+    axarr[3,0].hold(False)
     
-
-    axarr[0,0].plot(X, T)
-    axarr[0,0].set_title('Ey ')
-    axarr[1,0].plot(X2, T2)
-    axarr[1,0].set_title('Ex ')
-    axarr[1,1].plot(X3, T3)
-    axarr[1,1].set_title('H ')
+#ylim(-20,20)
+    
+    axarr[1,0].plot(X, T)
+    axarr[1,0].set_title('Ey ')
+    axarr[1,1].plot(X2, T2)
+    axarr[1,1].set_title('Ex ')
+    
     axarr[0,1].plot(X4, T4)
     axarr[0,1].set_title('ux ')
-    axarr[2,0].plot(X5, T5)
-    axarr[2,0].set_title('Energie ')
+    axarr[0,0].plot(X5, T5)
+    axarr[0,0].set_title('uy ')
     axarr[2,1].plot(X6, T6)
-    axarr[2,1].set_title('||Ex||')  
-    #axarr.plot(X,np.imag(T),s,label=s2)
-    #xlabel(r'$x$',fontsize =16)
-    #ylabel('im',fontsize =16)
-    #leg = axarr.legend(shadow = True, loc = 3)
-    plt.draw()
-    
-    #time.sleep(1)
+    axarr[2,1].set_title('||Ex||')
+    axarr[2,0].plot(X3, T3)
+    axarr[2,0].set_title('H')
+    axarr[3,0].plot(X7, T7)
+    axarr[3,0].set_title('Energy')
+#axarr.plot(X,np.imag(T),s,label=s2)
+#xlabel(r'$x$',fontsize =16)
+#ylabel('im',fontsize =16)
+#leg = axarr.legend(shadow = True, loc = 3)
+    #plt.draw()
 
 
 #---------------------------------------------------------#
@@ -241,7 +243,7 @@ while (t<=Ntime):
     #right BC (nothing to do)
   
     #tEx[N]  = Ex[N] + (dt*(WP[N]*WP[N]/wc)*B0)*(tux[N] + ux[N])/(2) 
-    tEx[N] = Ex[N] - dt*(e*NE[N]/eps0)* (tux[N] + ux[N])/(2)
+    tEx[N] = Ex[N] - dt*(e*NEy[N]/eps0)* (tux[N] + ux[N])/(2)
     
     Ec = 0
     for i in range(N):
