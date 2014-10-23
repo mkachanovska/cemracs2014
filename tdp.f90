@@ -86,7 +86,7 @@ contains
     do iter = 0, Ntime
        t = (iter+1.0)*dt
        
-       H12(0) = sin(omega*t)
+       H12(0) = sin(omega*(t-dt/2.0))
        do i = 1, N-1
           H12(i) = H(i) - (dt/dx)*(Ey(i)-Ey(i-1))
        end do
@@ -136,7 +136,7 @@ contains
        do i = 0, N-1
           En = En+ Ey(i)*Ey(i)+Ex(i)*Ex(i) + H12(i)*H12(i)
        end do
-       if (mod(iter,10).eq.0 .and. iter>=1900000) then
+       if (iter>=1990000) then
          call writeall(iter,N,Ntime,X,X12,ux,uy,Ex,Ey,H)            
        end if
        write(15,*) iter*dt, En

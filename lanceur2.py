@@ -26,7 +26,7 @@ Ntime = 2e6
 me     = 1#9.11e-31               #electron mass (kg)
 e      = -1#1.6e-19              #electron charge (coulombs)
 eps0   = 1#8.85e-12               #permeability  (F/m)
-nu     = 1e4                  #friction
+nu     = 1e-3                  #friction
 B0     = 0#0.95                        #given
 c      = 1
 
@@ -34,7 +34,7 @@ c      = 1
 #-------------------------- NE --------------------------#
 
 def Ne(x) : 
-	return 0.2;
+	return 0.1;
 #    if (x < -10) :
 #        return 0
 #    elif (x >= -10) and (x <= 10 ):
@@ -53,7 +53,7 @@ gamma = 2
 alpha = 1
 
 def g(t) : 
-    return cos(omega*t)
+    return sin(omega*t)
     
 print g(0)
 #-----------------------------------------------#

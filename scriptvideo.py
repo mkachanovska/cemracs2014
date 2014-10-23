@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from pylab import *
 import copy
 import sub
-Niter = 5000
+Niter = 10000
 
 f, axarr = plt.subplots(3,2)
 f.subplots_adjust(hspace=.5)
@@ -54,39 +54,39 @@ def plot2(X,ux,Ex,H,X12,uy,Ey,T,Et):
 iter = 0
 while (iter <Niter):
     print 'iter',iter
-    mat = np.loadtxt('files/ux%4.4d.data'%iter)
+    mat = np.loadtxt('/UMA/tmp/maryna/password//ux%4.4d.data'%iter)
     X = mat[:,0]
     ux = mat[:,1]
     print 'X', np.isnan(np.sum(X))
     print 'ux', np.isnan(np.sum(ux))
     
-    mat = np.loadtxt('files/Ex%4.4d.data'%iter)
+    mat = np.loadtxt('/UMA/tmp/maryna/password//Ex%4.4d.data'%iter)
     Ex = mat[:,1]
     print 'Ex', np.isnan(np.sum(Ex))
     
-    mat = np.loadtxt('files/H%4.4d.data'%iter)
+    mat = np.loadtxt('/UMA/tmp/maryna/password//H%4.4d.data'%iter)
     H = mat[:,1]
     print 'H', np.isnan(np.sum(H))
 
     
-    mat = np.loadtxt('files/uy%4.4d.data'%iter)
+    mat = np.loadtxt('/UMA/tmp/maryna/password//uy%4.4d.data'%iter)
     X12 = mat[:,0]
     uy = mat[:,1]
     print 'X12', np.isnan(np.sum(X12))
     print 'uy', np.isnan(np.sum(uy))
-    mat = np.loadtxt('files/Ey%4.4d.data'%iter)
+    mat = np.loadtxt('/UMA/tmp/maryna/password//Ey%4.4d.data'%iter)
     Ey = mat[:,1]
     print 'Ey',np.isnan(np.sum(Ey))
 
-    mat = np.loadtxt('files/ET.data')
+    mat = np.loadtxt('/UMA/tmp/maryna/password//ET.data')
     T = mat[:,0]
     Et = mat[:,1]
     print "T", np.isnan(np.sum(T))
     print 'Et', np.isnan(np.sum(Ey))
     plot(X,ux)
-    #plot2(X,ux,Ex,H,X12,uy,Ey,T,Et)
+    plot2(X,ux,Ex,H,X12,uy,Ey,T,Et)
     savefig('im/res%4.4d.png'%iter)
-    quit()
+   #quit()
     iter = iter+1
 
 #os.system('avconv -r 10 -i im/res%4d.png test.mp4')

@@ -21,15 +21,15 @@ contains
     real(8), dimension(0:N-1), intent(in) :: X12, uy, Ey
     character (len=90) :: filename
     integer :: i
-    write (filename, '( "ux", i4.4, ".data" )' ) t
+    write (filename, '( "/UMA/tmp/maryna/password/ux", i7.7, ".data" )' ) t
     open(10, file = filename)
-    write (filename, '( "Ex", i4.4, ".data" )' ) t
+    write (filename, '( "/UMA/tmp/maryna/password/Ex", i7.7, ".data" )' ) t
     open(11, file= filename)
-    write (filename, '( "H", i4.4, ".data" )' ) t
+    write (filename, '( "/UMA/tmp/maryna/password/H", i7.7, ".data" )' ) t
     open(12, file=filename)
-    write (filename, '( "uy", i4.4, ".data" )' ) t
+    write (filename, '( "/UMA/tmp/maryna/password/uy", i7.7, ".data" )' ) t
     open(13, file = filename)
-    write (filename, '( "Ey", i4.4, ".data" )' ) t
+    write (filename, '( "/UMA/tmp/maryna/password/Ey", i7.7, ".data" )' ) t
     open(14, file = filename)
     do i = 0, N-1
        write(10,*) X(i), ux(i)
@@ -80,13 +80,13 @@ contains
     H(0:N)    = Hi(0:N)
     uy(0:N-1) = uyi(0:N-1)
     Ey(0:N-1) = Eyi(0:N-1)
-    open(15, file = "ET.data")
+    open(15, file = "/UMA/tmp/maryna/password/ET.data")
     !time loop
 
     do iter = 0, Ntime
-       t = iter*dt
+       t = (iter+1.0)*dt
        
-       H12(0) = cos(omega*t)
+       H12(0) = sin(omega*t)
        do i = 1, N-1
           H12(i) = H(i) - (dt/dx)*(Ey(i)-Ey(i-1))
        end do
@@ -136,7 +136,9 @@ contains
        do i = 0, N-1
           En = En+ Ey(i)*Ey(i)+Ex(i)*Ex(i) + H12(i)*H12(i)
        end do
+       !if (mod(iter,10).eq.0 .and. iter>=1900000) then
        call writeall(iter,N,Ntime,X,X12,ux,uy,Ex,Ey,H)            
+       !end if
        write(15,*) iter*dt, En
        if (maxval(H)<1E-10) then
           print *, iter,'H nul ?!'

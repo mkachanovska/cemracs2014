@@ -21,7 +21,7 @@ print "dx", dx
 dt     = 0.5*dx
 print "dt",dt
 # Number of time steps
-Ntime = 1000
+Ntime = 10000
 # constants 
 me     = 1#9.11e-31               #electron mass (kg)
 e      = -1#1.6e-19              #electron charge (coulombs)
@@ -42,7 +42,7 @@ def Ne(x) :
         return 36
     
 
-omega = 3
+omega = 1
 
 
 gamma = 2
@@ -52,7 +52,7 @@ gamma = 2
 alpha = 1
 
 def g(t) : 
-    return cos(omega*t)
+    return sin(omega*t)
     
 print g(0)
 #-----------------------------------------------#
