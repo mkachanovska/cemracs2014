@@ -1,4 +1,4 @@
-function [e1, e2,M,x, Kstiff, Mmass]=solve_mH1(dx,lambda, nu, uniform)
+function [e1, e2,M,x, Kstiff, Mmass]=solve_mH1_td_compliant(dx,lambda, nu, nu_delta, uniform)
 
 %mesh generation
 L= 19.99267220322423120; %20!!!
@@ -12,7 +12,7 @@ phi=-pi/2:dx:pi/2;
 
 end
 tic
-[A,B,D]=construct_block_matrix(x,nu,lambda);
+[A,B,D]=construct_block_matrix(x,nu,nu_delta,lambda);
 time_passed=toc();
 display (strcat(num2str(time_passed),' for the construction of the matrix'));
 r=construct_rhs(x);
@@ -71,30 +71,38 @@ e2=sol(2:2:end);
 end
 
 
+function n=n_e(x)
+n=0.2;
+end
 
-
+function [omega, omega_c]=main_parameters()
+omega=1;
+omega_c=0;
+end
 
 
 function a=alpha(x)
+[omega, omega_c]=main_parameters();
+n=n_e(x);
+a=omega^2*(1-n_e/(omega^2-omega_c^2));
 
-%a=zeros(size(x));
-%a(x<=-10)=1;
-%P=(x<=5)&(x>-10);
-%a(P)=-x(P)/10;
-%a(x>5)=-1/2;
-a=0.9;%0.8*ones(size(x));
 end
 
 function delta=delta(x)
+[omega, omega_c]=main_parameters();
+n=n_e(x);
+delta=omega*omega_c*n_e/(omega^2-omega_c^2);
+end
 
+function nu_a=nu_alpha(x)
+[omega, omega_c]=main_parameters();
+n=n_e(x);
+nu_a=omega^2*n_e*(omega^2+omega_c^2)./(omega^2-omega_c^2);
+end
 
-delta=zeros(size(x));
-%delta(x<=-10)=0;
-%P=(x<=5)&(x>-10);
-%delta(P)=(1+x(P)/10)*1e-2;
-%delta(x>5)=3/2*1e-2;
-%delta=sqrt(x.^2+1).*sqrt(x.^2+1+x);
-delta=0;
+function nu_delta=nu_delta
+[omega, omega_c]=main_parameters();
+nu_delta=omega^2*2*omega/(omega^2-omega_c^2);
 end
 
 %since the matrices are symmetric tridiagonal, each matrix constructor returns 
@@ -284,23 +292,25 @@ end
 %(C D)
               %A(:,1) are the $L$ diagonal entries of the matrix A
               %A(:,2) are the $L-1$ offdiagonal entries (and the last entry of the vector is set to zero)
-%C is the complex conjugate of B
-function [A,B,D]=construct_block_matrix(x,nu,lambda)
+%C=-B
+function [A,B,D]=construct_block_matrix(x,nu_a,nu_d,lambda)
               L=length(x);
    %default: 4 quad pts
     nq=4; 
     Mdelta=mass_matrixP1P1_scaled_fast(x, @delta,nq);
 
     Malpha=mass_matrixP1P1_scaled_fast(x, @alpha,nq);
+    Malphanu=mass_matrixP1P1_scaled_fast(x, @nu_alpha, nq);
+    
     
     
     M=mass_matrixP1(x);
 
     S=K_lpl(x);
 
-                   A=Malpha+1i*nu*M;
-                   B=1i*Mdelta;
-                   D=S-(Malpha+1i*nu*M);
+                   A=Malpha+1i*nu_a*Malphanu;
+                   B=1i*(Mdelta-1i*nu_d*nu_delta()*M);
+                   D=S-(Malpha+1i*nu_a*Malphanu);
 %adding a boundary condition
                    D(1,1)=D(1,1)-1i*lambda;
 
