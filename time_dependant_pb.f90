@@ -21,15 +21,15 @@ contains
     real(8), dimension(0:N-1), intent(in) :: X12, uy, Ey
     character (len=90) :: filename
     integer :: i
-    write (filename, '( "/UMA/tmp/maryna/password/ux", i7.7, ".data" )' ) t
+    write (filename, '( "password/ux", i7.7, ".data" )' ) t
     open(10, file = filename)
-    write (filename, '( "/UMA/tmp/maryna/password/Ex", i7.7, ".data" )' ) t
+    write (filename, '( "password/Ex", i7.7, ".data" )' ) t
     open(11, file= filename)
-    write (filename, '( "/UMA/tmp/maryna/password/H", i7.7, ".data" )' ) t
+    write (filename, '( "password/H", i7.7, ".data" )' ) t
     open(12, file=filename)
-    write (filename, '( "/UMA/tmp/maryna/password/uy", i7.7, ".data" )' ) t
+    write (filename, '( "password/uy", i7.7, ".data" )' ) t
     open(13, file = filename)
-    write (filename, '( "/UMA/tmp/maryna/password/Ey", i7.7, ".data" )' ) t
+    write (filename, '( "password/Ey", i7.7, ".data" )' ) t
     open(14, file = filename)
     do i = 0, N-1
        write(10,*) X(i), ux(i)
@@ -80,7 +80,7 @@ contains
     H(0:N)    = Hi(0:N)
     uy(0:N-1) = uyi(0:N-1)
     Ey(0:N-1) = Eyi(0:N-1)
-    open(15, file = "/UMA/tmp/maryna/password/ET.data")
+    open(15, file = "password/ET.data")
     !time loop
 
     do iter = 0, Ntime

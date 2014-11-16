@@ -1,4 +1,4 @@
-function [e1, e2,M,x, Kstiff, Mmass]=solve_mH1_td_compliant(dx,lambda, nu, nu_delta, uniform)
+function [e1, e2,M,x, Kstiff, Mmass]=solve_mH1_Dirichlet(dx,lambda, nu, uniform)
 
 %mesh generation
 L= 19.99267220322423120; %20!!!
@@ -12,7 +12,7 @@ phi=-pi/2:dx:pi/2;
 
 end
 tic
-[A,B,D]=construct_block_matrix(x,nu,nu_delta,lambda);
+[A,B,D]=construct_block_matrix(x,nu,lambda);
 time_passed=toc();
 display (strcat(num2str(time_passed),' for the construction of the matrix'));
 r=construct_rhs(x);
@@ -25,7 +25,8 @@ sol=M\rhs;
 norm(M*sol-rhs)
 
 [e1, e2]=permute_solution_back(sol);
-
+e1=[e1;0];
+e2=[e2;0];
 time_passed=toc();
 display(strcat(num2str(time_passed),' for the solution of the system of eqs'));
 
@@ -71,38 +72,30 @@ e2=sol(2:2:end);
 end
 
 
-function n=n_e(x)
-n=0.1;
-end
 
-function [omega, omega_c]=main_parameters()
-omega=1;
-omega_c=0;
-end
+
 
 
 function a=alpha(x)
-[omega, omega_c]=main_parameters();
-n=n_e(x);
-a=omega^2*(1-n_e/(omega^2-omega_c^2));
 
+%a=zeros(size(x));
+%a(x<=-10)=1;
+%P=(x<=5)&(x>-10);
+%a(P)=-x(P)/10;
+%a(x>5)=-1/2;
+a=0.9;%0.8*ones(size(x));
 end
 
 function delta=delta(x)
-[omega, omega_c]=main_parameters();
-n=n_e(x);
-delta=omega*omega_c*n_e/(omega^2-omega_c^2);
-end
 
-function nu_a=nu_alpha(x)
-[omega, omega_c]=main_parameters();
-n=n_e(x);
-nu_a=omega^2*n_e*(omega^2+omega_c^2)./(omega^2-omega_c^2);
-end
 
-function nu_delta=nu_delta
-[omega, omega_c]=main_parameters();
-nu_delta=omega^2*2*omega/(omega^2-omega_c^2);
+delta=zeros(size(x));
+%delta(x<=-10)=0;
+%P=(x<=5)&(x>-10);
+%delta(P)=(1+x(P)/10)*1e-2;
+%delta(x>5)=3/2*1e-2;
+%delta=sqrt(x.^2+1).*sqrt(x.^2+1+x);
+delta=0;
 end
 
 %since the matrices are symmetric tridiagonal, each matrix constructor returns 
@@ -116,14 +109,14 @@ end
 %stiffness for P1
 function K=K_lpl(x)
     L=length(x);
-    K=zeros(L,2);
+    K=zeros(L-1,2);
 
     K(1,1)=1/(x(2)-x(1));
 
     K(2:1:L-1,1)=1./(x(2:1:end-1)-x(1:1:end-2))+1./(x(3:1:end)-x(2:1:end-1));
     K(1:1:L-1,2)=-1./(x(2:1:end)-x(1:1:end-1));
 
-    K(L,1)=1./(x(end)-x(end-1));
+   % K(L,1)=1./(x(end)-x(end-1));
     
 
 end
@@ -132,7 +125,7 @@ end
 function M=mass_matrixP1(x)
 
     L=length(x);
-    M=zeros(L,2);
+    M=zeros(L-1,2);
 
     M(1,1)=(x(2)-x(1))/3;
 
@@ -140,7 +133,7 @@ function M=mass_matrixP1(x)
     M(2:1:(L-1),1)=(x(2:1:end-1)-x(1:1:end-2))./3+(x(3:1:end)-x(2:1:end-1))./3;
     M(1:1:L-1,2)=(x(2:1:end)-x(1:1:end-1))./6;
 
-    M(L,1)=(x(end)-x(end-1))./3;
+    %M(L,1)=(x(end)-x(end-1))./3;
 
 
 end
@@ -154,7 +147,7 @@ end
 %matrix M_{ij}=\int\limits_{-L}^{H}func_kernel(x)\phi_i(x) \phi_j(x)
 function M=mass_matrixP1P1_scaled(x, func_kernel, nq)
 
-    L=length(x);
+    L=length(x)-1;
     M=zeros(L,2);
 
     fleft_diagon=@(x_left,x_center,x)func_kernel(x).*(x-x_left).^2./(x_center-x_left).^2;
@@ -183,7 +176,7 @@ function M=mass_matrixP1P1_scaled(x, func_kernel, nq)
     if length(nq)==1
         [quad_pts,w]=lgwt(nq, -1, 1);
 
-        for j=2:1:length(x)
+        for j=2:1:length(x)-1
             %integrate 1st part of diagonal ('left hat') and the subdiagonal
             %1) translate the quadrature points
             qpts=quad_pts_current(x(j-1),x(j),quad_pts);
@@ -202,7 +195,7 @@ function M=mass_matrixP1P1_scaled(x, func_kernel, nq)
        
     else
     %generate quadrature points for every subinterval separately
-        for j=2:1:length(x)
+        for j=2:1:length(x)-1
             [qpts,wc]=lgwt(x(j-1),x(j), nq(j));
             M(j,1)=wc'*fleft_diagon(x(j-1),x(j),qpts);
 
@@ -223,7 +216,7 @@ function M=mass_matrixP1P1_scaled_fast(x, func_kernel, nq)
 
 L=length(x);
 
-M=zeros(L,2);
+M=zeros(L-1,2);
 
 
 fleft_diagon=@(x_left,x_center,x)bsxfun(@rdivide, func_kernel(x).*(bsxfun(@minus, x, x_left)).^2, (x_center-x_left).^2);
@@ -276,7 +269,7 @@ diagon_right=sum(result.');
                  
 M(1,1)=diagon_right(1);
 M(2:1:L-1,1)=diagon_right(2:1:end)+diagon_left(1:1:end-1);
-M(L,1)=diagon_left(end);
+%M(L,1)=diagon_left(end);
                  
 func_interval_evaluator=@(q)fsubdiagon(x(1:1:end-1)',x(2:1:end)',q);
 
@@ -292,33 +285,31 @@ end
 %(C D)
               %A(:,1) are the $L$ diagonal entries of the matrix A
               %A(:,2) are the $L-1$ offdiagonal entries (and the last entry of the vector is set to zero)
-%C=-B
-function [A,B,D]=construct_block_matrix(x,nu_a,nu_d,lambda)
+%C is the complex conjugate of B
+function [A,B,D]=construct_block_matrix(x,nu,lambda)
               L=length(x);
    %default: 4 quad pts
     nq=4; 
     Mdelta=mass_matrixP1P1_scaled_fast(x, @delta,nq);
 
     Malpha=mass_matrixP1P1_scaled_fast(x, @alpha,nq);
-    Malphanu=mass_matrixP1P1_scaled_fast(x, @nu_alpha, nq);
-    
     
     
     M=mass_matrixP1(x);
 
     S=K_lpl(x);
 
-                   A=Malpha+1i*nu_a*Malphanu;
-                   B=1i*(Mdelta-1i*nu_d*nu_delta()*M);
-                   D=S-(Malpha+1i*nu_a*Malphanu);
+                   A=Malpha+1i*nu*M;
+                   B=1i*Mdelta;
+                   D=S-(Malpha+1i*nu*M);
 %adding a boundary condition
                    D(1,1)=D(1,1)-1i*lambda;
 
 end
 
 function b=construct_rhs(x)
-    b=zeros(2*length(x),1);
-    b(length(x)+1)=1;
+    b=zeros(2*length(x)-2,1);
+    b(length(x))=1.0;
 %    b(length(x)+1)=-2*1i*sqrt(2)*exp(1i*sqrt(2)*(-22));
  %    b(length(x)+1)=(-airy(-20)*i*2-airy(1,-20));
  %   b(length(x)+1)=-i*2*0.2-0.1;

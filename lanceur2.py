@@ -10,7 +10,7 @@ import copy
 import sub
 #---------------CONSTANTS--------------------#
 # mesh size
-N      = 2048
+N      = 512
 # domain ]-L ; L[, (mL=-L)
 mL     = -20
 pL      = 10
@@ -21,12 +21,12 @@ print "dx", dx
 dt     = 0.5*dx
 print "dt",dt
 # Number of time steps
-Ntime = 2e6
+Ntime = 3e6
 # constants 
 me     = 1#9.11e-31               #electron mass (kg)
 e      = -1#1.6e-19              #electron charge (coulombs)
 eps0   = 1#8.85e-12               #permeability  (F/m)
-nu     = 1e-3                  #friction
+nu     = 0                  #friction
 B0     = 0#0.95                        #given
 c      = 1
 
