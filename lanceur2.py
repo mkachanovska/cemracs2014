@@ -10,31 +10,31 @@ import copy
 import sub
 #---------------CONSTANTS--------------------#
 # mesh size
-N      = 512
+N      = 2500
 # domain ]-L ; L[, (mL=-L)
-mL     = -20
-pL      = 10
+mL     = -5
+pL      = 5
 # space step 
-dx     = (pL-mL)/(N-1)
+dx     = (pL-mL)/(N)
 print "dx", dx
 # time step
 dt     = 0.5*dx
 print "dt",dt
 # Number of time steps
-Ntime = 3e6
+Ntime = 5e4
 # constants 
 me     = 1#9.11e-31               #electron mass (kg)
 e      = -1#1.6e-19              #electron charge (coulombs)
 eps0   = 1#8.85e-12               #permeability  (F/m)
 nu     = 0                  #friction
-B0     = 0#0.95                        #given
+B0     = 0.1#0.95                        #given
 c      = 1
 
 
 #-------------------------- NE --------------------------#
 
 def Ne(x) : 
-	return 0.1;
+	return 0.8;
 #    if (x < -10) :
 #        return 0
 #    elif (x >= -10) and (x <= 10 ):

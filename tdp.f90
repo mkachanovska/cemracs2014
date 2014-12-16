@@ -96,7 +96,7 @@ contains
     do iter = 0, Ntime
        t = (iter+1.0)*dt
        
-       H12(0) = sin(omega*(t-dt/2.0))*(exp(-12*(t-dt/2)*(t-dt/2)))
+       H12(0) = sin(omega*(t-dt/2.0))*(exp(-100*(t-dt/2-1)*(t-dt/2-1)))
        do i = 1, N-1
           H12(i) = H(i) - (dt/dx)*(Ey(i)-Ey(i-1))
        end do
@@ -147,7 +147,7 @@ contains
           En = En+ Ey(i)*Ey(i)+Ex(i)*Ex(i) + H12(i)*H12(i)
        end do
        !if (iter>=2e5) then
-       ! call writeall(iter,N,Ntime,X,X12,ux,uy,Ex,Ey,H)            
+       call writeall(iter,N,Ntime,X,X12,ux,uy,Ex,Ey,H)            
        !end if
        write(15,*) iter*dt, En
        if (maxval(H)<1E-10) then

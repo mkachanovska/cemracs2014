@@ -121,6 +121,7 @@ i\left(\frac{\omega_p^2\omega_c}{\omega(\omega^2-\omega_c^2)}+\frac{2i\omega\nu}
 Importantly, for the limiting absorption principle, the 'off-diagonal' terms ($\frac{2i\omega\nu}{(\omega^2-\omega^2_c)^2}$) are neglected.
 
 
+
 NB: in L-M. article the signs are slightly different, because $\partial_t \rightarrow -i\omega$, hence probably the sign of $\nu$ differs from our implementation (by complex conjugation)...
 Let also $\omega=c=1$. 
 
@@ -172,9 +173,9 @@ If $\omega_c=0$, $\nu_f=\omega_p^2\nu$.
 
 
 \subsection{Experiments}
-Let us conduct several numerical experiments, with the normalization chosen as $\epsilon_0=\mu_0=1$, $\omega=c=1$. 
+Let us conduct several numerical experiments, with the normalization chosen as $\epsilon_0=\mu_0=1$, $\omega=c=1$.
 
-Also, we set $m_e=1$ and $e=-1$. From this it follows that $w_c=B_0$ and $w_p^2=N_e$. 
+Also, we set $m_e=1$ and $e=-1$. From this it follows that $w_c=-B_0$ and $w_p^2=N_e$. 
 
 We conduct the following numerical experiments:
 \begin{itemize}
@@ -183,21 +184,32 @@ We conduct the following numerical experiments:
  \item case $N_e\neq \operatorname{const}$, resonance
 \end{itemize}
 
+\subsubsection{Validity of  the Implementation}
+
+
+
+\subsubsection{}
+
+
+
 
 \subsubsection{Constant Electron Density}
-We choose $N_e=0.1$, $w_c=0$. This corresponds to the frequency domain choice $\alpha(x)=0.9$, $\delta(x)=0$. 
-
-The computation is done with $\Delta t\approx 7.3278e-3$, 
-and $T_{max}\approx 14656.4$ (i.e. $2e6$ time steps).
-
-
-
-
-
+We choose $N_e=11.0$, $w_c=0$. This corresponds to the frequency domain choice $\alpha(x)=-10$, $\delta(x)=0$. 
+The discretization 
+\begin{align*}
+\end{align*}
 
 
 
 \subsubsection{Non-constant Electron Density: case without resonance}
+The electron density $N_e$:
+\begin{align*}
+N_e=0,\; x\leq -10,\\
+N_e=1/9*x-1/9;
+\end{align*}
+
+
+\subsbusection{Non-constant Electron Density: case when $N_e(x)=0$ at one of the ends of the interval}
 
 \subsubsection{Non-constant Electron Density: resonance case}
 We choose $\omega_c:=\sqrt{0.5}$.
