@@ -1,8 +1,8 @@
 function [e1, e2,M,x, Kstiff, Mmass]=solve_mH1(dx,lambda, nu, uniform)
 
 %mesh generation
-L= 19.99267220322423120; %20!!!
-H=10.007327796775769;%10!!!
+L=5; %20!!!
+H=19;%10!!!
 if uniform
 x=-L:dx:H;
 else
@@ -71,31 +71,51 @@ e2=sol(2:2:end);
 end
 
 
+function n=n_e(x)
+n=zeros(size(x));
+[omega, omega_c]=main_parameters();
 
+n(x<-0.5)=0.25;
+P=(x>=-0.5 & x<=9);
+n(P)=(1+x(P))/2;
+n(x>9)=5;
+%if omega_c==0
+%    d=x;
+%else
+%    d=sqrt((2*omega^2+x).^2-4*(x+omega^2)*(omega^2-omega_c^2));
+%end
+%n=0.5*(2*omega^2+x+d);%for omega=1
 
+%n(x<-1)=0.5*0.75;
+%P=(x>=-1)&(x<5);
+%n(P)=0.75*(1+x(P)/2);
+%P=(x>=5);
+%n(P)=7/2*0.75;
+end
+
+function [omega, omega_c]=main_parameters()
+omega=1;
+omega_c=sqrt(0.5);
+end
 
 
 function a=alpha(x)
+[omega, omega_c]=main_parameters();
+n=n_e(x);
+a=omega^2*(1-n/(omega^2-omega_c^2));
 
-%a=zeros(size(x));
-%a(x<=-10)=1;
-%P=(x<=5)&(x>-10);
-%a(P)=-x(P)/10;
-%a(x>5)=-1/2;
-a=0.9;%0.8*ones(size(x));
 end
 
 function delta=delta(x)
-
-
-delta=zeros(size(x));
-%delta(x<=-10)=0;
-%P=(x<=5)&(x>-10);
-%delta(P)=(1+x(P)/10)*1e-2;
-%delta(x>5)=3/2*1e-2;
-%delta=sqrt(x.^2+1).*sqrt(x.^2+1+x);
-delta=0;
+[omega, omega_c]=main_parameters();
+n=n_e(x);
+delta=omega*omega_c*n/(omega^2-omega_c^2);
 end
+
+
+
+
+
 
 %since the matrices are symmetric tridiagonal, each matrix constructor returns 
 %a vector K of size $L\times 2$, where L is the size of the matrix
@@ -307,8 +327,9 @@ function [A,B,D]=construct_block_matrix(x,nu,lambda)
 end
 
 function b=construct_rhs(x)
+%[omega, omega_c]=main_parameters();
     b=zeros(2*length(x),1);
-    b(length(x)+1)=1.0;
+    b(length(x)+1)=0.11;
 %    b(length(x)+1)=-2*1i*sqrt(2)*exp(1i*sqrt(2)*(-22));
  %    b(length(x)+1)=(-airy(-20)*i*2-airy(1,-20));
  %   b(length(x)+1)=-i*2*0.2-0.1;

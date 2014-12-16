@@ -1,8 +1,8 @@
 function [e1, e2,M,x, Kstiff, Mmass]=solve_mH1_td_compliant(dx,lambda, nu, nu_delta, uniform)
 
 %mesh generation
-L= 19.99267220322423120; %20!!!
-H=10.007327796775769;%10!!!
+L=3; %20!!!
+H=22;%10!!!
 if uniform
 x=-L:dx:H;
 else
@@ -71,33 +71,40 @@ e2=sol(2:2:end);
 end
 
 
+
 function n=n_e(x)
-n=0.2;
+n=zeros(size(x));
+n(x<-1)=0.5*0.75;
+P=(x>=-1)&(x<5);
+n(P)=0.75*(1+x(P)/2);
+P=(x>=5);
+n(P)=7/2*0.75;
 end
+
 
 function [omega, omega_c]=main_parameters()
 omega=1;
-omega_c=0;
+omega_c=-0.5;
 end
 
 
 function a=alpha(x)
 [omega, omega_c]=main_parameters();
 n=n_e(x);
-a=omega^2*(1-n_e/(omega^2-omega_c^2));
+a=omega^2*(1-n/(omega^2-omega_c^2));
 
 end
 
 function delta=delta(x)
 [omega, omega_c]=main_parameters();
 n=n_e(x);
-delta=omega*omega_c*n_e/(omega^2-omega_c^2);
+delta=omega*omega_c*n/(omega^2-omega_c^2);
 end
 
 function nu_a=nu_alpha(x)
 [omega, omega_c]=main_parameters();
 n=n_e(x);
-nu_a=omega^2*n_e*(omega^2+omega_c^2)./(omega^2-omega_c^2);
+nu_a=omega^2*(omega^2+omega_c^2)./(omega^2-omega_c^2)*n
 end
 
 function nu_delta=nu_delta

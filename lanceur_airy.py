@@ -10,40 +10,52 @@ import copy
 import sub
 #---------------CONSTANTS--------------------#
 # mesh size
-N      = 2048
+N      = 420;
 # domain ]-L ; L[, (mL=-L)
-mL     = -20
+mL     = -0.5
 pL      = 10
 # space step 
-dx     = (pL-mL)/(N-1)
+dx     = (pL-mL)/(N)
 print "dx", dx
 # time step
 dt     = 0.5*dx
 print "dt",dt
 # Number of time steps
-Ntime = 1e6
+Ntime = 2e7
 # constants 
 me     = 1#9.11e-31               #electron mass (kg)
 e      = -1#1.6e-19              #electron charge (coulombs)
 eps0   = 1#8.85e-12               #permeability  (F/m)
-nu     = 0                  #friction
-B0     = 0#0.95                        #given
+nu     = 0.001;#1e-2                  #friction
+B0     = 0;#0.5#0.95                        #given
 c      = 1
 
+omega = 1
+omega_c = e*B0;
 
 #-------------------------- NE --------------------------#
 
 def Ne(x) : 
-	return 0.1;
-#    if (x < -10) :
-#        return 0
+	return 1+x;
+#	return 1+x;
+#	d=sqrt((2*omega*omega+x)**2-4*(x+omega**2)*(omega**2-omega_c**2));
+#	return 0.5*(2*omega**2+x+d);
+#	return (1+x);
+#    if (x < -1) :
+#        return 0.5*0.75;
+#    elif (x>=-1) and (x<5):
+#	return 0.75*(1+x/2);
+#    else:
+#	return 7/2*0.75;
+
 #    elif (x >= -10) and (x <= 10 ):
 #        return 36*(x+10)/20
 #    else :
 #        return 36
     
 
-omega = 1
+
+
 
 
 gamma = 2
@@ -117,7 +129,7 @@ alphamL = 1
 
 
 
-sub.tdp.tdp_sub(dx,dt,Ntime,me,e,eps0,nu,B0,omega,NE,NEy,ux,H,Ex,Ey,uy,X,X12)
+sub.tdpn.tdp_sub(dx,dt,Ntime,me,e,eps0,nu,B0,omega,NE,NEy,ux,H,Ex,Ey,uy,X,X12)
 
 
 #plot2(X12,Ey,X,Ex,X,H,X,ux,T,Et,T,nEx,'b','$E$','E')

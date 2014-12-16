@@ -41,7 +41,7 @@ First,
 \begin{align*}
  u_x=\frac{e E_x}{m_ei\tilde{\omega}}-\frac{\omega_c}{i\tilde{\omega}}u_y,
 \end{align*}
-where $\omega_c=\frac{|e|B_0}{m_e}$. 
+where $\omega_c=\frac{eB_0}{m_e}$ (algebraic cyclotronic frequency). 
 
 From this:
 \begin{align*}
@@ -171,6 +171,15 @@ If $\omega_c=0$, $\nu_f=\omega_p^2\nu$.
 %(? would this imply in time domain we should choose $\nu$ as $\frac{T^2}{2}\nu_f$?...)
 
 
+
+In \cite{} the expression for the phase velosity in case of the constant coefficients had been derived:
+\begin{align*}
+ v_{ph}=\frac{\alpha}{\alpha^2-\delta^2}.
+\end{align*}
+
+
+
+
 \subsection{Experiments}
 Let us conduct several numerical experiments, with the normalization chosen as $\epsilon_0=\mu_0=1$, $\omega=c=1$. 
 
@@ -184,20 +193,41 @@ We conduct the following numerical experiments:
 \end{itemize}
 
 
-\subsubsection{Constant Electron Density}
-We choose $N_e=0.1$, $w_c=0$. This corresponds to the frequency domain choice $\alpha(x)=0.9$, $\delta(x)=0$. 
-
-The computation is done with $\Delta t\approx 7.3278e-3$, 
-and $T_{max}\approx 14656.4$ (i.e. $2e6$ time steps).
 
 
+\subsubsection{Experiment 1: case without resonance}
+We choose the parameters so that in the frequency domain, for the limiting amplitude problem, $E_y$ satisfies 
+the Airy equation,
+\begin{align*}
+ u''-xu=0.
+\end{align*}
+Indeed, for this we need that 
+\begin{align*}
+ \alpha(x)-\frac{\delta^2}{\alpha}=-x;
+\end{align*}
+
+We set $\omega_c=0$ (thus $\delta(x)=0$), $\omega=1$ (hence $\alpha(x)=1-N_e(x)$), 
+choose the domain as $[-0.5, 10]$ and set the electron density $N_e(x)=1+x$.
+
+The left boundary condition is set to 
+\begin{align*}
+ \left.\partial_x E_y\right|_{x=-0.5}=\left.\partial_t H\right|_{x=-0.5}=Ai'(-0.5)*cos(t).
+\end{align*}
+\begin{figure}
+\begin{tikzpicture}
+  
+\end{tikzpicture}
+
+\end{figure}
 
 
 
 
 
 
-\subsubsection{Non-constant Electron Density: case without resonance}
+
+
+
 
 \subsubsection{Non-constant Electron Density: resonance case}
 We choose $\omega_c:=\sqrt{0.5}$.

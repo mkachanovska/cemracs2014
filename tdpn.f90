@@ -1,7 +1,7 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! this file contains the program to compute the time dependant pb for Xmode eq
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-module tdp
+module tdpn
 implicit none 
 contains
   subroutine Kcoeff(x,K1,K2,K1x,K2x,nu,dt,e,me,eps0,B0)
@@ -21,15 +21,15 @@ contains
     real(8), dimension(0:N-1), intent(in) :: X12, uy, Ey
     character (len=90) :: filename
     integer :: i
-    write (filename, '( "/UMA/tmp/maryna/password/ux", i7.7, ".data" )' ) t
+    write (filename, '( "/UMA/tmp/maryna/password0_airy_old/ux", i8.8, ".data" )' ) t
     open(10, file = filename)
-    write (filename, '( "/UMA/tmp/maryna/password/Ex", i7.7, ".data" )' ) t
+    write (filename, '( "/UMA/tmp/maryna/password0_airy_old/Ex", i8.8, ".data" )' ) t
     open(11, file= filename)
-    write (filename, '( "/UMA/tmp/maryna/password/H", i7.7, ".data" )' ) t
+    write (filename, '( "/UMA/tmp/maryna/password0_airy_old/H", i8.8, ".data" )' ) t
     open(12, file=filename)
-    write (filename, '( "/UMA/tmp/maryna/password/uy", i7.7, ".data" )' ) t
+    write (filename, '( "/UMA/tmp/maryna/password0_airy_old/uy", i8.8, ".data" )' ) t
     open(13, file = filename)
-    write (filename, '( "/UMA/tmp/maryna/password/Ey", i7.7, ".data" )' ) t
+    write (filename, '( "/UMA/tmp/maryna/password0_airy_old/Ey", i8.8, ".data" )' ) t
     open(14, file = filename)
     do i = 0, N-1
        write(10,*) X(i), ux(i)
@@ -69,7 +69,9 @@ contains
     real(8) :: uy(0:N-1),tuy(0:N-1)
 
     real(8) :: K1, K2, K1x, K2x, Ec, corr,t, En
-     
+    complex(16) :: EyF(0:N-1), ExF(0:N-1)  
+    
+
     integer :: i,iter
     print *, "nu", nu
     print *, "dt",dt
@@ -80,22 +82,27 @@ contains
     H(0:N)    = Hi(0:N)
     uy(0:N-1) = uyi(0:N-1)
     Ey(0:N-1) = Eyi(0:N-1)
-    open(15, file = "/UMA/tmp/maryna/password/ET.data")
-    !time loop
+    
+    do i=0,N-1
+     EyF(i)=cmplx(0.0,0.0);
+     ExF(i)=cmplx(0.0,0.0);
+    end do
 
+    open(15, file = "/UMA/tmp/maryna/password0_airy_old/ET.data")
+    open(22, file = "/UMA/tmp/maryna/password0_airy_old/ExF.data")
+    open(23, file = "/UMA/tmp/maryna/password0_airy_old/EyF.data")
+   
+    t=0
+    H(0) = H(0)+sin(omega*(t))*dt/2*(-0.2048167);!initialization
+    H(0) = (1-cos(omega*(dt)/2))*(-0.2048167)/omega;
     do iter = 0, Ntime
-       t = (iter+1.0)*dt
-       
-       H12(0) = sin(omega*(t-dt/2.0))*exp(-1e-6*(t-dt/2)*(t-dt/2));
-       do i = 1, N-1
-          H12(i) = H(i) - (dt/dx)*(Ey(i)-Ey(i-1))
-       end do
-       H12(N) = H(N)
+       t = (iter+1)*dt
+
        
        do i = 0, N-1
           call Kcoeff(NEy(i),K1,K2,K1x,K2x,nu,dt,e,me,eps0,B0)
           tux(i) = (1/K1x) * (K2x*ux(i) +(e/me)*dt*Ex(i) + (((e*e*B0/(me*me))*dt*dt)/(2*K1))*Ey(i)&
-               - (e*e*B0/(me*me*eps0))*dt*dt*dt/(4*K1)*((H12(i+1) - H12(i))/dx)   &
+               - (e*e*B0/(me*me*eps0))*dt*dt*dt/(4*K1)*((H(i+1) - H(i))/dx)   &
                + (e*B0*dt/(2*me))*(K2/K1 + 1)*uy(i))
           
        end do
@@ -109,15 +116,22 @@ contains
           tuy(i) = (1/K1) * (K2 * uy(i) &
                +dt * (e/me)* Ey(i) &
                -dt*(dt/2)*(e/(eps0*me)) &
-               * (H12(i+1) - H12(i))/dx)&
+               * (H(i+1) - H(i))/dx)&
                -(e*B0/me)*dt*(tux(i)+ux(i))/2
           
        end do
        do i = 0, N-1
           tEx(i) = Ex(i) - dt*(e*NEy(i)/eps0)* (tux(i) + ux(i))/(2)
-          tEy(i) = Ey(i) - (dt/eps0) * (H12(i+1) - H12(i))/dx  -(dt/2)*(e*NEy(i)/eps0)*(tuy(i) + uy(i))
+          tEy(i) = Ey(i) - (dt/eps0) * (H(i+1) - H(i))/dx  -(dt/2)*(e*NEy(i)/eps0)*(tuy(i) + uy(i))
        end do
        tEx(N) = Ex(N) - dt*(e*NEi(N)/eps0)* (tux(N) + ux(N))/(2)
+       
+       H12(0) = H(0)+sin(omega*(t))*dt*(-0.2048167);!(0.314583769216598);
+       do i = 1, N-1
+          H12(i) = H(i) - (dt/dx)*(tEy(i)-tEy(i-1))
+       end do
+       H12(N) = 0;!H(N)
+
        
        ux(0:N) = tux(0:N)
        Ex(0:N) = tEx(0:N)
@@ -136,15 +150,26 @@ contains
        do i = 0, N-1
           En = En+ Ey(i)*Ey(i)+Ex(i)*Ex(i) + H12(i)*H12(i)
        end do
-       !if (iter>=1990000) then
-       call writeall(iter,N,Ntime,X,X12,ux,uy,Ex,Ey,H)            
-       !end if
-       write(15,*) iter*dt, En
-       if (maxval(H)<1E-10) then
-          print *, iter,'H nul ?!'
+
+
+       if (iter>=0.999*Ntime) then
+          call writeall(iter,N,Ntime,X,X12,ux,uy,Ex,Ey,H)            
        end if
+       write(15,*) iter*dt, En
+       !if (maxval(H12)<1E-10) then
+       !  print *, iter,'H nul ?!'
+       !end if
+       
+       do i=0, N-1
+         EyF(i)=EyF(i)+exp(cmplx(0,1)*omega*t)*Ey(i);
+         ExF(i)=ExF(i)+exp(cmplx(0,1)*omega*t)*Ex(i);
+       end do
     end do
-    
+    call writeall (iter,N,Ntime,X,X12,ux,uy,Ex,Ey,H)
+    do i=0,N-1
+     write(22,*) ExF(i)
+     write(23,*) EyF(i)
+    end do
   end subroutine tdp_sub
-   
-end module tdp
+
+end module tdpn
