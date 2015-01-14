@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage{amsfonts,graphicx,amssymb}%amsfonts pour les \mathbb
+\usepackage{amsmath,amsthm,amssymb}
+\begin{document}
+\section{Discretization}
+
+\section{Numerical Experiments}
+This section is organized as follows. The first part is dedicated to the numerical implementation
+of the frequency domain formulation (\ref{}). We study the convergence of this formulation and the behaviour 
+of the numerical solution as the absorption parameter $\nu$ tends to zero. The experiments in this section were 
+performed on a laptop with ... CPU, with the help of the code written in Octave 
+The second part of the section deals with the question of the equivalence of the limiting absorption and limited amplitude 
+principle.
+\subsection{Frequency Domain Problem}
+This section is 
+
+
+
+\subsection{Discretization of the Frequency Domain Problem}
+
+Let us consider the case of the resonance, more precisely, we consider sufficiently smooth
+$\alpha,\delta$, s.t. $\alpha(0)=0$ and $\delta(0)\neq 0$, and the solvability conditions 
+of Theorem \ref{}  are satisfied. 
+For simplicity, let us consider 
+\begin{align}
+\label{eq:cond}
+ \alpha(x)=-x \text{  in some neighbourhood of $0$ }.
+\end{align}
+
+
+Given the space $\mathbf{V}_{h}=S_{h}^{1}\times S_{h}^{1}$, with $S_{h}^{1}$ consisting of piecewise-linear (hat) functions, we look for a ratio $h(\nu)$ that would ensure that the absolute error 
+\begin{align}
+\label{eq:problem1}
+\|E^{\nu}_{1}-E^{\nu,h}_{1}\|_{L_{2}(\Omega)}<\epsilon,
+\end{align}
+given a fixed value of $\epsilon>0$. 
+
+We use the following well-known facts:
+\begin{itemize}
+ \item The C\'ea's lemma applied to the problem (\ref{}); here $C_c$ is the continuity and $C_i$ is the coercivity constants:
+\begin{align}
+\label{eq:cea}
+\begin{split}
+ \|\mathbf{E}^{\nu}-\mathbf{E}^{h,\nu}\|_{V}\leq \frac{C_c}{C_i}\min_{\mathbf{v}\in V_h}\|\mathbf{E}-\mathbf{v}\|_{V}\\
+ \leq \nu^{-1}\min_{\mathbf{v}\in V_h}\|\mathbf{E}-\mathbf{v}\|_{V}.
+ \end{split}
+\end{align}
+The last inequality follows from Theorem \ref{}.  
+\item The form of the exact solution to the problem (\ref{}):
+\begin{align}
+\label{eq:exact}
+ E_{1}^{\nu}=E_{2}^{\nu}\frac{\delta}{\alpha+i\nu}=\frac{f(x)}{\alpha(x)+i\nu},
+\end{align}
+for some $f(x)\in L_{2}(\Omega)$.
+\item The estimate from \cite[Chapter 0]{Brenner_Scott} on the rate of convergence of the interpolation 
+\begin{align}
+\label{eq:bsc}
+ \|v-I^{h}v\|_{L_{2}(\Omega)}\leq Ch^2|v''|_{L_{2}(\Omega)},\; C>0,\\
+ %\|v-I^{h}v\|_{H_{1}(\Omega)}\leq Ch|v''|_{L_{2}(\Omega)},\; C>0, 
+\end{align}
+where $I^{h}v$ is an interpolation operator onto $S_{h}^{1}$.
+\end{itemize}
+For $E_{1}^{\nu},\;f(x)$ in (\ref{eq:exact}) being sufficiently smooth, 
+\begin{align*}
+ \frac{d^2}{dx^2}E_{1}^{\nu}=\frac{f''}{\alpha+i\nu}-2\frac{f'\alpha'}{(\alpha+i\nu)^2}+\frac{f\alpha''}{(\alpha+i\nu)^3},
+\end{align*}
+from which, together with (\ref{eq:cond}), it follows that there exists $c>0$ s.t. for all sufficiently small $\nu$ 
+\begin{align*}
+ \left|  \frac{d^2}{dx^2}E_{1}^{\nu}\right|_{L_2}^{2}&\leq c\int\limits_{\Omega}\frac{1}{(x^2+\nu^2)^{3}}dx\\
+ &=c\left.
+ \left(\frac{x}{4(x^2+\nu^2)^2}\nu^{-2}+\frac{3x}{8(x^2+\nu^2)}\nu^{-4}+\frac{3}{8}\nu^{-5}\operatorname{atan}\frac{x}{\nu}\right)\right|_{-L}^{H}\\
+ &\leq C\nu^{-5},\; 
+\end{align*}
+where $C>0$ does not depend on $\nu$. This, together with the estimates (\ref{eq:cea}) and (\ref{eq:bsc}), results in 
+\begin{align*}
+ \|E^{\nu}_{1}-E^{\nu,h}_{1}\|_{L_{2}(\Omega)}\leq C\nu^{-\frac{7}{2}}h^2,
+\end{align*}
+from which it follows that to ensure (\ref{eq:problem1}) $h$ should be chosen as $\alpha_{\epsilon}\nu^{\frac{7}{4}}$, 
+where $\alpha_{\epsilon}>0$ depends on $\epsilon$ but does not depend on $\nu$. 
+
+Let us check whether this holds true. 
+To do so, we conduct the following numerical experiment.
+
+
+
+We can show that 
+\begin{align*}
+ \|E^{\nu}_{1}\|_{L_{2}(\Omega)}\leq \frac{C}{\sqrt{\nu}},\; C>0, 
+\end{align*}
+and thus the relative error control
+\begin{align*}
+ \frac{\|E^{\nu}_{1}-E^{\nu,h}_{1}\|_{L_{2}(\Omega)}}{\|E^{\nu}_{1}\|_{L_{2}(\Omega)}}\leq \epsilon
+\end{align*}
+can be ensured by choosing $h$ as $\beta_{\epsilon}\nu^{\frac{3}{4}}$.
+
+\subsection{Discretization of the Time Domain Problem}
+\section{Numerical Experiments}
+\subsection{Frequency Domain}
+\subsection{Time Domain}
+\end{document}
