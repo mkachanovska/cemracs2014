@@ -1,4 +1,4 @@
-function [e1, e2,M,x, Kstiff, Mmass]=solve_mH1(dx,lambda, nu, uniform)
+function [e1, e2,M,x, A,B,D]=solve_mH1(dx,lambda, nu, uniform)
 
 %mesh generation
 L=5; %20!!!
@@ -29,11 +29,7 @@ norm(M*sol-rhs)
 time_passed=toc();
 display(strcat(num2str(time_passed),' for the solution of the system of eqs'));
 
-%auxiliary matrices, namely the mass matrix and the stiffness matrix
-Kst=K_lpl(x);
-Mm=mass_matrixP1(x);
-Kstiff=spdiags([Kst(:,2) Kst(:,1) circshift(Kst(:,2),1)], -1:1, length(Kst), length(Kst));
-Mmass=spdiags([Mm(:,2) Mm(:,1) circshift(Mm(:,2),1)], -1:1, length(Mm), length(Mm));
+
 end
 
 
