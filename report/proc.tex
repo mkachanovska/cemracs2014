@@ -1,33 +1,71 @@
+%%%%%%%%%%%%%%%%%%%%%%% file template.tex %%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is a template file for Proccedings 
+%
+% Copy it to a new file with a new name and use it as the basis
+% for your article
+%
+%%%%%%%%%%%%%%%%%%%%%%%%   EDP Sciences  %%%%%%%%%%%%%%%%%%%%%%%%%%
+%
 \documentclass[proc]{edpsmath}
-\usepackage{amsfonts,graphicx,amssymb}%amsfonts pour les \mathbb
-\usepackage{amsmath,amsthm,amssymb}
+%
+%\usepackage{amsfonts,graphicx,amssymb}%amsfonts pour les \mathbb
+%\usepackage{amsmath,amsthm,amssymb}
+%%%%%%%%%%%%%--PREAMBLE--%%%%%%%%%%%%%%%%%%
+%%-----------------------------
+%%         ...........
+%%         your macros
+\usepackage[frenchb,english]{babel}
 \usepackage{macros}
+\usepackage{tikz}
+\usepackage{xcolor}
 \newenvironment{remark}[1][Remark]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
+\definecolor{blue}{rgb}{0.30,0.8,1}
+\definecolor{red}{rgb}{1,0.3,0.3}
+\usetikzlibrary{positioning,shapes,shadows,arrows}
 
-
-% intro 
-% theoretical part 
-% numerical part : frequential domain
-% numerical part : time dependant scheme
-% numerical part : comparison
-% concl.
+%%         ...........
+%%-------------------------%%----
+%%%%%%%%%%%%%%%--BODY--%%%%%%%%%%%%%%%%%%
 
 \begin{document}
-\begin{itemize}
-\item !!!!to do : correct proof of coercivity (celine)
-\item !!!!to do : write Yee scheme 			(celine)
-\item !!!!to do : well posedness = lemma		(celine)
-%with explicit in \nu coercivity and continuity constants 
-\end{itemize}
+
+%%-----------------------------
+%%      the top matter
+%%-----------------------------
+\title{Study of the
+	numerical solution of X-Modes equations around the hybrid resonnance} %\thanks{...}\thanks{...}% At most 5 thanks
+%
+\author{Maryna Kachanovska}\address{UMA, ENSTA, Paris}
+\author{Bruno Depsr\'es}\address{Laboratoire Jacques-Louis Lions, University PARIS 6}
+\author{Imbert Lise-Marie}\address{Courant Institute of Mathematical Sciences, New York University}
+\author{C\'eline Caldini-Queiros}\address{Max Planck Institute für PlasmaPhysik, Garching bei Muenchen}
 
 
+%
+%\dedicated{\it Dedicated to Maurice Dupont} %if necessary
+%
+\begin{abstract} ... \end{abstract}
+%
+\begin{resume} ... \end{resume}
+%
+%
+\maketitle
+\textcolor{red}{should we add Olivier Lafitte and Remi Sart anywhere in the proceeding ?}\\
+%!!!!!!!!!!!todo !!!!!!!!!!!
+
+%\item !!!!to do : correct proof of coercivity (celine)
+%\item !!!!to do : write Yee scheme 			(celine)
+%
+%%with explicit in \nu coercivity and continuity constants 
 
 \input{intro}
 \input{equations}
 \input{numerics}
+\input{timedomain}
 \begin{thebibliography}{99}
 \bibitem{stable_yee_plasma_current} F. da Silva, M. Campos Pinto, B. Despres, S. Heuraux, Stable Coupling of the Yee Scheme with a Linear Current Model,
 2014
