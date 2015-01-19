@@ -16,11 +16,15 @@
 %%         ...........
 %%         your macros
 \usepackage{macros}
-
+\usepackage{tikz}
+\usepackage{xcolor}
 \newenvironment{remark}[1][Remark]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
+\definecolor{blue}{rgb}{0.30,0.8,1}
+\definecolor{red}{rgb}{1,0.3,0.3}
+\usetikzlibrary{positioning,shapes,shadows,arrows}
 
 %%         ...........
 %%-------------------------%%----
