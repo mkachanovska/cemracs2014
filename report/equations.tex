@@ -62,12 +62,19 @@ and
 \geq \frac{1}{4}\|u_2'\|_{L^2}^4 - (\heps + \theta^2) \|u_2'\|^2_{L^2} \|\ubf\|^2_{L^2} + \left( (\heps + \theta^2) + \nu \right) \| \ubf\|^4_{L^2}.
 \end{array} 
 \ee
-We obtain
+%We obtain
+%\be
+%\begin{array}{l}
+%| a(\ubf, \ubf) |^2 \geq \frac{1}{4} \| u_2'\|_{L^2}^2 - (\heps + \theta^2) \left( \frac{\sigma^2}{2}\|u_2'\|_{L^2}^4 \right) - (\heps + \theta^2) \left( \frac{\|\ubf\|^4_{L^2}}{2\sigma^2} \right) \\
+%+ \left( (\heps + \sigma^2) + \nu^2 \right) \|\ubf \|^4_{L^2}\\
+%\geq \left( \frac{1}{4}- \frac{(\heps + \theta^2)\sigma}{2}\right)\|u_2'\|_{L^2}^4 + \left(\left((\heps + \theta^2) + \nu^2\right) - \frac{(\heps + \theta^2)}{2\sigma^2}\right) \|\ubf\|_{L^2}^4
+%\end{array}
+For $\sigma > 0$ we have
 \be
 \begin{array}{l}
 | a(\ubf, \ubf) |^2 \geq \frac{1}{4} \| u_2'\|_{L^2}^2 - (\heps + \theta^2) \left( \frac{\sigma^2}{2}\|u_2'\|_{L^2}^4 \right) - (\heps + \theta^2) \left( \frac{\|\ubf\|^4_{L^2}}{2\sigma^2} \right) \\
-+ \left( (\heps + \sigma^2) + \nu^2 \right) \|\ubf \|^4_{L^2}\\
-\geq \left( \frac{1}{4}- \frac{(\heps + \theta^2)\sigma}{2}\right)\|u_2'\|_{L^2}^4 + \left(\left((\heps + \theta^2) + \nu^2\right) - \frac{(\heps + \theta^2)}{2\sigma^2}\right) \|\ubf\|_{L^2}^4
++ \left( (\heps + \theta^2) + \nu^2 \right) \|\ubf \|^4_{L^2}\\
+\geq \left( \frac{1}{4}- \frac{(\heps + \theta^2)\sigma}{2}\right)\|u_2'\|_{L^2}^4 + \left(\left((\heps + \theta^2) + \nu^2\right) - \frac{(\heps + \theta^2)}{2\sigma^2}\right) \|\ubf\|_{L^2}^4.
 \end{array}
 \ee
 We choose $\sigma$ such that 
@@ -76,22 +83,22 @@ We choose $\sigma$ such that
 \ee
 and 
 \be
- \frac{\sigma^2}{2} \geq \frac{\heps+\theta^2}{4\left((\heps+\theta^2)^2+\nu^2\right)}
+ \frac{\sigma^2}{2} \geq \frac{\heps+\theta^2}{4\left((\heps+\theta^2)^2+\nu^2\right)}.
 \ee
-We  take
+Taking then
 \be
 \frac{\sigma^2}{2}= \sqrt{\frac{1}{4 (\heps+ \theta^2 )} \frac{\heps + \theta^2}{4((\heps + \theta^2)^2+ \nu^2)}},
 \ee 
-then 
+and
 \be
  \frac{1}{4}-\frac{\sigma^2}{2}(\heps - \theta^2)= \frac{1}{4}- \frac{1}{4}\frac{\heps + \theta^2}{\sqrt{(\heps + \theta^2)^2 + \nu^2}}
  \geq \frac{1}{4}\left(\frac{\frac{\nu}{\heps + \theta^2}}{1 + \frac{\nu}{\heps + \theta^2}}\right),
 \ee
-which, using a limited development, gives, 
+and using a limited development, gives, 
 \be
-\frac{\sigma^2}{2}\geq \frac{1}{4} \frac{\nu}{\heps+ \theta^2}
+\frac{\sigma^2}{2}\geq \frac{1}{4} \frac{\nu}{\heps+ \theta^2}.
 \ee
-Putting the expression of $\sigma$ in $a$, we get the following minoration for 
+Plugging the expression of $\sigma$ in $a$, we get the following minoration for 
 \be 
 |a(\ubf,\ubf)|^2 \geq \frac{1}{4} \frac{\nu}{\heps + \theta^2}\|u_2'\|^4_{L^2} +  \frac{\nu^2}{2} \|\ubf\|_{L^2}^4,
 \ee 
@@ -153,7 +160,7 @@ Let us now examine the bicontinuity of $a$.
 \ee  
 where $\vertiii{\ubf} = \|u_2'\|_{L^2} + \|\ubf\|_{L^2}$ and $C_T$ the trace constant.
 
-Suppose now $a(\ubf,\vbf) = l(\vbf)$, thanks to Lax-Milgram theorem we have existence and unicity of a variational solution.
+Suppose now $a(\ubf,\vbf) = l(\vbf)$, thus thanks to Lax-Milgram theorem we have existence and unicity of a variational solution.
 \end{proof}
 \section{2D case}
 %%%%%%%%%%%%%%%%%%%%%% 
