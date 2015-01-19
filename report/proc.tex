@@ -1,7 +1,11 @@
 \documentclass[proc]{edpsmath}
-
+\usepackage{amsfonts,graphicx,amssymb}%amsfonts pour les \mathbb
+\usepackage{amsmath,amsthm,amssymb}
 \usepackage{macros}
-
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
 
 
 % intro 
