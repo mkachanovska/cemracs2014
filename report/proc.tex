@@ -1,31 +1,56 @@
+%%%%%%%%%%%%%%%%%%%%%%% file template.tex %%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is a template file for Proccedings 
+%
+% Copy it to a new file with a new name and use it as the basis
+% for your article
+%
+%%%%%%%%%%%%%%%%%%%%%%%%   EDP Sciences  %%%%%%%%%%%%%%%%%%%%%%%%%%
+%
 \documentclass[proc]{edpsmath}
-\usepackage{amsfonts,graphicx,amssymb}%amsfonts pour les \mathbb
-\usepackage{amsmath,amsthm,amssymb}
+%
+%\usepackage{amsfonts,graphicx,amssymb}%amsfonts pour les \mathbb
+%\usepackage{amsmath,amsthm,amssymb}
+%%%%%%%%%%%%%--PREAMBLE--%%%%%%%%%%%%%%%%%%
+%%-----------------------------
+%%         ...........
+%%         your macros
 \usepackage{macros}
+
 \newenvironment{remark}[1][Remark]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 
-
-% intro 
-% theoretical part 
-% numerical part : frequential domain
-% numerical part : time dependant scheme
-% numerical part : comparison
-% concl.
+%%         ...........
+%%-------------------------%%----
+%%%%%%%%%%%%%%%--BODY--%%%%%%%%%%%%%%%%%%
 
 \begin{document}
-%\begin{itemize}
+
+%%-----------------------------
+%%      the top matter
+%%-----------------------------
+\title{...}\thanks{...}\thanks{...}% At most 5 thanks
+%
+\author{...}\address{...}
+\author{...}\address{...}
+\author{...}\address{...}
+%
+%\dedicated{\it Dedicated to Maurice Dupont} %if necessary
+%
+\begin{abstract} ... \end{abstract}
+%
+\begin{resume} ... \end{resume}
+%
+%
+\maketitle
+%!!!!!!!!!!!todo !!!!!!!!!!!
+
 %\item !!!!to do : correct proof of coercivity (celine)
 %\item !!!!to do : write Yee scheme 			(celine)
 %
 %%with explicit in \nu coercivity and continuity constants 
-%\end{itemize}
-\begin{abstract}
-!!!!! todo !!!!! 
-\end{abstract}
-
 
 \input{intro}
 \input{equations}
