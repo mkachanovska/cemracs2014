@@ -20,15 +20,57 @@ coupled with a linear current in two dimensions $\J = eN_e \ubf_e$, taking into 
 \be
 m_e \partial_t \ubf_e =e (\E +\ubf_e \nabla B_0) -m_e \nu \ubf_e. \label{eq:electronmove}
 \ee
-Here the unknows are the electromagnetc field $(\E,\Hbf)$ with the usual notation $\Hbf = \B/\mu_0$, $\J$ is the electronic current. We denote by $e<0$ the value of the charge of electrons and by $\m_e$ the electron mass0
+Here the unknows are the electromagnetc field $(\E,\Hbf)$ with the usual notation $\Hbf = \B/\mu_0$, $\J$ is the electronic current, 
+$\ubf_e$ is the velocity of electrons and $B_0$ is the background magnetic field.  
+We denote by $e<0$ the value of the charge of electrons and by $\m_e$ the electron mass.
+Assuming that $\mathbf{B}_0=\left(0,\; 0,\; B_0\right)$, we obtain the following system of equations 
 \begin{align}
+\label{eq:main_model}
+\begin{split}
 \epsilon_0\partial_t E_{x}-\partial_y H=-eN_e u_x,\nonumber\\
 \epsilon_0\partial_t E_{y}+\partial_x H=-eN_e u_y,\nonumber\\
 \mu_0\partial_t H+\partial_x E_y-\partial_y E_x=0,\\
 m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\nonumber\\
 m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y\nonumber
+\end{split}
 \end{align}
-posed in $[-L,\; \mathbb{R}]\times \mathbb{R}$. The boundary conditions
+posed in $[-L,\; \mathbb{R}]\times \mathbb{R}$. 
+In this work we look at a simplification of this model obtained after 
+the Fourier transform in $y$. Denoting by $\theta$ a corresponding Fourier variable, the model (\ref{eq:main_model}) can be rewritten as follows
+\begin{align}
+\label{eq:main_model_theta}
+\begin{split}
+\epsilon_0\partial_t E_{x}-\theta H=-eN_e u_x,\nonumber\\
+\epsilon_0\partial_t E_{y}+\partial_x H=-eN_e u_y,\nonumber\\
+\mu_0\partial_t H+\partial_x E_y-\theta E_x=0,\\
+m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\nonumber\\
+m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y.
+\end{split}
+\end{align}
+It is known \cite{} that when the term $\nu=0$, the electron density $N_e(x)$ vanishes and in plasma there occurs a resonance \cite{Stix}, 
+which was recently investigated in \cite{}. It can be shown that the electric field $E_x$ in this case is no longer square 
+integrable \cite{}. 
+Thus, the goal of this article is two-fold. 
+First, following (\ref{}), we investigate the finite element approximation of the 
+problem (\ref{eq:main_model_theta}) written in the frequency domain:
+\begin{align*}
+ 
+\end{align*}
+We prove the well-posedness of this problem for $\nu>0$ in Section \ref{} and 
+demonstrate that the use of higher-order (P1) finite elements allows to approximate the singularity of the solution fairly well (Section \ref{}). 
+Second, we consider the case $\nu\rightarrow 0$, and study the limiting amplitude solution 
+$\lim\limits_{t\rightarrow +\infty}\lim\limits_{\nu\rightarrow 0}\mathbf{E}(t)$ obtained with the help of 
+the FDTD discretization (\ref{eq:main_model_theta}), suggested in \cite{}. We compare this result with 
+$\hat{\mathbf{E}}\mathrm{e}^{i\omega t}$, computed in the frequency domain, for $\nu\rightarrow 0$, i.e.
+$\lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}\mathbf{E}(t)$.
+
+To our knowledge, such numerical studies have not been performed in the existing literature. 
+
+
+
+
+
+The boundary conditions
 \begin{align*}
 H|_{-L}=g(t).
 \end{align*}
