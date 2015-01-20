@@ -19,6 +19,14 @@
 \usepackage{macros}
 \usepackage{tikz}
 \usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,array}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{pgfplots}
+\usepackage{ulem}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\usepackage{hyperref}
 \newenvironment{remark}[1][Remark]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 \newtheorem{theorem}{Theorem}[section]
@@ -66,6 +74,7 @@
 \input{equations}
 \input{numerics}
 \input{timedomain}
+\input{absorption}
 \begin{thebibliography}{99}
 \bibitem{stable_yee_plasma_current} F. da Silva, M. Campos Pinto, B. Despres, S. Heuraux, Stable Coupling of the Yee Scheme with a Linear Current Model,
 2014

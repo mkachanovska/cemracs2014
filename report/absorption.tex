@@ -1,13 +1,4 @@
-\documentclass[a4paper,10pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,array}
-\usepackage{tikz}
-\usepackage{caption}
-\usepackage{pgfplots}
-\usepackage{ulem}
-\usepackage{pifont}% http://ctan.org/pkg/pifont
-\usepackage{hyperref}
-\begin{document}
+
 \subsection{Limiting Amplitude and Limiting Absorption Principle}
 In this section we perform several numerical experiments,
 with the normalization chosen as $\epsilon_0=\mu_0=1$, $\omega=c=1$. 
@@ -98,8 +89,12 @@ to obtain the limiting amplitude solution even for $t\approx 1.9e6$. }
 \end{figure}
 
 \subsubsection{Resonance Case}
-For the resonance case, we choose the parameters as given in Table \ref{}.
-\begin{tabular}{cc}
+\label{sec:resn}
+For the resonance case, we choose the parameters as given in Table \ref{tab:parameters_resonance}.
+\begin{table}[htb!]
+\begin{tabular}{c|c}
+Parameter & Value \\
+\hline
 $L$ & 5\\
 $H$ & 19\\
 $\omega_c$ &  $\sqrt{0.5}$\\
@@ -108,66 +103,16 @@ $N_e(x)$ &  $\left\{
   0.25, & x<-0.5,\\
   \frac{1+x}{2}, & x\geq -0.5, x\leq 9\\
   5, & x>9.
- \end{array}\right.$
+ \end{array}\right.$\\
  $G$ as in (\ref{eq:bcs}) & 0.11 \\
 \end{tabular}
+\label{tab:parameters_resonance}
+\caption{Parameters for numerical simulations in Section \ref{sec:resn}}
+\end{table}
 Since $\alpha(x)=(1-2N_e(x))$, $\alpha(0)=0$. Clearly, $\delta(0)\neq 0$ (resonance case).
-
-
-
-
-
-The electron density 
-\begin{align*}
- N_e(x)=
- \left\{
- \begin{array}{cc}
-  0.25, & x<-0.5,\\
-  \frac{1+x}{2}, & x\geq -0.5, x\leq 9\\
-  5, & x>9.
- \end{array}\right.
-\end{align*}
-
-Since $\alpha(x)=(1-2N_e(x))$, $\alpha(0)=0$. Clearly, $\delta(0)\neq 0$ (resonance case).
-
-We solve this problem on the interval $[-5,\; 19]$.
-The boundary condition is
-\begin{align*}
- \partial_y E(-5)=-\partial_t H(-5)=-0.11\cos(t).
-\end{align*}
-
-
-
-We choose $\omega_c:=\sqrt{0.5}$ and $\omega=1$.
-
-
-In all the experiments we choose in the time domain $\Delta x=0.0125$ and CFL=0.9.
-
-
-
-The electron density 
-\begin{align*}
- N_e(x)=
- \left\{
- \begin{array}{cc}
-  0.25, & x<-0.5,\\
-  \frac{1+x}{2}, & x\geq -0.5, x\leq 9\\
-  5, & x>9.
- \end{array}\right.
-\end{align*}
-
-
-
-We solve this problem on the interval $[-5,\; 19]$.
-The boundary condition is
-\begin{align*}
- \partial_y E(-5)=-\partial_t H(-5)=-0.11\cos(t).
-\end{align*}
-
 
 The results for $\nu=1e-2$ (chosen as a parameter both in frequency and time domain) 
 are shown in Figure \ref{resonance_nu1e2}. 
 
 
 
-\end{document}
