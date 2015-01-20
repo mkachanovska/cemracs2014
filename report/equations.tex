@@ -6,9 +6,10 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%% 
-\subsection{Variational formulation, well posedness}
+\subsection{Variational formulation and Well-Posedness}
 In one dimenssion, the variational formulation of the problem writes as
 \be
+\label{eq:varformulation}
 \begin{array}{l}
 \displaystyle \int_{-L}^H (E_2' -\imath\theta E_1)\overline{(\tilde E_2' -\imath \theta \tilde E_1)} - \int_{-L}^H (\eps_0 +\imath\nu Id) \E \cdot \overline{\tilde \E}
 \\ \displaystyle  - \imath \sqrt{\alpha(-L)} E_2 (-L) \tilde E_2 (-L) = -g_{inc} (-L) \overline{( \tilde E_2(-L) )} \label{vf1dcase}.
@@ -20,10 +21,10 @@ a(\ubf,\vbf) = a_1 (\ubf,\vbf) +\imath a_2(\ubf,\vbf)\  \text{ and } \  l(\vbf) 
 \ee
 where $a_1= a_1^*$ and $a_2=a_2^*$ are hermitian. 
 
-Let us denote $\Omega=(-L,\; H)$ and introduce the space $\mathbf{V}=H^{1}(\Omega)\times L_{2}(\Omega)$, 
+Let us denote $\Omega=(-L,\; H)$ and introduce the space $\mathbf{V}=L_{2}(\Omega)\times H_{1}(\Omega)$, 
 equipped with the norm
 \begin{align*}
- \|\mathbf{v}\|_{\mathbf{V}}^2= \|v_1\|_{H^{1}(\Omega)}^2+\|v_2\|_{L_{2}(\Omega)}^2.
+ \|\mathbf{v}\|_{\mathbf{V}}^2= \|v_1\|_{L_{2}(\Omega)}^2+\|v_2\|_{H^{1}(\Omega)}^2.
 \end{align*}
 
 We now prove the following result.
@@ -36,14 +37,15 @@ is continuous and coercive: for all $\ubf,\vbf\in \mathbf{V}$ it holds that
 \begin{align}
 \label{eq:bilinear_cont}
 \begin{split}
-|a(\ubf,\ubf)|\geq \frac{1}{4} \sqrt{\frac{\nu}{\heps + \theta^2}}\|u_2'\|^2_{L^2} +  \frac{\nu}{4} \|\ubf\|_{L^2}^2,\\
+|a(\ubf,\ubf)|\geq c\frac{1}{4} \sqrt{\frac{\nu}{\heps + \theta^2}}\|u_2\|^2_{H_{1}(\Omega)} +  \frac{\nu}{4} \|\ubf\|_{L^2(\Omega)}^2,\\
 |a(\ubf,\vbf)|\leq C \|\ubf\|_{\mathbf{V}}\|\vbf\|_{\mathbf{V}},
 \end{split}
 \end{align}
-where $C>0$ does not depend on $\nu$. The problem~\eqref{vf1dcase} is well-posed in $\mathbf{V}$.
+where $c, C>0$ do not depend on $\nu$. The problem~\eqref{vf1dcase} is well-posed in $\mathbf{V}$.
 \end{lemma}
 %\textcolor{red}{!!!! redo coercivity computations !!!}
 \begin{proof}
+The boundedness of $a$ is obvious. Let us concentrate on the proof of coercivity. 
 \be
 \left\{\begin{array}{l}
 a_1(\ubf,\vbf) = \int_{-L}^H (u_2' -\imath\theta u_1)\overline{(v_2' -\imath \theta v_1)} - \int_{-L}^H \eps_0 \ubf\cdot \overline{\vbf}, 
@@ -126,7 +128,7 @@ meaning
 \be 
 |a(\ubf,\ubf)| \geq \frac{1}{4} \sqrt{\frac{\nu}{\heps + \theta^2}}\|u_2'\|^2_{L^2} +  \frac{\nu}{4} \|\ubf\|_{L^2}^2,
 \ee 
-and $a$ is coercive.
+and due to Poincare's lemma $a$ is coercive.
 
 
 %\textcolor{blue}{
@@ -185,6 +187,32 @@ where $\vertiii{\ubf} = \|u_2'\|_{L^2} + \|\ubf\|_{L^2}$ and $C_T$ the trace con
 
 Suppose now $a(\ubf,\vbf) = l(\vbf)$, thus thanks to Lax-Milgram theorem we have existence and unicity of a variational solution.
 \end{proof}
+
+\begin{remark}
+Let us assume that the operator
+\begin{align*}
+M\psi = \frac{i\delta}{(\alpha+i\nu)}\psi
+\end{align*}
+defines an isomorphism from $L_{2}(\Omega)$ to $L_{2}(\Omega)$. 
+Given $E_x,\; E_y\in L_{2}(\Omega)$, the function $\mathcal{F}=\frac{i\delta}{(\alpha+\imath\nu)}\left((\alpha+\imath\nu)E_{x}+i\delta E_{y}\right)$ also belongs to $L_{2}(\Omega)$. 
+If $E_x,\; E_y$ satisfy the problem (\ref{eq:var_form2}) for $\theta=0$, the function $\mathcal{F}=0$, 
+i.e.
+\begin{align*}
+ (\mathcal{F},\tilde{E}_{y})_{L_{2}}=\int_{-L}^{H}\left(\imath\delta E_{x}-\delta^2(\alpha+i\nu)^{-1} E_{y}\right)\overline{\tilde E}_{y}=0,
+\end{align*}
+for all $\overline{\tilde E}_2\in H_{1}(\Omega)$. Adding this to the second expression of (\ref{eq:var_form2}), we obtain 
+the variational formulation for $E_2$, which coincides with the variational formulation for the Helmholtz equation. The well-posedness 
+of this problem had been studied in \cite{}. 
+Hence, we can add the second expression (\ref{eq:E2}) to
+\begin{align*}
+\int_{-L}^{H}\left(i\delta E_{x}-\delta^2(\alpha+i\nu)^{-1} E_{y}\right)\overline{\tilde E}_{y}=0
+\end{align*}
+to obtain the variational formulation for $E_{y}$, which will coincide with the variational formulation for the Helmholtz equation, and thus will be well-posed 
+(see the thesis \cite{thesis_lmig}).
+The estimates from \cite{thesis_lmig} can be employed to bound $\|E_{x}\|_{L_{2}}$.
+\end{remark}
+
+
 \section{2D case}
 %%%%%%%%%%%%%%%%%%%%%% 
 
