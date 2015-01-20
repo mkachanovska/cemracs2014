@@ -23,7 +23,7 @@ We now prove the following result.
 \begin{lemma}
 The problem~\eqref{vf1dcase} is well-posed.
 \end{lemma}
-\textcolor{red}{!!!! redo coercivity computations !!!}
+%\textcolor{red}{!!!! redo coercivity computations !!!}
 \begin{proof}
 \be
 \left\{\begin{array}{l}
@@ -110,49 +110,49 @@ meaning
 and $a$ is coercive.
 
 
-\textcolor{blue}{
-Actually as 
-\be
- \| u - u(-L) \|_{L^2} \leq C_p \|u'\|_{L^2}, 
-\ee
-where $C_p = |\Omega|$,
-and 
-\be
-\begin{array}{l}
-\| u\|_{L^2 } = \| u - u(-L) + u(-L) \|_{L^2} \\
-\leq \| u - u(-L) \| + \sqrt{|\Omega|}|u(-L)|\\
-\leq |\Omega| \| u'\|_{L^2} + \sqrt{|\Omega|}|u(-L)|.
-\end{array} 
-\ee
-Let us recall that we have
-\be
-|a(u,u)| \geq \sqrt{\alpha(-L)} |u(-L)|^2
-\ee
-and 
-\be
- |a(u,u)| \geq \frac{1}{4}\sqrt{\frac{\nu}{\heps + \theta^2}} \|u'\|^2_{L^2} +\frac{1}{4}\nu \|u\|_{L^2}^2. \label{eq:e1}
- \ee
-From \eqref{eq:e1} we get
- \be
- \begin{array}{l}
-  |a(u,u)| \geq \frac{1}{2}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{8}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|_{L^2}^2 + \frac{1}{8}\nu \|u\|^2_{L^2} \\
-  \geq \left(\frac{1}{4}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{16}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|^2_{L^2} + \frac{1}{16}\nu \|u\|^2 \right)\\
-  +\frac{1}{4}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{16}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|^2,
- \end{array}
- \ee
-and 
-\be
-\begin{array}{l}
-\frac{1}{4}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{16}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|_{L^2}^2\\
-= \frac{1}{4}\frac{\sqrt{\alpha(-L)}}{|\Omega|}\left(|{\Omega}| |u(-L)|^2\right) + \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\left(|\Omega|^2 \|u'\|^2\right)\\
-\geq \min\left(\frac{1}{4} \frac{\sqrt{\alpha(-L)}}{|\Omega|} , \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\right) \frac{1}{2}\|u\|^2_{L^2}
-\end{array}
-\ee
-then you obtain 
-\be 
-|a(u,u)| \geq \min\left(\frac{1}{4} \frac{\sqrt{\alpha(-L)}}{|\Omega|} , \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\right) \|u\|^2_{L^2}
-\ee
-}
+%\textcolor{blue}{
+%Actually as 
+%\be
+% \| u - u(-L) \|_{L^2} \leq C_p \|u'\|_{L^2}, 
+%\ee
+%where $C_p = |\Omega|$,
+%and 
+%\be
+%\begin{array}{l}
+%\| u\|_{L^2 } = \| u - u(-L) + u(-L) \|_{L^2} \\
+%\leq \| u - u(-L) \| + \sqrt{|\Omega|}|u(-L)|\\
+%\leq |\Omega| \| u'\|_{L^2} + \sqrt{|\Omega|}|u(-L)|.
+%\end{array} 
+%\ee
+%Let us recall that we have
+%\be
+%|a(u,u)| \geq \sqrt{\alpha(-L)} |u(-L)|^2
+%\ee
+%and 
+%\be
+% |a(u,u)| \geq \frac{1}{4}\sqrt{\frac{\nu}{\heps + \theta^2}} \|u'\|^2_{L^2} +\frac{1}{4}\nu \|u\|_{L^2}^2. \label{eq:e1}
+% \ee
+%From \eqref{eq:e1} we get
+% \be
+% \begin{array}{l}
+%  |a(u,u)| \geq \frac{1}{2}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{8}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|_{L^2}^2 + \frac{1}{8}\nu \|u\|^2_{L^2} \\
+%  \geq \left(\frac{1}{4}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{16}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|^2_{L^2} + \frac{1}{16}\nu \|u\|^2 \right)\\
+%  +\frac{1}{4}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{16}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|^2,
+% \end{array}
+% \ee
+%and 
+%\be
+%\begin{array}{l}
+%\frac{1}{4}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{16}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|_{L^2}^2\\
+%= \frac{1}{4}\frac{\sqrt{\alpha(-L)}}{|\Omega|}\left(|{\Omega}| |u(-L)|^2\right) + \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\left(|\Omega|^2 \|u'\|^2\right)\\
+%\geq \min\left(\frac{1}{4} \frac{\sqrt{\alpha(-L)}}{|\Omega|} , \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\right) \frac{1}{2}\|u\|^2_{L^2}
+%\end{array}
+%\ee
+%then you obtain 
+%\be 
+%|a(u,u)| \geq \min\left(\frac{1}{4} \frac{\sqrt{\alpha(-L)}}{|\Omega|} , \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\right) \|u\|^2_{L^2}
+%\ee
+%}
 Let us now examine the bicontinuity of $a$.
 \be 
 \begin{array}{l}
