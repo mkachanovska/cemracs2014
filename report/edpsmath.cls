@@ -482,33 +482,33 @@ www.edpsciences.org
 \end{center}
 }
 %%% Ajout pour babel
-\StandardLayout
-\addto\captionsfrench{\def\CaptionSeparator{.\space}}
-\addto\captionsfrench{\def\figurename{{\scshape Figure}}}
-\addto\captionsfrench{\def\tablename{{\scshape Tableau}}}
-\addto\captionsfrench{\def\proofname{D\'emonstration}}
-\addto\captionsfrench{\def\ackname{Remerciements}}
-\addto\captionsfrench{\def\subjclaname{Classification Math\'ematique}}
-\addto\captionsfrench{\def\keysname{Mots Cl\'es}}
-\addto\captionsfrench{\def\thrmname{Th\'eor\`eme}}
-\addto\captionsfrench{\def\lmname{Lemme}}
-\addto\captionsfrench{\def\crllrname{Corollaire}}
-\addto\captionsfrench{\def\prpstnname{Proposition}}
-\addto\captionsfrench{\def\crtrnname{Crit\`ere}}
-\addto\captionsfrench{\def\lgrthmname{Algorithme}}
-\addto\captionsfrench{\def\cnjctrname{Conjecture}}
-\addto\captionsfrench{\def\dfntnname{D\'efinition}}
-\addto\captionsfrench{\def\xmplname{Exemple}}
-\addto\captionsfrench{\def\prblmname{Probl\`eme}}
-\addto\captionsfrench{\def\rmrkname{Remarque}}
-\addto\captionsfrench{\def\ntname{Note}}
-\addto\captionsfrench{\def\clmname{Claim}}
-\addto\captionsfrench{\def\smmrname{R\'esum\'e}}
-\addto\captionsfrench{\def\csnname{Cas}}
-\addto\captionsfrench{\def\bsrvtnname{Observation}}
-\addto\captionsfrench{\def\xProofname{D\'emonstration}}
-\addto\captionsenglish{\def\og{``}%
-                             \def\fg{\ifdim\lastskip>\z@\unskip\fi ''}}
-%%%
-\endinput
-%
+%\StandardLayout
+%\addto\captionsfrench{\def\CaptionSeparator{.\space}}
+%\addto\captionsfrench{\def\figurename{{\scshape Figure}}}
+%\addto\captionsfrench{\def\tablename{{\scshape Tableau}}}
+%\addto\captionsfrench{\def\proofname{D\'emonstration}}
+%\addto\captionsfrench{\def\ackname{Remerciements}}
+%\addto\captionsfrench{\def\subjclaname{Classification Math\'ematique}}
+%\addto\captionsfrench{\def\keysname{Mots Cl\'es}}
+%\addto\captionsfrench{\def\thrmname{Th\'eor\`eme}}
+%\addto\captionsfrench{\def\lmname{Lemme}}
+%\addto\captionsfrench{\def\crllrname{Corollaire}}
+%\addto\captionsfrench{\def\prpstnname{Proposition}}
+%\addto\captionsfrench{\def\crtrnname{Crit\`ere}}
+%\addto\captionsfrench{\def\lgrthmname{Algorithme}}
+%\addto\captionsfrench{\def\cnjctrname{Conjecture}}
+%\addto\captionsfrench{\def\dfntnname{D\'efinition}}
+%\addto\captionsfrench{\def\xmplname{Exemple}}
+%\addto\captionsfrench{\def\prblmname{Probl\`eme}}
+%\addto\captionsfrench{\def\rmrkname{Remarque}}
+%\addto\captionsfrench{\def\ntname{Note}}
+%\addto\captionsfrench{\def\clmname{Claim}}
+%\addto\captionsfrench{\def\smmrname{R\'esum\'e}}
+%\addto\captionsfrench{\def\csnname{Cas}}
+%\addto\captionsfrench{\def\bsrvtnname{Observation}}
+%\addto\captionsfrench{\def\xProofname{D\'emonstration}}
+%\addto\captionsenglish{\def\og{``}%
+%                             \def\fg{\ifdim\lastskip>\z@\unskip\fi ''}}
+%%%%
+%\endinput
+%%
