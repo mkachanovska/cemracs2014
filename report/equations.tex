@@ -18,10 +18,29 @@ From now on, we will use the following notations :
 \be
 a(\ubf,\vbf) = a_1 (\ubf,\vbf) +\imath a_2(\ubf,\vbf)\  \text{ and } \  l(\vbf) = -g_{inc} (-L) \overline{(v_2(-L) )} 
 \ee
-where $a_1= a_1^*$ and $a_2=a_2^*$ are hermitian.
+where $a_1= a_1^*$ and $a_2=a_2^*$ are hermitian. 
+
+Let us denote $\Omega=(-L,\; H)$ and introduce the space $\mathbf{V}=H^{1}(\Omega)\times L_{2}(\Omega)$, 
+equipped with the norm
+\begin{align*}
+ \|\mathbf{v}\|_{\mathbf{V}}^2= \|v_1\|_{H^{1}(\Omega)}^2+\|v_2\|_{L_{2}(\Omega)}^2.
+\end{align*}
+
 We now prove the following result.
 \begin{lemma}
-The problem~\eqref{vf1dcase} is well-posed.
+The biliner form 
+\begin{align*}
+ a(\ubf,\vbf):  \mathbf{V}\times \mathbf{V}\rightarrow \mathbb{C}
+\end{align*}
+is continuous and coercive: for all $\ubf,\vbf\in \mathbf{V}$ it holds that
+\begin{align}
+\label{eq:bilinear_cont}
+\begin{split}
+|a(\ubf,\ubf)|\geq \frac{1}{4} \sqrt{\frac{\nu}{\heps + \theta^2}}\|u_2'\|^2_{L^2} +  \frac{\nu}{4} \|\ubf\|_{L^2}^2,\\
+|a(\ubf,\vbf)|\leq C \|\ubf\|_{\mathbf{V}}\|\vbf\|_{\mathbf{V}},
+\end{split}
+\end{align}
+where $C>0$ does not depend on $\nu$. The problem~\eqref{vf1dcase} is well-posed in $\mathbf{V}$.
 \end{lemma}
 %\textcolor{red}{!!!! redo coercivity computations !!!}
 \begin{proof}
