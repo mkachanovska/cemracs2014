@@ -112,13 +112,27 @@ $N_e(x)$ &  $\left\{
 Since $\alpha(x)=(1-2N_e(x))$, $\alpha(0)=0$. Clearly, $\delta(0)\neq 0$ (resonance case).
 
 The results for $\nu=10^{-2}$ (chosen as a parameter both in frequency and time domain) 
-are shown in Figure \ref{fig:resonance_nu1e2} and for $\nu=10^{-3}$ in Figure \ref{resonance_nu1e3}. 
+are shown in Figures \ref{fig:resonance_nu1e2_ex, fig:resonance_nu1e2_ey}. 
+In the time domain, we chose the discretization size $\Delta x=0.025$. 
+We display the harmonic dependence of the solution on time by fixing $x_c$ inside the domain and plotting 
+$E_x^{\nu}(x_c,t)$ and $E_y^{\nu}(x_c, t)$. We compare these solutions to $\hat{E}_x^{\nu}(x_c)\mathrm{e}^{it}$ and 
+$\hat{E}_y^{\nu}(x_c)\mathrm{e}^{it}$. In this case we choose $x_c=0$, where the resonance occurs. 
 \begin{figure}
  
- \caption{In the }
- \label{fig:resonance_nu1e2}
+ \caption{In the left figure we show the dependence of the solutions $E_x^{\nu}(0,t)$ on time $t$. 
+ In the right figure the solutions at time $t_c=...$ and $t_c=..$ are demonstrated and compared to
+ $\Im{\hat{E}_y\mathrm{e}^{it}}$.
+  \label{fig:resonance_nu1e2_ex}
 \end{figure}
 
+\begin{figure}
+ 
+ \caption{In the left figure we show the dependence of the solutions $E_x^{\nu}(0,t)$ on time $t$. 
+ In the right figure the solutions at time $t_c=...$ and $t_c=..$ are demonstrated and compared to
+ $\Im{\hat{E}_y\mathrm{e}^{it}}$.
+  \label{fig:resonance_nu1e2_ey}
+\end{figure}
+The $L_2$-error (\ref{eq:error}) on the time interval $()$ did not exceed $0.16$ for $E_x(x,t)$ and $0.085$ for $E_y(x,t)$.
 
 For $\nu=10^{-6}$, like in the previous case, we were not able to obtain the limiting amplitude solution in the time domain.
 
