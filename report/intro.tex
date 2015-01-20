@@ -46,24 +46,28 @@ m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\nonumber\\
 m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y.
 \end{split}
 \end{align}
-The energy of this system can be expressed as \cite{}
+The energy of this system in a domain $\Omega$ can be expressed as \cite{stable_yee_plasma_current}
 \begin{align*}
+{\mathcal E}(t)= \int_\Omega \frac{1}{2\mu_0}|U(t,\x)|^2\mathrm{d}\x =\int_\Omega \left(
+\frac{\epsilon_0 |\E(t,\x)|^2}{2}+\frac{ |\B(t,\x)|^2}{2\mu_0}+\frac{m_e|\J (t,\x)|}{2|e|N_e(\x)} \mathrm{d}\x.
+\right)
 \end{align*}
+
 From this it can be seen that when the term $\nu=0$ and the electron density $N_e(x)$ vanishes, 
-in plasma there occurs a resonance \cite{Stix}. Mathematically, this effect was recently investigated in \cite{}, 
+in plasma there occurs a resonance~\cite{Stix}. Mathematically, this effect was recently investigated in \textcolor{red}{citationtofix}\cite{}, 
 in particular, it was shown that the electric field $E_x$ in this case is no longer square 
 integrable, and explicit estimates on the behaviour of the solutions of (\ref{eq:main_model_theta}) were given. 
 
 Thus, the goal of this article is two-fold. 
-First, following (\ref{}), we investigate the finite element approximation of the 
+First, following (\textcolor{red}{reftofix}\ref{}), we investigate the finite element approximation of the 
 problem (\ref{eq:main_model_theta}) written in the frequency domain:
 \begin{align*}
 \end{align*}
-We prove the well-posedness of this problem for $\nu>0$ in Section \ref{} and 
-demonstrate that the use of higher-order (P1) finite elements allows to approximate the singularity of the solution fairly well (Section \ref{}). 
+We prove the well-posedness of this problem for $\nu>0$ in Section \textcolor{red}{reftofix}\ref{} and 
+demonstrate that the use of higher-order (P1) finite elements allows to approximate the singularity of the solution fairly well (Section \textcolor{red}{reftofix}\ref{}). 
 Second, we consider the case $\nu\rightarrow 0$, and study the limiting amplitude solution 
 $\lim\limits_{t\rightarrow +\infty}\lim\limits_{\nu\rightarrow 0}\mathbf{E}(t)$ obtained with the help of 
-the FDTD discretization (\ref{eq:main_model_theta}), suggested in \cite{}. We compare this result with 
+the FDTD discretization (\ref{eq:main_model_theta}), suggested in \textcolor{red}{citationtofix}\cite{}. We compare this result with 
 $\hat{\mathbf{E}}\mathrm{e}^{i\omega t}$, computed in the frequency domain, for $\nu\rightarrow 0$, i.e.
 $\lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}\mathbf{E}(t)$.
 
