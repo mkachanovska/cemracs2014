@@ -35,7 +35,7 @@ m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y
 \end{align}
 posed in $[-L,\; \mathbb{R}]\times \mathbb{R}$. 
 In this work we look at a simplification of this model obtained after 
-the Fourier transform in $y$. Denoting by $\theta$ a corresponding Fourier variable, the model (\ref{eq:main_model}) can be rewritten as follows
+the Fourier transform in $y$. Denoting by $\theta$ a corresponding Fourier variable, the model \eqref{eq:main_model} can be rewritten as follows
 \begin{align}
 \label{eq:main_model_theta}
 \begin{split}
@@ -56,18 +56,19 @@ The energy of this system in a domain $\Omega$ can be expressed as \cite{stable_
 From this it can be seen that when the term $\nu=0$ and the electron density $N_e(x)$ vanishes, 
 in plasma there occurs a resonance~\cite{Stix}. Mathematically, this effect was recently investigated in \textcolor{red}{citationtofix}\cite{}, 
 in particular, it was shown that the electric field $E_x$ in this case is no longer square 
-integrable, and explicit estimates on the behaviour of the solutions of (\ref{eq:main_model_theta}) were given. 
+integrable, and explicit estimates on the behaviour of the solutions of \eqref{eq:main_model_theta} were given. 
 
 Thus, the goal of this article is two-fold. 
 First, following (\textcolor{red}{reftofix}\ref{}), we investigate the finite element approximation of the 
-problem (\ref{eq:main_model_theta}) written in the frequency domain:
+problem \eqref{eq:main_model_theta} written in the frequency domain:
 \begin{align*}
+
 \end{align*}
-We prove the well-posedness of this problem for $\nu>0$ in Section \textcolor{red}{reftofix}\ref{} and 
+We prove the well-posedness of this problem for $\nu>0$ in Section~\ref{sec:wellposedness} and 
 demonstrate that the use of higher-order (P1) finite elements allows to approximate the singularity of the solution fairly well (Section \textcolor{red}{reftofix}\ref{}). 
 Second, we consider the case $\nu\rightarrow 0$, and study the limiting amplitude solution 
 $\lim\limits_{t\rightarrow +\infty}\lim\limits_{\nu\rightarrow 0}\mathbf{E}(t)$ obtained with the help of 
-the FDTD discretization (\ref{eq:main_model_theta}), suggested in \textcolor{red}{citationtofix}\cite{}. We compare this result with 
+the FDTD discretization \eqref{eq:main_model_theta}, suggested in \textcolor{red}{citationtofix}\cite{}. We compare this result with 
 $\hat{\mathbf{E}}\mathrm{e}^{i\omega t}$, computed in the frequency domain, for $\nu\rightarrow 0$, i.e.
 $\lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}\mathbf{E}(t)$.
 
