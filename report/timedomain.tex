@@ -1,17 +1,16 @@
 
 
-The equations of consideration write as
+The equations of consideration for the one dimensionnal model write as
  \begin{align}
- \epsilon_0\partial_t E_{x}-\partial_y H_z=-eN_e u_x, \nonumber\\
+ \epsilon_0\partial_t E_{x}=-eN_e u_x, \nonumber\\
  \epsilon_0\partial_t E_{y}+\partial_x H_z=-eN_e u_y,\nonumber\\
  \mu_0\partial_t H_z+\partial_x E_y-\partial_y E_x=0, \label{eq:tdpb}\\
  m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\nonumber\\
  m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y.\nonumber
  \end{align}
-
 We compute a numerical approximation of~\eqref{eq:tdpb} on a Cartesian grid using the Yee scheme. Let $n$ denote the time step, as usual $t_n = n \Delta t$. $H_z$ will then be taken on a half time step, and our equation, discretized in them write :
  \begin{align}
- \epsilon_0\frac{ E_{x}^{n+1}-E_x^{n}}{\Delta t}-\partial_y H_z=-eN_e u_x, \nonumber\\
+ \epsilon_0\frac{ E_{x}^{n+1}-E_x^{n}}{\Delta t}=-eN_e u_x, \nonumber\\
  \epsilon_0\frac{ E_{y}^{n+1}-E_y^{n}}{\Delta t}+\partial_x H_z=-eN_e u_y,\nonumber\\
  \mu_0\frac{ H_z^{n+1/2}-H_z^{n-1/2}}{\Delta t}+\partial_x E_y-\partial_y E_x=0, \label{eq:tdiscretizedpb}\\
  m_e\frac{ u_{x}^{n+1}-u_x^{n}}{\Delta t}=eE_x+eu_yB_0-\nu m_e u_x,\nonumber\\
