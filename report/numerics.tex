@@ -1,131 +1,21 @@
-\section{Discretization of the Frequency Domain Problem}
-\label{sec:discr}
-Testing the variational formulation (\ref{eq:varformulation}) with $(\tilde E_x,0)$ and $(0,\; \tilde{E}_y)\in\mathbf{V}(\Omega)$, we can rewrite it as a system of two equations:
-\begin{align*}
-\begin{split}
-i\theta \displaystyle \int_{-L}^H (E_y' -\imath\theta E_x)\overline{\tilde E_x} - \int_{-L}^H \left((\epsilon_0 +\imath\nu \operatorname{Id}) \E\right)_{1} \overline{\tilde E}_{x}
-&=0,\\
-\displaystyle \int_{-L}^H (E_y' -\imath\theta E_x)\tilde {E_y'} - \int_{-L}^H\left( (\epsilon_0 +\imath\nu\operatorname{Id}) \E\right)_{2}\overline{\tilde{E}}_{y}
-  - \imath \sqrt{\alpha(-L)} E_y (-L) \tilde E_y (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
-  \text{ for all } \tilde E_x\in L_{2}(\Omega), \; \tilde{E}_{y}\in H_{1}(\Omega).
-  \end{split}
-\end{align*}
-Inserting an explicit expression for the dielectric permittivity tensor 
-\be \label{eq:epsilonmu}
- \epsilon_0(x) =
-\left(
-\begin{array}{cc}
-\alpha(\x) & \imath \delta (\x)\\
--\imath \delta (\x) & \alpha(\x)
-\end{array}
-\right)
-\ee
-into the above, we obtain
-\begin{align}
-\label{eq:var_form2}
-\begin{split}
- i\theta \displaystyle \int_{-L}^H (E_y' -\imath\theta E_x)\overline{\tilde E_x} - 
- \int_{-L}^H \left((\alpha+i\nu)E_x+\imath\delta E_y\right)_{1} \overline{\tilde E}_{x}
-&=0,\\
-\int_{-L}^H (E_y' -\imath\theta E_x)\tilde {E_y'} -
-\int_{-L}^H\left( -\imath \delta E_x+(\alpha+i\nu) E_y\right)_{2}\overline{\tilde{E}}_{y}
-  - \imath \sqrt{\alpha(-L)} E_y (-L) \tilde E_y (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
-  \text{ for all } \tilde E_x\in L_{2}(\Omega), \; \tilde{E}_{y}\in H_{1}(\Omega).
-  \end{split}
-\end{align}
-Let us introduce the basis spaces $V_{E_x}=\{\psi_{j}\}_{j=1}^{N_{1}}$ and $V_{E_{2}}=\{\phi_{i}\}_{i=1}^{N_{2}}$, we look for the solution of the problem (\ref{}) in the form:
-\begin{align*}
-E_x=\sum\limits_{k=1}^{N_{1}}e_{1k}\psi_{k},\; E_{2}=\sum\limits_{k=1}^{N_{2}}e_{2k}\phi_{k}.
-\end{align*}
-
-% Substituting $\tilde{E}_{x}=\psi_{m}, \; m=1,\ldots,N_{1}$ and $\tilde{E}_{y}=0$ into the variational formulation (\ref{}), we obtain:
-% \begin{align*}
-% i\theta\sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\phi'_{k}\bar{\psi}_{m}dx+\theta^2\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\psi_{k}\bar{\psi}_{m}dx\\
-% -\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}(\alpha(x)+i\nu)\psi_{k}\bar{\psi}_{m}dx-i\sum\limits_{1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\delta(x)\phi_{k}(x)\bar{\psi}_{m}dx=0.
-% \end{align*}
-% Similarly, for $\tilde{E}_{x}=0$ and $\tilde{E}_{y}=\phi_{\ell},\; \ell=1,\ldots, N_{2}$:
-% \begin{align*}
-% \sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\phi'_{k}(x)\bar{\phi}'_{\ell}(x)dx-i\theta\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\psi_{k}(x)\bar{\phi}'_{\ell}(x)dx\\
-% +i
-% \sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\delta(x)\psi_{k}\bar{\phi}_{m}dx-\sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}(\alpha(x)+i\nu)\phi_{k}\bar{\phi}_{m}dx\\
-% -
-% i\lambda\sum\limits_{k=1}^{N_{2}}e_{2k}\phi_{k}(-L)\bar{\phi}_{m}(-L)=-g_{inc}(x)\bar{\phi}_{m}(-L).
-% \end{align*}
-After introduction 
-\begin{align*}
-\left(K^{\psi,\phi'}\right)_{mk}=\int\limits_{-L}^{H}\bar{\psi}_{m}\phi'_{k}dx,\qquad \left(M^{\psi}\right)_{mk}=\int\limits_{-L}^{H}\psi_{k}\bar{\psi}_{m}dx,\\
-\left(M^{\alpha,\psi}\right)_{mk}=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\psi_{m}\bar{\psi}_{k}dx, \qquad \left(M^{\delta,\psi,\phi}\right)_{mk}=\int\limits_{-L}^{H}\delta(x)\bar{\psi}_{m}\phi_{k}dx,\\
-K_{\ell k}=\int\limits_{-L}^{H}\phi'_{k}(x)\bar{\phi}'_{\ell}(x)dx,\qquad \left(M^{\alpha,\phi}\right)_{\ell k}=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\bar{\phi}_{\ell}\phi_{k}dx,\\
-I_{km}^{\Gamma}=\bar{\phi}_{m}(-L)\phi_{k}(-L),\\
-\boldsymbol{e}_{x}=\left(e_{11},\ldots,e_{1 N_{1}}\right)^{T},\; \boldsymbol{e}_{y}=\left(e_{21},\ldots,e_{2 N_{1}}\right)^{T},\\
-\boldsymbol{0}_{n} \text{ is an $n$-dimensional zero column vector}.
-\end{align*}
-the system (\ref{eq:var_form2}) can be rewritten in an antisymmetric block form:
-\begin{align*}
-\left(\begin{matrix}
-\theta^2 M_{\psi}-M^{\alpha,\psi} & i\theta K^{\psi,\phi'}-i M^{\delta,\psi,\phi} \\
--i\theta (K^{\psi,\phi'})^{*}+i (M^{\delta,\psi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
-\end{matrix}\right)
-\left(
-\begin{matrix}
-\boldsymbol{e}_x\\
-\boldsymbol{e}_y
-\end{matrix}
-\right)=-g_{inc}(-L)
-\left(
-\begin{matrix}
-\boldsymbol{0}_{N_{1}}\\
-\bar{\phi}_{x}(-L)\\
-\bar{\phi}_{y}(-L)\\
-\vdots\\
-\bar{\phi}_{N_{2}}(-L)
-\end{matrix}
-\right).
-\end{align*}
-This expression greatly simplifies when choosing $V_{E_x}=V_{E_{2}}=\left(\phi_{m}\right)_{m=1}^{N_{2}}$ and in the case $\theta=0$:
-\begin{align}
-\label{eq:simple_system}
-\left(\begin{matrix}
-M^{\alpha,\phi} & i M^{\delta,\phi,\phi} \\
-i (M^{\delta,\phi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
-\end{matrix}\right)
-\left(
-\begin{matrix}
-\boldsymbol{e}_x\\ 
-\boldsymbol{e}_y
-\end{matrix}
-\right)=-g_{inc}(-L)
-\left(
-\begin{matrix}
-\boldsymbol{0}_{N_{1}}\\
-\bar{\phi}_{x}(-L)\\
-\bar{\phi}_{y}(-L)\\
-\vdots\\
-\bar{\phi}_{N_{2}}(-L)
-\end{matrix}
-\right).
-\end{align}
-
-
-
-
 
 \section{Numerical Experiments}
 This section is organized as follows. The first part is dedicated to the numerical implementation
-of the frequency domain formulation (\ref{}). We study the convergence of this formulation and the behaviour 
+of the frequency domain formulation (\ref{eq:main_frequency_domain}). We study the convergence of this formulation and the behaviour 
 of the numerical solution as the absorption parameter $\nu$ tends to zero. The experiments in this section were 
 performed on a laptop with 2.6GHz Intel Core i5 CPU, with the help of the code written in Octave (compatible with Matlab). 
 We implemented the scheme described in Section \ref{sec:discr} for a simple case of $P_{1}$-space used 
-for the approximation of $E_{1}$ and $E_{2}$ and $\theta=0$, thus working with the system (\ref{eq:simple_system}). 
+for the approximation of $E_{x}$ and $E_{y}$ and $\theta=0$, thus working with the system (\ref{eq:simple_system}). 
 We apply permutation to the above system 
 to obtain a 7-diagonal Hermitian matrix and solve the system with the Gauss back substitution algorithm. 
 
 The second part of the section deals with the question of the equivalence of the limiting absorption and limited amplitude 
 principle. We compare the solutions obtained as $\nu\rightarrow 0$ with the help of our frequency domain code 
 and of the time domain code (computed for large values of time). 
-The time-domain code implements the scheme described in Section \ref{} and 
+The time-domain code implements the scheme described in Section \ref{sec:discr} and 
 is written in Fortran. 
 \subsection{Frequency Domain Problem}
+\label{sec:freq_dep}
 \subsubsection{Validity of Implementation}
 To check the validity of the code, we perform a numerical experiment with (formally chosen) parameters:
 \begin{align}
@@ -135,12 +25,14 @@ To check the validity of the code, we perform a numerical experiment with (forma
 Additionally, the boundary conditions read as 
 \begin{align}
 \label{eq:bcs}
-\partial_{1}E_{2}(-L)+2iE_{2}(-L)=2iAi(-L)+Ai'(-L),\\
-\partial_{1}E_{2}(H)=0,
+\partial_{1}E_{y}(-L)+2iE_{y}(-L)=2iAi(-L)+Ai'(-L),\\
+\partial_{1}E_{y}(H)=0,
 \end{align}
-where $Ai(x)$ is the Airy function \cite{}.
+where $Ai(x)$ is the Airy function. 
+For more detail on Airy functions and the Airy equation see \cite[Chapter 10.4]{abramowitz_stegun}.
 
-It can be shown that $E_{y}$ thus satisfies the Airy equation \cite{}, and hence, with the choice of the boundary conditions as above, we obtain  
+It can be shown that $E_{y}$ thus satisfies the Airy equation, and hence, 
+with the choice of the boundary conditions as above, we obtain that 
 \begin{align*}
 E_{y}=Ai(x),\qquad 
 E_{x}=-i\frac{\delta(x)}{\alpha(x)}Ai(x)
@@ -149,29 +41,29 @@ is the solution to the problem with parameters (\ref{eq:parameters}) with the bo
 
 In Figure \ref{fig:conv_rate} we demonstrate the convergence rates for this problem, with 
 \begin{align*}
-\|E_{1}-E_{1}^{c}\|_{L_{2}(\Omega)}=\left(\int\limits_{\Omega}\left|E_{1}(x)-\sum\limits_{k=0}^{N}E_{1i}\phi_{i}\right|^2dx\right),
+\|E_{x}-E_{x}^{c}\|_{L_{2}(\Omega)}=\left(\int\limits_{\Omega}\left|E_{x}(x)-\sum\limits_{k=1}^{N}e_{xk}\phi_{k}\right|^2dx\right),
 \end{align*}
-where $\left(\phi_{i}\right)_{i=1}^{N}$ are $P_{1}$-finite elements and $E_{1}(x)$ is a known analytic solution. Similarly $\|E_{2}-E_{2}^{c}\|_{L_{2}(\Omega)}$ and $\|E_{2}-E_{2}^{c}\|_{H_{1}(\Omega)}$ are defined. 
+where $\left(\phi_{i}\right)_{i=1}^{N}$ are $P_{1}$-finite elements and $E_{x}(x)$ is a known analytic solution. Similarly $\|E_{y}-E_{y}^{c}\|_{L_{2}(\Omega)}$ and $\|E_{y}-E_{y}^{c}\|_{H_{1}(\Omega)}$ are defined. 
 
 \begin{figure}
 \begin{tikzpicture}
     \begin{loglogaxis}[
         xlabel=$h$,
         ylabel=$Error$,
+        width=0.6\textwidth,
         legend style={
 at={(0.2,1.5)},
 legend pos= south east,
 anchor=south east, 
 draw=none
 }
-]
-    \addplot[mark=*,blue] table {pics/E1L2.dat}; 
-    \addlegendentry{$\|E_{1}-E_{1}^{c}\|_{L_{2}}$};
+]\addplot[mark=*,blue] table {pics/E1L2.dat}; 
+    \addlegendentry{$\|E_{x}-E_{x}^{c}\|_{L_{2}}$};
     \addplot[mark=*,red] table {pics/E2H1.dat};
-        \addlegendentry{$\|E_{2}-E_{2}^{c}\|_{H_{1}}$};
+        \addlegendentry{$\|E_{y}-E_{y}^{c}\|_{H_{1}}$};
         
           \addplot[mark=*,cyan] table {pics/E2L2.dat};
-        \addlegendentry{$\|E_{2}-E_{2}^{c}\|_{L_{2}}$};  
+        \addlegendentry{$\|E_{y}-E_{y}^{c}\|_{L_{2}}$};  
         \addplot[dotted] table{pics/E_h2.dat};
          \addlegendentry{$O(h^2)$};
          \addplot[dashed] table{pics/H.dat};
@@ -185,7 +77,7 @@ draw=none
 Note that in the last 3 experiments the error of the solution of the system of equations, namely $\|Ae-r\|$ (where $e$ is the solution vector, $r$ is the right hand side and $A$ is the block matrix (\ref{eq:simple_system}) ) exceeded 1.6e-9
 (namely, it was 1.6e-9 ($h=3.2e-5$), 1.3e-08 ($h=8e-6$), 1.04e-07 ($h=2e-6$)).
 
-Importantly, the obtained convergence rates are in agreement with standard estimates of \cite{brenner}.
+Importantly, the obtained convergence rates are in agreement with known estimates of \cite{brenner}.
 
 
 
@@ -193,15 +85,14 @@ Importantly, the obtained convergence rates are in agreement with standard estim
 \paragraph{Convergence}
 Let us consider the case of the resonance, more precisely, we consider sufficiently smooth
 $\alpha,\delta$, s.t. $\alpha(0)=0$ and $\delta(0)\neq 0$, and the solvability conditions 
-of Theorem \ref{}  are satisfied. 
+of Lemma \ref{lemma:well_posedness}  are satisfied. 
 For simplicity, let us consider 
 \begin{align}
 \label{eq:cond}
  \alpha(x)=-x \text{  in some neighbourhood of $0$ }.
 \end{align}
-
-
-Given the space $\mathbf{V}_{h}=S_{h}^{1}\times S_{h}^{1}$, with $S_{h}^{1}$ consisting of piecewise-linear (hat) functions, we look for a ratio $h(\nu)$ that would ensure that the absolute error 
+Given $\mathbf{V}_{h}=P_{h}^{1}\times P_{h}^{1}$, with $P_{h}^{1}$ consisting of piecewise-linear (hat) functions, 
+we look for a ratio $h(\nu)$ that would ensure that the absolute error 
 \begin{align}
 \label{eq:problem1}
 \|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L_{2}(\Omega)}<\epsilon,
@@ -210,7 +101,7 @@ given a fixed value of $\epsilon>0$.
 
 We use the following well-known facts:
 \begin{itemize}
- \item The C\'ea's lemma applied to the problem (\ref{}); here $C_c$ is the continuity and $C_i$ is the coercivity constants:
+ \item The C\'ea's lemma applied to the problem (\ref{vf1dcase}); here $C_c$ is the continuity and $C_i$ is the coercivity constants:
 \begin{align}
 \label{eq:cea}
 \begin{split}
@@ -218,20 +109,20 @@ We use the following well-known facts:
  \leq \nu^{-1}\min_{\mathbf{v}\in V_h}\|\mathbf{E}-\mathbf{v}\|_{V}.
  \end{split}
 \end{align}
-The last inequality follows from Theorem \ref{}.  
-\item The form of the exact solution to the problem (\ref{}):
+The last inequality follows from Lemma \ref{lemma:well_posedness}.  
+\item The form of the exact solution to the problem (\ref{vf1dcase}):
 \begin{align}
 \label{eq:exact}
- E_x^{\nu}=E_{2}^{\nu}\frac{\delta}{\alpha+i\nu}=\frac{f(x)}{\alpha(x)+i\nu},
+ E_x^{\nu}=E_{y}^{\nu}\frac{\delta}{\alpha+i\nu}=\frac{f(x)}{\alpha(x)+i\nu},
 \end{align}
-for some $f(x)\in L_{2}(\Omega)$.
-\item The estimate from \cite[Chapter 0]{Brenner_Scott} on the rate of convergence of the interpolation 
+for some $f(x)\in L_{2}(\Omega)$. 
+\item The estimate from \cite[Chapter 0]{brenner} on the rate of convergence of the interpolation 
 \begin{align}
 \label{eq:bsc}
- \|v-I^{h}v\|_{L_{2}(\Omega)}\leq Ch^2|v''|_{L_{2}(\Omega)},\; C>0,\\
- %\|v-I^{h}v\|_{H_{1}(\Omega)}\leq Ch|v''|_{L_{2}(\Omega)},\; C>0, 
+ \|v-I^{h}v\|_{L_{2}(\Omega)}\leq Ch^2|v''|_{L_{2}(\Omega)},\; C>0,
+ %\\ \|v-I^{h}v\|_{H_{1}(\Omega)}\leq Ch|v''|_{L_{2}(\Omega)},\; C>0, 
 \end{align}
-where $I^{h}v$ is an interpolation operator onto $S_{h}^{1}$.
+where $I^{h}v$ is an interpolation operator onto $P_{h}^{1}$.
 \end{itemize}
 For $E_x^{\nu},\;f(x)$ in (\ref{eq:exact}) being sufficiently smooth, 
 \begin{align*}
@@ -284,17 +175,12 @@ $H$ & 10 \\
 \end{table}
 
  We fix $\nu$ and compute the error of the solution compared to the solution computed on the finest mesh  (with $h=2e-6$). 
- The results are depicted in Figures \ref{} and \ref{fig:l2_err_e2}.
- \begin{figure}
-  
- \end{figure}
-
-
+ The results are depicted in Figures \ref{fig:dependence} and \ref{fig:l2_err_e2}.
 \begin{figure}
 \begin{tabular}{cc}
 \begin{tikzpicture}
     \begin{loglogaxis}[
-    	width=0.49\textwidth,
+    	width=0.5\textwidth,
     	height=0.5\textwidth,
         xlabel=$h$,
         ylabel=$Error$,
@@ -328,10 +214,11 @@ font=\tiny
 \end{tikzpicture} &
 \begin{tikzpicture}
     \begin{loglogaxis}[
-    	width=0.49\textwidth,
+    	width=0.5\textwidth,
     	height=0.5\textwidth,
         xlabel=$h$,
         ylabel=$Error$,
+        ymin=1e-8,
         legend style={
 at={(0.2,1.5)},
 legend pos= south east,
@@ -365,16 +252,18 @@ font=\tiny
 \label{fig:l2_err_e2}
 \end{figure} 
 
-Let us denote by $E_{1}^{h}$ the solution $E_{1}(x)$ computed on the mesh with a width $h$, and by $E_{1}^{c}$ the solution computed on the finest mesh. We introduce 
+Let us denote by $E_{x}^{h}$ the solution $E_{x}(x)$ computed on the mesh with a width $h$, and by $E_{x}^{c}$ the solution computed on the finest mesh. We introduce 
 \begin{align}
 \label{eq:def_epsilon}
-h_{\epsilon}=\sup\{h: \|E_{1}^{h'}-E_{1}^{c}\|<\epsilon \text{ for all } h'<h\}.
+h_{\epsilon}=\sup\{h: \|E_{x}^{h'}-E_{x}^{c}\|<\epsilon \text{ for all } h'<h\}.
 \end{align}
 The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Figure \ref{fig:dependence}.
 \begin{figure}
+\begin{tabular}{cc}
 \begin{tikzpicture}
     \begin{loglogaxis}[
-    	width=0.7\textwidth,
+    	width=0.5\textwidth,
+    	height=0.5\textwidth,
         xlabel=$\nu$,
         ylabel=$h_{\epsilon}$,
         legend style={
@@ -398,7 +287,11 @@ draw=none
 \addlegendentry{$O(\nu^{\frac{3}{2}})$};
 \end{loglogaxis}
 \end{tikzpicture} 
-\caption{The depenence of $h_{\epsilon}$ as defined by (\ref{eq:def_epsilon}) on $\nu$.}
+&
+\includegraphics[width=0.5\textwidth]{figure1-crop.pdf}
+\end{tabular}
+\caption{In the left figure the depenence of $h_{\epsilon}$ as defined by (\ref{eq:def_epsilon}) on $\nu$ is demonstrated. 
+In the right figure we show the solutions for the problem for different values of $\nu$. }
 \label{fig:dependence}
 \end{figure}
 
@@ -418,7 +311,7 @@ and thus the relative error control
 can be ensured by choosing $h$ as $\beta_{\epsilon}\nu^{\frac{3}{4}}$.
 \end{remark}
 
-
+\FloatBarrier
 \paragraph{Condition Number}
 
 We consider the dependence of the condition number of the matrix of the system (\ref{eq:simple_system}) 
@@ -440,44 +333,31 @@ on $\nu$, for several values of $h$ (see Table \ref{tab:cond_number}).
 \caption{The condition number of the matrix of the system (\ref{eq:simple_system}) for different values of $\nu$ and $h$. }
 \label{tab:cond_number}
 \end{table}
-Remarkably, for $\nu=0$ the computed matrices are not singular; perhaps the bilinear form $a(u,v)$ is coercive on the chosen discrete subspace of $(L_{2}(\Omega); H^{1}(\Omega)$ .
-\subsection{Limiting Amplitude and Limited Absorption Principles}
-In this section we perform several numerical experiments,
-with the normalization chosen as $\epsilon_0=\mu_0=1$, $\omega=c=1$. 
-Also, we set $m_e=1$ and $e=-1$. From this it follows that $\omega_c=-B_0$ and $\omega_p^2=N_e$. 
-We consider the following two cases:
-\begin{itemize}
- \item case $N_e\neq \operatorname{const}$, no resonance
- \item case $N_e\neq \operatorname{const}$, resonance
-\end{itemize}
-For every fixed absorption rate $\nu$, in the time domain we choose the boundary conditions of the form
-\begin{align}
-\label{eq:bcs}
-\left.\partial_t H\right|_{x=-L}&=-\left.\partial_x E_y\right|_{x=-L}=G\sin(t),\; G\in \mathbb{R}, \\
- \nonumber
- \left.\partial_t H\right|_{x=H}&=0,
-\end{align}
-and zero initial conditions, and in the frequency domain
-\begin{align*}
- \left.\partial_x \hat{E}_y\right|_{x=-L}&=G,\\
- \left.\partial_x \hat{E}_y\right|_{x=H}&=0.
-\end{align*}
-We compute the solution $\mathbf{E}^{\nu}(t)$ for large $t$ in the time domain (the solution computed numerically at the time step $n$ is denoted by $\mathbf{E}^{\nu}_{n}$), and the solution $\hat{\mathbf{E}}^{\nu}$ in the frequency domain. 
-Our goal is to check whether
-\begin{align*}
-\lim_{t\rightarrow+\infty}\mathbf{E}^{\nu}(t)=\Im\left(\hat{\mathbf{E}}^{\nu}\exp(it)\right).
-\end{align*}
-\subsubsection{No-Resonance Case}
-We choose the parameters so that in the frequency domain, for the limiting amplitude problem, $\hat{E}_{2}$ satisfies 
-the Airy equation \cite{}. 
-
-We set $\omega_c=0$ (thus $\delta(x)=0$), $\omega=1$ (hence $\alpha(x)=1-N_e(x)$), 
-choose the domain as $[-0.5, 10]$ and set the electron density $N_e(x)=1+x$. Importantly, $N_e(x)>0$ on the whole interval.
-The boundary conditions in (\ref{eq:bcs}) are chosen as $G=Ai'(0.5)$. 
-In all the experiments in this section the CFL number was chosen to be equal to 0.5.
+Remarkably, for $\nu=0$ the computed matrices are not singular. \urev{We do not know the exact reason for such a behavior.}
+As an additional illustration, we compare the solutions for very small $\nu$ and $\nu=0$ for different meshes in Figure \ref{fig:small_nu}. 
+\begin{figure}
+ \includegraphics[width=0.4\textwidth]{figure2-crop.pdf}
+ \caption{The plot shows $E_{y}^{\nu}$ computed on different meshes for small $\nu$. It can be seen that for meshes that are coarse 
+ with respect to $\nu$ (e.g. $\nu=10^{-4}, \; h=10^{-2}$, or $\nu=0,\; h=10^{-2}$), the computed solution seems to be only piecewise-continuous in $\nu$, 
+ while for finer meshes and $\nu>0$ the solution seems to be smooth. It can be also seen that for $h=10^{-2}$ and $h=10^{-3}$ the solutions 
+ computed for $\nu=0$ are indistinguishable on this scale.}
+ \label{fig:small_nu}
+\end{figure}
 
 
-First let us fix $\nu=1e-2$. 
-To demonstrate that the limiting amplitude principle indeed holds, we fix a point $x=x_c$ 
-inside the domain $(-L,\; H)$ and plot the dependence of the solution $E_{2}^{\nu}(x_c,t), \; \hat{E}_2^{\nu}(x_c)\mathrm{e}^{it}$ 
-on time $t$ for a range of $t\gg 1$ in Figure \ref{fig:nu1e2_harmon}.  
+
+
+%\subsubsection{No-Resonance Case}
+%We choose the parameters so that in the frequency domain, for the limiting amplitude problem, $\hat{E}_{2}$ satisfies 
+%the Airy equation \cite{}. 
+
+%We set $\omega_c=0$ (thus $\delta(x)=0$), $\omega=1$ (hence $\alpha(x)=1-N_e(x)$), 
+%choose the domain as $[-0.5, 10]$ and set the electron density $N_e(x)=1+x$. Importantly, $N_e(x)>0$ on the whole interval.
+%The boundary conditions in (\ref{eq:bcs}) are chosen as $G=Ai'(0.5)$. 
+%In all the experiments in this section the CFL number was chosen to be equal to 0.5.
+
+
+%First let us fix $\nu=1e-2$. 
+%To demonstrate that the limiting amplitude principle indeed holds, we fix a point $x=x_c$ 
+%inside the domain $(-L,\; H)$ and plot the dependence of the solution $E_{y}^{\nu}(x_c,t), \; \hat{E}_2^{\nu}(x_c)\mathrm{e}^{it}$ 
+%on time $t$ for a range of $t\gg 1$ in Figure \ref{fig:nu1e2_harmon}.  

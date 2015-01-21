@@ -1,12 +1,11 @@
-
 \subsection{Limiting Amplitude and Limiting Absorption Principle}
 In this section we perform several numerical experiments,
 with the normalization chosen as $\epsilon_0=\mu_0=1$, $\omega=c=1$. 
 Also, we set $m_e=1$ and $e=-1$. From this it follows that $w_c=-B_0$ and $w_p^2=N_e$. 
 We consider the following two cases:
 \begin{itemize}
- \item case $N_e\neq \operatorname{const}$, no resonance
- \item case $N_e\neq \operatorname{const}$, resonance
+ \item case $N_e\neq \operatorname{const}$, no resonance;
+ \item case $N_e\neq \operatorname{const}$, resonance.
 \end{itemize}
 For every fixed absorption rate $\nu$, in the time domain we choose the boundary conditions of the form
 \begin{align}
@@ -21,67 +20,69 @@ and zero initial conditions, and in the frequency domain
  \left.\partial_x \hat{E}_y\right|_{x=H}&=0.
 \end{align*}
 We compute the solution $\mathbf{E}^{\nu}(t)$ for large $t$ in the time domain (the solution computed numerically at the time step $n$ is denoted by $\mathbf{E}^{\nu}_{n}$), and the solution $\hat{\mathbf{E}}^{\nu}$ in the frequency domain. 
-Our goal is to check whether
+In the numerical experiments we check whether the following two quantities
 \begin{align*}
-\lim_{t\rightarrow+\infty}\mathbf{E}^{\nu}(t)=\Im\left(\hat{\mathbf{E}}^{\nu}\exp(it)\right).
+\lim_{t\rightarrow+\infty}\mathbf{E}^{\nu}(t), \text{ and } \Im\left(\hat{\mathbf{E}}^{\nu}\exp(it)\right)
 \end{align*}
-
+are close as $\nu\rightarrow 0$ (provided that the first of these quantities exists). 
 \subsubsection{No-Resonance Case}
-We choose the parameters so that in the frequency domain, for the limiting amplitude problem, $\hat{E}_{2}$ satisfies 
-the Airy equation (\ref{}). 
+We choose the parameters so that in the frequency domain, for the limiting amplitude problem, $\hat{E}_{y}$ satisfies 
+the Airy equation. 
 
 We set $\omega_c=0$ (thus $\delta(x)=0$), $\omega=1$ (hence $\alpha(x)=1-N_e(x)$), 
-choose the domain as $[-0.5, 10]$ and set the electron density $N_e(x)=1+x$. Importantly, $N_e(x)>0$ on the whole interval.
+choose the domain as $(-0.5, 10)$ and set the electron density $N_e(x)=1+x$. Importantly, $N_e(x)>0$ on the whole interval.
 The boundary conditions in (\ref{eq:bcs}) are chosen as $G=Ai'(0.5)$. 
-In all the experiments in this section the CFL number was chosen to be equal to 0.5.
+In all the experiments in this section the CFL number=0.5.
 
 
-First let us fix $\nu=1e-2$. 
-To demonstrate that the limiting amplitude principle indeed holds, we fix a point $x=x_c$ 
-inside the domain $(-L,\; H)$ and plot the dependence of the solution $E_{2}^{\nu}(x_c,t), \; \hat{E}_2^{\nu}(x_c)\mathrm{e}^{it}$ 
+First we set $\nu=10^{-2}$. To demonstrate that the limiting amplitude principle indeed holds, we fix a point $x=x_c$ 
+inside the domain and plot the dependence of the solution $E_{y}^{\nu}(x_c,t), \; \Im\left(\hat{E}_y^{\nu}(x_c)\mathrm{e}^{it}\right)$ 
 on time $t$ for a range of $t\gg 1$ in Figure \ref{fig:nu1e2_harmon}.  
 
 \begin{figure}[htb]
-\includegraphics[width=0.9\textwidth]{figure_nu1e2-crop.pdf}
+\includegraphics[width=0.9\textwidth]{airy/figure_nu1e2-crop.pdf}
+\caption{Dependence of the solution $E_{y}^{\nu}(x_c,t)$ on time for $t\rightarrow +\infty$.}
  \label{fig:nu1e2_harmon}
 \end{figure}
 
-In Figure \ref{fig:nu1e2_harmon2} (left figure) we compare this solution to the computed $\hat{E}_2^{\nu}\mathrm{e}^{it}$, for
+In Figure \ref{fig:nu1e2_harmon2} (left figure) we compare this solution to the computed $\hat{E}_y^{\nu}\mathrm{e}^{it}$, for
 fixed values of $t$. Both solutions appear to be in close agreement. 
 \begin{figure}[htb]
- \begin{tabular}{ll}
-\includegraphics[width=0.5\textwidth]{figure_nu1e2_2-crop.pdf}
+ \begin{tabular}{cc}
+\includegraphics[width=0.5\textwidth]{airy/figure_nu1e2_2-crop.pdf}
 &
-\includegraphics[width=0.5\textwidth]{figure_error_nu1e4-crop.pdf}\\
+\includegraphics[width=0.5\textwidth]{airy/figure_error_nu1e4-crop.pdf}\\
 \end{tabular}
-\caption{In the left figure we show the solution to (\ref{}) for $\nu=10^{-2}$, for two fixed moment of times. In the right figure 
+\caption{In the left figure we show the solution for $\nu=10^{-2}$, for two fixed moment of times. In the right figure 
 the dependence of the error (\ref{eq:error}) on time for $\nu=10^{-4}$ is demonstrated. 
-We can see that the error is decreasing.}
+We can see that the error is decreasing on the given time interval.}
  \label{fig:nu1e2_harmon2}
 \end{figure}
+\FloatBarrier
 The computed $L_2$ error
 \begin{align}
 \label{eq:error}
-\mathcal{E}(t)=\|\Im\left(\hat{E}_y^{\nu}\exp(it)\right)-E_y^{\nu}(t)\|_{L_{2}(-L;H)}.
+\mathcal{E}_{x,y}(t)=\|\Im\left(\hat{E}_{x,y}^{\nu}\exp(it)\right)-E_{x,y}^{\nu}(t)\|_{L_{y}(-L;H)}.
 \end{align}
-for $\nu=1e-2$ did not exceed $1.1e-3$ for values of $t\in \left(28501,  30000\right)$. 
+for $\nu=10^{-2}$ did not exceed 1.1e-3 for values of $t\in \left(28501,  30000\right)$. 
 
-Figure show the solutions at fixed time steps for $\nu=1e-4$. As before, 
+Figure \ref{fig:nu1e4_harmon} (left) shows the solutions at a fixed point in space for $\nu=1e-4$. As previously, 
 to demonstrate that the limiting amplitude principle indeed holds, we fix a point $x=x_c$ 
-inside the domain $(-L,\; H)$ and plot 
-the dependence of the solution $E_{2}^{\nu}(x_c,t)$ on time $t$ for a range of $t\gg 1$. 
+inside the domain and plot 
+the dependence of the solution $E_{y}^{\nu}(x_c,t)$ on time $t$ for a range of $t\gg 1$. 
 The error (\ref{eq:error}) for $\nu=1e-4$ at the time interval $[228000.05,\; 240000.05]$ does not exceed 2.8e-4. 
 One of our observations was that for smaller $\nu$ one requires more time steps to achieve the limiting amplitude solution, 
 c.f. e.g. Figure \ref{fig:nu1e2_harmon2}. 
-We were not able to obtain the limiting amplitude solution for $t<3\cdot 10^{4}$, unlike in the case of $\nu=10^{-2}$. 
-For example, for $\nu=1e-6$ we were not able to reach the limiting amplitude solution even on the time interval $t\leq 1.92e6$, 
-see Figure \ref{fig:nu1e4_harmon}. 
+For $\nu=10^{-4}$ we were not able to obtain the limiting amplitude solution for $t<3\cdot 10^{4}$, unlike in the case of $\nu=10^{-2}$, 
+see also Figure \ref{fig:nu1e2_harmon2}(right). 
+For example, for $\nu=10^{-6}$ we were not able to reach the limiting amplitude solution even on the time interval $t\leq 1.92e6$, 
+see Figure \ref{fig:nu1e4_harmon} (right). 
 \begin{figure}
-\begin{tabular}{c}
- \includegraphics[width=\textwidth]{figure_nu1e4-crop.pdf}\\
- \includegraphics[width=\textwidth]{figure_nu1e6-crop.pdf}\\
+\begin{tabular}{cc}
+ \includegraphics[width=0.5\textwidth]{airy/figure_nu1e4-crop.pdf}&
+ \includegraphics[width=0.5\textwidth]{airy/figure_nu1e6-crop.pdf}\\
 \end{tabular}
-\caption{In the upper figure we plot the dependence of the solution $E_{2}^{\nu}(x_c,t)$ on time $t$, with $\nu=10^{-4}$ and $x_c=0.45$. 
+\caption{In the upper figure we plot the dependence of the solution $E_{y}^{\nu}(x_c,t)$ on time $t$, with $\nu=10^{-4}$ and $x_c=0.45$. 
 In the lower figure we show the solution for $\nu=10^{-6}$ at the same point $x_c$, for larger times. As we can see, for 
 $\nu=10^{-4}$ the limiting amplitude solution was reached for large $t$. For $\nu=10^{-6}$ we were not able 
 to obtain the limiting amplitude solution even for $t\approx 1.9e6$. }
@@ -90,14 +91,14 @@ to obtain the limiting amplitude solution even for $t\approx 1.9e6$. }
 
 \subsubsection{Resonance Case}
 \label{sec:resn}
-For the resonance case, we choose the parameters as given in Table \ref{tab:parameters_resonance}.
+For the resonance case, we choose the parameters as in Table \ref{tab:parameters_resonance}.
 \begin{table}[htb!]
 \begin{tabular}{c|c}
 Parameter & Value \\
 \hline
 $L$ & 5\\
 $H$ & 19\\
-$\omega_c$ &  $\sqrt{0.5}$\\
+$\omega_c$ &  $-\sqrt{0.5}$\\
 $N_e(x)$ &  $\left\{
  \begin{array}{cc}
   0.25, & x<-0.5,\\
@@ -106,42 +107,60 @@ $N_e(x)$ &  $\left\{
  \end{array}\right.$\\
  $G$ as in (\ref{eq:bcs}) & 0.11 \\
 \end{tabular}
-\label{tab:parameters_resonance}
 \caption{Parameters for numerical simulations in Section \ref{sec:resn}}
+\label{tab:parameters_resonance}
 \end{table}
-Since $\alpha(x)=(1-2N_e(x))$, $\alpha(0)=0$. Clearly, $\delta(0)\neq 0$ (resonance case).
+Since $\alpha(x)=(1-2N_e(x))$, $\alpha(0)=0$, and clearly, $\delta(0)\neq 0$.
 
-The results for $\nu=10^{-2}$ (chosen as a parameter both in frequency and time domain) 
-are shown in Figures \ref{fig:resonance_nu1e2_ex, fig:resonance_nu1e2_ey}. 
-In the time domain, we chose the discretization size $\Delta x=0.025$. 
-We display the harmonic dependence of the solution on time by fixing $x_c$ inside the domain and plotting 
-$E_x^{\nu}(x_c,t)$ and $E_y^{\nu}(x_c, t)$. We compare these solutions to $\hat{E}_x^{\nu}(x_c)\mathrm{e}^{it}$ and 
-$\hat{E}_y^{\nu}(x_c)\mathrm{e}^{it}$. In this case we choose $x_c=0$, where the resonance occurs. 
+We compare the results for $\nu=10^{-2},\; 10^{-3}$ in Figures \ref{fig:resonance_nus_ex_x}, 
+\ref{fig:resonance_nus_ey_x}, \ref{fig:resonance_nus_ex_t}, \ref{fig:resonance_nus_ey_t}. 
+%In the time domain, we chose the discretization size $\Delta x=0.025$. 
+The harmonic dependence of the solution on time is demonstrated by fixing $x_c$ inside the domain and plotting 
+$E_x^{\nu}(x_c,t)$ and $E_y^{\nu}(x_c, t)$ for a range of $t$. We compare these solutions to $\Im\left(\hat{E}_x^{\nu}(x_c)\mathrm{e}^{it}\right)$ and 
+$\Im\left(\hat{E}_y^{\nu}(x_c)\mathrm{e}^{it}\right)$. In the former case we choose the point $x_c=0$, where the resonance occurs. 
+
+
 \begin{figure}
- 
- \caption{In the left figure we show the dependence of the solutions $E_x^{\nu}(0,t)$ on time $t$. 
- In the right figure the solutions at time $t_c=...$ and $t_c=..$ are demonstrated and compared to
- $\Im{\hat{E}_y\mathrm{e}^{it}}$.
-  \label{fig:resonance_nu1e2_ex}
+\begin{tabular}{cc}
+\includegraphics[width=0.5\textwidth]{res/ex_fixed_x-crop.pdf}&
+\includegraphics[width=0.5\textwidth]{res/ex_fixed_x_1e3-crop.pdf}
+\end{tabular}
+\caption{The figures demonstrate the dependence of the solutions 
+$E_x^{\nu}(0,t)$ on time $t$ for different values of $\nu$. }
+\label{fig:resonance_nus_ex_x}
+\end{figure}
+\begin{figure}
+\begin{tabular}{cc}
+\includegraphics[width=0.5\textwidth]{res/ey_fixed_x-crop.pdf}&
+\includegraphics[width=0.5\textwidth]{res/ey_fixed_x_1e3-crop.pdf}
+ \end{tabular}
+\caption{The figures demonstrate the dependence of the solutions 
+$E_y^{\nu}(-2.5125,t)$ on time $t$ for different values of $\nu$. }
+\label{fig:resonance_nus_ey_x}
 \end{figure}
 
 \begin{figure}
- 
- \caption{In the left figure we show the dependence of the solutions $E_x^{\nu}(0,t)$ on time $t$. 
- In the right figure the solutions at time $t_c=...$ and $t_c=..$ are demonstrated and compared to
- $\Im{\hat{E}_y\mathrm{e}^{it}}$.
-  \label{fig:resonance_nu1e2_ey}
+\begin{tabular}{cc}
+\includegraphics[width=0.5\textwidth]{res/ex_fixed_t-crop.pdf}&
+\includegraphics[width=0.5\textwidth]{res/ex_fixed_t_1e3-crop.pdf}
+\end{tabular}
+\caption{The figures demonstrate the dependence of the solutions 
+$E_y^{\nu}(x,t)$ on $x$ for fixed values of $t$. }
+\label{fig:resonance_nus_ex_t}
 \end{figure}
-The $L_2$-error (\ref{eq:error}) 
-on the time interval $()$ did not exceed $0.16$ for $E_x(x,t)$ and $0.085$ for $E_y(x,t)$.
-
-
-The results for $\nu=10^{-3}$ are demonstrated in Figure \ref{}.
 \begin{figure}
- 
+\begin{tabular}{cc}
+\includegraphics[width=0.5\textwidth]{res/ey_fixed_t-crop.pdf}&
+\includegraphics[width=0.5\textwidth]{res/ey_fixed_t_1e3-crop.pdf}
+ \end{tabular}
+\caption{The figures demonstrate the dependence of the solutions 
+$E_y^{\nu}(x,t)$ on $x$ for fixed values of $t$. }
+\label{fig:resonance_nus_ey_t}
 \end{figure}
 
-
-As we can see, the two solutions though being similar, 
-
+We can see that in the case of the resonance, the solution seem to achieve the limiting amplitude solution, 
+and both solutions are in relatively close agreement (but the point where the resonance occurs). 
+Similarly to the case with the regular case, 
+longer computations are needed to achieve the limiting amplitude solution  
+for smaller $\nu$.
 

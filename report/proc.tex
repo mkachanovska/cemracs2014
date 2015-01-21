@@ -27,7 +27,9 @@
 \usepackage{ulem}
 \usepackage{pifont}% http://ctan.org/pkg/pifont
 \usepackage{hyperref}
-%\usepackage{diagbox}
+\usepackage{diagbox}
+\usepackage{color}
+\usepackage{placeins}
 \newenvironment{remark}[1][Remark]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 \newtheorem{theorem}{Theorem}[section]
@@ -41,6 +43,7 @@
 %%%%%%%%%%%%%%%--BODY--%%%%%%%%%%%%%%%%%%
 
 \begin{document}
+\newcommand{\urev}[1]{{\color{red}#1}}
 
 %%-----------------------------
 %%      the top matter
@@ -73,17 +76,22 @@
 
 \input{intro}
 \input{equations}
-\input{numerics}
+
 \input{timedomain}
-%\input{absorption}
+\input{freqdomain}
+\input{numerics}
+\input{absorption}
+
 \begin{thebibliography}{99}
 \bibitem{stable_yee_plasma_current} F. da Silva M. Campos Pinto, B. Despres and S. Heuraux, Stable Coupling of the Yee Scheme with a Linear Current Model,
 2014
-\bibitem{Depres_2014} Després, B., Imbert-Gérard, L. M. and Weder, R. (2014). Hybrid resonance of Maxwell's equations in slab geometry. Journal de Mathématiques Pures et Appliquées, 101(5), 623-659.
+\bibitem{Despres_2014} Després, B., Imbert-Gérard, L. M. and Weder, R. (2014). Hybrid resonance of Maxwell's equations in slab geometry. Journal de Mathématiques Pures et Appliquées, 101(5), 623-659.
 \bibitem{LMIG_thesis} Imbert-Gérard, L. M. (2013). Analyse mathématique et numérique de problèmes d'ondes apparaissant dans les plasmas magnétiques (Doctoral dissertation, Université Pierre et Marie Curie-Paris VI).
 \bibitem{brenner} Brenner, S. C. and Scott, R. (2008). The mathematical theory of finite element methods (Vol. 15). Springer.
 \bibitem{Stix} Stix, T. H. (1992). Waves in plasmas. Springer.
 \bibitem{Morawetz} Morawetz, C. S. (1962). The limiting amplitude principle. Communications on Pure and Applied Mathematics, 15(3), 349-361.
+\bibitem{abramowitz_stegun} Abramowitz M. and Stegun I. A., eds. (1972). Handbook of Mathematical Functions with Formulas, Graphs, and Mathematical Tables. New York: Dover Publications.
+Handbook of mathematical functions
 \end{thebibliography}
 
 \end{document}

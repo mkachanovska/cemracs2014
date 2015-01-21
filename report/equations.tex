@@ -7,14 +7,14 @@
 
 %%%%%%%%%%%%%%%%%%%%%% 
 \subsection{Variational formulation and Well-Posedness}
-In one dimenssion, the variational formulation of the problem writes as
-\be
-%\label{eq:varformulation}
+In one dimension, the variational formulation of the problem (\ref{eq:main_frequency_domain}) writes as (here we introduced the Fourier variable $\theta$)
+\begin{align}
 \begin{array}{l}
-\displaystyle \int_{-L}^H (E_2' -\imath\theta E_1)\overline{(\tilde E_2' -\imath \theta \tilde E_1)} - \int_{-L}^H (\eps_0 +\imath\nu Id) \E \cdot \overline{\tilde \E}
-\\ \displaystyle  - \imath \sqrt{\alpha(-L)} E_2 (-L) \tilde E_2 (-L) = -g_{inc} (-L) \overline{( \tilde E_2(-L) )} \label{vf1dcase}.
+\displaystyle \int_{-L}^H (E_y' -\imath\theta E_x)\overline{(\tilde E_y' -\imath \theta \tilde E_x)} - \int_{-L}^H (\eps_0 +\imath\nu Id) \E \cdot \overline{\tilde \E}
+\\ \displaystyle  - \imath \lambda E_y (-L) \tilde E_y (-L) = -g_{inc} (-L) \overline{( \tilde E_y(-L) )} \label{vf1dcase}.
 \end{array}
-\ee
+\end{align}
+\urev{In this and further sections, where it is not ambiguous, we will use the notation $E_{x,y}$ instead of $\hat{E}_{x,y}$ for convenience.}
 From now on, we will use the following notations : 
 \be
 a(\ubf,\vbf) = a_1 (\ubf,\vbf) +\imath a_2(\ubf,\vbf)\  \text{ and } \  l(\vbf) = -g_{inc} (-L) \overline{(v_2(-L) )} 
@@ -29,11 +29,12 @@ equipped with the norm
 
 We now prove the following result.
 \begin{lemma}
-The biliner form 
+\label{lemma:well_posedness}
+If $\heps =  \|\rho(\eps_0)\|_{L^\infty}$, the spectral radius of $\eps_0$, is bounded, the bilinear form 
 \begin{align*}
  a(\ubf,\vbf):  \mathbf{V}\times \mathbf{V}\rightarrow \mathbb{C}
 \end{align*}
-is continuous and coercive: for all $\ubf,\vbf\in \mathbf{V}$ it holds that
+is continuous and coercive for all $\nu>0$: for all $\ubf,\vbf\in \mathbf{V}$ it holds that
 \begin{align}
 \label{eq:bilinear_cont}
 \begin{split}
@@ -49,7 +50,7 @@ The boundedness of $a$ is obvious. Let us concentrate on the proof of coercivity
 \be
 \left\{\begin{array}{l}
 a_1(\ubf,\vbf) = \int_{-L}^H (u_2' -\imath\theta u_1)\overline{(v_2' -\imath \theta v_1)} - \int_{-L}^H \eps_0 \ubf\cdot \overline{\vbf}, 
-\\ a_2(\ubf,\vbf) = -\nu \int_{-L}^H  \ubf\cdot \overline{\vbf} -  \sqrt{\alpha(-L)} u_2 (-L) \overline{v_2 (-L)} , 
+\\ a_2(\ubf,\vbf) = -\nu \int_{-L}^H  \ubf\cdot \overline{\vbf} - \lambda u_2 (-L) \overline{v_2 (-L)} , 
 \end{array}\right.
 \ee
 
@@ -147,7 +148,7 @@ and due to Poincare's lemma $a$ is coercive.
 %\ee
 %Let us recall that we have
 %\be
-%|a(u,u)| \geq \sqrt{\alpha(-L)} |u(-L)|^2
+%|a(u,u)| \geq\lambda |u(-L)|^2
 %\ee
 %and 
 %\be
@@ -194,22 +195,17 @@ Let us assume that the operator
 M\psi = \frac{i\delta}{(\alpha+i\nu)}\psi
 \end{align*}
 defines an isomorphism from $L_{2}(\Omega)$ to $L_{2}(\Omega)$. 
-Given $E_x,\; E_y\in L_{2}(\Omega)$, the function $\mathcal{F}=\frac{i\delta}{(\alpha+\imath\nu)}\left((\alpha+\imath\nu)E_{x}+i\delta E_{y}\right)$ also belongs to $L_{2}(\Omega)$. 
+Given $E_x,\; E_y\in L_{2}(\Omega)$, 
+the function $\mathcal{F}=\frac{i\delta}{(\alpha+\imath\nu)}\left((\alpha+\imath\nu)E_{x}+i\delta E_{y}\right)$ 
+also belongs to $L_{2}(\Omega)$.  
 If $E_x,\; E_y$ satisfy the problem (\ref{eq:var_form2}) for $\theta=0$, the function $\mathcal{F}=0$, 
 i.e.
 \begin{align*}
  (\mathcal{F},\tilde{E}_{y})_{L_{2}}=\int_{-L}^{H}\left(\imath\delta E_{x}-\delta^2(\alpha+i\nu)^{-1} E_{y}\right)\overline{\tilde E}_{y}=0,
 \end{align*}
 for all $\overline{\tilde E}_2\in H_{1}(\Omega)$. Adding this to the second expression of (\ref{eq:var_form2}), we obtain 
-the variational formulation for $E_2$, which coincides with the variational formulation for the Helmholtz equation. The well-posedness 
-of this problem had been studied in \cite{}. 
-Hence, we can add the second expression (\ref{eq:E2}) to
-\begin{align*}
-\int_{-L}^{H}\left(i\delta E_{x}-\delta^2(\alpha+i\nu)^{-1} E_{y}\right)\overline{\tilde E}_{y}=0
-\end{align*}
-to obtain the variational formulation for $E_{y}$, which will coincide with the variational formulation for the Helmholtz equation, and thus will be well-posed 
-(see the thesis \cite{thesis_lmig}).
-The estimates from \cite{thesis_lmig} can be employed to bound $\|E_{x}\|_{L_{2}}$.
+the variational formulation for $E_y$, which coincides with the variational formulation for the Helmholtz equation. The well-posedness 
+of this problem had been studied in \cite{LMIG_thesis}. 
 \end{remark}
 
 
