@@ -57,11 +57,31 @@ the Fourier transform of (\ref{eq:main_model}) in $y$.
 
 The goal of this article is two-fold. 
 First, we investigate the finite element approximation of the 1D 
-problem \eqref{eq:main_model} written in the frequency domain ($\partial_t\rightarrow i\omega$), with 
-linearized dielectric tensor (see \cite{Despres_2014}):
+problem \eqref{eq:main_model} written in the frequency domain ($\partial_t\rightarrow -i\omega$).
+\mrev{More precisely, 
+\begin{align*}
+%\label{eq:main_frequency_domain_1}
+\operatorname{curl}\operatorname{curl}\hat{\mathbf{E}}-
+\epsilon(\omega)\hat{\mathbf{E}}=0,\\
+\epsilon(\omega)=\left(
+\begin{matrix}
+ \tilde{\alpha} & i\tilde{\delta} \\
+ -i\tilde{\delta}  & \tilde{\alpha}
+\end{matrix}
+\right),\\
+\tilde{\alpha}(\omega)=\frac{\omega^2}{c^2}\left(1-\frac{\tilde{\omega}\omega_p^2}{\omega(\tilde{\omega}^2-\omega_c^2)}\right),\qquad 
+\tilde{\delta}(\omega)=\frac{\omega_c\omega_p^2}{\omega(\tilde{\omega}^2-\omega_c^2)},\\
+\tilde{\omega}=\omega+i\nu,\qquad \omega_c=\mrev{\frac{eB_0}{m_e}},\qquad \omega_p^2=\frac{e^2 N_e}{\epsilon_0 m_e}.
+\end{align*}
+After expansion in $\nu\rightarrow 0$ and keeping lower-order terms only
+\begin{align*}
+ \tilde{\alpha}(\omega)=\alpha(\omega)+i\nu\frac{\omega_p^2(\omega^2+\omega_c^2)}{(\omega^2-\omega_c^2)^2}\frac{\omega^2}{c^2},\qquad \alpha(\omega)=\frac{\omega^2}{c^2}\left(1-\frac{\omega_p^2}{\omega^2-\omega_c^2}\right),\\
+ \tilde{\delta}(\omega)=\delta(\omega)-\frac{2i\omega^3\nu}{c^2(\omega^2-\omega_c^2)^2},\qquad \delta(\omega)=\frac{\omega\omega_c\omega_p^2}{c^2(\omega^2-\omega_c^2)}.
+\end{align*}
+Then the limiting absorption principle can be obtained leaving only the diagonal terms in the above expansion (see \cite{Despres_2014}):
 \begin{align}
 \label{eq:main_frequency_domain}
-\operatorname{curl}\operatorname{curl}\hat{\mathbf{E}}+\frac{\omega^2}{c^2}
+\operatorname{curl}\operatorname{curl}\hat{\mathbf{E}}-\frac{\omega^2}{c^2}
 \left(\epsilon_0(\omega)+\nu Id\right)\hat{\mathbf{E}}=0,\\
 \nonumber
 \epsilon_0(\omega)=\left(
@@ -69,14 +89,9 @@ linearized dielectric tensor (see \cite{Despres_2014}):
  \alpha & i\delta \\
  -i\delta & \alpha 
 \end{matrix}
-\right), \\
-\nonumber
-\alpha(\omega)=1-\frac{\omega\omega_p^2}{\omega(\omega^2-\omega_c^2)},\qquad 
-\nonumber
-\delta(\omega)=\frac{\omega_c\omega_p^2}{\omega(\omega^2-\omega_c^2)},\\
-\nonumber
-\omega_c=-\frac{eB_0}{m_e},\; \omega_p^2=\frac{e^2 N_e}{\epsilon_0 m_e}.
+\right)
 \end{align}
+}
 \urev{Additionally, we assume $\alpha(\omega)$ and $\delta(\omega)$ be sufficiently smooth, i.e. bounded and continuous in  
 $\left[-L,\; \mathbb{R}\right)$.}
 In particular, we again investigate this problem in one dimension, performing the Fourier transform in $y$.
