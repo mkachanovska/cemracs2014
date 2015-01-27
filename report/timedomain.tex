@@ -8,7 +8,7 @@ In this section, we develop a discretization of the time dependant problem~\eqre
  m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\nonumber\\
  m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y.\nonumber
  \end{align}
-We compute a numerical approximation of~\eqref{eq:tdpb} on a Cartesian grid using the Yee scheme, as  suggested in \cite{stable_yee_plasma_current}. Let $n$ denote the time step index, as usual $t_n = n \Delta t$. It is standard (see \cite{Xu_2006,stable_yee_plasma_current }) to discretize the electrical field on the integer time step, whereas the other fields, as $H_z$, are discretized on half time steps, $t_{n+1/2}$. The time discretization of the system reads:
+We compute a numerical approximation of~\eqref{eq:tdpb} on a cartesian grid using the Yee scheme, as  suggested in \cite{stable_yee_plasma_current}. Let $n$ denote the time step index, as usual $t_n = n \Delta t$. It is standard (see \cite{Xu_2006,stable_yee_plasma_current }) to discretize the electrical field on the integer time step, whereas the other fields, as $H_z$, are discretized on half time steps, $t_{n+1/2}$. The time discretization of the system reads:
  \begin{align}
  \left\{\begin{array}{l}
  \epsilon_0\frac{ E_{x}^{n+1}-E_x^{n}}{\Delta t}=-eN_e u_x, \nonumber\\
