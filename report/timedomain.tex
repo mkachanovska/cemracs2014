@@ -1,6 +1,6 @@
 \section{Time Dependent Problem Discretization}
-In this section, we develop a discretization of the time dependant problem~\eqref{eq:main_model} in one dimension. In 1D, the derivatives with respect to $y$ vanish, and we are left with the following problem, 
-
+In this section, we develop a discretization of the time dependant problem~\eqref{eq:main_model} 
+in one dimension. In 1D, the derivatives with respect to $y$ vanish, and we are left with the following problem, 
  \begin{align}
  \epsilon_0\partial_t E_{x}=-eN_e u_x, \nonumber\\
  \epsilon_0\partial_t E_{y}+\partial_x H_z=-eN_e u_y,\nonumber\\
@@ -8,7 +8,10 @@ In this section, we develop a discretization of the time dependant problem~\eqre
  m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\nonumber\\
  m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y.\nonumber
  \end{align}
-We compute a numerical approximation of~\eqref{eq:tdpb} on a cartesian grid using the Yee scheme, as  suggested in \cite{stable_yee_plasma_current}. Let $n$ denote the time step index, as usual $t_n = n \Delta t$. It is standard (see \cite{Xu_2006,stable_yee_plasma_current }) to discretize the electrical field on the integer time step, whereas the other fields, as $H_z$, are discretized on half time steps, $t_{n+1/2}$. The time discretization of the system reads:
+We compute a numerical approximation of~\eqref{eq:tdpb} on a cartesian grid using the Yee scheme, 
+as suggested in \cite{stable_yee_plasma_current}. Let $n$ denote the time step index, as usual $t_n = n \Delta t$. 
+It is standard (see \cite{Xu_2006,stable_yee_plasma_current }) to discretize the electrical field on the integer time step, 
+\mrev{whereas the field $H_z$ is on half time steps, $t_{n+1/2}$}. The time discretization of the system reads:
  \begin{align}
  \left\{\begin{array}{l}
  \epsilon_0\frac{ E_{x}^{n+1}-E_x^{n}}{\Delta t}=-eN_e u_x, \nonumber\\
@@ -18,7 +21,11 @@ We compute a numerical approximation of~\eqref{eq:tdpb} on a cartesian grid usin
  m_e\frac{u_{y}^{n+1}-u_y^{n}}{\Delta t}=eE_y-eu_xB_0-\nu m_e u_y.\nonumber
 \end{array}\right.
  \end{align}
-In Yee scheme, the differents components of the vector fields are defined on staggered points. We summarize this discretization on Fig.~\ref{schemepos} where the positions of $Ex$, $u_x$ (black dots), $E_y$ $u_y$ (blue dots) and $H_z$ (red dots) on the discretized grid in space and time are shown. The fully discretized system then reads
+In Yee scheme, the differents components of the vector fields 
+are defined on staggered points. 
+We summarize this discretization on Fig.~\ref{schemepos} where the positions 
+of $Ex$, $u_x$ (black dots), $E_y$ $u_y$ (blue dots) and $H_z$ (red dots) 
+on the discretized grid in space and time are shown. The fully discretized system then reads
 
 \be 
 \eps_0 \frac{E_x\inp- E_x\midin}{\Delta t} = -e N_e \frac{u_x\inp + u_x \midin}{2},
@@ -41,7 +48,7 @@ m_e \frac{u_y\ihnp-u_y\ihn}{\Delta t} = eN_e \frac{E_y\ihnp + E_y\ihn}{2}- \nu m
 \label{eq:ns401}
 \ee
 \input{grid}
-Some rapid computations left to the reader make it possible to show this discrete system is fully explicit.
+It is possible to rewrite this system in an explicit form (we omit here these simple but slightly tedious computations).
 %It is now possible to describe explicitly how to solve the proviso discrete system. We first compute $H_z$ at time $n+1/2$ with \eqref{eq:ns3}. Then, \eqref{eq:ns2} gives the expression $E_y\ihnp$ as a function of known variables, and $u_y^{n+1}$, as follow
 %\be
 %E_y\ihnp = E_y\ihn - \frac{\Delta t }{\eps_0}\frac{H_z\ipnh-H_z\inh}{\Delta x} - \frac{\Delta t e N_e}{\eps_0}\frac{u_y\ihnp + u_y\ihn}{2}.
