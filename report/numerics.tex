@@ -23,26 +23,26 @@ To check the validity of the code, we perform a numerical experiment with (forma
 \alpha(x)=x^2+1,\qquad \delta(x)=\left(\alpha^2+x\alpha\right)^{\frac{1}{2}}.
 \end{align}
 Additionally, the boundary conditions read as 
-\begin{align}
+\bealn
 \label{eq:bcs}
 \partial_{1}E_{y}(-L)+2iE_{y}(-L)=2iAi(-L)+Ai'(-L),\\
 \partial_{1}E_{y}(H)=0,
-\end{align}
+\eealn
 where $Ai(x)$ is the Airy function. 
 For more detail on Airy functions and the Airy equation see \cite[Chapter 10.4]{abramowitz_stegun}.
 
 It can be shown that $E_{y}$ thus satisfies the Airy equation, and hence, 
 with the choice of the boundary conditions as above, we obtain that 
-\begin{align*}
+\bealn
 E_{y}=Ai(x),\qquad 
 E_{x}=-i\frac{\delta(x)}{\alpha(x)}Ai(x)
-\end{align*}
+\ealn
 is the solution to the problem with parameters (\ref{eq:parameters}) with the boundary condition (\ref{eq:bcs}).
 
-In Figure \ref{fig:conv_rate} we demonstrate the convergence rates for this problem, with 
-\begin{align*}
+In Fig.~\ref{fig:conv_rate} we demonstrate the convergence rates for this problem, with 
+\ben
 \|E_{x}-E_{x}^{c}\|_{L_{2}(\Omega)}=\left(\int\limits_{\Omega}\left|E_{x}(x)-\sum\limits_{k=1}^{N}e_{xk}\phi_{k}\right|^2dx\right),
-\end{align*}
+\een
 where $\left(\phi_{i}\right)_{i=1}^{N}$ are $P_{1}$-finite elements and $E_{x}(x)$ is a known analytic solution. Similarly $\|E_{y}-E_{y}^{c}\|_{L_{2}(\Omega)}$ and $\|E_{y}-E_{y}^{c}\|_{H_{1}(\Omega)}$ are defined. 
 
 \begin{figure}
@@ -128,21 +128,21 @@ for some $f(x)\in L_{2}(\Omega)$.
 where $I^{h}v$ is an interpolation operator onto $P_{h}^{1}$.
 \end{itemize}
 For $E_x^{\nu},\;f(x)$ in (\ref{eq:exact}) being sufficiently smooth, 
-\begin{align*}
+\ben
  \frac{d^2}{dx^2}E_x^{\nu}=\frac{f''}{\alpha+i\nu}-2\frac{f'\alpha'}{(\alpha+i\nu)^2}+\frac{f\alpha''}{(\alpha+i\nu)^3},
-\end{align*}
+\een
 from which, together with (\ref{eq:cond}), it follows that there exists $c>0$ s.t. for all sufficiently small $\nu$ 
-\begin{align*}
+\ben
  \left|  \frac{d^2}{dx^2}E_x^{\nu}\right|_{L_2}^{2}&\leq c\int\limits_{\Omega}\frac{1}{(x^2+\nu^2)^{3}}dx
  %\\
  %&=c\left.
  %\left(\frac{x}{4(x^2+\nu^2)^2}\nu^{-2}+\frac{3x}{8(x^2+\nu^2)}\nu^{-4}+\frac{3}{8}\nu^{-5}\operatorname{atan}\frac{x}{\nu}\right)\right|_{-L}^{H}
  \leq C\nu^{-5},\; 
-\end{align*}
+\een
 where $C>0$ does not depend on $\nu$. This, together with the estimates (\ref{eq:cea}) and (\ref{eq:bsc}), results in 
-\begin{align*}
+\ben
  \|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L_{2}(\Omega)}\leq C\nu^{-\frac{7}{2}}h^2,
-\end{align*}
+\een
 from which it follows that to ensure (\ref{eq:problem1}) $h$ should be chosen as 
 \begin{align}
 \label{eq:estimate_h}
@@ -178,7 +178,7 @@ $H$ & 10 \\
 \end{table}
 
  We fix $\nu$ and compute the error of the solution compared to the solution computed on the finest mesh  (with $h=2e-6$). 
- The results are depicted in Figures \ref{fig:dependence} and \ref{fig:l2_err_e2}.
+ The results are depicted in Fig. \ref{fig:dependence} and \ref{fig:l2_err_e2}.
 \begin{figure}
 \begin{tabular}{cc}
 \begin{tikzpicture}
@@ -260,7 +260,7 @@ Let us denote by $E_{x}^{h}$ the solution $E_{x}(x)$ computed on the mesh with a
 \label{eq:def_epsilon}
 h_{\epsilon}=\sup\{h: \|E_{x}^{h'}-E_{x}^{c}\|<\epsilon \text{ for all } h'<h\}.
 \end{align}
-The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Figure \ref{fig:dependence}.
+The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Fig.~\ref{fig:dependence}.
 \begin{figure}
 \begin{tabular}{cc}
 \begin{tikzpicture}
@@ -304,13 +304,13 @@ at least for a given value of $\epsilon$.
 
 \begin{remark}
  We can show that 
-\begin{align*}
+\bealn
  \|E^{\nu}_{x}\|_{L_{2}(\Omega)}\leq \frac{C}{\sqrt{\nu}},\; C>0, 
-\end{align*}
+\eealn
 and thus the relative error control
-\begin{align*}
+\bealn
  \frac{\|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L_{2}(\Omega)}}{\|E^{\nu}_{x}\|_{L_{2}(\Omega)}}\leq \epsilon
-\end{align*}
+\eealn
 can be ensured by choosing $h$ as $\beta_{\epsilon}\nu^{\frac{3}{4}}$.
 \end{remark}
 
@@ -337,7 +337,7 @@ on $\nu$, for several values of $h$ (see Table \ref{tab:cond_number}).
 \label{tab:cond_number}
 \end{table}
 Remarkably, for $\nu=0$ the computed matrices are not singular. \urev{We do not know the exact reason for such a behavior.}
-As an additional illustration, we compare the solutions for very small $\nu$ and $\nu=0$ for different meshes in Figure \ref{fig:small_nu}. 
+As an additional illustration, we compare the solutions for very small $\nu$ and $\nu=0$ for different meshes in Fig.~\ref{fig:small_nu}. 
 \begin{figure}
  \includegraphics[width=0.4\textwidth]{figure2-crop.pdf}
  \caption{The plot shows $E_{y}^{\nu}$ computed on different meshes for small $\nu$. It can be seen that for meshes that are coarse 
