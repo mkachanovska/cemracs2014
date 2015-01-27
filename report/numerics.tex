@@ -39,7 +39,7 @@ E_{x}=-i\frac{\delta(x)}{\alpha(x)}Ai(x)
 \ealn
 is the solution to the problem with parameters (\ref{eq:parameters}) with the boundary condition (\ref{eq:bcs}).
 
-In Figure \ref{fig:conv_rate} we demonstrate the convergence rates for this problem, with 
+In Fig.~\ref{fig:conv_rate} we demonstrate the convergence rates for this problem, with 
 \ben
 \|E_{x}-E_{x}^{c}\|_{L_{2}(\Omega)}=\left(\int\limits_{\Omega}\left|E_{x}(x)-\sum\limits_{k=1}^{N}e_{xk}\phi_{k}\right|^2dx\right),
 \een
@@ -178,7 +178,7 @@ $H$ & 10 \\
 \end{table}
 
  We fix $\nu$ and compute the error of the solution compared to the solution computed on the finest mesh  (with $h=2e-6$). 
- The results are depicted in Figures \ref{fig:dependence} and \ref{fig:l2_err_e2}.
+ The results are depicted in Fig. \ref{fig:dependence} and \ref{fig:l2_err_e2}.
 \begin{figure}
 \begin{tabular}{cc}
 \begin{tikzpicture}
@@ -260,7 +260,7 @@ Let us denote by $E_{x}^{h}$ the solution $E_{x}(x)$ computed on the mesh with a
 \label{eq:def_epsilon}
 h_{\epsilon}=\sup\{h: \|E_{x}^{h'}-E_{x}^{c}\|<\epsilon \text{ for all } h'<h\}.
 \end{align}
-The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Figure \ref{fig:dependence}.
+The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Fig.~\ref{fig:dependence}.
 \begin{figure}
 \begin{tabular}{cc}
 \begin{tikzpicture}
@@ -337,7 +337,7 @@ on $\nu$, for several values of $h$ (see Table \ref{tab:cond_number}).
 \label{tab:cond_number}
 \end{table}
 Remarkably, for $\nu=0$ the computed matrices are not singular. \urev{We do not know the exact reason for such a behavior.}
-As an additional illustration, we compare the solutions for very small $\nu$ and $\nu=0$ for different meshes in Figure \ref{fig:small_nu}. 
+As an additional illustration, we compare the solutions for very small $\nu$ and $\nu=0$ for different meshes in Fig.~\ref{fig:small_nu}. 
 \begin{figure}
  \includegraphics[width=0.4\textwidth]{figure2-crop.pdf}
  \caption{The plot shows $E_{y}^{\nu}$ computed on different meshes for small $\nu$. It can be seen that for meshes that are coarse 
