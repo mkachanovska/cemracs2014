@@ -13,14 +13,14 @@ fluid equations with the non electrostatic part of Maxwell equations.
 
 
 We consider the model of cold plasma of \cite{Stix} which is described by the 2D time-dependent Maxwell system  
-\begin{align}
+\bealn
 -\varepsilon_0 \partial_t \E + \curl\, \Hbf = \J\\
 \mu_0 \partial_t \Hbf + \curl\, \E = 0
-\end{align}
+\eealn
 coupled with a linear electronic current  $\J = eN_e \ubf_e$, 
-\be
+\ben
 m_e \partial_t \ubf_e =e (\E +\ubf_e \wedge B_0) -m_e \nu \ubf_e, \label{eq:electronmove}
-\ee
+\een
 where $\nu$ is  the friction  between particles.
 The unknowns are the electromagnetic fields $(\E,\Hbf)$ with the usual notation $\Hbf = \B/\mu_0$, 
  %the electronic current $\J$, 
@@ -40,20 +40,20 @@ m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y
 \right.\end{align}
 posed in $[-L,\; \infty)\times \mathbb{R}$, for some $L>0$. This domain represents the physical case of a wave sent from a wall facing a plasma. 
 The energy of this system for $\nu=0$ in a domain $\Omega\in\mathbb R^2$ can be expressed as \cite{stable_yee_plasma_current}
-\mrev{\begin{align*}
+\mrev{\ben
 {\mathcal E}(t)= \int_\Omega \left(
 \frac{\epsilon_0 |\E(t,\x)|^2}{2}+\frac{ |\B(t,\x)|^2}{2\mu_0}+\frac{m_e N_e|\mathbf{u} (t,\x)|^2}{2} 
 \right)\mathrm{d}\x.
-\end{align*}}
+\een}
 \mrev{An energy-preserving scheme for discretizing (\ref{eq:main_model}) was recently developed in \cite{Despres_2014}. 
 It can be shown that for non-zero collision frequency $\nu$ the loss of energy is proportional to $\nu$, however, as $\nu\rightarrow0+$, it 
 does not vanish. This behaviour had been recently investigated in \cite{Despres_2014}}.
 
 We complement Problem (\ref{eq:main_model}) with the following boundary conditions.
 At the left boundary of the domain, which represents the wall, we choose Robin boundary conditions 
-\be
+\ben
 -curl \E -\imath \lambda\E \wedge \n = g_{inc} = -curl \E_{inc} -\imath\lambda\E_{inc} \wedge \n,
-\ee
+\een
 where $\E_{inc} = \exp \left(\imath \lambda x\right)\begin{pmatrix} E_1\\ E_2 \end{pmatrix}$. We truncate the domain 
 $(-L,\; \infty)$ to $(-L,\; H)$ and set on the right boundary $\operatorname{curl} \E = 0$. 
 \begin{remark}
