@@ -1,0 +1,264 @@
+\documentclass[proc]{edpsmath}
+\usepackage{amsfonts,graphicx,amssymb}%amsfonts pour les \mathbb
+\usepackage{amsmath,amsthm,amssymb}
+\newcommand{\bs}{\left\{}
+\newcommand{\es}{\right.}
+\newcommand{\ba}{\begin{array}}
+\newcommand{\ea}{\end{array}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\ora}{\overrightarrow}
+\newcommand{\x}{{\bf x}}
+\newcommand{\E}{{\bf E}}
+\newcommand{\n}{{\bf n}}
+\newcommand{\f}{{\bf f}}
+\begin{document}
+\section{Discretization}
+Clearly, the solution of the problem 
+\begin{align*}
+a(u, v)=(f,v)\text{ for all } v=(v_{1},v_{2})^{T}\in \mathbf{V}=V_1\times V_2, 
+\end{align*}
+is equivalent to the solution of
+\begin{align*}
+a(u,(v_{1},0)^{T})=(f,(v_{1},0)^{T}),\text{ for all } v_1\in V_1,\\
+a(u,(0,v_{2})^{T})=(f,(0,v_{2})^{T}),\text{ for all } v_2\in V_2.
+\end{align*}
+Thus, the variational formulation (\ref{}) can be rewritten as a system of two equations:
+\begin{align*}
+\begin{split}
+i\theta \displaystyle \int_{-L}^H (E_2' -\imath\theta E_1)\overline{\tilde E_1} - \int_{-L}^H \left((\epsilon_0 +\imath\nu \operatorname{Id}) \E\right)_{1} \overline{\tilde E}_{1}
+&=0,\\
+\displaystyle \int_{-L}^H (E_2' -\imath\theta E_1)\tilde {E_2'} - \int_{-L}^H\left( (\epsilon_0 +\imath\nu\operatorname{Id}) \E\right)_{2}\overline{\tilde{E}}_{2}
+  - \imath \sqrt{\alpha(-L)} E_2 (-L) \tilde E_2 (-L) &= -g_{inc} (-L) \overline{( \tilde E_2(-L) )},\\
+  \text{ for all } \tilde E_{1}\in L_{2}(\Omega), \; \tilde{E}_{2}\in H_{1}(\Omega).
+  \end{split}
+\end{align*}
+Inserting an explicit expression for the dielectric permittivity tensor 
+\be \label{eq:epsilonmu}
+ \epsilon_0(x) =
+\left(
+\begin{array}{cc}
+\alpha(\x) & \imath \delta (\x)\\
+-\imath \delta (\x) & \alpha(\x)
+\end{array}
+\right)
+\ee
+into the above, we obtain
+\begin{align}
+\label{eq:var_form2}
+\begin{split}
+ i\theta \displaystyle \int_{-L}^H (E_2' -\imath\theta E_1)\overline{\tilde E_1} - 
+ \int_{-L}^H \left((\alpha+i\nu)E_1+\imath\delta E_2\right)_{1} \overline{\tilde E}_{1}
+&=0,\\
+\int_{-L}^H (E_2' -\imath\theta E_1)\tilde {E_2'} -
+\int_{-L}^H\left( -\imath \delta E_1+(\alpha+i\nu) E_2\right)_{2}\overline{\tilde{E}}_{2}
+  - \imath \sqrt{\alpha(-L)} E_2 (-L) \tilde E_2 (-L) &= -g_{inc} (-L) \overline{( \tilde E_2(-L) )},\\
+  \text{ for all } \tilde E_{1}\in L_{2}(\Omega), \; \tilde{E}_{2}\in H_{1}(\Omega).
+  \end{split}
+\end{align}
+
+
+\begin{remark}
+Let us assume that the operator
+\begin{align*}
+M\psi = \frac{i\delta}{(\alpha+i\nu)}\psi
+\end{align*}
+defines an isomorphism from $L_{2}(\Omega)$ to $L_{2}(\Omega)$. 
+Given $E_1,\; E_2\in L_{2}(\Omega)$, the function $\mathcal{F}=\frac{i\delta}{(\alpha+\imath\nu)}\left((\alpha+\imath\nu)E_{1}+i\delta E_{2}\right)$ also belongs to $L_{2}(\Omega)$. 
+If $E_1,\; E_2$ satisfy the problem (\ref{eq:var_form2}) for $\theta=0$, the function $\mathcal{F}=0$, 
+i.e.
+\begin{align*}
+ (\mathcal{F},\tilde{E}_{2})_{L_{2}}=\int_{-L}^{H}\left(\imath\delta E_{1}-\delta^2(\alpha+i\nu)^{-1} E_{2}\right)\overline{\tilde E}_{2}=0,
+\end{align*}
+for all $\overline{\tilde E}_2\in H_{1}(\Omega)$. Adding this to the second expression of (\ref{eq:var_form2}), we obtain 
+the variational formulation for $E_2$, which coincides with the variational formulation for the Helmholtz equation. The well-posedness 
+of this problem had been studied in \cite{}. 
+Hence, we can add the second expression (\ref{eq:E2}) to
+\begin{align*}
+\int_{-L}^{H}\left(i\delta E_{1}-\delta^2(\alpha+i\nu)^{-1} E_{2}\right)\overline{\tilde E}_{2}=0
+\end{align*}
+to obtain the variational formulation for $E_{2}$, which will coincide with the variational formulation for the Helmholtz equation, and thus will be well-posed 
+(see the thesis \cite{thesis_lmig}).
+The estimates from \cite{thesis_lmig} can be employed to bound $\|E_{1}\|_{L_{2}}$.
+\end{remark}
+
+
+Introducing two basis spaces, $V_{E_{1}}=\{\psi_{j}\}_{j=1}^{N_{1}}$ and $V_{E_{2}}=\{\phi_{i}\}_{i=1}^{N_{2}}$, we look for the solution of the problem (\ref{}) in the form:
+\begin{align*}
+E_{1}=\sum\limits_{k=1}^{N_{1}}e_{1k}\psi_{k},\qquad E_{2}=\sum\limits_{k=1}^{N_{2}}e_{2k}\phi_{k}.
+\end{align*}
+Substituting $\tilde{E}_{1}=\psi_{m}, \; m=1,\ldots,N_{1}$ and $\tilde{E}_{2}=0$ into the variational formulation (\ref{}), we obtain:
+\begin{align*}
+i\theta\sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\phi'_{k}\bar{\psi}_{m}dx+\theta^2\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\psi_{k}\bar{\psi}_{m}dx
+-\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}(\alpha(x)+i\nu)\psi_{k}\bar{\psi}_{m}dx-i\sum\limits_{1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\delta(x)\phi_{k}(x)\bar{\psi}_{m}dx=0.
+\end{align*}
+Similarly, for $\tilde{E}_{1}=0$ and $\tilde{E}_{2}=\phi_{\ell},\; \ell=1,\ldots, N_{2}$:
+\begin{align*}
+\sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\phi'_{k}(x)\bar{\phi}'_{\ell}(x)dx-i\theta\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\psi_{k}(x)\bar{\phi}'_{\ell}(x)dx
++i
+\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\delta(x)\psi_{k}\bar{\phi}_{m}dx-\\
+\sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}(\alpha(x)+i\nu)\phi_{k}\bar{\phi}_{m}dx
+-
+i\lambda\sum\limits_{k=1}^{N_{2}}e_{2k}\phi_{k}(-L)\bar{\phi}_{m}(-L)=-g_{inc}(x)\bar{\phi}_{m}(-L).
+\end{align*}
+After introduction 
+\begin{align*}
+\left(K^{\psi,\phi'}\right)_{mk}&=\int\limits_{-L}^{H}\bar{\psi}_{m}\phi'_{k}dx,\qquad \left(M^{\psi}\right)_{mk}&=\int\limits_{-L}^{H}\psi_{k}\bar{\psi}_{m}dx,\\
+\left(M^{\alpha,\psi}\right)_{mk}&=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\psi_{m}\bar{\psi}_{k}dx, \qquad \left(M^{\delta,\psi,\phi}\right)_{mk}&=\int\limits_{-L}^{H}\delta(x)\bar{\psi}_{m}\phi_{k}dx,\\
+K_{\ell k}&=\int\limits_{-L}^{H}\phi'_{k}(x)\bar{\phi}'_{\ell}(x)dx,\qquad \left(M^{\alpha,\phi}\right)_{\ell k}&=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\bar{\phi}_{\ell}\phi_{k}dx,\\
+I_{km}^{\Gamma}&=\bar{\phi}_{m}(-L)\phi_{k}(-L),\\
+\boldsymbol{e}_{1}&=\left(e_{11},\ldots,e_{1 N_{1}}\right)^{T},\; \boldsymbol{e}_{2}&=\left(e_{21},\ldots,e_{2 N_{1}}\right)^{T},\\
+\boldsymbol{0}_{n} \text{ is an $n$-dimensional zero column vector}.
+\end{align*}
+the above system of equations can be rewritten in an antisymmetric block form:
+\begin{align*}
+\left(\begin{matrix}
+\theta^2 M_{\psi}-M^{\alpha,\psi} & i\theta K^{\psi,\phi'}-i M^{\delta,\psi,\phi} \\
+-i\theta (K^{\psi,\phi'})^{*}+i (M^{\delta,\psi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
+\end{matrix}\right)
+\left(
+\begin{matrix}
+\boldsymbol{e}_1\\
+\boldsymbol{e}_2
+\end{matrix}
+\right)=-g_{inc}(-L)
+\left(
+\begin{matrix}
+\boldsymbol{0}_{N_{1}}\\
+\bar{\phi}_{1}(-L)\\
+\bar{\phi}_{2}(-L)\\
+\vdots\\
+\bar{\phi}_{N_{2}}(-L)
+\end{matrix}
+\right).
+\end{align*}
+This expression greatly simplifies when choosing $V_{E_{1}}=V_{E_{2}}=\left(\phi_{m}\right)_{m=1}^{N_{2}}$ and in the case $\theta=0$:
+\begin{align}
+\label{eq:simple_system}
+\left(\begin{matrix}
+M^{\alpha,\phi} & i M^{\delta,\phi,\phi} \\
+i (M^{\delta,\phi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
+\end{matrix}\right)
+\left(
+\begin{matrix}
+\boldsymbol{e}_1\\ 
+\boldsymbol{e}_2
+\end{matrix}
+\right)=-g_{inc}(-L)
+\left(
+\begin{matrix}
+\boldsymbol{0}_{N_{1}}\\
+\bar{\phi}_{1}(-L)\\
+\bar{\phi}_{2}(-L)\\
+\vdots\\
+\bar{\phi}_{N_{2}}(-L)
+\end{matrix}
+\right).
+\end{align}
+In all numerical experiments, we make use of the formulation, where the Lagrange piecewise-linear ('hat') finite elements are used as a 
+basis and trial space (see \cite{brenner}). We apply permutation to the above system 
+to obtain a 7-diagonal Hermitian matrix and solve the system with the Gauss back substitution algorithm. 
+
+
+
+
+\section{Numerical Experiments}
+This section is organized as follows. The first part is dedicated to the numerical implementation
+of the frequency domain formulation (\ref{}). We study the convergence of this formulation and the behaviour 
+of the numerical solution as the absorption parameter $\nu$ tends to zero. The experiments in this section were 
+performed on a laptop with 2.6GHz Intel Core i5 CPU, with the help of the code written in Octave (compatible with Matlab). 
+
+The second part of the section deals with the question of the equivalence of the limiting absorption and limited amplitude 
+principle. We compare the solutions obtained as $\nu\rightarrow 0$ with the help of our frequency domain code 
+and of the time domain code (computed for large values of time). 
+The time-domain code implements the scheme described in Section \ref{} and 
+is written in Fortran. 
+\subsection{Frequency Domain Problem}
+\subsubsection{Validity of Implementation}
+
+\subsubsection{Solution of the $X$-Mode Problem and Convergence}
+
+Let us consider the case of the resonance, more precisely, we consider sufficiently smooth
+$\alpha,\delta$, s.t. $\alpha(0)=0$ and $\delta(0)\neq 0$, and the solvability conditions 
+of Theorem \ref{}  are satisfied. 
+For simplicity, let us consider 
+\begin{align}
+\label{eq:cond}
+ \alpha(x)=-x \text{  in some neighbourhood of $0$ }.
+\end{align}
+
+
+Given the space $\mathbf{V}_{h}=S_{h}^{1}\times S_{h}^{1}$, with $S_{h}^{1}$ consisting of piecewise-linear (hat) functions, we look for a ratio $h(\nu)$ that would ensure that the absolute error 
+\begin{align}
+\label{eq:problem1}
+\|E^{\nu}_{1}-E^{\nu,h}_{1}\|_{L_{2}(\Omega)}<\epsilon,
+\end{align}
+given a fixed value of $\epsilon>0$. 
+
+We use the following well-known facts:
+\begin{itemize}
+ \item The C\'ea's lemma applied to the problem (\ref{}); here $C_c$ is the continuity and $C_i$ is the coercivity constants:
+\begin{align}
+\label{eq:cea}
+\begin{split}
+ \|\mathbf{E}^{\nu}-\mathbf{E}^{h,\nu}\|_{V}\leq \frac{C_c}{C_i}\min_{\mathbf{v}\in V_h}\|\mathbf{E}-\mathbf{v}\|_{V}
+ \leq \nu^{-1}\min_{\mathbf{v}\in V_h}\|\mathbf{E}-\mathbf{v}\|_{V}.
+ \end{split}
+\end{align}
+The last inequality follows from Theorem \ref{}.  
+\item The form of the exact solution to the problem (\ref{}):
+\begin{align}
+\label{eq:exact}
+ E_{1}^{\nu}=E_{2}^{\nu}\frac{\delta}{\alpha+i\nu}=\frac{f(x)}{\alpha(x)+i\nu},
+\end{align}
+for some $f(x)\in L_{2}(\Omega)$.
+\item The estimate from \cite[Chapter 0]{Brenner_Scott} on the rate of convergence of the interpolation 
+\begin{align}
+\label{eq:bsc}
+ \|v-I^{h}v\|_{L_{2}(\Omega)}\leq Ch^2|v''|_{L_{2}(\Omega)},\; C>0, %\\ \|v-I^{h}v\|_{H_{1}(\Omega)}\leq Ch|v''|_{L_{2}(\Omega)},\; C>0, 
+\end{align}
+where $I^{h}v$ is an interpolation operator onto $S_{h}^{1}$.
+\end{itemize}
+For $E_{1}^{\nu},\;f(x)$ in (\ref{eq:exact}) being sufficiently smooth, 
+\begin{align*}
+ \frac{d^2}{dx^2}E_{1}^{\nu}=\frac{f''}{\alpha+i\nu}-2\frac{f'\alpha'}{(\alpha+i\nu)^2}+\frac{f\alpha''}{(\alpha+i\nu)^3},
+\end{align*}
+from which, together with (\ref{eq:cond}), it follows that there exists $c>0$ s.t. for all sufficiently small $\nu$ 
+\begin{align*}
+ \left|  \frac{d^2}{dx^2}E_{1}^{\nu}\right|_{L_2}^{2}&\leq c\int\limits_{\Omega}\frac{1}{(x^2+\nu^2)^{3}}dx
+ %\\
+ %&=c\left.
+ %\left(\frac{x}{4(x^2+\nu^2)^2}\nu^{-2}+\frac{3x}{8(x^2+\nu^2)}\nu^{-4}+\frac{3}{8}\nu^{-5}\operatorname{atan}\frac{x}{\nu}\right)\right|_{-L}^{H}
+ \leq C\nu^{-5},\; 
+\end{align*}
+where $C>0$ does not depend on $\nu$. This, together with the estimates (\ref{eq:cea}) and (\ref{eq:bsc}), results in 
+\begin{align*}
+ \|E^{\nu}_{1}-E^{\nu,h}_{1}\|_{L_{2}(\Omega)}\leq C\nu^{-\frac{7}{2}}h^2,
+\end{align*}
+from which it follows that to ensure (\ref{eq:problem1}) $h$ should be chosen as $\alpha_{\epsilon}\nu^{\frac{7}{4}}$, 
+where $\alpha_{\epsilon}>0$ depends on $\epsilon$ but does not depend on $\nu$. 
+
+Let us check whether this holds true. 
+To do so, we conduct the following numerical experiment. 
+
+
+
+We can show that 
+\begin{align*}
+ \|E^{\nu}_{1}\|_{L_{2}(\Omega)}\leq \frac{C}{\sqrt{\nu}},\; C>0, 
+\end{align*}
+and thus the relative error control
+\begin{align*}
+ \frac{\|E^{\nu}_{1}-E^{\nu,h}_{1}\|_{L_{2}(\Omega)}}{\|E^{\nu}_{1}\|_{L_{2}(\Omega)}}\leq \epsilon
+\end{align*}
+can be ensured by choosing $h$ as $\beta_{\epsilon}\nu^{\frac{3}{4}}$.
+
+
+\subsection{Time Domain}
+In this section we study the equivalence of the limiting amplitude and limiting absorption principles. 
+\subsubsection{Regular Solution}
+First we consider the problem with $\alpha,\beta$ chosen as in (\ref{}) and its time-dependent counterpart. We conduct several numerical experiments, with values of the absorption chosen as $\nu=...$, 
+
+
+\subsubsection{Hybrid Resonance Solution}
+\end{document}

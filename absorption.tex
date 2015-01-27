@@ -1,0 +1,63 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,array}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{pgfplots}
+\usepackage{ulem}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\usepackage{hyperref}
+\begin{document}
+\subsection{Limiting Amplitude and Limiting Absorption Principle}
+In this section we perform several numerical experiments,
+with the normalization chosen as $\epsilon_0=\mu_0=1$, $\omega=c=1$. 
+Also, we set $m_e=1$ and $e=-1$. From this it follows that $w_c=-B_0$ and $w_p^2=N_e$. 
+We consider the following two cases:
+\begin{itemize}
+ \item case $N_e\neq \operatorname{const}$, no resonance
+ \item case $N_e\neq \operatorname{const}$, resonance
+\end{itemize}
+For every fixed absorption rate $\nu$, in the time domain we choose the boundary conditions of the form
+\begin{align}
+\label{eq:bcs}
+\left.\partial_t H\right|_{x=-L}&=-\left.\partial_x E_y\right|_{x=-L}=G\sin(t),\; G\in \mathbb{R}, \\
+ \nonumber
+ \left.\partial_t H\right|_{x=H}&=0,
+\end{align}
+and zero initial conditions, and in the frequency domain
+\begin{align*}
+ \left.\partial_x \hat{E}_y\right|_{x=-L}&=G,\\
+ \left.\partial_x \hat{E}_y\right|_{x=H}&=0.
+\end{align*}
+We compute the solution $\mathbf{E}^{\nu}(t)$ for large $t$ in the time domain (the solution computed numerically at the time step $n$ is denoted by $\mathbf{E}^{\nu}_{n}$), and the solution $\hat{\mathbf{E}}^{\nu}$ in the frequency domain. 
+Our goal is to check whether
+\begin{align*}
+\lim_{t\rightarrow+\infty}\mathbf{E}^{\nu}(t)=\Im\left(\hat{\mathbf{E}}^{\nu}\exp(it)\right).
+\end{align*}
+ 
+
+
+
+\subsubsection{No-resonance Case}
+We choose the parameters so that in the frequency domain, for the limiting amplitude problem, $\hat{E}_{y}$ satisfies 
+the Airy equation (\ref{}). 
+
+We set $\omega_c=0$ (thus $\delta(x)=0$), $\omega=1$ (hence $\alpha(x)=1-N_e(x)$), 
+choose the domain as $[-0.5, 10]$ and set the electron density $N_e(x)=1+x$. Importantly, $N_e(x)>0$ on the whole interval.
+The boundary conditions in (\ref{eq:bcs}) are chosen as $G=-Ai'(0.5)$. 
+
+In Figure \ref{} we show the dependence of the error 
+\begin{align*}
+\mathcal{E}(t)=\|\Im\left(\hat{E}_y^{\nu}\exp(it)\right)-E_y^{\nu}(t)\|_{L_{2}(-L;H)}.
+\end{align*}
+on time, for $\nu=1e-1$, for $\Delta t=0.05$ and $\Delta t=0.025$: it can be seen that the error between the solutions is caused by the numerical discretization. 
+
+\begin{figure}
+
+\end{figure}
+
+
+
+
+
+\end{document}
