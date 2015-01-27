@@ -40,12 +40,12 @@ m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y
 \right.\end{align}
 posed in $[-L,\; \infty)\times \mathbb{R}$, for some $L>0$. This domain represents the physical case of a wave sent from a wall facing a plasma. 
 The energy of this system for $\nu=0$ in a domain $\Omega\in\mathbb R^2$ can be expressed as \cite{stable_yee_plasma_current}
-\nrev{\begin{align*}
+\mrev{\begin{align*}
 {\mathcal E}(t)= \int_\Omega \left(
-\frac{\epsilon_0 |\E(t,\x)|^2}{2}+\frac{ |\B(t,\x)|^2}{2\mu_0}+\frac{m_e N_e|\u (t,\x)|^2}{2} 
+\frac{\epsilon_0 |\E(t,\x)|^2}{2}+\frac{ |\B(t,\x)|^2}{2\mu_0}+\frac{m_e N_e|\mathbf{u} (t,\x)|^2}{2} 
 \right)\mathrm{d}\x.
 \end{align*}}
-\nrev{An energy-preserving scheme for discretizing (\ref{eq:main_model}) was recently developed in \cite{Despres_2014}. 
+\mrev{An energy-preserving scheme for discretizing (\ref{eq:main_model}) was recently developed in \cite{Despres_2014}. 
 It can be shown that for non-zero collision frequency $\nu$ the loss of energy is proportional to $\nu$, however, as $\nu\rightarrow0+$, it 
 does not vanish. This paradox had been recently investigated in \cite{Despres_2014}}.
 
@@ -57,7 +57,7 @@ At the left boundary of the domain, which represents the wall, we choose Robin b
 where $\E_{inc} = \exp \left(\imath \lambda x\right)\begin{pmatrix} E_1\\ E_2 \end{pmatrix}$. We truncate the domain 
 $(-L,\; \infty)$ to $(-L,\; H)$ and set on the right boundary $\operatorname{curl} \E = 0$. 
 \begin{remark}
-	When modeling antennas in plasma physics, in such applications as ITER, 
+	When modeling antennas in plasma physics \mrev{(e.g. in such applications as ITER)}, 
 	a good choice of boundary condition could be $\lambda = \sqrt{\alpha(-L)}$
 \end{remark}
 
@@ -73,5 +73,25 @@ $\lim\limits_{t\rightarrow +\infty}\lim\limits_{\nu\rightarrow 0}\mathbf{E}(t)$ 
 the FDTD discretization of \eqref{eq:main_model}, suggested in \cite{stable_yee_plasma_current}. 
 We compare this result with 
 $\hat{\mathbf{E}}\mathrm{e}^{i\omega t}$, computed in the frequency domain, for $\nu\rightarrow 0$, which is equivalent to considering
-$\lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}\mathbf{E}(t)$. \textcolor{green}{DRAWING A COMMUTATIVE DIAGRAM ?}
+$\lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}\mathbf{E}(t)$, i.e. we check the validity of the scheme in Figure \ref{fig:limits}. 
+\begin{figure}
+\begin{tikzpicture}
+   \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em] {
+     \mathbf{E}^{\nu}(t) & \mathbf{E}^{0+}(t)\\
+     \hat{\mathbf{E}}^{\nu}(t)\mathrm{e}^{i\omega t} & 
+     \lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow \infty}\mathbf{E}^{\nu}(t)=\lim\limits_{t\rightarrow \infty}\lim\limits_{\nu\rightarrow 0}\mathbf{E}^{\nu}(t)\\
+     };
+  \path[-stealth,font=\scriptsize]    (m-1-1) edge node [left] {$t\rightarrow\infty$} (m-2-1);
+  \path[-stealth, font=\scriptsize]   (m-1-1) edge node [above] {$\nu\rightarrow 0+$} (m-1-2);
+  \path[-stealth, font=\scriptsize]   (m-2-1) edge node [above] {$\nu\rightarrow 0$} (m-2-2);
+  \path[-stealth, font=\scriptsize]   (m-1-2) edge node [right] {$t\rightarrow \infty$} (m-2-2);
+
+
+  % \path[-stealth] (m-2-1.east) edge node [above] {$\nu\rightarrow 0$} (m-2-2);
+    %(m-1-2) edge node [right] {$\nu\rightarrow 0$} (m-2-2);
+\end{tikzpicture}
+ \caption{Schematic representation of the equivalence of the limited absorption and limiting amplitude principles.}
+ \label{fig:limits}
+\end{figure}
+
 To our knowledge, such numerical studies have not been performed in the existing literature. 
