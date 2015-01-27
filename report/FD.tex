@@ -300,7 +300,7 @@ had been demonstrated in \cite{LMIG_thesis}. Provided the solution $E_y\in H_{1}
 \section{Discretization of the Frequency Domain Problem}
 \label{sec:discr}
 Testing the variational formulation (\ref{vf1dcase}) with $(\tilde E_x,0)$ and $(0,\; \tilde{E}_y)\in\mathbf{V}(\Omega)$ and using 
-an explicit expression for the tensor of the dielectric permittivity (\ref{eq:epsilon_0}), we obtain the following formulation.
+an explicit expression for the tensor of the dielectric permittivity (\ref{eq:epsilon_0}), we can rewrite it as a system of two equations
 %\begin{align*}
 %\begin{split}
 %i\theta \displaystyle \int_{-L}^H (E_y' -\imath\theta E_x)\overline{\tilde E_x} - \int_{-L}^H \left((\epsilon_0 +\imath\nu \operatorname{Id}) \E\right)_{1} \overline{\tilde E}_{x}
@@ -311,7 +311,7 @@ an explicit expression for the tensor of the dielectric permittivity (\ref{eq:ep
 %  \end{split}
 %\end{align*}
 %Using the explicit expression for the dielectric permittivity tensor in the above, it yields: 
-For all $ \tilde E_x\in L_{2}(\Omega), \; \tilde{E}_{y}\in H_{1}(\Omega)$,
+
 \begin{align}
 \label{eq:var_form2}
 \begin{split}
@@ -320,11 +320,12 @@ For all $ \tilde E_x\in L_{2}(\Omega), \; \tilde{E}_{y}\in H_{1}(\Omega)$,
 &=0,\\
 \int_{-L}^H (E_y' -\imath\theta E_x)\tilde {E_y'} -
 \int_{-L}^H\left( -\imath \delta E_x+(\alpha+i\nu) E_y\right)_{2}\overline{\tilde{E}}_{y}
-  - \imath \lambda E_y (-L) \tilde E_y (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )}.
+  - \imath \lambda E_y (-L) \tilde E_y (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
+ \text{ for all } \tilde E_x\in L_{2}(\Omega), \; \tilde{E}_{y}\in H_{1}(\Omega).
   \end{split}
 \end{align}
 Let us introduce two basis function spaces $V_{E_x}=\{\psi_{j}\}_{j=1}^{N_{1}}$ and $V_{E_{y}}=\{\phi_{i}\}_{i=1}^{N_{2}}$. 
-To discretize the problem (\ref{eq:var_form2}), we approximate $\mathbf{E}$ as 
+We look for the solution of the problem (\ref{eq:var_form2}) in the form:
 \begin{align*}
 E_x=\sum\limits_{k=1}^{N_{1}}e_{xk}\psi_{k},\qquad E_{y}=\sum\limits_{k=1}^{N_{2}}e_{yk}\phi_{k}.
 \end{align*}
