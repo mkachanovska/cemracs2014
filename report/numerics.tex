@@ -50,12 +50,15 @@ where $\left(\phi_{i}\right)_{i=1}^{N}$ are $P_{1}$-finite elements and $E_{x}(x
     \begin{loglogaxis}[
         xlabel=$h$,
         ylabel=$Error$,
-        width=0.6\textwidth,
+        width=0.4\textwidth,
         legend style={
-at={(0.2,1.5)},
-legend pos= south east,
-anchor=south east, 
-draw=none
+at={(1.7,0.5)},
+%legend pos=outer north east, 
+anchor=east,
+%legend pos=south east,
+%anchor=east, 
+draw=none,
+font=\small
 }
 ]\addplot[mark=*,blue] table {pics/E1L2.dat}; 
     \addlegendentry{$\|E_{x}-E_{x}^{c}\|_{L_{2}}$};
