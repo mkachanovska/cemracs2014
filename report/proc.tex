@@ -33,10 +33,11 @@
 \newenvironment{remark}[1][Remark]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
 \newtheorem{theorem}{Theorem}[section]
+\newtheorem{df}{Definition}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \definecolor{blue}{rgb}{0.30,0.8,1}
 \definecolor{red}{rgb}{1,0.3,0.3}
-\usetikzlibrary{positioning,shapes,shadows,arrows}
+%\usetikzlibrary{positioning,shapes,shadows,arrows}
 
 %%         ...........
 %%-------------------------%%----
@@ -74,7 +75,7 @@
 \textcolor{red}{should we add Olivier Lafitte and Remi Sart anywhere in the proceeding ?}\\
 
 \input{intro}
-\input{equations}
+\input{FD}%\input{equations}
 
 \input{timedomain}
 \input{freqdomain}

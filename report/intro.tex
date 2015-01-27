@@ -12,88 +12,60 @@ hybrid resonance appears in a simpler model coupling
 fluid equations with the non electrostatic part of Maxwell equations.
 
 
-We consider the model of cold plasma of \cite{Stix} which is described by the non-stationary Maxwell system  
+We consider the model of cold plasma of \cite{Stix} which is described by the 2D time-dependent Maxwell system  
 \begin{align}
 -\varepsilon_0 \partial_t \E + \curl\, \Hbf = \J\\
 \mu_0 \partial_t \Hbf + \curl\, \E = 0
 \end{align}
-coupled with a linear current in two dimensions $\J = eN_e \ubf_e$, and takes into account the friction  $\nu$ between particles
+coupled with a linear electronic current  $\J = eN_e \ubf_e$, 
 \be
-m_e \partial_t \ubf_e =e (\E +\ubf_e \nabla B_0) -m_e \nu \ubf_e. \label{eq:electronmove}
+m_e \partial_t \ubf_e =e (\E +\ubf_e \wedge B_0) -m_e \nu \ubf_e, \label{eq:electronmove}
 \ee
-The unknows are the electromagnetic field $(\E,\Hbf)$ with the usual notation $\Hbf = \B/\mu_0$, 
-the electronic current $\J$, 
+where $\nu$ is  the friction  between particles.
+The unknowns are the electromagnetic fields $(\E,\Hbf)$ with the usual notation $\Hbf = \B/\mu_0$, 
+ %the electronic current $\J$, 
 and the velocity of electrons $\ubf_e$. Here $B_0$ is the background magnetic field, typically assumed to be uniform in time and space.  
 We denote by $e<0$ the value of the charge of electrons, $m_e$ the electron mass and $N_e$ the electron density that in general 
 depends on spatial variables and is uniform in time. 
 Without loss of generality, we set $\mathbf{B}_0=\left(0,\; 0,\; B_0\right)$, which allows to obtain the following system of equations 
 \begin{align}
 \label{eq:main_model}
-\begin{split}
-\epsilon_0\partial_t E_{x}-\partial_y H=-eN_e u_x,\\
-\epsilon_0\partial_t E_{y}+\partial_x H=-eN_e u_y,\\
-\mu_0\partial_t H+\partial_x E_y-\partial_y E_x=0,\\
+\left\{\begin{array}{l}
+\epsilon_0\partial_t E_{x}-\partial_y H_z=-eN_e u_x,\\
+\epsilon_0\partial_t E_{y}+\partial_x H_z=-eN_e u_y,\\
+\mu_0\partial_t H_z+\partial_x E_y-\partial_y E_x=0,\\
 m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\\
 m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y
-\end{split}
-\end{align}
-posed in $[-L,\; \mathbb{R}]\times \mathbb{R}$. 
-The energy of this system for $\nu=0$ in a domain $\Omega$ can be expressed as \cite{stable_yee_plasma_current}
+\end{array}
+\right.\end{align}
+posed in $[-L,\; \infty)\times \mathbb{R}$, for some $L>0$. This domain represents the physical case of a wave sent from a wall facing a plasma. 
+The energy of this system for $\nu=0$ in a domain $\Omega\in\mathbb R^2$ can be expressed as \cite{stable_yee_plasma_current}
 \begin{align*}
 {\mathcal E}(t)= \int_\Omega \left(
-\frac{\epsilon_0 |\E(t,\x)|^2}{2}+\frac{ |\B(t,\x)|^2}{2\mu_0}+\frac{m_e|\J (t,\x)|}{2|e|N_e(\x)} \mathrm{d}\x.
-\right)
+\frac{\epsilon_0 |\E(t,\x)|^2}{2}+\frac{ |\B(t,\x)|^2}{2\mu_0}+\frac{m_e|\J (t,\x)|}{2|e|N_e(\x)} 
+\right)\mathrm{d}\x.
 \end{align*}
-From this it can be seen that if the electron density $N_e(x)$ vanishes, 
+So if the electron density $N_e(x)$ vanishes, 
 the energy blows up~\cite{stable_yee_plasma_current}. 
 Mathematically, this effect was recently investigated in \cite{Despres_2014}, 
-in particular, it was shown that the electric field $E_x$ in this case is no longer square 
-integrable, and explicit estimates on the behaviour of the solutions of \eqref{eq:main_model} in 1D were given. 
+in particular, it was shown that the electric field component $E_x$ in this case is no longer square 
+integrable, and explicit estimates on the behaviour of the solutions of \eqref{eq:main_model} in 1D were provided. 
 
-In this work we look at a simplification of this model obtained after 
-the Fourier transform of (\ref{eq:main_model}) in $y$. 
-
-
+We complement Problem (\ref{eq:main_model}) with the following boundary conditions.
+At the left boundary of the domain, which represents the wall, we choose Robin boundary conditions 
+\be
+-curl \E -\imath \lambda\E \wedge \n = g_{inc} = -curl \E_{inc} -\imath\lambda\E_{inc} \wedge \n,
+\ee
+where $\E_{inc} = \exp \left(\imath \lambda x\right)\begin{pmatrix} E_1\\ E_2 \end{pmatrix}$. We truncate the domain 
+$(-L,\; \infty)$ to $(-L,\; H)$ and set on the right boundary $\operatorname{curl} \E = 0$. 
+\begin{remark}
+	When modeling antennas in plasma physics, in such applications as ITER, 
+	a good choice of boundary condition could be $\lambda = \sqrt{\alpha(-L)}$
+\end{remark}
 
 The goal of this article is two-fold. 
 First, we investigate the finite element approximation of the 1D 
-problem \eqref{eq:main_model} written in the frequency domain ($\partial_t\rightarrow -i\omega$).
-\mrev{More precisely, 
-\begin{align*}
-%\label{eq:main_frequency_domain_1}
-\operatorname{curl}\operatorname{curl}\hat{\mathbf{E}}-
-\epsilon(\omega)\hat{\mathbf{E}}=0,\\
-\epsilon(\omega)=\left(
-\begin{matrix}
- \tilde{\alpha} & i\tilde{\delta} \\
- -i\tilde{\delta}  & \tilde{\alpha}
-\end{matrix}
-\right),\\
-\tilde{\alpha}(\omega)=\frac{\omega^2}{c^2}\left(1-\frac{\tilde{\omega}\omega_p^2}{\omega(\tilde{\omega}^2-\omega_c^2)}\right),\qquad 
-\tilde{\delta}(\omega)=\frac{\omega_c\omega_p^2}{\omega(\tilde{\omega}^2-\omega_c^2)},\\
-\tilde{\omega}=\omega+i\nu,\qquad \omega_c=\mrev{\frac{eB_0}{m_e}},\qquad \omega_p^2=\frac{e^2 N_e}{\epsilon_0 m_e}.
-\end{align*}
-After expansion in $\nu\rightarrow 0$ and keeping lower-order terms only
-\begin{align*}
- \tilde{\alpha}(\omega)=\alpha(\omega)+i\nu\frac{\omega_p^2(\omega^2+\omega_c^2)}{(\omega^2-\omega_c^2)^2}\frac{\omega^2}{c^2},\qquad \alpha(\omega)=\frac{\omega^2}{c^2}\left(1-\frac{\omega_p^2}{\omega^2-\omega_c^2}\right),\\
- \tilde{\delta}(\omega)=\delta(\omega)-\frac{2i\omega^3\nu}{c^2(\omega^2-\omega_c^2)^2},\qquad \delta(\omega)=\frac{\omega\omega_c\omega_p^2}{c^2(\omega^2-\omega_c^2)}.
-\end{align*}
-Then the limiting absorption principle can be obtained leaving only the diagonal terms in the above expansion (see \cite{Despres_2014}):
-\begin{align}
-\label{eq:main_frequency_domain}
-\operatorname{curl}\operatorname{curl}\hat{\mathbf{E}}-\frac{\omega^2}{c^2}
-\left(\epsilon_0(\omega)+\nu Id\right)\hat{\mathbf{E}}=0,\\
-\nonumber
-\epsilon_0(\omega)=\left(
-\begin{matrix}
- \alpha & i\delta \\
- -i\delta & \alpha 
-\end{matrix}
-\right)
-\end{align}
-}
-\textcolor{blue}{Along with this frequency domain study, we investigate the time dependant problem.}\urev{ We assume $\alpha(\omega)$ and $\delta(\omega)$ be sufficiently smooth, i.e. bounded and continuous in  
-$\left[-L,\; \mathbb{R}\right)$.}
+problem \eqref{eq:main_model} written in the frequency domain ($\partial_t\rightarrow -i\omega$), with a linearized dielectric tensor with respect to $\nu$.
 In particular, we again investigate this problem in one dimension, performing the Fourier transform in $y$.
 We prove the well-posedness of this problem for $\nu>0$ in Section~\ref{sec:wellposedness} and 
 demonstrate that the use of higher-order (P1) finite elements allows to approximate the singularity 
@@ -102,19 +74,6 @@ Second, we consider the case $\nu\rightarrow 0$, and study the limiting amplitud
 $\lim\limits_{t\rightarrow +\infty}\lim\limits_{\nu\rightarrow 0}\mathbf{E}(t)$ obtained with the help of 
 the FDTD discretization of \eqref{eq:main_model}, suggested in \cite{stable_yee_plasma_current}. 
 We compare this result with 
-$\hat{\mathbf{E}}\mathrm{e}^{i\omega t}$, computed in the frequency domain, for $\nu\rightarrow 0$, i.e.
-$\lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}\mathbf{E}(t)$.
-
+$\hat{\mathbf{E}}\mathrm{e}^{i\omega t}$, computed in the frequency domain, for $\nu\rightarrow 0$, which is equivalent to considering
+$\lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}\mathbf{E}(t)$. DRAWING A COMMUTATIVE DIAGRAM ?
 To our knowledge, such numerical studies have not been performed in the existing literature. 
-
-To solve the problem (\ref{eq:main_model}) numerically, we equip it with the following boundary conditions.
-At the left boundary of the domain we choose Robin boundary conditions 
-\be
--curl \E -\imath \lambda\E \wedge \n = g_{inc} = -curl \E_{inc} -\imath\lambda\E_{inc} \wedge \n,
-\ee
-where $\E_{inc} = \exp \left(\imath \lambda x\right)\begin{pmatrix} E_1\\ E_2 \end{pmatrix}$. We truncate the domain 
-$(-L,\; \mathbb{R})$ to $(-L,\; H)$ and set on the right boundary $\operatorname{curl} \E = 0$. 
-\begin{remark}
-	When modelling antennas in plasma physics, in such applications as ITER, 
-	a good choice of boundary condition could be $\lambda = \sqrt{\alpha(-L)}$
-\end{remark}
