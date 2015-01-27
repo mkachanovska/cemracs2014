@@ -15,15 +15,15 @@ For every fixed absorption rate $\nu$, in the time domain we choose the boundary
  \left.\partial_t H\right|_{x=H}&=0,
 \end{align}
 and zero initial conditions, and in the frequency domain
-\begin{align*}
+\bealn
  \left.\partial_x \hat{E}_y\right|_{x=-L}&=G,\\
  \left.\partial_x \hat{E}_y\right|_{x=H}&=0.
-\end{align*}
+\eealn
 We compute the solution $\mathbf{E}^{\nu}(t)$ for large $t$ in the time domain (the solution computed numerically at the time step $n$ is denoted by $\mathbf{E}^{\nu}_{n}$), and the solution $\hat{\mathbf{E}}^{\nu}$ in the frequency domain. 
 In the numerical experiments we check whether the following two quantities
-\begin{align*}
+\ben
 \lim_{t\rightarrow+\infty}\mathbf{E}^{\nu}(t), \text{ and } \Im\left(\hat{\mathbf{E}}^{\nu}\exp(it)\right)
-\end{align*}
+\een
 are close as $\nu\rightarrow 0$ (provided that the first of these quantities exists). 
 \subsubsection{No-Resonance Case}
 We choose the parameters so that in the frequency domain, for the limiting amplitude problem, $\hat{E}_{y}$ satisfies 
