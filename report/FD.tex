@@ -1,0 +1,403 @@
+\section{Frequency domain study}
+
+\mrev{
+Consider the following problem: 
+\begin{align*}
+%\label{eq:main_frequency_domain_1}
+\operatorname{curl}\operatorname{curl}\hat{\mathbf{E}}-
+\epsilon(\omega)\hat{\mathbf{E}}=0,\\
+\epsilon(\omega)=\left(
+\begin{matrix}
+ \tilde{\alpha} & i\tilde{\delta} \\
+ -i\tilde{\delta}  & \tilde{\alpha}
+\end{matrix}
+\right),\\
+\tilde{\alpha}(\omega)=\frac{\omega^2}{c^2}\left(1-\frac{\tilde{\omega}\omega_p^2}{\omega(\tilde{\omega}^2-\omega_c^2)}\right),\qquad 
+\tilde{\delta}(\omega)=\frac{\omega_c\omega_p^2}{\omega(\tilde{\omega}^2-\omega_c^2)},\\
+\tilde{\omega}=\omega+i\nu,\qquad \omega_c=\mrev{\frac{eB_0}{m_e}},\qquad \omega_p^2=\frac{e^2 N_e}{\epsilon_0 m_e}.
+\end{align*}
+After series expansion as $\nu\rightarrow 0$ gives at leading orders
+\begin{align*}
+ \tilde{\alpha}(\omega)=\alpha(\omega)+i\nu\frac{\omega_p^2(\omega^2+\omega_c^2)}{(\omega^2-\omega_c^2)^2}\frac{\omega^2}{c^2},\qquad \alpha(\omega)=\frac{\omega^2}{c^2}\left(1-\frac{\omega_p^2}{\omega^2-\omega_c^2}\right),\\
+ \tilde{\delta}(\omega)=\delta(\omega)-\frac{2i\omega^3\nu}{c^2(\omega^2-\omega_c^2)^2},\qquad \delta(\omega)=\frac{\omega\omega_c\omega_p^2}{c^2(\omega^2-\omega_c^2)}.
+\end{align*}
+As explained in \cite{Despres_2014}, to study the limiting absorption principle, it is sufficient  
+to consider a simplified approximation
+\begin{align*}
+ \epsilon_{\nu}(\omega)\approx \epsilon_0+i\nu Id,\; \nu\rightarrow 0.
+\end{align*}
+Thus, in this work we concentrate on a model
+\begin{align}
+\label{eq:main_frequency_domain}
+\operatorname{curl}\operatorname{curl}\hat{\mathbf{E}}-\frac{\omega^2}{c^2}
+\left(\epsilon_0(\omega)+\nu Id\right)\hat{\mathbf{E}}=0,\\
+\label{eq:epsilon_0}
+\epsilon_0(\omega)=\left(
+\begin{matrix}
+ \alpha & i\delta \\
+ -i\delta & \alpha 
+\end{matrix}
+\right)
+\end{align}
+}
+\urev{ We assume $\alpha(\omega)$ and $\delta(\omega)$ be sufficiently smooth, i.e. bounded and continuous in  
+$\left[-L,\; \mathbb{R}\right)$.}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%% 
+\subsection{1D case}
+%%%%%%%%%%%%%%%%%%%%%% 
+\label{sec:wellposedness}
+
+In order to reduce problem \eqref{eq:main_frequency_domain} to one dimension, perform a Fourier transform in the $y$ variable, denoting by $\theta$ the corresponding Fourier variable.
+The resulting one dimensional system has the following variational formulation:
+\begin{align}
+\begin{array}{l}
+\displaystyle \int_{-L}^H (E_y' -\imath\theta E_x)\overline{(\tilde E_y' -\imath \theta \tilde E_x)} - \int_{-L}^H (\eps_0 +\imath\nu Id) \E \cdot \overline{\tilde \E}
+\\ \displaystyle  - \imath \lambda E_y (-L)\overline{ \tilde E_y (-L)} = -g_{inc} (-L) \overline{( \tilde E_y(-L) )} \label{vf1dcase}.
+\end{array}
+\end{align}
+\urev{In this and further sections, where it is not ambiguous, we will use the notation $E_{x,y}$ instead of $\hat{E}_{x,y}$ for convenience.}
+For the sake of clarity, consider the following notation: 
+\begin{df}
+The bilinear form $a$ and the linear form $l$ are such that
+\be
+a(\ubf,\vbf) = a_1 (\ubf,\vbf) +\imath a_2(\ubf,\vbf)\  \text{ and } \  l(\vbf) = -g_{inc} (-L) \overline{(v_2(-L) )} 
+\ee
+where $a_1= a_1^*$ and $a_2=a_2^*$ are hermitian. 
+
+Let us denote $\Omega=(-L,\; H)\in\mathbb R$ and introduce the function space $\mathbf{V}=L_{2}(\Omega)\times H_{1}(\Omega)$, 
+equipped with the norm
+\begin{align*}
+ \|\mathbf{v}\|_{\mathbf{V}}^2= \|v_1\|_{L_{2}(\Omega)}^2+\|v_2\|_{H^{1}(\Omega)}^2.
+\end{align*}
+Moreover the spectral radius of $\eps_0$ is denoted $\heps =  \|\rho(\eps_0)\|_{L^\infty}$.
+\end{df}
+
+We now prove the following result.
+\begin{lemma}
+\label{lemma:well_posedness}
+If $\heps $  is bounded, the bilinear form 
+\begin{align*}
+ a(\ubf,\vbf):  \mathbf{V}\times \mathbf{V}\rightarrow \mathbb{C}
+\end{align*}
+is continuous and coercive for all $\nu>0$: for all $\ubf,\vbf\in \mathbf{V}$ it holds that
+\begin{align}
+\label{eq:bilinear_cont}
+\left\{\begin{array}{l}
+|a(\ubf,\ubf)|\geq c\frac{1}{4} \sqrt{\frac{\nu}{\heps + \theta^2}}\|u_2\|^2_{H_{1}(\Omega)} +  \frac{\nu}{4} \|\ubf\|_{L^2(\Omega)}^2,\\
+|a(\ubf,\vbf)|\leq C \|\ubf\|_{\mathbf{V}}\|\vbf\|_{\mathbf{V}},
+\end{array}\right.
+\end{align}
+where $c, C>0$ do not depend on $\nu$. The problem~\eqref{vf1dcase} is well-posed in $\mathbf{V}$.
+\end{lemma}
+%\textcolor{red}{!!!! redo coercivity computations !!!}
+\begin{proof}
+The boundedness of $a$ is obvious. Let us focus on the proof of coercivity. 
+\be
+\left\{\begin{array}{l}
+a_1(\ubf,\vbf) = \int_{-L}^H (u_2' -\imath\theta u_1)\overline{(v_2' -\imath \theta v_1)} - \int_{-L}^H \eps_0 \ubf\cdot \overline{\vbf}, 
+\\ a_2(\ubf,\vbf) = -\nu \int_{-L}^H  \ubf\cdot \overline{\vbf} - \lambda u_2 (-L) \overline{v_2 (-L)} , 
+\end{array}\right.
+\ee
+
+\be
+|a_2 (\ubf ,\ubf)| \geq \nu \int_{-L}^H \ubf\cdot \ubf
+\ee
+We note $\heps =  \|\rho(\eps_0)\|_{L^\infty}$, the spectral radius of $\eps_0$. Then the eigenvalues of $\heps Id- \eps_0$ are $\heps - \lambda_1$, $\heps - \lambda_2$, where $\lambda_1$ and $\lambda_2$ are the eigenvalues of $\eps_0$.
+
+Then 
+\be 
+a_1(\ubf,\ubf) + \heps\|\ubf\|^2_{L^2}= \|u_2' - \imath \theta u_1 \|^2_{L^2} + \int_{-L}^{H} \left( (\heps Id - \eps_0 ) \ubf, \overline{\ubf} \right),
+\ee
+\be
+a_1(\ubf,\ubf) + \heps\|\ubf \|  \geq \|u_2 ' - \imath \theta u_1 \|_{L^ 2}^ 2,
+\ee
+\be 
+\begin{array}{l}\displaystyle
+\|u_2' - \imath \theta u_1 \|_{L^2} = \|u_2'\|^2_{L^2} - 2 \Re \left(u_2', \overline{\imath \theta u_1}\right) + \theta^2 \|u_1\|^2_{L^2} \\
+\geq \|u_2'\|_{L^2}^2 - 2 \left( \frac{1}{4}\|u_2' \|^2_{L^2} + \theta^2 \|u_1\|^2_{L^2} \right) + \theta^2 \|u_1\|^2_{L^2} \\
+\geq \frac{1}{2}\| u_2' \|^2_{L^2}-  \theta^2 \|u_1 \|^2_{L^2}.
+\end{array}
+\ee
+Thus, 
+\be
+a_1(\ubf,\ubf) + (\heps  + \theta^2) \| \ubf \|_{L^2}^2 \geq \frac{1}{2}\|u_2'\|^2_{L^2},
+\ee
+and
+\be
+\begin{array}{l}
+|a(\ubf,\ubf)|^2 = |a_1(\ubf,\ubf)|^2 + |a_2(\ubf,\ubf)|^2 \\
+\geq \left| \frac{1}{2}\|u_2' \|^2_{L^2} - (\heps + \theta^2) \|\ubf\|^2_{L^2}\right|^2+ \nu^2\|\ubf\|^2_{L^2}\\
+\geq \frac{1}{4}\|u_2'\|_{L^2}^4 - (\heps + \theta^2) \|u_2'\|^2_{L^2} \|\ubf\|^2_{L^2} + \left( (\heps + \theta^2) + \nu \right) \| \ubf\|^4_{L^2}.
+\end{array} 
+\ee
+%We obtain
+%\be
+%\begin{array}{l}
+%| a(\ubf, \ubf) |^2 \geq \frac{1}{4} \| u_2'\|_{L^2}^2 - (\heps + \theta^2) \left( \frac{\sigma^2}{2}\|u_2'\|_{L^2}^4 \right) - (\heps + \theta^2) \left( \frac{\|\ubf\|^4_{L^2}}{2\sigma^2} \right) \\
+%+ \left( (\heps + \sigma^2) + \nu^2 \right) \|\ubf \|^4_{L^2}\\
+%\geq \left( \frac{1}{4}- \frac{(\heps + \theta^2)\sigma}{2}\right)\|u_2'\|_{L^2}^4 + \left(\left((\heps + \theta^2) + \nu^2\right) - \frac{(\heps + \theta^2)}{2\sigma^2}\right) \|\ubf\|_{L^2}^4
+%\end{array}
+For all $\sigma > 0$ we then have
+\be\label{eq:coer01}
+\begin{array}{l}
+| a(\ubf, \ubf) |^2 \geq \frac{1}{4} \| u_2'\|_{L^2}^2 - (\heps + \theta^2) \left( \frac{\sigma^2}{2}\|u_2'\|_{L^2}^4 \right) - (\heps + \theta^2) \left( \frac{\|\ubf\|^4_{L^2}}{2\sigma^2} \right) \\
++ \left( (\heps + \theta^2) + \nu^2 \right) \|\ubf \|^4_{L^2}\\
+\geq \left( \frac{1}{4}- \frac{(\heps + \theta^2)\sigma}{2}\right)\|u_2'\|_{L^2}^4 + \left(\left((\heps + \theta^2) + \nu^2\right) - \frac{(\heps + \theta^2)}{2\sigma^2}\right) \|\ubf\|_{L^2}^4.
+\end{array}
+\ee
+%In order to satisfy \textcolor{green}{NOT VERY CLEAR }
+%\be
+%\frac{\sigma^2}{2} \leq \frac{1}{4(\heps + \theta^2)}.
+%\ee
+%and 
+%\be
+% \frac{\sigma^2}{2} \geq \frac{\heps+\theta^2}{4\left((\heps+\theta^2)^2+\nu^2\right)},
+%\ee
+%choose $\sigma$ such that 
+Choosing
+\be
+\frac{\sigma^2}{2}= \sqrt{\frac{1}{4 (\heps+ \theta^2 )} \frac{\heps + \theta^2}{4((\heps + \theta^2)^2+ \nu^2)}},
+\ee 
+%so that
+we obtain
+\be
+ \frac{1}{4}-\frac{\sigma^2}{2}(\heps - \theta^2)= \frac{1}{4}- \frac{1}{4}\frac{\heps + \theta^2}{\sqrt{(\heps + \theta^2)^2 + \nu^2}}
+ \geq \frac{1}{4}\left(\frac{\frac{\nu}{\heps + \theta^2}}{1 + \frac{\nu}{\heps + \theta^2}}\right),
+\ee
+which, after Taylor expansion, gives
+\be
+\frac{\sigma^2}{2}\geq \frac{1}{4} \frac{\nu}{\heps+ \theta^2}.
+\ee
+Plugging the expression of $\sigma$ in \eqref{eq:coer01}, we get the following lower bound estimate
+\be 
+|a(\ubf,\ubf)|^2 \geq \frac{1}{4} \frac{\nu}{\heps + \theta^2}\|u_2'\|^4_{L^2} +  \frac{\nu^2}{2} \|\ubf\|_{L^2}^4,
+\ee 
+so that
+\be 
+|a(\ubf,\ubf)| \geq \frac{1}{4} \sqrt{\frac{\nu}{\heps + \theta^2}}\|u_2'\|^2_{L^2} +  \frac{\nu}{4} \|\ubf\|_{L^2}^2.
+\ee 
+Finally, due to Poincare's lemma, $a$ is coercive.
+
+
+%\textcolor{blue}{
+%Actually as 
+%\be
+% \| u - u(-L) \|_{L^2} \leq C_p \|u'\|_{L^2}, 
+%\ee
+%where $C_p = |\Omega|$,
+%and 
+%\be
+%\begin{array}{l}
+%\| u\|_{L^2 } = \| u - u(-L) + u(-L) \|_{L^2} \\
+%\leq \| u - u(-L) \| + \sqrt{|\Omega|}|u(-L)|\\
+%\leq |\Omega| \| u'\|_{L^2} + \sqrt{|\Omega|}|u(-L)|.
+%\end{array} 
+%\ee
+%Let us recall that we have
+%\be
+%|a(u,u)| \geq\lambda |u(-L)|^2
+%\ee
+%and 
+%\be
+% |a(u,u)| \geq \frac{1}{4}\sqrt{\frac{\nu}{\heps + \theta^2}} \|u'\|^2_{L^2} +\frac{1}{4}\nu \|u\|_{L^2}^2. \label{eq:e1}
+% \ee
+%From \eqref{eq:e1} we get
+% \be
+% \begin{array}{l}
+%  |a(u,u)| \geq \frac{1}{2}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{8}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|_{L^2}^2 + \frac{1}{8}\nu \|u\|^2_{L^2} \\
+%  \geq \left(\frac{1}{4}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{16}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|^2_{L^2} + \frac{1}{16}\nu \|u\|^2 \right)\\
+%  +\frac{1}{4}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{16}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|^2,
+% \end{array}
+% \ee
+%and 
+%\be
+%\begin{array}{l}
+%\frac{1}{4}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{16}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|_{L^2}^2\\
+%= \frac{1}{4}\frac{\sqrt{\alpha(-L)}}{|\Omega|}\left(|{\Omega}| |u(-L)|^2\right) + \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\left(|\Omega|^2 \|u'\|^2\right)\\
+%\geq \min\left(\frac{1}{4} \frac{\sqrt{\alpha(-L)}}{|\Omega|} , \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\right) \frac{1}{2}\|u\|^2_{L^2}
+%\end{array}
+%\ee
+%then you obtain 
+%\be 
+%|a(u,u)| \geq \min\left(\frac{1}{4} \frac{\sqrt{\alpha(-L)}}{|\Omega|} , \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\right) \|u\|^2_{L^2}
+%\ee
+%}
+Let us now examine the bicontinuity of $a$.
+\be 
+\begin{array}{l}
+| a(\ubf, \vbf) |  \leq \left( \| u_2' \|_{L^2} + |\theta | \|u_1\|_{L^2}\right) \left( \| v_2' \|_{L^2} + |\theta | \|v_1\|_{L^2} \right)\\
++ (\heps+\nu) \| \ubf \|_{L^2} \| \vbf \|_{L^2} + |\alpha(-L) | |u_2(-L)| |v_2(-L)|
+\\
+\leq \vertiii{\ubf} \vertiii{\vbf} \left( 1 + 2|\theta| + \theta^2 + \heps + \nu + |\alpha(-L) | C_T^2 \right),
+\end{array}
+\ee  
+where $\vertiii{\ubf} = \|u_2'\|_{L^2} + \|\ubf\|_{L^2}$ and $C_T$ the trace constant.
+
+Suppose now $a(\ubf,\vbf) = l(\vbf)$, thus thanks to Lax-Milgram theorem we have existence and uniqueness of a variational solution.
+\end{proof}
+
+\begin{remark} \mrev{
+The coercivity estimates in the above proof are not optimal in the case when $\alpha(x)$ is bounded away from zero on the whole interval $[-L,\; H]$, at least 
+for the case $\theta=0$. Let us consider the problem (\ref{eq:var_form2}) for $\nu=0,\; \theta=0$, which, after testing it 
+with $(\tilde{E}_x,\; 0)$ and $(0,\; \tilde{E}_y)$ from $\mathbf{V}$, can be rewritten as, see also (\ref{eq:epsilon_0})
+\begin{align}
+\label{eq:full_var}
+\begin{split}
+\int_{-L}^H \left(\alpha E_x+i\delta E_y \right)_{1} \overline{\tilde E}_{x}&=0,\; \text{ for all }\tilde{E}_x\in L_{2}(\Omega), \;\\
+\displaystyle \int_{-L}^H E_y'\tilde {E_y'} - \int_{-L}^H\left( -i\delta E_x+\alpha E_y \right)_{2}\overline{\tilde{E}}_{y}
+  - \imath \lambda E_y (-L) \overline{\tilde E_y} (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
+  \text{ for all }  \tilde{E}_{y}\in H_{1}(\Omega).
+  \end{split}
+\end{align}
+The first equation of the above can be rewritten as 
+\[
+ \left(E_x,\alpha \tilde{E}_x\right)=-\left(i\delta E_y,  \tilde{E}_x\right).
+\]
+If the multiplication operator $M_{\alpha}$ defined as $M_{\alpha}\psi=\frac{1}{\alpha}\psi$ is an isomorphism from $L_{2}([-L,\;H])$ to $L_{2}([-L,\;H])$ (this is true if e.g.
+$\alpha \in C_{0}([-L,\;H])$ and is bounded away from zero on the whole interval), this equation is equivalent to 
+\begin{align}
+\label{eq:mult_eq}
+  \left(E_x,u\right)=-\left(\frac{i\delta}{\alpha}E_y,u\right),\; \text{ for all } u\in L_{2}(\Omega). 
+\end{align}
+
+Choosing in the above $u=i\delta \tilde{E}_y \in L_{2}(\Omega)$ and adding it to the second equation of (\ref{eq:full_var}), we obtain
+\begin{align*}
+ \displaystyle \int_{-L}^H E_y'\tilde {E_y'} - \int_{-L}^H \alpha-\frac{\delta^2}{\alpha})E_y \overline{\tilde{E}}_{y}
+  - \imath \lambda E_y (-L) \overline{\tilde E_y} (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
+  \text{ for all } \tilde{E}_{y}\in H_{1}(\Omega).
+\end{align*}
+Thus we obtain the variational formulation for $E_y$, or the variational formulation for the Helmholtz equation. The well-posedness 
+of this problem, with additional assumptions on boundary conditions and smoothness of the coefficients, 
+had been demonstrated in \cite{LMIG_thesis}. Provided the solution $E_y\in H_{1}(\Omega)$, we can obtain $E_x$ from the equation (\ref{eq:mult_eq}).}
+\end{remark}
+
+
+%\subsection{2D case}
+%%%%%%%%%%%%%%%%%%%%%% 
+
+
+%%%%%%%%%%%%%%%%%%%%%% 
+%\textcolor{red}{!!!!!!!!!!!!!!!! TODO : deal with this part !!!!!!!!!!!}
+%$curl$ ibp formula
+%\be
+%\int_\Omega \curl u \cdot \f = \int_\Omega u\ curl \f + \int_\Gamma u (\f \wedge \n)
+%\ee
+%\be
+%\int_\Omega curl \E \cdot \overline{curl \tilde \E} - \int_\Omega \eps \E \cdot \overline{\tilde \E} + \int _\Gamma curl \E \overline{\left( \tilde \E\wedge \n \right)} d\sigma = 0
+%\ee
+%\be
+%\begin{array}{l}
+%\displaystyle \int_\Omega curl \E \cdot \overline{curl \tilde \E} - \int_\Omega (\eps_0+i\nu Id) \E \cdot \overline{\tilde \E} - \int _{\{x=-L\}} \imath \sqrt{\alpha(-L)}(\E\wedge \n) \overline{\left( \tilde \E\wedge \n \right)} d\sigma 
+%\\ \displaystyle \phantom{ fffffffff}= \int_{\{x=-L\}} g_{inc}  \overline{\left( \tilde \E\wedge \n \right)} d\sigma
+%\end{array}\ee
+%\textcolor{red}{!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!}
+
+
+%%%%%%%%%%%%%%%%%%%%
+\section{Discretization of the Frequency Domain Problem}
+\label{sec:discr}
+Testing the variational formulation (\ref{vf1dcase}) with $(\tilde E_x,0)$ and $(0,\; \tilde{E}_y)\in\mathbf{V}(\Omega)$ and using 
+an explicit expression for the tensor of the dielectric permittivity (\ref{eq:epsilon_0}), we can rewrite it as a system of two equations
+%\begin{align*}
+%\begin{split}
+%i\theta \displaystyle \int_{-L}^H (E_y' -\imath\theta E_x)\overline{\tilde E_x} - \int_{-L}^H \left((\epsilon_0 +\imath\nu \operatorname{Id}) \E\right)_{1} \overline{\tilde E}_{x}
+%&=0,\\
+%\displaystyle \int_{-L}^H (E_y' -\imath\theta E_x)\tilde {E_y'} - \int_{-L}^H\left( (\epsilon_0 +\imath\nu\operatorname{Id}) \E\right)_{2}\overline{\tilde{E}}_{y}
+%  - \imath \lambda E_y (-L) \tilde E_y (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
+%  \text{ for all } \tilde E_x\in L_{2}(\Omega), \; \tilde{E}_{y}\in H_{1}(\Omega).
+%  \end{split}
+%\end{align*}
+%Using the explicit expression for the dielectric permittivity tensor in the above, it yields: 
+
+\begin{align}
+\label{eq:var_form2}
+\begin{split}
+ i\theta \displaystyle \int_{-L}^H (E_y' -\imath\theta E_x)\overline{\tilde E_x} - 
+ \int_{-L}^H \left((\alpha+i\nu)E_x+\imath\delta E_y\right)_{1} \overline{\tilde E}_{x}
+&=0,\\
+\int_{-L}^H (E_y' -\imath\theta E_x)\tilde {E_y'} -
+\int_{-L}^H\left( -\imath \delta E_x+(\alpha+i\nu) E_y\right)_{2}\overline{\tilde{E}}_{y}
+  - \imath \lambda E_y (-L) \tilde E_y (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
+ \text{ for all } \tilde E_x\in L_{2}(\Omega), \; \tilde{E}_{y}\in H_{1}(\Omega).
+  \end{split}
+\end{align}
+Let us introduce two basis function spaces $V_{E_x}=\{\psi_{j}\}_{j=1}^{N_{1}}$ and $V_{E_{y}}=\{\phi_{i}\}_{i=1}^{N_{2}}$. 
+We look for the solution of the problem (\ref{eq:var_form2}) in the form:
+\begin{align*}
+E_x=\sum\limits_{k=1}^{N_{1}}e_{xk}\psi_{k},\qquad E_{y}=\sum\limits_{k=1}^{N_{2}}e_{yk}\phi_{k}.
+\end{align*}
+
+% Substituting $\tilde{E}_{x}=\psi_{m}, \; m=1,\ldots,N_{1}$ and $\tilde{E}_{y}=0$ into the variational formulation (\ref{}), we obtain:
+% \begin{align*}
+% i\theta\sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\phi'_{k}\bar{\psi}_{m}dx+\theta^2\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\psi_{k}\bar{\psi}_{m}dx\\
+% -\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}(\alpha(x)+i\nu)\psi_{k}\bar{\psi}_{m}dx-i\sum\limits_{1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\delta(x)\phi_{k}(x)\bar{\psi}_{m}dx=0.
+% \end{align*}
+% Similarly, for $\tilde{E}_{x}=0$ and $\tilde{E}_{y}=\phi_{\ell},\; \ell=1,\ldots, N_{2}$:
+% \begin{align*}
+% \sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\phi'_{k}(x)\bar{\phi}'_{\ell}(x)dx-i\theta\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\psi_{k}(x)\bar{\phi}'_{\ell}(x)dx\\
+% +i
+% \sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\delta(x)\psi_{k}\bar{\phi}_{m}dx-\sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}(\alpha(x)+i\nu)\phi_{k}\bar{\phi}_{m}dx\\
+% -
+% i\lambda\sum\limits_{k=1}^{N_{2}}e_{2k}\phi_{k}(-L)\bar{\phi}_{m}(-L)=-g_{inc}(x)\bar{\phi}_{m}(-L).
+% \end{align*}
+After the introduction of the notation
+\begin{align*}
+\left(K^{\psi,\phi'}\right)_{mk}=\int\limits_{-L}^{H}\bar{\psi}_{m}\phi'_{k}dx,\qquad \left(M^{\psi}\right)_{mk}=\int\limits_{-L}^{H}\psi_{k}\bar{\psi}_{m}dx, \qquad 
+\left(M^{\alpha,\psi}\right)_{mk}=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\psi_{m}\bar{\psi}_{k}dx, \\
+\left(M^{\delta,\psi,\phi}\right)_{mk}=\int\limits_{-L}^{H}\delta(x)\bar{\psi}_{m}\phi_{k}dx, \qquad 
+K_{\ell k}=\int\limits_{-L}^{H}\phi'_{k}(x)\bar{\phi}'_{\ell}(x)dx,\qquad
+\left(M^{\alpha,\phi}\right)_{\ell k}=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\bar{\phi}_{\ell}\phi_{k}dx,\\
+I_{km}^{\Gamma}=\bar{\phi}_{m}(-L)\phi_{k}(-L), \\
+\boldsymbol{e}_{x}=\left(e_{11},\ldots,e_{1 N_{1}}\right)^{T},\; \boldsymbol{e}_{y}=\left(e_{21},\ldots,e_{2 N_{1}}\right)^{T},\\
+\boldsymbol{0}_{n} \text{ is an $n$-dimensional zero column vector},
+\end{align*}
+the system (\ref{eq:var_form2}) can be rewritten in an antisymmetric block form:
+\begin{align*}
+\left(\begin{matrix}
+\theta^2 M^{\psi}-M^{\alpha,\psi} & i\theta K^{\psi,\phi'}-i M^{\delta,\psi,\phi} \\
+-i\theta (K^{\psi,\phi'})^{*}+i (M^{\delta,\psi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
+\end{matrix}\right)
+\left(
+\begin{matrix}
+\boldsymbol{e}_x\\
+\boldsymbol{e}_y
+\end{matrix}
+\right)=-g_{inc}(-L)
+\left(
+\begin{matrix}
+\boldsymbol{0}_{N_{1}}\\
+\bar{\phi}_{x}(-L)\\
+\bar{\phi}_{y}(-L)\\
+\vdots\\
+\bar{\phi}_{N_{2}}(-L)
+\end{matrix}
+\right).
+\end{align*}
+This expression greatly simplifies when choosing $V_{E_x}=V_{E_{y}}=\left(\phi_{m}\right)_{m=1}^{N}$ and in the case $\theta=0$:
+\begin{align}
+\label{eq:simple_system}
+\left(\begin{matrix}
+M^{\alpha,\phi} & i M^{\delta,\phi,\phi} \\
+i (M^{\delta,\phi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
+\end{matrix}\right)
+\left(
+\begin{matrix}
+\boldsymbol{e}_x\\ 
+\boldsymbol{e}_y
+\end{matrix}
+\right)=-g_{inc}(-L)
+\left(
+\begin{matrix}
+\boldsymbol{0}_{N}\\
+\bar{\phi}_{1}(-L)\\
+\bar{\phi}_{2}(-L)\\
+\vdots\\
+\bar{\phi}_{N}(-L)
+\end{matrix}
+\right).
+\end{align}
+
+\mrev{In this work we use the Lagrange $P_{1}$ basis elements}.

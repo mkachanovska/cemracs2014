@@ -1,0 +1,100 @@
+\section{Discretization of the Frequency Domain Problem}
+\label{sec:discr}
+Testing the variational formulation (\ref{vf1dcase}) with $(\tilde E_x,0)$ and $(0,\; \tilde{E}_y)\in\mathbf{V}(\Omega)$, we can rewrite it as a system of two equations:
+\begin{align*}
+\begin{split}
+i\theta \displaystyle \int_{-L}^H (E_y' -\imath\theta E_x)\overline{\tilde E_x} - \int_{-L}^H \left((\epsilon_0 +\imath\nu \operatorname{Id}) \E\right)_{1} \overline{\tilde E}_{x}
+&=0,\\
+\displaystyle \int_{-L}^H (E_y' -\imath\theta E_x)\tilde {E_y'} - \int_{-L}^H\left( (\epsilon_0 +\imath\nu\operatorname{Id}) \E\right)_{2}\overline{\tilde{E}}_{y}
+  - \imath \lambda E_y (-L) \tilde E_y (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
+  \text{ for all } \tilde E_x\in L_{2}(\Omega), \; \tilde{E}_{y}\in H_{1}(\Omega).
+  \end{split}
+\end{align*}
+Inserting an explicit expression for the dielectric permittivity tensor into the above, we obtain
+\begin{align}
+\label{eq:var_form2}
+\begin{split}
+ i\theta \displaystyle \int_{-L}^H (E_y' -\imath\theta E_x)\overline{\tilde E_x} - 
+ \int_{-L}^H \left((\alpha+i\nu)E_x+\imath\delta E_y\right)_{1} \overline{\tilde E}_{x}
+&=0,\\
+\int_{-L}^H (E_y' -\imath\theta E_x)\tilde {E_y'} -
+\int_{-L}^H\left( -\imath \delta E_x+(\alpha+i\nu) E_y\right)_{2}\overline{\tilde{E}}_{y}
+  - \imath \lambda E_y (-L) \tilde E_y (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
+  \text{ for all } \tilde E_x\in L_{2}(\Omega), \; \tilde{E}_{y}\in H_{1}(\Omega).
+  \end{split}
+\end{align}
+Let us introduce the basis spaces $V_{E_x}=\{\psi_{j}\}_{j=1}^{N_{1}}$ and $V_{E_{y}}=\{\phi_{i}\}_{i=1}^{N_{2}}$. 
+We look for the solution of the problem (\ref{eq:var_form2}) in the form:
+\begin{align*}
+E_x=\sum\limits_{k=1}^{N_{1}}e_{xk}\psi_{k},\qquad E_{y}=\sum\limits_{k=1}^{N_{2}}e_{yk}\phi_{k}.
+\end{align*}
+
+% Substituting $\tilde{E}_{x}=\psi_{m}, \; m=1,\ldots,N_{1}$ and $\tilde{E}_{y}=0$ into the variational formulation (\ref{}), we obtain:
+% \begin{align*}
+% i\theta\sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\phi'_{k}\bar{\psi}_{m}dx+\theta^2\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\psi_{k}\bar{\psi}_{m}dx\\
+% -\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}(\alpha(x)+i\nu)\psi_{k}\bar{\psi}_{m}dx-i\sum\limits_{1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\delta(x)\phi_{k}(x)\bar{\psi}_{m}dx=0.
+% \end{align*}
+% Similarly, for $\tilde{E}_{x}=0$ and $\tilde{E}_{y}=\phi_{\ell},\; \ell=1,\ldots, N_{2}$:
+% \begin{align*}
+% \sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\phi'_{k}(x)\bar{\phi}'_{\ell}(x)dx-i\theta\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\psi_{k}(x)\bar{\phi}'_{\ell}(x)dx\\
+% +i
+% \sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\delta(x)\psi_{k}\bar{\phi}_{m}dx-\sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}(\alpha(x)+i\nu)\phi_{k}\bar{\phi}_{m}dx\\
+% -
+% i\lambda\sum\limits_{k=1}^{N_{2}}e_{2k}\phi_{k}(-L)\bar{\phi}_{m}(-L)=-g_{inc}(x)\bar{\phi}_{m}(-L).
+% \end{align*}
+After introduction 
+\begin{align*}
+\left(K^{\psi,\phi'}\right)_{mk}=\int\limits_{-L}^{H}\bar{\psi}_{m}\phi'_{k}dx,\qquad \left(M^{\psi}\right)_{mk}=\int\limits_{-L}^{H}\psi_{k}\bar{\psi}_{m}dx, \qquad 
+\left(M^{\alpha,\psi}\right)_{mk}=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\psi_{m}\bar{\psi}_{k}dx, \\
+\left(M^{\delta,\psi,\phi}\right)_{mk}=\int\limits_{-L}^{H}\delta(x)\bar{\psi}_{m}\phi_{k}dx, \qquad 
+K_{\ell k}=\int\limits_{-L}^{H}\phi'_{k}(x)\bar{\phi}'_{\ell}(x)dx,\qquad
+\left(M^{\alpha,\phi}\right)_{\ell k}=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\bar{\phi}_{\ell}\phi_{k}dx,\\
+I_{km}^{\Gamma}=\bar{\phi}_{m}(-L)\phi_{k}(-L), 
+\boldsymbol{e}_{x}=\left(e_{11},\ldots,e_{1 N_{1}}\right)^{T},\; \boldsymbol{e}_{y}=\left(e_{21},\ldots,e_{2 N_{1}}\right)^{T},\\
+\boldsymbol{0}_{n} \text{ is an $n$-dimensional zero column vector},
+\end{align*}
+the system (\ref{eq:var_form2}) can be rewritten in an antisymmetric block form:
+\begin{align*}
+\left(\begin{matrix}
+\theta^2 M_{\psi}-M^{\alpha,\psi} & i\theta K^{\psi,\phi'}-i M^{\delta,\psi,\phi} \\
+-i\theta (K^{\psi,\phi'})^{*}+i (M^{\delta,\psi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
+\end{matrix}\right)
+\left(
+\begin{matrix}
+\boldsymbol{e}_x\\
+\boldsymbol{e}_y
+\end{matrix}
+\right)=-g_{inc}(-L)
+\left(
+\begin{matrix}
+\boldsymbol{0}_{N_{1}}\\
+\bar{\phi}_{x}(-L)\\
+\bar{\phi}_{y}(-L)\\
+\vdots\\
+\bar{\phi}_{N_{2}}(-L)
+\end{matrix}
+\right).
+\end{align*}
+This expression greatly simplifies when choosing $V_{E_x}=V_{E_{y}}=\left(\phi_{m}\right)_{m=1}^{N_{2}}$ and in the case $\theta=0$:
+\begin{align}
+\label{eq:simple_system}
+\left(\begin{matrix}
+M^{\alpha,\phi} & i M^{\delta,\phi,\phi} \\
+i (M^{\delta,\phi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
+\end{matrix}\right)
+\left(
+\begin{matrix}
+\boldsymbol{e}_x\\ 
+\boldsymbol{e}_y
+\end{matrix}
+\right)=-g_{inc}(-L)
+\left(
+\begin{matrix}
+\boldsymbol{0}_{N_{1}}\\
+\bar{\phi}_{x}(-L)\\
+\bar{\phi}_{y}(-L)\\
+\vdots\\
+\bar{\phi}_{N_{2}}(-L)
+\end{matrix}
+\right).
+\end{align}

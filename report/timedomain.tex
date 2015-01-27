@@ -1,0 +1,110 @@
+\section{Time Dependent Problem Discretization}
+In this section, we develop a discretization of the time dependant problem~\eqref{eq:main_model} 
+in one dimension. In 1D, the derivatives with respect to $y$ vanish, and we are left with the following problem, 
+ \begin{align}
+ \epsilon_0\partial_t E_{x}=-eN_e u_x, \nonumber\\
+ \epsilon_0\partial_t E_{y}+\partial_x H_z=-eN_e u_y,\nonumber\\
+ \mu_0\partial_t H_z+\partial_x E_y-\partial_y E_x=0, \label{eq:tdpb}\\
+ m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\nonumber\\
+ m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y.\nonumber
+ \end{align}
+We compute a numerical approximation of~\eqref{eq:tdpb} on a cartesian grid using the Yee scheme, 
+as suggested in \cite{stable_yee_plasma_current}. Let $n$ denote the time step index, as usual $t_n = n \Delta t$. 
+It is standard (see \cite{Xu_2006,stable_yee_plasma_current }) to discretize the electrical field on the integer time step, 
+\mrev{whereas the field $H_z$ is on half time steps, $t_{n+1/2}$}. The time discretization of the system reads:
+ \begin{align}
+ \left\{\begin{array}{l}
+ \epsilon_0\frac{ E_{x}^{n+1}-E_x^{n}}{\Delta t}=-eN_e u_x, \nonumber\\
+ \epsilon_0\frac{ E_{y}^{n+1}-E_y^{n}}{\Delta t}+\partial_x H_z=-eN_e u_y,\nonumber\\
+ \mu_0\frac{ H_z^{n+1/2}-H_z^{n-1/2}}{\Delta t}+\partial_x E_y-\partial_y E_x=0, \label{eq:tdiscretizedpb}\\
+ m_e\frac{ u_{x}^{n+1}-u_x^{n}}{\Delta t}=eE_x+eu_yB_0-\nu m_e u_x,\nonumber\\
+ m_e\frac{u_{y}^{n+1}-u_y^{n}}{\Delta t}=eE_y-eu_xB_0-\nu m_e u_y.\nonumber
+\end{array}\right.
+ \end{align}
+In Yee scheme, the differents components of the vector fields 
+are defined on staggered points. 
+We summarize this discretization on Fig.~\ref{schemepos} where the positions 
+of $Ex$, $u_x$ (black dots), $E_y$ $u_y$ (blue dots) and $H_z$ (red dots) 
+on the discretized grid in space and time are shown. The fully discretized system then reads
+
+\be 
+\eps_0 \frac{E_x\inp- E_x\midin}{\Delta t} = -e N_e \frac{u_x\inp + u_x \midin}{2},
+\label{eq:ns1}
+\ee 
+\be
+\eps_0 \frac{E_y\ihnp-E_y\ihn}{\Delta t}+ \frac{H_z\ipnh-H_z\inh}{\Delta x} = -eN_x \frac{u_y\ihnp + u_y\ihn}{2} ,
+\label{eq:ns2}
+\ee
+\be
+ \frac{H_z\inh-H_z\inmh}{\Delta t}+ \frac{E_y\ihn-E_y\imhn}{\Delta x}=0,
+ \label{eq:ns3}
+\ee
+\be 
+m_e \frac{u_x\inp-u_x\midin }{\Delta x} = e N_e \frac{E_x\inp+E_x\midin}{2}-\nu m_e\frac{u_x\inp+u_x \midin}{2}+ eB_0\frac{u_y\ihn+u_y\ihnp}{2},
+\label{eq:ns4}
+\ee
+\be
+m_e \frac{u_y\ihnp-u_y\ihn}{\Delta t} = eN_e \frac{E_y\ihnp + E_y\ihn}{2}- \nu m_e \frac{u_y\ihnp +u_y\ihn}{2}-eB_0 \frac{u_x\midin+u_x\inp}{2},
+\label{eq:ns401}
+\ee
+\input{grid}
+It is possible to rewrite this system in an explicit form (we omit here these simple but slightly tedious computations).
+%It is now possible to describe explicitly how to solve the proviso discrete system. We first compute $H_z$ at time $n+1/2$ with \eqref{eq:ns3}. Then, \eqref{eq:ns2} gives the expression $E_y\ihnp$ as a function of known variables, and $u_y^{n+1}$, as follow
+%\be
+%E_y\ihnp = E_y\ihn - \frac{\Delta t }{\eps_0}\frac{H_z\ipnh-H_z\inh}{\Delta x} - \frac{\Delta t e N_e}{\eps_0}\frac{u_y\ihnp + u_y\ihn}{2}.
+%\label{eq:ns5}
+%\ee
+%
+%By incorporating this expression into \eqref{eq:ns401} we then obtain $u_y$ at time $n+1$ as a function of known variables and $u_x^{n+1}$, 
+%\be 
+%\begin{array}{l}
+%u_y\ihnp m_e = m_e u_y\ihn + \Delta t eN_e \frac{E_y\ihn}{2}\\
+%+ \Delta teN_e\left(E_y\ihn - \frac{\Delta t }{\eps_0}\frac{H_z\ipnh-H_z\inh}{\Delta x} - \frac{\Delta t e N_e}{\eps_0}\frac{u_y\ihnp + u_y\ihn}{2}\right) \\
+%-\nu \Delta t m_e \frac{u_y\ihnp +u_y\ihn}{2}-\Delta teB_0 \frac{u_x\midin-u_x\inp}{2},
+%\end{array}
+%\label{eq:ns6}
+%\ee
+%or equivalently the explicit expression
+%\begin{align}
+%u_y\ihnp \left(m_e(1+\frac{\Delta t \nu}{2}) +\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}\right) =&\left(m_e(1-\frac{\Delta t \nu}{2}) -\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}\right)u_y\ihn +\Delta t eN_e E_y\ihn \nonumber\\
+%&- \frac{(\Delta t )^2 e N_e}{2\eps_0} \frac{H_z \ipnh- H_z \inh}{\Delta x} - \frac{e Bo \Delta t}{2}\left(u_x\midin+u_x\inp\right).
+%\label{eq:ns7} 
+%\end{align}
+%To simplify this expression, consider
+%\begin{align}
+%u_y\ihnp K_1&= K_2 u_y\ihn +\Delta t eN_e E_y\ihn-  \frac{(\Delta t )^2 e N_e}{2\eps_0} \frac{H_z \ipnh- H_z \inh}{\Delta x}- \frac{e Bo \Delta t}{2}\left(u_x\midin+u_x\inp\right).
+%\label{eq:ns7bis} 
+%\end{align}
+%with $K_1 =  m_e(1+\frac{\Delta t \nu}{2}) +\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}$ and $K_2 =m_e(1- \frac{\Delta t \nu}{2}) -\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}$.
+%
+%
+%At this point only $E_x^{n+1}$ and $u_x^{n+1}$ still need to be computed. 
+%Since \eqref{eq:ns1} reads
+%\be 
+%E_x\inp = E_x\midin - \frac{\Delta t e N_e}{\eps_0}\frac{u_x\inp + u_x\midin}{2},
+%\label{eq:ns8}
+%\ee
+%we then have the scheme 
+%\begin{align}
+%m_e u_x\inp= & m_e u_x\midin  + \Delta t e N_e \frac{1}{2}\left( E_x\midin - \frac{\Delta t e N_e}{\eps_0}\frac{u_x\inp + u_x\midin}{2}\right) + \Delta t  e N_e \frac{1}{2}E_x\midin -\Delta t\nu m_e\frac{u_x\inp+u_x \midin}{2}\nonumber\\
+%&+  \frac{e B_0 \Delta t}{2K_1}\Big(K_2 u_y\ihn +\Delta t eN_e E_y\ihn -  \frac{(\Delta t )^2 e N_e}{2\eps_0} \frac{H_z \ipnh- H_z \inh}{\Delta x}\nonumber\\
+%&- \frac{e B_0 \Delta t}{2}\left(u_x\midin+u_x\inp\right)\Big)+  \frac{1}{2}\Delta teB_0u_y\ihn,
+%\label{eq:ns9}
+%\end{align}
+%which can be simplified as
+%\begin{align}
+% \left(me(1+\frac{\Delta t \nu}{2})+ \frac{(eB_0\Delta t)^2}{4K_1} + \frac{(e\Delta t N_e)^2}{4\eps_0}\right) u_x\inp 
+%= \left(me(1-\frac{\Delta t \nu}{2})- \frac{(eB_0\Delta t)^2}{4K_1} -\frac{(e\Delta t N_e)^2}{4\eps_0}\right) u_x\midin \nonumber\\
+% + e \Delta t N_e E_x \midin  + \left( \frac{eB_0 \Delta t K_2}{2 K_1}+ \frac{e B_0 \Delta t}{2}\right) u_y\ihn - \frac{(e\Delta t)^2 N_e B_0}{2K_1}E_y\ihn  - \frac{e^2(\Delta t)^3 B_0}{4K_1}\frac{H_z \ipnh- H_z \inh}{\Delta x},
+%\label{eq:ns10} 
+%\end{align}
+%and the scheme is then fully explicit.
+%
+%To summarize, the algorithm to solve the discrete system \eqref{} is
+%\begin{itemize}
+%\item compute $H_z^{n+1/2}$ thanks to \eqref{eq:ns3},
+%\item compute $E_y^{n+1/2}$ thanks to \eqref{eq:ns6},
+%\item compute $u_y^{n+1}$ thanks to \eqref{eq:ns7bis},
+%\item compute $u_x^{n+1}$ thanks to \eqref{eq:ns10},
+%\item compute $E_x^{n+1}$ thanks to \eqref{eq:ns8}.
+%\end{itemize}

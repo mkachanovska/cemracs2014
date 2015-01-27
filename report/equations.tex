@@ -3,28 +3,57 @@
 %%%%%%%%%%%%%%%%%%%%%% 
 \section{1D case}
 %%%%%%%%%%%%%%%%%%%%%% 
-
+\label{sec:wellposedness}
 
 %%%%%%%%%%%%%%%%%%%%%% 
-\subsection{Variational formulation, well posedness}
-1D: $\partial_y = \imath \theta$
-\be
+\subsection{Variational formulation and Well-Posedness}
+In one dimension, the variational formulation of the problem (\ref{eq:main_frequency_domain}) writes as (here we introduced the Fourier variable $\theta$)
+\begin{align}
 \begin{array}{l}
-\displaystyle \int_{-L}^H (E_2' -\imath\theta E_1)\overline{(\tilde E_2' -\imath \theta \tilde E_1)} - \int_{-L}^H (\eps_0 +\imath\nu Id) \E \cdot \overline{\tilde \E}
-\\ \displaystyle  - \imath \sqrt{\alpha(-L)} E_2 (-L) \tilde E_2 (-L) = -g_{inc} (-L) \overline{( \tilde E_2(-L) )} 
+\displaystyle \int_{-L}^H (E_y' -\imath\theta E_x)\overline{(\tilde E_y' -\imath \theta \tilde E_x)} - \int_{-L}^H (\eps_0 +\imath\nu Id) \E \cdot \overline{\tilde \E}
+\\ \displaystyle  - \imath \lambda E_y (-L) \tilde E_y (-L) = -g_{inc} (-L) \overline{( \tilde E_y(-L) )} \label{vf1dcase}.
 \end{array}
-\ee
-Notation
+\end{align}
+\urev{In this and further sections, where it is not ambiguous, we will use the notation $E_{x,y}$ instead of $\hat{E}_{x,y}$ for convenience.}
+From now on, we will use the following notations : 
 \be
 a(\ubf,\vbf) = a_1 (\ubf,\vbf) +\imath a_2(\ubf,\vbf)\  \text{ and } \  l(\vbf) = -g_{inc} (-L) \overline{(v_2(-L) )} 
 \ee
+where $a_1= a_1^*$ and $a_2=a_2^*$ are hermitian. 
+
+Let us denote $\Omega=(-L,\; H)$ and introduce the space $\mathbf{V}=L_{2}(\Omega)\times H_{1}(\Omega)$, 
+equipped with the norm
+\begin{align*}
+ \|\mathbf{v}\|_{\mathbf{V}}^2= \|v_1\|_{L_{2}(\Omega)}^2+\|v_2\|_{H^{1}(\Omega)}^2.
+\end{align*}
+
+We now prove the following result.
+\begin{lemma}
+\label{lemma:well_posedness}
+If $\heps =  \|\rho(\eps_0)\|_{L^\infty}$, the spectral radius of $\eps_0$, is bounded, the bilinear form 
+\begin{align*}
+ a(\ubf,\vbf):  \mathbf{V}\times \mathbf{V}\rightarrow \mathbb{C}
+\end{align*}
+is continuous and coercive for all $\nu>0$: for all $\ubf,\vbf\in \mathbf{V}$ it holds that
+\begin{align}
+\label{eq:bilinear_cont}
+\begin{split}
+|a(\ubf,\ubf)|\geq c\frac{1}{4} \sqrt{\frac{\nu}{\heps + \theta^2}}\|u_2\|^2_{H_{1}(\Omega)} +  \frac{\nu}{4} \|\ubf\|_{L^2(\Omega)}^2,\\
+|a(\ubf,\vbf)|\leq C \|\ubf\|_{\mathbf{V}}\|\vbf\|_{\mathbf{V}},
+\end{split}
+\end{align}
+where $c, C>0$ do not depend on $\nu$. The problem~\eqref{vf1dcase} is well-posed in $\mathbf{V}$.
+\end{lemma}
+%\textcolor{red}{!!!! redo coercivity computations !!!}
+\begin{proof}
+The boundedness of $a$ is obvious. Let us concentrate on the proof of coercivity. 
 \be
 \left\{\begin{array}{l}
 a_1(\ubf,\vbf) = \int_{-L}^H (u_2' -\imath\theta u_1)\overline{(v_2' -\imath \theta v_1)} - \int_{-L}^H \eps_0 \ubf\cdot \overline{\vbf}, 
-\\ a_2(\ubf,\vbf) = -\nu \int_{-L}^H  \ubf\cdot \overline{\vbf} -  \sqrt{\alpha(-L)} u_2 (-L) \overline{v_2 (-L)} , 
+\\ a_2(\ubf,\vbf) = -\nu \int_{-L}^H  \ubf\cdot \overline{\vbf} - \lambda u_2 (-L) \overline{v_2 (-L)} , 
 \end{array}\right.
 \ee
-where $a_1= a_1^*$ and $a_2=a_2^*$ are hermitian.
+
 \be
 |a_2 (\ubf ,\ubf)| \geq \nu \int_{-L}^H \ubf\cdot \ubf
 \ee
@@ -56,12 +85,19 @@ and
 \geq \frac{1}{4}\|u_2'\|_{L^2}^4 - (\heps + \theta^2) \|u_2'\|^2_{L^2} \|\ubf\|^2_{L^2} + \left( (\heps + \theta^2) + \nu \right) \| \ubf\|^4_{L^2}.
 \end{array} 
 \ee
-We obtain
+%We obtain
+%\be
+%\begin{array}{l}
+%| a(\ubf, \ubf) |^2 \geq \frac{1}{4} \| u_2'\|_{L^2}^2 - (\heps + \theta^2) \left( \frac{\sigma^2}{2}\|u_2'\|_{L^2}^4 \right) - (\heps + \theta^2) \left( \frac{\|\ubf\|^4_{L^2}}{2\sigma^2} \right) \\
+%+ \left( (\heps + \sigma^2) + \nu^2 \right) \|\ubf \|^4_{L^2}\\
+%\geq \left( \frac{1}{4}- \frac{(\heps + \theta^2)\sigma}{2}\right)\|u_2'\|_{L^2}^4 + \left(\left((\heps + \theta^2) + \nu^2\right) - \frac{(\heps + \theta^2)}{2\sigma^2}\right) \|\ubf\|_{L^2}^4
+%\end{array}
+For $\sigma > 0$ we have
 \be
 \begin{array}{l}
 | a(\ubf, \ubf) |^2 \geq \frac{1}{4} \| u_2'\|_{L^2}^2 - (\heps + \theta^2) \left( \frac{\sigma^2}{2}\|u_2'\|_{L^2}^4 \right) - (\heps + \theta^2) \left( \frac{\|\ubf\|^4_{L^2}}{2\sigma^2} \right) \\
-+ \left( (\heps + \sigma^2) + \nu^2 \right) \|\ubf \|^4_{L^2}\\
-\geq \left( \frac{1}{4}- \frac{(\heps + \theta^2)\sigma}{2}\right)\|u_2'\|_{L^2}^4 + \left(\left((\heps + \theta^2) + \nu^2\right) - \frac{(\heps + \theta^2)}{2\sigma^2}\right) \|\ubf\|_{L^2}^4
++ \left( (\heps + \theta^2) + \nu^2 \right) \|\ubf \|^4_{L^2}\\
+\geq \left( \frac{1}{4}- \frac{(\heps + \theta^2)\sigma}{2}\right)\|u_2'\|_{L^2}^4 + \left(\left((\heps + \theta^2) + \nu^2\right) - \frac{(\heps + \theta^2)}{2\sigma^2}\right) \|\ubf\|_{L^2}^4.
 \end{array}
 \ee
 We choose $\sigma$ such that 
@@ -70,22 +106,22 @@ We choose $\sigma$ such that
 \ee
 and 
 \be
- \frac{\sigma^2}{2} \geq \frac{\heps+\theta^2}{4\left((\heps+\theta^2)^2+\nu^2\right)}
+ \frac{\sigma^2}{2} \geq \frac{\heps+\theta^2}{4\left((\heps+\theta^2)^2+\nu^2\right)}.
 \ee
-We  take
+Taking then
 \be
 \frac{\sigma^2}{2}= \sqrt{\frac{1}{4 (\heps+ \theta^2 )} \frac{\heps + \theta^2}{4((\heps + \theta^2)^2+ \nu^2)}},
 \ee 
-then 
+and
 \be
  \frac{1}{4}-\frac{\sigma^2}{2}(\heps - \theta^2)= \frac{1}{4}- \frac{1}{4}\frac{\heps + \theta^2}{\sqrt{(\heps + \theta^2)^2 + \nu^2}}
  \geq \frac{1}{4}\left(\frac{\frac{\nu}{\heps + \theta^2}}{1 + \frac{\nu}{\heps + \theta^2}}\right),
 \ee
-which, using a limited development, gives, 
+and using a limited development, gives, 
 \be
-\frac{\sigma^2}{2}\geq \frac{1}{4} \frac{\nu}{\heps+ \theta^2}
+\frac{\sigma^2}{2}\geq \frac{1}{4} \frac{\nu}{\heps+ \theta^2}.
 \ee
-Putting the expression of $\sigma$ in $a$, we get the following minoration for 
+Plugging the expression of $\sigma$ in $a$, we get the following minoration for 
 \be 
 |a(\ubf,\ubf)|^2 \geq \frac{1}{4} \frac{\nu}{\heps + \theta^2}\|u_2'\|^4_{L^2} +  \frac{\nu^2}{2} \|\ubf\|_{L^2}^4,
 \ee 
@@ -93,49 +129,52 @@ meaning
 \be 
 |a(\ubf,\ubf)| \geq \frac{1}{4} \sqrt{\frac{\nu}{\heps + \theta^2}}\|u_2'\|^2_{L^2} +  \frac{\nu}{4} \|\ubf\|_{L^2}^2,
 \ee 
-and $a$ is coercive.
-Actually as 
-\be
- \| u - u(-L) \|_{L^2} \leq C_p \|u'\|_{L^2}, 
-\ee
-where $C_p = |\Omega|$,
-and 
-\be
-\begin{array}{l}
-\| u\|_{L^2 } = \| u - u(-L) + u(-L) \|_{L^2} \\
-\leq \| u - u(-L) \| + \sqrt{|\Omega|}|u(-L)|\\
-\leq |\Omega| \| u'\|_{L^2} + \sqrt{|\Omega|}|u(-L)|.
-\end{array} 
-\ee
-Let us recall that we have
-\be
-|a(u,u)| \geq \sqrt{\alpha(-L)} |u(-L)|^2
-\ee
-and 
-\be
- |a(u,u)| \geq \frac{1}{4}\sqrt{\frac{\nu}{\heps + \theta^2}} \|u'\|^2_{L^2} +\frac{1}{4}\nu \|u\|_{L^2}^2. \label{eq:e1}
- \ee
-From \eqref{eq:e1} we get
- \be
- \begin{array}{l}
-  |a(u,u)| \geq \frac{1}{2}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{8}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|_{L^2}^2 + \frac{1}{8}\nu \|u\|^2_{L^2} \\
-  \geq \left(\frac{1}{4}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{16}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|^2_{L^2} + \frac{1}{16}\nu \|u\|^2 \right)\\
-  +\frac{1}{4}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{16}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|^2,
- \end{array}
- \ee
-and 
-\be
-\begin{array}{l}
-\frac{1}{4}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{16}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|_{L^2}^2\\
-= \frac{1}{4}\frac{\sqrt{\alpha(-L)}}{|\Omega|}\left(|{\Omega}| |u(-L)|^2\right) + \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\left(|\Omega|^2 \|u'\|^2\right)\\
-\geq \min\left(\frac{1}{4} \frac{\sqrt{\alpha(-L)}}{|\Omega|} , \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\right) \frac{1}{2}\|u\|^2_{L^2}
-\end{array}
-\ee
-then you obtain 
-\be 
-|a(u,u)| \geq \min\left(\frac{1}{4} \frac{\sqrt{\alpha(-L)}}{|\Omega|} , \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\right) \|u\|^2_{L^2}
-\ee
+and due to Poincare's lemma $a$ is coercive.
 
+
+%\textcolor{blue}{
+%Actually as 
+%\be
+% \| u - u(-L) \|_{L^2} \leq C_p \|u'\|_{L^2}, 
+%\ee
+%where $C_p = |\Omega|$,
+%and 
+%\be
+%\begin{array}{l}
+%\| u\|_{L^2 } = \| u - u(-L) + u(-L) \|_{L^2} \\
+%\leq \| u - u(-L) \| + \sqrt{|\Omega|}|u(-L)|\\
+%\leq |\Omega| \| u'\|_{L^2} + \sqrt{|\Omega|}|u(-L)|.
+%\end{array} 
+%\ee
+%Let us recall that we have
+%\be
+%|a(u,u)| \geq\lambda |u(-L)|^2
+%\ee
+%and 
+%\be
+% |a(u,u)| \geq \frac{1}{4}\sqrt{\frac{\nu}{\heps + \theta^2}} \|u'\|^2_{L^2} +\frac{1}{4}\nu \|u\|_{L^2}^2. \label{eq:e1}
+% \ee
+%From \eqref{eq:e1} we get
+% \be
+% \begin{array}{l}
+%  |a(u,u)| \geq \frac{1}{2}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{8}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|_{L^2}^2 + \frac{1}{8}\nu \|u\|^2_{L^2} \\
+%  \geq \left(\frac{1}{4}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{16}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|^2_{L^2} + \frac{1}{16}\nu \|u\|^2 \right)\\
+%  +\frac{1}{4}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{16}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|^2,
+% \end{array}
+% \ee
+%and 
+%\be
+%\begin{array}{l}
+%\frac{1}{4}\sqrt{\alpha(-L)}|u(-L)|^2 + \frac{1}{16}\sqrt{\frac{\nu}{\heps + \theta^2}}\|u'\|_{L^2}^2\\
+%= \frac{1}{4}\frac{\sqrt{\alpha(-L)}}{|\Omega|}\left(|{\Omega}| |u(-L)|^2\right) + \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\left(|\Omega|^2 \|u'\|^2\right)\\
+%\geq \min\left(\frac{1}{4} \frac{\sqrt{\alpha(-L)}}{|\Omega|} , \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\right) \frac{1}{2}\|u\|^2_{L^2}
+%\end{array}
+%\ee
+%then you obtain 
+%\be 
+%|a(u,u)| \geq \min\left(\frac{1}{4} \frac{\sqrt{\alpha(-L)}}{|\Omega|} , \frac{1}{16}\frac{\sqrt{\frac{\nu}{\heps + \theta^2}}}{|\Omega|^2}\right) \|u\|^2_{L^2}
+%\ee
+%}
 Let us now examine the bicontinuity of $a$.
 \be 
 \begin{array}{l}
@@ -147,13 +186,35 @@ Let us now examine the bicontinuity of $a$.
 \ee  
 where $\vertiii{\ubf} = \|u_2'\|_{L^2} + \|\ubf\|_{L^2}$ and $C_T$ the trace constant.
 
-Suppose now $a(\ubf,\vbf) = l(\vbf)$, thanks to Lax-Milgram theorem we have existence and unicity of a variational solution.
+Suppose now $a(\ubf,\vbf) = l(\vbf)$, thus thanks to Lax-Milgram theorem we have existence and unicity of a variational solution.
+\end{proof}
+
+\begin{remark}
+Let us assume that the operator
+\begin{align*}
+M\psi = \frac{i\delta}{(\alpha+i\nu)}\psi
+\end{align*}
+defines an isomorphism from $L_{2}(\Omega)$ to $L_{2}(\Omega)$. 
+Given $E_x,\; E_y\in L_{2}(\Omega)$, 
+the function $\mathcal{F}=\frac{i\delta}{(\alpha+\imath\nu)}\left((\alpha+\imath\nu)E_{x}+i\delta E_{y}\right)$ 
+also belongs to $L_{2}(\Omega)$.  
+If $E_x,\; E_y$ satisfy the problem (\ref{eq:var_form2}) for $\theta=0$, the function $\mathcal{F}=0$, 
+i.e.
+\begin{align*}
+ (\mathcal{F},\tilde{E}_{y})_{L_{2}}=\int_{-L}^{H}\left(\imath\delta E_{x}-\delta^2(\alpha+i\nu)^{-1} E_{y}\right)\overline{\tilde E}_{y}=0,
+\end{align*}
+for all $\overline{\tilde E}_2\in H_{1}(\Omega)$. Adding this to the second expression of (\ref{eq:var_form2}), we obtain 
+the variational formulation for $E_y$, which coincides with the variational formulation for the Helmholtz equation. The well-posedness 
+of this problem had been studied in \cite{LMIG_thesis}. 
+\end{remark}
+
 
 \section{2D case}
 %%%%%%%%%%%%%%%%%%%%%% 
 
 
 %%%%%%%%%%%%%%%%%%%%%% 
+\textcolor{red}{!!!!!!!!!!!!!!!! TODO : deal with this part !!!!!!!!!!!}
 \subsection{Variational formulation}
 $curl$ ipp formula
 \be
@@ -167,110 +228,5 @@ $curl$ ipp formula
 \displaystyle \int_\Omega curl \E \cdot \overline{curl \tilde \E} - \int_\Omega (\eps_0+i\nu Id) \E \cdot \overline{\tilde \E} - \int _{\{x=-L\}} \imath \sqrt{\alpha(-L)}(\E\wedge \n) \overline{\left( \tilde \E\wedge \n \right)} d\sigma 
 \\ \displaystyle \phantom{ fffffffff}= \int_{\{x=-L\}} g_{inc}  \overline{\left( \tilde \E\wedge \n \right)} d\sigma
 \end{array}\ee
+\textcolor{red}{!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!}
 
-\section{Time dependant problem}
-\subsection{Problem}
-$[$ insert continuous equations here $]$
-
-\subsection{Numerical scheme}
-\be 
-\eps_0 \frac{E_x\inp- E_x\midin}{\Delta t} = -e N_e \frac{u_x\inp + u_x \midin}{2}
-\label{eq:ns1}
-\ee 
-\be
-\eps_0 \frac{E_y\ihnp-E_y\ihn}{\Delta t}+ \frac{H_z\ipnh-H_z\inh}{\Delta x} = -eN_x \frac{u_y\ihnp + u_y\ihn}{2} 
-\label{eq:ns2}
-\ee
-\be
- \frac{H_z\inh-H_z\inmh}{\Delta t}+ \frac{E_y\ihn-E_y\imhn}{\Delta x}=0
- \label{eq:ns3}
-\ee
-\be 
-m_e \frac{u_x\inp-u_x\midin }{\Delta x} = e N_e \frac{E_x\inp+E_x\midin}{2}-\nu m_e\frac{u_x\inp+u_x \midin}{2}+ eB_0\frac{u_y\ihn+u_y\ihnp}{2}
-\label{eq:ns4}
-\ee
-\be
-m_e \frac{u_y\ihnp-u_y\ihn}{\Delta t} = eN_e \frac{E_y\ihnp + E_y\ihn}{2}- \nu m_e \frac{u_y\ihnp +u_y\ihn}{2}-eB_0 \frac{u_x\midin+u_x\inp}{2}
-\ee
-We first compute $H_z$ at time $n+1/2$ with \eqref{eq:ns3}. Then, \eqref{eq:ns2} gives the expression $E_y\ihnp$ as a function of known variables, and $u_y^{n+1}$, as follow
-\be
-E_y\ihnp = E_y\ihn - \frac{\Delta t }{\eps_0}\frac{H_z\ipnh-H_z\inh}{\Delta x} - \frac{\Delta t e N_e}{\eps_0}\frac{u_y\ihnp + u_y\ihn}{2}.
-\label{eq:ns5}
-\ee
-By incorporating this expression into \eqref{eq:ns5} we then obtain $u_y$ at time $n+1$ as a function of known variables and $u_x^{n+1}$, 
-\be 
-\begin{array}{l}
-u_y\ihnp m_e = m_e u_y\ihn + \Delta t eN_e \frac{E_y\ihn}{2}\\
-+ \Delta teN_e\left(E_y\ihn - \frac{\Delta t }{\eps_0}\frac{H_z\ipnh-H_z\inh}{\Delta x} - \frac{\Delta t e N_e}{\eps_0}\frac{u_y\ihnp + u_y\ihn}{2}\right) \\
--\nu \Delta t m_e \frac{u_y\ihnp +u_y\ihn}{2}-\Delta teB_0 \frac{u_x\midin-u_x\inp}{2},
-\end{array}
-\label{eq:ns6}
-\ee
-which gives the following expression for $u_y\ihnp$
-\be
-\begin{array}{l}
-u_y\ihnp \left(m_e(1+\frac{\Delta t \nu}{2}) +\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}\right)\\
-\\
-= \left(m_e(1-\frac{\Delta t \nu}{2}) -\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}\right)u_y\ihn\\
-\\
-\qquad +\Delta t eN_e E_y\ihn\\
-\\
-\qquad -  \frac{(\Delta t )^2 e N_e}{2\eps_0} \frac{H_z \ipnh- H_z \inh}{\Delta x}\\
-\\
-\qquad - \frac{e Bo \Delta t}{2}\left(u_x\midin+u_x\inp\right),
-\end{array}
-\label{eq:ns7} 
-\ee
-which we write 
-\be
-\begin{array}{l}
-u_y\ihnp K_1 \\
-\\
-= K_2 u_y\ihn\\
-\\
-\qquad +\Delta t eN_e E_y\ihn\\
-\\
-\qquad -  \frac{(\Delta t )^2 e N_e}{2\eps_0} \frac{H_z \ipnh- H_z \inh}{\Delta x}\\
-\\
-\qquad - \frac{e Bo \Delta t}{2}\left(u_x\midin+u_x\inp\right).
-\end{array}
-\label{eq:ns7bis} 
-\ee
-with $K_1 =  m_e(1+\frac{\Delta t \nu}{2}) +\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}$ and $K_2 =m_e(1- \frac{\Delta t \nu}{2}) -\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}$.
-
-
-Now we just need an expression of $E_x\inp$ as a function of time $n$ variables and $u_x^{n+1}$ and putting \eqref{eq:ns7} in \eqref{eq:ns4}, the scheme will be explicit. 
-We can find such and expression in \eqref{eq:ns1}
-\be 
-E_x\inp = E_x\midin - \frac{\Delta t e N_e}{\eps_0}\frac{u_x\inp + u_x\midin}{2}.
-\label{eq:ns8}
-\ee
-
-We then have the scheme 
-\be
-\begin{array}{l}
-m_e u_x\inp=  m_e u_x\midin \\
-\qquad + \Delta t e N_e \frac{1}{2}\left( E_x\midin - \frac{\Delta t e N_e}{\eps_0}\frac{u_x\inp + u_x\midin}{2}\right)\\
-\qquad + \Delta t  e N_e \frac{1}{2}E_x\midin\\
-\qquad -\Delta t\nu m_e\frac{u_x\inp+u_x \midin}{2}\\
-\qquad +  \frac{e B_O \Delta t}{2K_1}\Big(K_2 u_y\ihn\\
-\qquad +\Delta t eN_e E_y\ihn\\
-\qquad -  \frac{(\Delta t )^2 e N_e}{2\eps_0} \frac{H_z \ipnh- H_z \inh}{\Delta x}\\
-
-- \frac{e Bo \Delta t}{2}\left(u_x\midin+u_x\inp\right).\Big)\\
-+  \frac{1}{2}\Delta teB_0u_y\ihn,
-\end{array}
-\label{eq:ns9}
-\ee
-which one can simplify into
-\be
-\begin{array}{l}
-u_x \left(me(1+\frac{\Delta t \nu}{2})+ \frac{(eB_0\Delta t)^2}{4K_1} + \frac{(e\Delta t N_e)^2}{4\eps_0}\right) u_x\inp \\
-= \left(me(1-\frac{\Delta t \nu}{2})- \frac{(eB_0\Delta t)^2}{4K_1} -\frac{(e\Delta t N_e)^2}{4\eps_0}\right) u_x\midin\\
-\qquad + e \Delta t N_e E_x \midin \\
-\qquad + \left( \frac{eB_0 \Delta t K_2}{2 K_1}+ \frac{e B_0 \Delta t}{2}\right) u_y\ihn\\
-\qquad - \frac{(e\Delta t)^2 N_e B_0}{2K_1}E_y\ihn \\
-\qquad - \frac{e^2(\Delta t)^3 B_0}{4K_1}\frac{H_z \ipnh- H_z \inh}{\Delta x}
-\end{array}
-\label{eq:ns10} 
-\ee

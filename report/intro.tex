@@ -1,23 +1,97 @@
 \section{Introduction}
+Modelling various phenomena in plasmas is of practical importance for developing new sources of energy 
+based on plasma fusion, see the ITER project\footnote{www.iter.org}. 
+This article concentrates on studying a phenomenon of hybrid resonance \cite{Stix}, 
+which is observed in experiments (see \cite{reflectometers_2006, reflectometers_2010, Dumont_2005}) and is described
+mathematically as the non-regularity of
+the solutions of Maxwell equations in plasmas under strong background magnetic field \cite{Despres_2014}. 
+The energy deposit is resonant and may exceed by far the energy 
+exchange which occurs in Landau damping, see \cite{Freidberg_2007,Mouhot_2011}. 
+Contrary to the Landau damping, however, 
+hybrid resonance appears in a simpler model coupling 
+fluid equations with the non electrostatic part of Maxwell equations.
 
-We consider the set of Maxwell equations with a linear current in two dimensions \cite{stable_yee_plasma_current}
- with absorption terms
- \begin{align*}
-\epsilon_0\partial_t E_{x}-\partial_y H=-eN_e u_x,\\
-\epsilon_0\partial_t E_{y}+\partial_x H=-eN_e u_y,\\
-\mu_0\partial_t H+\partial_x E_y-\partial_y E_x=0,\\
+
+We consider the model of cold plasma of \cite{Stix} which is described by the 2D time-dependent Maxwell system  
+\begin{align}
+-\varepsilon_0 \partial_t \E + \curl\, \Hbf = \J\\
+\mu_0 \partial_t \Hbf + \curl\, \E = 0
+\end{align}
+coupled with a linear electronic current  $\J = eN_e \ubf_e$, 
+\be
+m_e \partial_t \ubf_e =e (\E +\ubf_e \wedge B_0) -m_e \nu \ubf_e, \label{eq:electronmove}
+\ee
+where $\nu$ is  the friction  between particles.
+The unknowns are the electromagnetic fields $(\E,\Hbf)$ with the usual notation $\Hbf = \B/\mu_0$, 
+ %the electronic current $\J$, 
+and the velocity of electrons $\ubf_e$. Here $B_0$ is the background magnetic field, typically assumed to be uniform in time and space.  
+We denote by $e<0$ the value of the charge of electrons, $m_e$ the electron mass and $N_e$ the electron density that in general 
+depends on spatial variables and is uniform in time. 
+Without loss of generality, we set $\mathbf{B}_0=\left(0,\; 0,\; B_0\right)$, which allows to obtain the following system of equations 
+\begin{align}
+\label{eq:main_model}
+\left\{\begin{array}{l}
+\epsilon_0\partial_t E_{x}-\partial_y H_z=-eN_e u_x,\\
+\epsilon_0\partial_t E_{y}+\partial_x H_z=-eN_e u_y,\\
+\mu_0\partial_t H_z+\partial_x E_y-\partial_y E_x=0,\\
 m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\\
 m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y
-\end{align*}
-posed in $[-L,\; \mathbb{R}]\times \mathbb{R}$. The boundary conditions 
-\begin{align*}
- H|_{-L}=g(t).
-\end{align*}
-\subsection{Boundary condition}
-Robin Boundary condition at the left boundary of the domain
-\be
--curl \E -\imath \sqrt{\alpha(-{ L})}\E \wedge \n = g_{inc} = -curl \E_{inc} -\imath \sqrt{\alpha(-{ L})}\E_{inc} \wedge \n,
-\ee
-where  $\E_{inc} = \exp \left(\imath \sqrt{\alpha(-L)}x\right)\begin{pmatrix} E_1\\ E_2 \end{pmatrix}$
+\end{array}
+\right.\end{align}
+posed in $[-L,\; \infty)\times \mathbb{R}$, for some $L>0$. This domain represents the physical case of a wave sent from a wall facing a plasma. 
+The energy of this system for $\nu=0$ in a domain $\Omega\in\mathbb R^2$ can be expressed as \cite{stable_yee_plasma_current}
+\mrev{\begin{align*}
+{\mathcal E}(t)= \int_\Omega \left(
+\frac{\epsilon_0 |\E(t,\x)|^2}{2}+\frac{ |\B(t,\x)|^2}{2\mu_0}+\frac{m_e N_e|\mathbf{u} (t,\x)|^2}{2} 
+\right)\mathrm{d}\x.
+\end{align*}}
+\mrev{An energy-preserving scheme for discretizing (\ref{eq:main_model}) was recently developed in \cite{Despres_2014}. 
+It can be shown that for non-zero collision frequency $\nu$ the loss of energy is proportional to $\nu$, however, as $\nu\rightarrow0+$, it 
+does not vanish. This behaviour had been recently investigated in \cite{Despres_2014}}.
 
-$curl \E = 0$ at the right boundary
+We complement Problem (\ref{eq:main_model}) with the following boundary conditions.
+At the left boundary of the domain, which represents the wall, we choose Robin boundary conditions 
+\be
+-curl \E -\imath \lambda\E \wedge \n = g_{inc} = -curl \E_{inc} -\imath\lambda\E_{inc} \wedge \n,
+\ee
+where $\E_{inc} = \exp \left(\imath \lambda x\right)\begin{pmatrix} E_1\\ E_2 \end{pmatrix}$. We truncate the domain 
+$(-L,\; \infty)$ to $(-L,\; H)$ and set on the right boundary $\operatorname{curl} \E = 0$. 
+\begin{remark}
+	When modelling antennas in plasma physics \mrev{(e.g. in such applications as ITER)}, 
+	a good choice of boundary condition could be $\lambda = \sqrt{\alpha(-L)}$
+\end{remark}
+
+The goal of this article is two-fold. 
+First, we investigate the finite element approximation of the 1D 
+problem \eqref{eq:main_model} written in the frequency domain ($\partial_t\rightarrow -i\omega$), with a linearized dielectric tensor with respect to $\nu$.
+In particular, we again investigate this problem in one dimension, performing the Fourier transform in $y$.
+We prove the well-posedness of this problem for $\nu>0$ in Section~\ref{sec:wellposedness} and 
+demonstrate that the use of higher-order (P1) finite elements allows to approximate the singularity 
+of the solution fairly well (Section \ref{sec:freq_dep}). 
+Second, we consider the case $\nu\rightarrow 0$, and study the limiting amplitude solution 
+$\lim\limits_{t\rightarrow +\infty}\lim\limits_{\nu\rightarrow 0}\mathbf{E}(t)$ obtained with the help of 
+the FDTD discretization of \eqref{eq:main_model}, suggested in \cite{stable_yee_plasma_current}. 
+We compare this result with 
+$\hat{\mathbf{E}}\mathrm{e}^{i\omega t}$, computed in the frequency domain, for $\nu\rightarrow 0$, which is equivalent to considering
+$\lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}\mathbf{E}(t)$, i.e. we check the validity of the scheme in Figure \ref{fig:limits}. 
+\begin{figure}
+\begin{tikzpicture}
+   \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em] {
+     \mathbf{E}^{\nu}(t) & \mathbf{E}^{0+}(t)\\
+     \hat{\mathbf{E}}^{\nu}(t)\mathrm{e}^{i\omega t} & 
+     \lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow \infty}\mathbf{E}^{\nu}(t)=\lim\limits_{t\rightarrow \infty}\lim\limits_{\nu\rightarrow 0}\mathbf{E}^{\nu}(t)\\
+     };
+  \path[-stealth,font=\scriptsize]    (m-1-1) edge node [left] {$t\rightarrow\infty$} (m-2-1);
+  \path[-stealth, font=\scriptsize]   (m-1-1) edge node [above] {$\nu\rightarrow 0+$} (m-1-2);
+  \path[-stealth, font=\scriptsize]   (m-2-1) edge node [above] {$\nu\rightarrow 0$} (m-2-2);
+  \path[-stealth, font=\scriptsize]   (m-1-2) edge node [right] {$t\rightarrow \infty$} (m-2-2);
+
+
+  % \path[-stealth] (m-2-1.east) edge node [above] {$\nu\rightarrow 0$} (m-2-2);
+    %(m-1-2) edge node [right] {$\nu\rightarrow 0$} (m-2-2);
+\end{tikzpicture}
+ \caption{\label{fig:limits}Schematic representation of the equivalence of the limited absorption and limiting amplitude principles.}
+
+\end{figure}
+
+To our knowledge, such numerical studies have not been performed in the existing literature. 

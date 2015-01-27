@@ -1,8 +1,8 @@
 function [e1, e2,M,x, A,B,D]=solve_mH1(dx,lambda, nu, uniform)
 
 %mesh generation
-L=5; %20!!!
-H=19;%10!!!
+L=15; %20!!!
+H=10;%10!!!
 if uniform
 x=-L:dx:H;
 else
@@ -97,15 +97,24 @@ end
 
 function a=alpha(x)
 [omega, omega_c]=main_parameters();
-n=n_e(x);
-a=omega^2*(1-n/(omega^2-omega_c^2));
-
+%n=n_e(x);
+%a=omega^2*(1-n/(omega^2-omega_c^2));
+a=zeros(size(x));
+a(x<=-10)=10;
+P=(x>-10)&(x<=5);
+a(P)=-x(P);
+a(x>5)=-5;
 end
 
 function delta=delta(x)
-[omega, omega_c]=main_parameters();
-n=n_e(x);
-delta=omega*omega_c*n/(omega^2-omega_c^2);
+%[omega, omega_c]=main_parameters();
+%n=n_e(x);
+%delta=omega*omega_c*n/(omega^2-omega_c^2);
+delta=zeros(size(x));
+delta(x<=-10)=0;
+P=(x>-10)&(x<=5);
+delta(P)=4/30*x(P)+4/3;
+delta(x>5)=2;
 end
 
 
@@ -325,8 +334,8 @@ end
 function b=construct_rhs(x)
 %[omega, omega_c]=main_parameters();
     b=zeros(2*length(x),1);
-    b(length(x)+1)=0.11;
-%    b(length(x)+1)=-2*1i*sqrt(2)*exp(1i*sqrt(2)*(-22));
+    %b(length(x)+1)=0.11;
+    b(length(x)+1)=-2*1i*sqrt(2)*exp(1i*sqrt(2)*(-22));
  %    b(length(x)+1)=(-airy(-20)*i*2-airy(1,-20));
  %   b(length(x)+1)=-i*2*0.2-0.1;
 end
