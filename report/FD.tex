@@ -21,12 +21,17 @@ After series expansion as $\nu\rightarrow 0$ gives at leading orders
  \tilde{\alpha}(\omega)=\alpha(\omega)+i\nu\frac{\omega_p^2(\omega^2+\omega_c^2)}{(\omega^2-\omega_c^2)^2}\frac{\omega^2}{c^2},\qquad \alpha(\omega)=\frac{\omega^2}{c^2}\left(1-\frac{\omega_p^2}{\omega^2-\omega_c^2}\right),\\
  \tilde{\delta}(\omega)=\delta(\omega)-\frac{2i\omega^3\nu}{c^2(\omega^2-\omega_c^2)^2},\qquad \delta(\omega)=\frac{\omega\omega_c\omega_p^2}{c^2(\omega^2-\omega_c^2)}.
 \end{align*}
-Then the limiting absorption principle can be obtained leaving only the diagonal terms \textcolor{green}{??NOT CLEAR} in the above expansion (see \cite{Despres_2014}):
+As explained in \cite{Despres_2014}, to study the limiting absorption principle, it is sufficient  
+to consider a simplified approximation
+\begin{align*}
+ \epsilon_{\nu}(\omega)\approx \epsilon_0+i\nu Id,\; \nu\rightarrow 0.
+\end{align*}
+Thus, in this work we concentrate on a model
 \begin{align}
 \label{eq:main_frequency_domain}
 \operatorname{curl}\operatorname{curl}\hat{\mathbf{E}}-\frac{\omega^2}{c^2}
 \left(\epsilon_0(\omega)+\nu Id\right)\hat{\mathbf{E}}=0,\\
-\nonumber
+\label{eq:epsilon_0}
 \epsilon_0(\omega)=\left(
 \begin{matrix}
  \alpha & i\delta \\
@@ -234,23 +239,37 @@ where $\vertiii{\ubf} = \|u_2'\|_{L^2} + \|\ubf\|_{L^2}$ and $C_T$ the trace con
 Suppose now $a(\ubf,\vbf) = l(\vbf)$, thus thanks to Lax-Milgram theorem we have existence and uniqueness of a variational solution.
 \end{proof}
 
-\begin{remark} \textcolor{green}{VERY UNCLEAR: WHY INTRODUCING M  IF WE NEVER USE IT ? CAN WE SAY WHEN IT ACTUALLY IS AN ISOMORPHISM ? FORWARD REFERENCE ?}
-Let us assume that the operator
+\begin{remark} \mrev{
+The coercivity estimates in the above proof are not optimal in the case when $\alpha(x)$ is bounded away from zero on the whole interval $[-L,\; H]$, at least 
+for the case $\theta=0$. Let us consider the problem (\ref{eq:var_form2}) for $\nu=0,\; \theta=0$, which, after testing it 
+with $(\tilde{E}_x,\; 0)$ and $(0,\; \tilde{E}_y)$ from $\mathbf{V}$, can be rewritten as, see also (\ref{eq:epsilon_0})
+\begin{align}
+\label{eq:full_var}
+\begin{split}
+\int_{-L}^H \left(\alpha E_x+i\delta E_y \right)_{1} \overline{\tilde E}_{x}&=0,\; \text{ for all }\tilde{E}_x\in L_{2}(\Omega), \;\\
+\displaystyle \int_{-L}^H E_y'\tilde {E_y'} - \int_{-L}^H\left( -i\delta E_x+\alpha E_y \right)_{2}\overline{\tilde{E}}_{y}
+  - \imath \lambda E_y (-L) \overline{\tilde E_y} (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
+  \text{ for all }  \tilde{E}_{y}\in H_{1}(\Omega).
+  \end{split}
+\end{align}
+The first equation of the above can be rewritten as 
+\[
+ \left(E_x,\alpha \tilde{E}_x\right)=-\left(i\delta E_y,  \tilde{E}_x\right).
+\]
+If the multiplication operator $M_{\alpha}$ defined as $M_{\alpha}\psi=\frac{1}{\alpha}\psi$ is an isomorphism from $L_{2}([-L,\;H])$ to $L_{2}([-L,\;H])$ (this is true if e.g.
+$\alpha \in C_{0}([-L,\;H])$ and is bounded away from zero on the whole interval), this equation is equivalent to 
+\[
+ \left(E_x,u\right)=-\left(\frac{i\delta}{\alpha}E_y,u\right),\; \text{ for all } u\in L_{2}(\Omega). 
+\]
+Choosing in the above $u=i\delta \tilde{E}_y \in L_{2}(\Omega)$ and adding it to the second equation of (\ref{eq:full_var}), we obtain
 \begin{align*}
-M\psi = \frac{i\delta}{(\alpha+i\nu)}\psi
+ \displaystyle \int_{-L}^H E_y'\tilde {E_y'} - \int_{-L}^H \alpha-\frac{\delta^2}{\alpha})E_y \overline{\tilde{E}}_{y}
+  - \imath \lambda E_y (-L) \overline{\tilde E_y} (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
+  \text{ for all } \tilde{E}_{y}\in H_{1}(\Omega).
 \end{align*}
-defines an isomorphism from $L_{2}(\Omega)$ to $L_{2}(\Omega)$. 
-Given $E_x,\; E_y\in L_{2}(\Omega)$, 
-the function $\mathcal{F}=\frac{i\delta}{(\alpha+\imath\nu)}\left((\alpha+\imath\nu)E_{x}+i\delta E_{y}\right)$ 
-also belongs to $L_{2}(\Omega)$.  
-If $E_x,\; E_y$ satisfy the problem (\ref{eq:var_form2}) for $\theta=0$, the function $\mathcal{F}=0$, 
-i.e.
-\begin{align*}
- (\mathcal{F},\tilde{E}_{y})_{L_{2}}=\int_{-L}^{H}\left(\imath\delta E_{x}-\delta^2(\alpha+i\nu)^{-1} E_{y}\right)\overline{\tilde E}_{y}=0,
-\end{align*}
-for all $\overline{\tilde E}_2\in H_{1}(\Omega)$. Adding this to the second expression of (\ref{eq:var_form2}), we obtain 
-the variational formulation for $E_y$, which coincides with the variational formulation for the Helmholtz equation. The well-posedness 
-of this problem had been studied in \cite{LMIG_thesis}. 
+Thus we obtain the variational formulation for $E_y$, or the variational formulation for the Helmholtz equation. The well-posedness 
+of this problem, with additional assumptions on boundary conditions and smoothness of the coefficients, 
+had been demonstrated in \cite{LMIG_thesis}. Provided the solution $E_y$, we can obtain $E_x$ from the equation (\ref{eq:mult_eq}).}
 \end{remark}
 
 
