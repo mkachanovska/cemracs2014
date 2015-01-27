@@ -40,16 +40,14 @@ m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y
 \right.\end{align}
 posed in $[-L,\; \infty)\times \mathbb{R}$, for some $L>0$. This domain represents the physical case of a wave sent from a wall facing a plasma. 
 The energy of this system for $\nu=0$ in a domain $\Omega\in\mathbb R^2$ can be expressed as \cite{stable_yee_plasma_current}
-\begin{align*}
+\nrev{\begin{align*}
 {\mathcal E}(t)= \int_\Omega \left(
-\frac{\epsilon_0 |\E(t,\x)|^2}{2}+\frac{ |\B(t,\x)|^2}{2\mu_0}+\frac{m_e|\J (t,\x)|}{2|e|N_e(\x)} 
+\frac{\epsilon_0 |\E(t,\x)|^2}{2}+\frac{ |\B(t,\x)|^2}{2\mu_0}+\frac{m_e N_e|\u (t,\x)|^2}{2} 
 \right)\mathrm{d}\x.
-\end{align*}
-So if the electron density $N_e(x)$ vanishes, 
-the energy blows up~\cite{stable_yee_plasma_current}. 
-Mathematically, this effect was recently investigated in \cite{Despres_2014}, 
-in particular, it was shown that the electric field component $E_x$ in this case is no longer square 
-integrable, and explicit estimates on the behaviour of the solutions of \eqref{eq:main_model} in 1D were provided. 
+\end{align*}}
+\nrev{An energy-preserving scheme for discretizing (\ref{eq:main_model}) was recently developed in \cite{Despres_2014}. 
+It can be shown that for non-zero collision frequency $\nu$ the loss of energy is proportional to $\nu$, however, as $\nu\rightarrow0+$, it 
+does not vanish. This paradox had been investigated in \cite{Despres_2014}}.
 
 We complement Problem (\ref{eq:main_model}) with the following boundary conditions.
 At the left boundary of the domain, which represents the wall, we choose Robin boundary conditions 
