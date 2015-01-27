@@ -41,63 +41,63 @@ m_e \frac{u_y\ihnp-u_y\ihn}{\Delta t} = eN_e \frac{E_y\ihnp + E_y\ihn}{2}- \nu m
 \label{eq:ns401}
 \ee
 \input{grid}
-
-It is now possible to describe explicitly how to solve the proviso discrete system. We first compute $H_z$ at time $n+1/2$ with \eqref{eq:ns3}. Then, \eqref{eq:ns2} gives the expression $E_y\ihnp$ as a function of known variables, and $u_y^{n+1}$, as follow
-\be
-E_y\ihnp = E_y\ihn - \frac{\Delta t }{\eps_0}\frac{H_z\ipnh-H_z\inh}{\Delta x} - \frac{\Delta t e N_e}{\eps_0}\frac{u_y\ihnp + u_y\ihn}{2}.
-\label{eq:ns5}
-\ee
-
-By incorporating this expression into \eqref{eq:ns401} we then obtain $u_y$ at time $n+1$ as a function of known variables and $u_x^{n+1}$, 
-\be 
-\begin{array}{l}
-u_y\ihnp m_e = m_e u_y\ihn + \Delta t eN_e \frac{E_y\ihn}{2}\\
-+ \Delta teN_e\left(E_y\ihn - \frac{\Delta t }{\eps_0}\frac{H_z\ipnh-H_z\inh}{\Delta x} - \frac{\Delta t e N_e}{\eps_0}\frac{u_y\ihnp + u_y\ihn}{2}\right) \\
--\nu \Delta t m_e \frac{u_y\ihnp +u_y\ihn}{2}-\Delta teB_0 \frac{u_x\midin-u_x\inp}{2},
-\end{array}
-\label{eq:ns6}
-\ee
-or equivalently the explicit expression
-\begin{align}
-u_y\ihnp \left(m_e(1+\frac{\Delta t \nu}{2}) +\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}\right) =&\left(m_e(1-\frac{\Delta t \nu}{2}) -\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}\right)u_y\ihn +\Delta t eN_e E_y\ihn \nonumber\\
-&- \frac{(\Delta t )^2 e N_e}{2\eps_0} \frac{H_z \ipnh- H_z \inh}{\Delta x} - \frac{e Bo \Delta t}{2}\left(u_x\midin+u_x\inp\right).
-\label{eq:ns7} 
-\end{align}
-To simplify this expression, consider
-\begin{align}
-u_y\ihnp K_1&= K_2 u_y\ihn +\Delta t eN_e E_y\ihn-  \frac{(\Delta t )^2 e N_e}{2\eps_0} \frac{H_z \ipnh- H_z \inh}{\Delta x}- \frac{e Bo \Delta t}{2}\left(u_x\midin+u_x\inp\right).
-\label{eq:ns7bis} 
-\end{align}
-with $K_1 =  m_e(1+\frac{\Delta t \nu}{2}) +\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}$ and $K_2 =m_e(1- \frac{\Delta t \nu}{2}) -\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}$.
-
-
-At this point only $E_x^{n+1}$ and $u_x^{n+1}$ still need to be computed. 
-Since \eqref{eq:ns1} reads
-\be 
-E_x\inp = E_x\midin - \frac{\Delta t e N_e}{\eps_0}\frac{u_x\inp + u_x\midin}{2},
-\label{eq:ns8}
-\ee
-we then have the scheme 
-\begin{align}
-m_e u_x\inp= & m_e u_x\midin  + \Delta t e N_e \frac{1}{2}\left( E_x\midin - \frac{\Delta t e N_e}{\eps_0}\frac{u_x\inp + u_x\midin}{2}\right) + \Delta t  e N_e \frac{1}{2}E_x\midin -\Delta t\nu m_e\frac{u_x\inp+u_x \midin}{2}\nonumber\\
-&+  \frac{e B_0 \Delta t}{2K_1}\Big(K_2 u_y\ihn +\Delta t eN_e E_y\ihn -  \frac{(\Delta t )^2 e N_e}{2\eps_0} \frac{H_z \ipnh- H_z \inh}{\Delta x}\nonumber\\
-&- \frac{e B_0 \Delta t}{2}\left(u_x\midin+u_x\inp\right)\Big)+  \frac{1}{2}\Delta teB_0u_y\ihn,
-\label{eq:ns9}
-\end{align}
-which can be simplified as
-\begin{align}
- \left(me(1+\frac{\Delta t \nu}{2})+ \frac{(eB_0\Delta t)^2}{4K_1} + \frac{(e\Delta t N_e)^2}{4\eps_0}\right) u_x\inp 
-= \left(me(1-\frac{\Delta t \nu}{2})- \frac{(eB_0\Delta t)^2}{4K_1} -\frac{(e\Delta t N_e)^2}{4\eps_0}\right) u_x\midin \nonumber\\
- + e \Delta t N_e E_x \midin  + \left( \frac{eB_0 \Delta t K_2}{2 K_1}+ \frac{e B_0 \Delta t}{2}\right) u_y\ihn - \frac{(e\Delta t)^2 N_e B_0}{2K_1}E_y\ihn  - \frac{e^2(\Delta t)^3 B_0}{4K_1}\frac{H_z \ipnh- H_z \inh}{\Delta x},
-\label{eq:ns10} 
-\end{align}
-and the scheme is then fully explicit.
-
-To summarize, the algorithm to solve the discrete system \eqref{} is
-\begin{itemize}
-\item compute $H_z^{n+1/2}$ thanks to \eqref{eq:ns3},
-\item compute $E_y^{n+1/2}$ thanks to \eqref{eq:ns6},
-\item compute $u_y^{n+1}$ thanks to \eqref{eq:ns7bis},
-\item compute $u_x^{n+1}$ thanks to \eqref{eq:ns10},
-\item compute $E_x^{n+1}$ thanks to \eqref{eq:ns8}.
-\end{itemize}
+Some rapid computations left to the reader make it possible to show this discrete system is fully explicit.
+%It is now possible to describe explicitly how to solve the proviso discrete system. We first compute $H_z$ at time $n+1/2$ with \eqref{eq:ns3}. Then, \eqref{eq:ns2} gives the expression $E_y\ihnp$ as a function of known variables, and $u_y^{n+1}$, as follow
+%\be
+%E_y\ihnp = E_y\ihn - \frac{\Delta t }{\eps_0}\frac{H_z\ipnh-H_z\inh}{\Delta x} - \frac{\Delta t e N_e}{\eps_0}\frac{u_y\ihnp + u_y\ihn}{2}.
+%\label{eq:ns5}
+%\ee
+%
+%By incorporating this expression into \eqref{eq:ns401} we then obtain $u_y$ at time $n+1$ as a function of known variables and $u_x^{n+1}$, 
+%\be 
+%\begin{array}{l}
+%u_y\ihnp m_e = m_e u_y\ihn + \Delta t eN_e \frac{E_y\ihn}{2}\\
+%+ \Delta teN_e\left(E_y\ihn - \frac{\Delta t }{\eps_0}\frac{H_z\ipnh-H_z\inh}{\Delta x} - \frac{\Delta t e N_e}{\eps_0}\frac{u_y\ihnp + u_y\ihn}{2}\right) \\
+%-\nu \Delta t m_e \frac{u_y\ihnp +u_y\ihn}{2}-\Delta teB_0 \frac{u_x\midin-u_x\inp}{2},
+%\end{array}
+%\label{eq:ns6}
+%\ee
+%or equivalently the explicit expression
+%\begin{align}
+%u_y\ihnp \left(m_e(1+\frac{\Delta t \nu}{2}) +\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}\right) =&\left(m_e(1-\frac{\Delta t \nu}{2}) -\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}\right)u_y\ihn +\Delta t eN_e E_y\ihn \nonumber\\
+%&- \frac{(\Delta t )^2 e N_e}{2\eps_0} \frac{H_z \ipnh- H_z \inh}{\Delta x} - \frac{e Bo \Delta t}{2}\left(u_x\midin+u_x\inp\right).
+%\label{eq:ns7} 
+%\end{align}
+%To simplify this expression, consider
+%\begin{align}
+%u_y\ihnp K_1&= K_2 u_y\ihn +\Delta t eN_e E_y\ihn-  \frac{(\Delta t )^2 e N_e}{2\eps_0} \frac{H_z \ipnh- H_z \inh}{\Delta x}- \frac{e Bo \Delta t}{2}\left(u_x\midin+u_x\inp\right).
+%\label{eq:ns7bis} 
+%\end{align}
+%with $K_1 =  m_e(1+\frac{\Delta t \nu}{2}) +\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}$ and $K_2 =m_e(1- \frac{\Delta t \nu}{2}) -\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}$.
+%
+%
+%At this point only $E_x^{n+1}$ and $u_x^{n+1}$ still need to be computed. 
+%Since \eqref{eq:ns1} reads
+%\be 
+%E_x\inp = E_x\midin - \frac{\Delta t e N_e}{\eps_0}\frac{u_x\inp + u_x\midin}{2},
+%\label{eq:ns8}
+%\ee
+%we then have the scheme 
+%\begin{align}
+%m_e u_x\inp= & m_e u_x\midin  + \Delta t e N_e \frac{1}{2}\left( E_x\midin - \frac{\Delta t e N_e}{\eps_0}\frac{u_x\inp + u_x\midin}{2}\right) + \Delta t  e N_e \frac{1}{2}E_x\midin -\Delta t\nu m_e\frac{u_x\inp+u_x \midin}{2}\nonumber\\
+%&+  \frac{e B_0 \Delta t}{2K_1}\Big(K_2 u_y\ihn +\Delta t eN_e E_y\ihn -  \frac{(\Delta t )^2 e N_e}{2\eps_0} \frac{H_z \ipnh- H_z \inh}{\Delta x}\nonumber\\
+%&- \frac{e B_0 \Delta t}{2}\left(u_x\midin+u_x\inp\right)\Big)+  \frac{1}{2}\Delta teB_0u_y\ihn,
+%\label{eq:ns9}
+%\end{align}
+%which can be simplified as
+%\begin{align}
+% \left(me(1+\frac{\Delta t \nu}{2})+ \frac{(eB_0\Delta t)^2}{4K_1} + \frac{(e\Delta t N_e)^2}{4\eps_0}\right) u_x\inp 
+%= \left(me(1-\frac{\Delta t \nu}{2})- \frac{(eB_0\Delta t)^2}{4K_1} -\frac{(e\Delta t N_e)^2}{4\eps_0}\right) u_x\midin \nonumber\\
+% + e \Delta t N_e E_x \midin  + \left( \frac{eB_0 \Delta t K_2}{2 K_1}+ \frac{e B_0 \Delta t}{2}\right) u_y\ihn - \frac{(e\Delta t)^2 N_e B_0}{2K_1}E_y\ihn  - \frac{e^2(\Delta t)^3 B_0}{4K_1}\frac{H_z \ipnh- H_z \inh}{\Delta x},
+%\label{eq:ns10} 
+%\end{align}
+%and the scheme is then fully explicit.
+%
+%To summarize, the algorithm to solve the discrete system \eqref{} is
+%\begin{itemize}
+%\item compute $H_z^{n+1/2}$ thanks to \eqref{eq:ns3},
+%\item compute $E_y^{n+1/2}$ thanks to \eqref{eq:ns6},
+%\item compute $u_y^{n+1}$ thanks to \eqref{eq:ns7bis},
+%\item compute $u_x^{n+1}$ thanks to \eqref{eq:ns10},
+%\item compute $E_x^{n+1}$ thanks to \eqref{eq:ns8}.
+%\end{itemize}
