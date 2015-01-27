@@ -1,5 +1,5 @@
 \section{Time Dependent Problem Discretization}
-\textcolor{green}{EXPLAIN HOW IS THIS SYSTEM OBTAINED FROM THE SYSTEM PROVIDED IN THE INTRO}
+In this section, we develop a discretization of the time dependant problem~\eqref{eq:main_model} in one dimension. In 1D, the derivatives with respect to $y$ vanish, and we are left with the following problem, 
 
  \begin{align}
  \epsilon_0\partial_t E_{x}=-eN_e u_x, \nonumber\\
@@ -8,7 +8,7 @@
  m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\nonumber\\
  m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y.\nonumber
  \end{align}
-We compute a numerical approximation of~\eqref{eq:tdpb} on a Cartesian grid using the Yee scheme, as  suggested in \cite{stable_yee_plasma_current}. Let $n$ denote the time step index, as usual $t_n = n \Delta t$. The unknown $H_z$ will then be discretized on half time steps, $t_{n+1/2}$. The time discretization of the system reads:
+We compute a numerical approximation of~\eqref{eq:tdpb} on a Cartesian grid using the Yee scheme, as  suggested in \cite{stable_yee_plasma_current}. Let $n$ denote the time step index, as usual $t_n = n \Delta t$. It is standard (see \cite{Xu_2006,stable_yee_plasma_current }) to discretize the electrical field on the integer time step, whereas the other fields, as $H_z$, are discretized on half time steps, $t_{n+1/2}$. The time discretization of the system reads:
  \begin{align}
  \left\{\begin{array}{l}
  \epsilon_0\frac{ E_{x}^{n+1}-E_x^{n}}{\Delta t}=-eN_e u_x, \nonumber\\
@@ -18,7 +18,7 @@ We compute a numerical approximation of~\eqref{eq:tdpb} on a Cartesian grid usin
  m_e\frac{u_{y}^{n+1}-u_y^{n}}{\Delta t}=eE_y-eu_xB_0-\nu m_e u_y.\nonumber
 \end{array}\right.
  \end{align}
-The space discretization is performed on staggered grid, meaning $E_x$, $u_x$, $E_y$, $u_y$ and $H_z$ are not and the same grid points. \textcolor{green}{RAPID JUSTIFICATION ?}  Fig.~\ref{schemepos} shows the positions of $Ex$, $u_x$ (black dots), $E_y$ $u_y$ (blue dots) and $H_z$ (red dots) on the discretized grid in space and time. The fully discretized system then reads
+In Yee scheme, the differents components of the vector fields are defined on staggered points. We summarize this discretization on Fig.~\ref{schemepos} where the positions of $Ex$, $u_x$ (black dots), $E_y$ $u_y$ (blue dots) and $H_z$ (red dots) on the discretized grid in space and time are shown. The fully discretized system then reads
 
 \be 
 \eps_0 \frac{E_x\inp- E_x\midin}{\Delta t} = -e N_e \frac{u_x\inp + u_x \midin}{2},
