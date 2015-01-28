@@ -1,7 +1,5 @@
 \section{Frequency domain study}
-
-\mrev{
-Consider the following problem: 
+The problem (\ref{eq:main_model}) in the frequency domain can be rewritten as 
 \bealn
 %\label{eq:main_frequency_domain_1}
 \operatorname{curl}\operatorname{curl}\hat{\mathbf{E}}-
@@ -239,7 +237,9 @@ where $\vertiii{\ubf} = \|u_2'\|_{L^2} + \|\ubf\|_{L^2}$ and $C_T$ the trace con
 Suppose now $a(\ubf,\vbf) = l(\vbf)$, thus thanks to Lax-Milgram theorem we have existence and uniqueness of a variational solution.
 \end{proof}
 
-\begin{remark} \mrev{
+\begin{remark} 
+\label{remark:other}
+\mrev{
 The coercivity estimates in the above proof are not optimal in the case when $\left|\alpha(x)\right|>c>0$ for $c>0$ on the whole interval $[-L,\; H]$, at least 
 for the case $\theta=0$. Let us consider the problem (\ref{eq:var_form2}) for $\nu=0,\; \theta=0$, which, after testing it 
 with $(\tilde{E}_x,\; 0)$ and $(0,\; \tilde{E}_y)$ from $\mathbf{V}$, can be rewritten as, see also (\ref{eq:epsilon_0})

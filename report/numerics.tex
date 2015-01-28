@@ -16,7 +16,7 @@ The time-domain code implements the scheme described in Section \ref{sec:discr} 
 is written in Fortran. 
 \subsection{Frequency Domain Problem}
 \label{sec:freq_dep}
-\subsubsection{Validity of Implementation}
+\subsubsection{Validity of the Implementation}
 To check the validity of the code, we perform a numerical experiment with (formally chosen) parameters:
 \begin{align}
 \label{eq:parameters}
@@ -29,19 +29,20 @@ Additionally, the boundary conditions read as
 \partial_{1}E_{y}(H)=0,
 \eealn
 where $Ai(x)$ is the Airy function. 
-For more detail on Airy functions and the Airy equation see \cite[Chapter 10.4]{abramowitz_stegun}.
-
-It can be shown that $E_{y}$ thus satisfies the Airy equation, and hence, 
+For more detail on Airy functions and the Airy equation see \cite[Chapter 10.4]{abramowitz_stegun}. 
+It can be shown that $E_{y}$ that solves (\ref{eq:main_frequency_domain}) in 1D, with the Fourier variable $\theta=0$ (see (\ref{vf1dcase}), and $\nu=0$, 
+satisfies the Airy equation, and hence, 
 with the choice of the boundary conditions as above, we obtain that 
 \bealn
 E_{y}=Ai(x),\qquad 
 E_{x}=-i\frac{\delta(x)}{\alpha(x)}Ai(x)
 \eealn
-is the solution to the problem with parameters (\ref{eq:parameters}) with the boundary condition (\ref{eq:bcs_airy}).
+is the solution to the problem with parameters (\ref{eq:parameters}) with the boundary condition (\ref{eq:bcs_airy}). 
+The well-posedness of the respective variational formulation is due to Remark \ref{remark:other}. 
 
 In Fig.~\ref{fig:conv_rate} we demonstrate the convergence rates for this problem, with 
 \ben
-\|E_{x}-E_{x}^{c}\|_{L_{2}(\Omega)}=\left(\int\limits_{\Omega}\left|E_{x}(x)-\sum\limits_{k=1}^{N}e_{xk}\phi_{k}\right|^2dx\right),
+\|E_{x}-E_{x}^{c}\|_{L_{2}(\Omega)}=\left(\int\limits_{\Omega}\left|E_{x}(x)-\sum\limits_{k=1}^{N}e_{xk}\phi_{k}\right|^2dx\right)^{\frac{1}{2}},
 \een
 where $\left(\phi_{i}\right)_{i=1}^{N}$ are $P_{1}$-finite elements and $E_{x}(x)$ is a known analytic solution. Similarly $\|E_{y}-E_{y}^{c}\|_{L_{2}(\Omega)}$ and $\|E_{y}-E_{y}^{c}\|_{H_{1}(\Omega)}$ are defined. 
 
@@ -89,7 +90,7 @@ Importantly, the obtained convergence rates are in agreement with known estimate
 Let us consider the case of the resonance, more precisely, we consider sufficiently smooth
 $\alpha,\delta$, s.t. $\alpha(0)=0$ and $\delta(0)\neq 0$, and the solvability conditions 
 of Lemma \ref{lemma:well_posedness}  are satisfied. 
-For simplicity, let us consider 
+For simplicity, let 
 \begin{align}
 \label{eq:cond}
  \alpha(x)=-x \text{  in some neighbourhood of $0$ }.
@@ -122,7 +123,7 @@ for some $f(x)\in L_{2}(\Omega)$.
 \item The estimate from \cite[Chapter 0]{brenner} on the rate of convergence of the interpolation 
 \begin{align}
 \label{eq:bsc}
- \|v-I^{h}v\|_{L_{2}(\Omega)}\leq Ch^2|v''|_{L_{2}(\Omega)},\; C>0,
+ \|v-I^{h}v\|_{L_{2}(\Omega)}\leq Ch^2\left|v''\right|_{L_{2}(\Omega)},\; C>0,
  %\\ \|v-I^{h}v\|_{H_{1}(\Omega)}\leq Ch|v''|_{L_{2}(\Omega)},\; C>0, 
 \end{align}
 where $I^{h}v$ is an interpolation operator onto $P_{h}^{1}$.
@@ -133,10 +134,9 @@ For $E_x^{\nu},\;f(x)$ in (\ref{eq:exact}) being sufficiently smooth,
 \een
 from which, together with (\ref{eq:cond}), it follows that there exists $c>0$ s.t. for all sufficiently small $\nu$ 
 \ben
- \left|\frac{d^2}{dx^2}E_x^{\nu}\right|_{L_2}^{2}\leq c\int\limits_{\Omega}\frac{1}{(x^2+\nu^2)^{3}}dx
- %\\
- %&=c\left.
- %\left(\frac{x}{4(x^2+\nu^2)^2}\nu^{-2}+\frac{3x}{8(x^2+\nu^2)}\nu^{-4}+\frac{3}{8}\nu^{-5}\operatorname{atan}\frac{x}{\nu}\right)\right|_{-L}^{H}
+ \left|\frac{d^2}{dx^2}E_x^{\nu}\right|_{L_2}^{2}&\leq c\int\limits_{\Omega}\frac{1}{(x^2+\nu^2)^{3}}dx
+  &=c\left.
+ \left(\frac{x}{4(x^2+\nu^2)^2}\nu^{-2}+\frac{3x}{8(x^2+\nu^2)}\nu^{-4}+\frac{3}{8}\nu^{-5}\operatorname{atan}\frac{x}{\nu}\right)\right|_{-L}^{H}
  \leq C\nu^{-5},\; 
 \een
 where $C>0$ does not depend on $\nu$. This, together with the estimates (\ref{eq:cea}) and (\ref{eq:bsc}), results in 
@@ -148,9 +148,7 @@ from which it follows that to ensure (\ref{eq:problem1}) $h$ should be chosen as
 \label{eq:estimate_h}
  h=\alpha_{\epsilon}\nu^{\frac{7}{4}},
 \end{align}
-where $\alpha_{\epsilon}>0$ depends on $\epsilon$ but does not depend on $\nu$. 
-
-Let us check whether this holds true. 
+where $\alpha_{\epsilon}>0$ depends on $\epsilon$ but does not depend on $\nu$. Let us check optimality of this estimate.  
 To do so, we conduct the  numerical experiment with parameters for the problem as given in Table \ref{tab:parameters}.
 \begin{table}
 \begin{tabular}{l|r}
@@ -176,8 +174,7 @@ $H$ & 10 \\
 \caption{The parameters for the problem with the resonance}
 \label{tab:parameters}
 \end{table}
-
- We fix $\nu$ and compute the error of the solution compared to the solution computed on the finest mesh  (with $h=2e-6$). 
+We fix $\nu$ and compute the error of the solution compared to the solution computed on the finest mesh  (with $h=2e-6$). 
  The results are depicted in Fig. \ref{fig:dependence} and \ref{fig:l2_err_e2}.
 \begin{figure}
 \begin{tabular}{cc}
@@ -255,7 +252,7 @@ font=\tiny
 \label{fig:l2_err_e2}
 \end{figure} 
 
-Let us denote by $E_{x}^{h}$ the solution $E_{x}(x)$ computed on the mesh with a width $h$, and by $E_{x}^{c}$ the solution computed on the finest mesh. We introduce 
+Denoting by $E_{x}^{h}$ the solution $E_{x}(x)$ computed on the mesh with a width $h$, and by $E_{x}^{c}$ the solution computed on the finest mesh, let 
 \begin{align}
 \label{eq:def_epsilon}
 h_{\epsilon}=\sup\{h: \|E_{x}^{h'}-E_{x}^{c}\|<\epsilon \text{ for all } h'<h\}.
@@ -297,7 +294,6 @@ draw=none
 In the right figure we show the solutions for the problem for different values of $\nu$. }
 \label{fig:dependence}
 \end{figure}
-
 We can see that the estimate (\ref{eq:estimate_h}) is pessimistic compared to the one suggested by (\ref{eq:def_epsilon}), 
 at least for a given value of $\epsilon$.
 
