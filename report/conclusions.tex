@@ -1,0 +1,15 @@
+\section{Conclusions}
+In this work we considered the frequency- and the time-domain formulations of the $X$-mode Maxwell equations. 
+In particular, we proved the well-posedness of the respective regularized (with the help of 
+the absorption parameter $\nu$) variational formulation, as 
+well as studied the convergence of the finite element method for the problem with the resonance. 
+The piecewise-constant FEM approximates the resonant solution rather well, at least for moderate values of $\nu$, 
+however, the discretization size should be chosen roughly proportional to $\nu^{\frac{3}{2}}$, in order to obtain an accurate discretization.
+Indeed, it would be interesting to look at the convergence of the adaptive finite elements for this kind of problems. 
+Another unanswered question is the well-posedness of the discrete problem when the continuous problem is ill-posed. We have 
+demonstrated that while the condition number of the FEM matrix grows, the matrix remains always invertible, even for $\nu=0$. 
+
+The other part of the experiments concerned the equivalence of the limiting absorption and limiting amplitude solutions. We have shown 
+that for small $\nu$ and large times the solution computed in the time domain is close to the solution predicted by the limiting amplitude principle; as 
+$\nu\rightarrow 0$, the solution oscillates harmonically as $t\rightarrow +\infty$, however, we were not able to compute the limiting amplitude solution for very 
+small values of $\nu$. 

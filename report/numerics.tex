@@ -23,11 +23,11 @@ To check the validity of the code, we perform a numerical experiment with (forma
 \alpha(x)=x^2+1,\qquad \delta(x)=\left(\alpha^2+x\alpha\right)^{\frac{1}{2}}.
 \end{align}
 Additionally, the boundary conditions read as 
-\bealn
+\begin{align}
 \label{eq:bcs_airy}
 \partial_{1}E_{y}(-L)+2iE_{y}(-L)=2iAi(-L)+Ai'(-L),\\
 \partial_{1}E_{y}(H)=0,
-\eealn
+\end{align}
 where $Ai(x)$ is the Airy function. 
 For more detail on Airy functions and the Airy equation see \cite[Chapter 10.4]{abramowitz_stegun}. 
 It can be shown that $E_{y}$ that solves (\ref{eq:main_frequency_domain}) in 1D, with the Fourier variable $\theta=0$ (see (\ref{vf1dcase}), and $\nu=0$, 
@@ -133,12 +133,12 @@ For $E_x^{\nu},\;f(x)$ in (\ref{eq:exact}) being sufficiently smooth,
  \frac{d^2}{dx^2}E_x^{\nu}=\frac{f''}{\alpha+i\nu}-2\frac{f'\alpha'}{(\alpha+i\nu)^2}+\frac{f\alpha''}{(\alpha+i\nu)^3},
 \een
 from which, together with (\ref{eq:cond}), it follows that there exists $c>0$ s.t. for all sufficiently small $\nu$ 
-\ben
+\begin{align*}
  \left|\frac{d^2}{dx^2}E_x^{\nu}\right|_{L_2}^{2}&\leq c\int\limits_{\Omega}\frac{1}{(x^2+\nu^2)^{3}}dx
   &=c\left.
  \left(\frac{x}{4(x^2+\nu^2)^2}\nu^{-2}+\frac{3x}{8(x^2+\nu^2)}\nu^{-4}+\frac{3}{8}\nu^{-5}\operatorname{atan}\frac{x}{\nu}\right)\right|_{-L}^{H}
  \leq C\nu^{-5},\; 
-\een
+\end{align*}
 where $C>0$ does not depend on $\nu$. This, together with the estimates (\ref{eq:cea}) and (\ref{eq:bsc}), results in 
 \ben
  \|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L_{2}(\Omega)}\leq C\nu^{-\frac{7}{2}}h^2,
@@ -180,10 +180,11 @@ We fix $\nu$ and compute the error of the solution compared to the solution comp
 \begin{tabular}{cc}
 \begin{tikzpicture}
     \begin{loglogaxis}[
-    	width=0.5\textwidth,
+    	width=0.45\textwidth,
     	height=0.5\textwidth,
         xlabel=$h$,
         ylabel=$Error$,
+        ymin=1e-10,
         legend style={
 at={(0.2,1.5)},
 legend pos= south east,
@@ -214,7 +215,7 @@ font=\tiny
 \end{tikzpicture} &
 \begin{tikzpicture}
     \begin{loglogaxis}[
-    	width=0.5\textwidth,
+    	width=0.45\textwidth,
     	height=0.5\textwidth,
         xlabel=$h$,
         ylabel=$Error$,
@@ -262,14 +263,14 @@ The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Fig.~\ref{fig:dep
 \begin{tabular}{cc}
 \begin{tikzpicture}
     \begin{loglogaxis}[
-    	width=0.5\textwidth,
-    	height=0.5\textwidth,
+    	width=0.4\textwidth,
+    	height=0.4\textwidth,
         xlabel=$\nu$,
         ylabel=$h_{\epsilon}$,
         legend style={
 at={(0.2,1.5)},
-legend pos= south east,
-anchor=south east, 
+legend pos=north west,
+%anchor=south east, 
 draw=none
 }
 ]
@@ -288,10 +289,10 @@ draw=none
 \end{loglogaxis}
 \end{tikzpicture} 
 &
-\includegraphics[width=0.5\textwidth]{figure1-crop.pdf}
+\includegraphics[width=0.4\textwidth]{figure1-crop.pdf}
 \end{tabular}
 \caption{In the left figure the depenence of $h_{\epsilon}$ as defined by (\ref{eq:def_epsilon}) on $\nu$ is demonstrated. 
-In the right figure we show the solutions for the problem for different values of $\nu$. }
+In the right figure we show the computed solutions for the problem with parameters in Table \ref{tab:parameters} for different values of $\nu$. }
 \label{fig:dependence}
 \end{figure}
 We can see that the estimate (\ref{eq:estimate_h}) is pessimistic compared to the one suggested by (\ref{eq:def_epsilon}), 
@@ -312,9 +313,8 @@ can be ensured by choosing $h$ as $\beta_{\epsilon}\nu^{\frac{3}{4}}$.
 
 \FloatBarrier
 \paragraph{Condition Number}
-
-We consider the dependence of the condition number of the matrix of the system (\ref{eq:simple_system}) 
-on $\nu$, for several values of $h$ (see Table \ref{tab:cond_number}).
+In Table \ref{tab:cond_number} we demonstrate the dependence of the condition number of the matrix of the system (\ref{eq:simple_system}) 
+on $\nu$, for several values of $h$.
 \begin{table}[ht!]
 \begin{tabular}{c|ccccccccc}
 \diagbox[width=10em]{$h$}{$\nu$}& 100 & 10 & 1 & 0.1 & 1e-2 & 1e-3 & 1e-4 & 1e-8 & 0\\
@@ -332,7 +332,7 @@ on $\nu$, for several values of $h$ (see Table \ref{tab:cond_number}).
 \caption{The condition number of the matrix of the system (\ref{eq:simple_system}) for different values of $\nu$ and $h$. }
 \label{tab:cond_number}
 \end{table}
-Remarkably, for $\nu=0$ the computed matrices are not singular. \urev{We do not know the exact reason for such a behavior.}
+Remarkably, for $\nu=0$ the computed matrices are not singular. \urev{We do not know the exact reason for this.}
 As an additional illustration, we compare the solutions for very small $\nu$ and $\nu=0$ for different meshes in Fig.~\ref{fig:small_nu}. 
 \begin{figure}
  \includegraphics[width=0.4\textwidth]{figure2-crop.pdf}
