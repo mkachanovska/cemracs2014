@@ -13,7 +13,7 @@ of  Maxwell equations with the cold plasma dielectric tensor \cite{Stix,Despres_
 \right),\\
 \tilde{\alpha}(\omega)=\frac{\omega^2}{c^2}\left(1-\frac{\tilde{\omega}\omega_p^2}{\omega(\tilde{\omega}^2-\omega_c^2)}\right),\qquad 
 \tilde{\delta}(\omega)=\frac{\omega_c\omega_p^2}{\omega(\tilde{\omega}^2-\omega_c^2)},
-\end{align*}
+\eealn
 where the frequency 
 $\tilde{\omega}=\omega+i\nu$ is shifted in the complex plane,
 the cyclotron frequency is 
@@ -60,7 +60,7 @@ The resulting one dimensional system has the following variational formulation:
 \end{array}
 \end{align}
 where $\lambda=\omega\geq 0$. 
-{In this and further sections, where it is not ambiguous, we will use the notation $E_{x,y}$ instead of $\hat{E}_{x,y}$ for convenience.}
+In this and further sections, where it is not ambiguous, we will use the notation $E_{x,y}$ instead of $\hat{E}_{x,y}$ for convenience.
 
 For the sake of mathematical clarity, we reformulate 
 with a a bilinear form $a$ and a linear form $l$  %such tare such that
@@ -81,7 +81,7 @@ equipped with the norm
  \|\mathbf{v}\|_{\mathbf{V}}^2= \|v_1\|_{L_{2}(\Omega)}^2+\|v_2\|_{H^{1}(\Omega)}^2.
 \een
 Moreover the spectral radius of $\eps_0$ is denoted $\heps =  \|\rho(\eps_0)\|_{L^\infty}$.
-\end{df}
+%\end{df}
 
 We now prove the following result.
 \begin{lemma}
@@ -252,42 +252,41 @@ where $c, C>0$ do not depend on $\nu$. The problem~\eqref{vf1dcase} is well-pose
 	Suppose now $a(\ubf,\vbf) = l(\vbf)$, thus thanks to Lax-Milgram theorem we have existence and uniqueness of a variational solution.
 \end{proof}
 
-%\begin{remark} 
-%\label{remark:other}
-%\mrev{
-%The coercivity estimates in the above proof are not optimal in the case when $\left|\alpha(x)\right|>c>0$ for $c>0$ on the whole interval $[-L,\; H]$, at least 
-%for the case $\theta=0$. Let us consider the problem (\ref{eq:var_form2}) for $\nu=0,\; \theta=0$, which, after testing it 
-%with $(\tilde{E}_x,\; 0)$ and $(0,\; \tilde{E}_y)$ from $\mathbf{V}$, can be rewritten as, see also (\ref{eq:epsilon_0})
-%\begin{align}
-%\label{eq:full_var}
-%\begin{split}
-%\int_{-L}^H \left(\alpha E_x+i\delta E_y \right)_{1} \overline{\tilde E}_{x}&=0,\; \text{ for all }\tilde{E}_x\in L_{2}(\Omega), \;\\
-%\displaystyle \int_{-L}^H E_y'\tilde {E_y'} - \int_{-L}^H\left( -i\delta E_x+\alpha E_y \right)_{2}\overline{\tilde{E}}_{y}
-%  - \imath \lambda E_y (-L) \overline{\tilde E_y} (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
-%  \text{ for all }  \tilde{E}_{y}\in H_{1}(\Omega).
-%  \end{split}
-%\end{align}
-%The first equation of the above can be rewritten as 
-%\ben
-% \left(E_x,\alpha \tilde{E}_x\right)=-\left(i\delta E_y,  \tilde{E}_x\right).
-%\een
-%If the multiplication operator $M_{\alpha}$ defined as $M_{\alpha}\psi=\frac{1}{\alpha}\psi$ is an isomorphism from $L_{2}([-L,\;H])$ to $L_{2}([-L,\;H])$ (this is true if e.g.
-%$\alpha \in C_{0}([-L,\;H])$ and $|\alpha(x)|>c>0$, for some $c>0$, on the whole interval), this equation is equivalent to 
-%\begin{align}
-%\label{eq:mult_eq}
-%  \left(E_x,u\right)=-\left(\frac{i\delta}{\alpha}E_y,u\right),\; \text{ for all } u\in L_{2}(\Omega). 
-%\end{align}
-%
-%Choosing in the above $u=i\delta \tilde{E}_y \in L_{2}(\Omega)$ and adding it to the second equation of (\ref{eq:full_var}), we obtain
-%\bealn
-% \displaystyle \int_{-L}^H E_y'\tilde {E_y'} - \int_{-L}^H \alpha-\frac{\delta^2}{\alpha})E_y \overline{\tilde{E}}_{y}
-%  - \imath \lambda E_y (-L) \overline{\tilde E_y} (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
-%  \text{ for all } \tilde{E}_{y}\in H_{1}(\Omega). \nonumber
-%\eealn
-%Thus we obtain the variational formulation for $E_y$, or the variational formulation for the Helmholtz equation. The well-posedness 
-%of this problem, with additional assumptions on boundary conditions and smoothness of the coefficients, 
-%had been demonstrated in \cite{LMIG_thesis}. Provided the solution $E_y\in H_{1}(\Omega)$, we can obtain $E_x$ from the equation (\ref{eq:mult_eq}).}
-%\end{remark}
+\begin{remark} 
+\label{remark:other}
+The coercivity estimates in the above proof are not optimal in the case when $\left|\alpha(x)\right|>c>0$ for $c>0$ on the whole interval $[-L,\; H]$, at least 
+for the case $\theta=0$. Let us consider the problem (\ref{eq:var_form2}) for $\nu=0,\; \theta=0$, which, after testing it 
+with $(\tilde{E}_x,\; 0)$ and $(0,\; \tilde{E}_y)$ from $\mathbf{V}$, can be rewritten as, see also (\ref{eq:epsilon_0})
+\begin{align}
+\label{eq:full_var}
+\begin{split}
+\int_{-L}^H \left(\alpha E_x+i\delta E_y \right)_{1} \overline{\tilde E}_{x}&=0,\; \text{ for all }\tilde{E}_x\in L_{2}(\Omega), \;\\
+\displaystyle \int_{-L}^H E_y'\tilde {E_y'} - \int_{-L}^H\left( -i\delta E_x+\alpha E_y \right)_{2}\overline{\tilde{E}}_{y}
+  - \imath \lambda E_y (-L) \overline{\tilde E_y} (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
+  \text{ for all }  \tilde{E}_{y}\in H_{1}(\Omega).
+  \end{split}
+\end{align}
+The first equation of the above can be rewritten as 
+\ben
+ \left(E_x,\alpha \tilde{E}_x\right)=-\left(i\delta E_y,  \tilde{E}_x\right).
+\een
+If the multiplication operator $M_{\alpha}$ defined as $M_{\alpha}\psi=\frac{1}{\alpha}\psi$ is an isomorphism from $L_{2}([-L,\;H])$ to $L_{2}([-L,\;H])$ (this is true if e.g.
+$\alpha \in C_{0}([-L,\;H])$ and $|\alpha(x)|>c>0$, for some $c>0$, on the whole interval), this equation is equivalent to 
+\begin{align}
+\label{eq:mult_eq}
+  \left(E_x,u\right)=-\left(\frac{i\delta}{\alpha}E_y,u\right),\; \text{ for all } u\in L_{2}(\Omega). 
+\end{align}
+
+Choosing in the above $u=i\delta \tilde{E}_y \in L_{2}(\Omega)$ and adding it to the second equation of (\ref{eq:full_var}), we obtain
+\bealn
+ \displaystyle \int_{-L}^H E_y'\tilde {E_y'} - \int_{-L}^H \alpha-\frac{\delta^2}{\alpha})E_y \overline{\tilde{E}}_{y}
+  - \imath \lambda E_y (-L) \overline{\tilde E_y} (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
+  \text{ for all } \tilde{E}_{y}\in H_{1}(\Omega). \nonumber
+\eealn
+Thus we obtain the variational formulation for $E_y$, or the variational formulation for the Helmholtz equation. The well-posedness 
+of this problem, with additional assumptions on boundary conditions and smoothness of the coefficients, 
+had been demonstrated in \cite{LMIG_thesis}. Provided the solution $E_y\in H_{1}(\Omega)$, we can obtain $E_x$ from the equation (\ref{eq:mult_eq}).
+\end{remark}
 
 
 %\subsection{2D case}
