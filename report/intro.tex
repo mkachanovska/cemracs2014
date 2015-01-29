@@ -28,16 +28,16 @@ and the velocity of electrons $\ubf_e$. Here $B_0$ is the background magnetic fi
 We denote by $e<0$ the value of the charge of electrons, $m_e$ the electron mass and $N_e$ the electron density that in general 
 depends on spatial variables and is uniform in time. 
 Without loss of generality, we set $\mathbf{B}_0=\left(0,\; 0,\; B_0\right)$, which allows to obtain the following system of 1D equations 
-\begin{align}
+\begin{equation}
 \label{eq:main_model}
-\left\{\begin{array}{l}
-\epsilon_0\partial_t E_{x}&=-eN_e u_x,\\
-\epsilon_0\partial_t E_{y}+\partial_x H_z&=-eN_e u_y,\\
-\mu_0\partial_t H_z+\partial_x E_y &=0,\\
-m_e\partial_t u_x&=eE_x+eu_yB_0-\nu m_e u_x,\\
-m_e\partial_t u_y&=eE_y-eu_xB_0-\nu m_e u_y
-\end{array}
-\right.\end{align}
+\begin{cases}
+\epsilon_0\partial_t E_{x}=-eN_e u_x,\\
+\epsilon_0\partial_t E_{y}+\partial_x H_z=-eN_e u_y,\\
+\mu_0\partial_t H_z+\partial_x E_y =0,\\
+m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\\
+m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y
+\end{cases}
+\end{equation}
 posed in $[-L,\; \infty)\times \mathbb{R}$, for some $L>0$. This domain represents the physical case of a wave sent from a wall facing a plasma. 
 The energy of this system for $\nu=0$ in a domain $\Omega\in\mathbb R^2$ can be expressed as \cite{stable_yee_plasma_current}
 \mrev{\ben
