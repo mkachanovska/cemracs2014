@@ -174,86 +174,9 @@ $H$ & 10 \\
 \caption{The parameters for the problem with the resonance}
 \label{tab:parameters}
 \end{table}
-We fix $\nu$ and compute the error of the solution compared to the solution computed on the finest mesh  (with $h=2e-6$). 
- The results are depicted in Fig. \ref{fig:dependence} and \ref{fig:l2_err_e2}.
-\begin{figure}
-\begin{tabular}{cc}
-\begin{tikzpicture}
-    \begin{loglogaxis}[
-    	width=0.45\textwidth,
-    	height=0.5\textwidth,
-        xlabel=$h$,
-        ylabel=$Error$,
-        ymin=1e-10,
-        legend style={
-at={(0.2,1.5)},
-legend pos= south east,
-anchor=south east, 
-draw=none, 
-font=\tiny
-}
-]
-\addplot[mark=*,blue] table {pics/result_l2e1.1.dat}; 
-\addlegendentry{$\nu=1$};
-\addplot[mark=*,green] table {pics/result_l2e1.0.25.dat}; 
-\addlegendentry{$\nu=2^{-2}$};
-\addplot[mark=*,red] table {pics/result_l2e1.0.0625.dat}; 
-\addlegendentry{$\nu=2^{-4}$};
-\addplot[mark=square,blue] table {pics/result_l2e1.0.015625.dat}; 
-\addlegendentry{$\nu=2^{-6}$};
-\addplot[mark=square,green] table {pics/result_l2e1.0.0039062.dat}; 
-\addlegendentry{$\nu=2^{-8}$};
-\addplot[mark=triangle,red] table {pics/result_l2e1.0.00097656.dat}; 
-\addlegendentry{$\nu=2^{-10}$};
-\addplot[mark=triangle,blue] table {pics/result_l2e1.0.00024414.dat}; 
-\addlegendentry{$\nu=2^{-12}$};
-\addplot[mark=triangle, green] table {pics/result_l2e1.6.1035e-05.dat};
-\addlegendentry{$\nu=2^{-14}$};
-\addplot[mark=triangle, red] table{pics/result_l2e1.1.5259e-05.dat};
-\addlegendentry{$\nu=2^{-16}$};
-\end{loglogaxis}
-\end{tikzpicture} &
-\begin{tikzpicture}
-    \begin{loglogaxis}[
-    	width=0.45\textwidth,
-    	height=0.5\textwidth,
-        xlabel=$h$,
-        ylabel=$Error$,
-        ymin=1e-8,
-        legend style={
-at={(0.2,1.5)},
-legend pos= south east,
-anchor=south east, 
-draw=none,
-font=\tiny
-}
-]
-\addplot[mark=*,blue] table {pics/result_l2e2.1.dat}; 
-\addlegendentry{$\nu=1$};
-\addplot[mark=*,green] table {pics/result_l2e2.0.25.dat}; 
-\addlegendentry{$\nu=2^{-2}$};
-\addplot[mark=*,red] table {pics/result_l2e2.0.0625.dat}; 
-\addlegendentry{$\nu=2^{-4}$};
-\addplot[mark=square,blue] table {pics/result_l2e2.0.015625.dat}; 
-\addlegendentry{$\nu=2^{-6}$};
-\addplot[mark=square,green] table {pics/result_l2e2.0.0039062.dat}; 
-\addlegendentry{$\nu=2^{-8}$};
-\addplot[mark=square, red] table {pics/result_l2e2.0.00097656.dat}; 
-\addlegendentry{$\nu=2^{-10}$};
-\addplot[mark=triangle,blue] table {pics/result_l2e2.0.00024414.dat}; 
-\addlegendentry{$\nu=2^{-12}$};
-\addplot[mark=triangle, green] table{pics/result_l2e2.6.1035e-05.dat};
-\addlegendentry{$\nu=2^{-14}$};
-\addplot[mark=triangle, red] table{pics/result_l2e2.1.5259e-05.dat};
-\addlegendentry{$\nu=2^{-16}$};
-\end{loglogaxis}
-\end{tikzpicture} 
-\end{tabular}
-\caption{In the left figure we show the $L_{2}$-error of $E_{x}(x)$, and in the right figure the $L_2$-error of $E_y(x)$ is shown.}
-\label{fig:l2_err_e2}
-\end{figure} 
+The results of the experiments for different $\nu$ are shown in Figure \ref{fig:dependence}. 
 
-Denoting by $E_{x}^{h}$ the solution $E_{x}(x)$ computed on the mesh with a width $h$, and by $E_{x}^{c}$ the solution computed on the finest mesh, let 
+Denoting by $E_{x}^{h}$ the solution $E_{x}(x)$ computed on the mesh with a width $h$, and by $E_{x}^{c}$ the solution computed on a \urev{mesh multiple times finer}, let 
 \begin{align}
 \label{eq:def_epsilon}
 h_{\epsilon}=\sup\{h: \|E_{x}^{h'}-E_{x}^{c}\|<\epsilon \text{ for all } h'<h\}.
@@ -271,7 +194,8 @@ The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Fig.~\ref{fig:dep
 at={(0.2,1.5)},
 legend pos=north west,
 %anchor=south east, 
-draw=none
+draw=none, 
+xmin=0.5e-5
 }
 ]
 \addplot[mark=*,blue] table {pics/h1e-1.dat}; 
