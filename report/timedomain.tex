@@ -1,13 +1,15 @@
 \section{Time Dependent Problem Discretization}
+Let us consider the system (\ref{eq:main_model}) in dimension one in the X-mode configuration which is transverse electric.
+\subsection{A staggered scheme}
 In this section, we develop a discretization of the time dependant problem~\eqref{eq:main_model} 
 in one dimension. In 1D, the derivatives with respect to $y$ vanish, and we are left with the following problem, 
- \begin{align}
- \epsilon_0\partial_t E_{x}=-eN_e u_x, \nonumber\\
- \epsilon_0\partial_t E_{y}+\partial_x H_z=-eN_e u_y,\nonumber\\
- \mu_0\partial_t H_z+\partial_x E_y-\partial_y E_x=0, \label{eq:tdpb}\\
- m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\nonumber\\
- m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y.\nonumber
- \end{align}
+% \begin{align}
+% \epsilon_0\partial_t E_{x}=-eN_e u_x, \nonumber\\
+% \epsilon_0\partial_t E_{y}+\partial_x H_z=-eN_e u_y,\nonumber\\
+% \mu_0\partial_t H_z+\partial_x E_y-\partial_y E_x=0, \label{eq:tdpb}\\
+% m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\nonumber\\
+% m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y.\nonumber
+% \end{align}
 We compute a numerical approximation of~\eqref{eq:tdpb} on a cartesian grid using the Yee scheme, 
 as suggested in \cite{stable_yee_plasma_current}. Let $n$ denote the time step index, as usual $t_n = n \Delta t$. 
 It is standard (see \cite{Xu_2006,stable_yee_plasma_current }) to discretize the electrical field on the integer time step, 
@@ -47,7 +49,42 @@ m_e \frac{u_x\inp-u_x\midin }{\Delta x} = e N_e \frac{E_x\inp+E_x\midin}{2}-\nu 
 m_e \frac{u_y\ihnp-u_y\ihn}{\Delta t} = eN_e \frac{E_y\ihnp + E_y\ihn}{2}- \nu m_e \frac{u_y\ihnp +u_y\ihn}{2}-eB_0 \frac{u_x\midin+u_x\inp}{2},
 \label{eq:ns401}
 \een
-\input{grid}
+%\input{grid}
+\begin{figure}[h!]
+	\begin{center}
+		\begin{tikzpicture}
+		
+		\draw[thin] (0, 0) grid (2, 2);
+		\foreach \x in {0,1,2}
+		\foreach \y in {0,1,2}
+		\draw[fill](\x,\y) circle (2pt) ;
+		\foreach \x in {0.5,1.5}
+		\foreach \y in {0,1,2}
+		\draw[fill,blue](\x,\y) circle (2pt) ;
+		\foreach \x in {0,1,2}
+		\foreach \y in {0.5,1.5}
+		\draw[fill,red](\x,\y) circle (2pt) ;		
+		\draw[->] (0,0) -- (0,2.5);
+		\draw[->] (0,0) -- (2.5,0);
+		\coordinate (Origin)   at (0,0);
+		\node (xlab) at (2.5,-0.5){\tiny $x$};
+		\node (tlab) at (-0.5,2.5){\tiny $t$};
+		%      \node[black] (exux) at (2.6,1){\tiny $E_x$, $u_x$};
+		%      \node[blue](eyuy) at (1.5,2.5){\tiny $E_y$, $u_y$};
+		%      \node[red] (hz) at (2.5,1.5) {\tiny $H_z$};
+		\node[black] (xilab) at (-0.5,0){\tiny $(x_i, t^n)$};
+		\node[blue](xid) at (0.5,-0.3){\tiny $(x_{i+1/2},t^n)$};
+		\node[red] (tid) at (-0.8,0.5) {\tiny $(x_i,t^{n+1/2})$};
+		
+		
+		\end{tikzpicture} 
+		%	\label{schemepos}
+	\end{center}
+	\caption{Positions of $E_x$, $u_x$ (black dots), $E_y$ $u_y$ (blue dots) and $H_z$ (red dots) on the discretized grid in space and time}
+	
+	\label{schemepos}
+\end{figure}
+
 It is possible to rewrite this system in an explicit form (we omit here these simple but slightly tedious computations).
 %It is now possible to describe explicitly how to solve the proviso discrete system. We first compute $H_z$ at time $n+1/2$ with \eqref{eq:ns3}. Then, \eqref{eq:ns2} gives the expression $E_y\ihnp$ as a function of known variables, and $u_y^{n+1}$, as follow
 %\be
@@ -108,3 +145,72 @@ It is possible to rewrite this system in an explicit form (we omit here these si
 %\item compute $u_x^{n+1}$ thanks to \eqref{eq:ns10},
 %\item compute $E_x^{n+1}$ thanks to \eqref{eq:ns8}.
 %\end{itemize}
+\subsection{A co-localized scheme based on semi-lagrangian discretisation}
+
+
+The scheme that is described hereafter is mentioned since it is based on some well-known 
+numerical methods in plasma physics, the so-called semi-lagrangian schemes 
+which are widely used for the numerical approximation of transport equations.
+It seems to be an original use of semi-lagrangian schemes 
+and is mentioned since it can be an option. 
+We restrict the presentation to the minimum and leave the details  of the construction to the alert reader.
+
+The idea is to split 
+the system (\ref{eq:main_model})
+into a series of  transport equations (here just 2) and a local in-the-cell system. 
+
+- At time step $t_n=n\Delta t$, all quantities are given $(E_x,E_y, H_z, u_x,u_y)_{i}^n$ in the cells, that is for all $i$ in the 
+computational domain.
+
+- The first step is to solve 
+$$
+\left\{
+\begin{array}{lll}
+\epsilon_0\partial_t E_{x}=0,\\
+\epsilon_0\partial_t E_{y}+\partial_x H_z=0,\\
+\mu_0\partial_t H_z+\partial_x E_y=0,\\
+m_e\partial_t u_x=0,\\
+m_e\partial_t u_y=0,
+\end{array}
+\right.
+$$
+Since  $\epsilon_0 \mu_0c^2=1$, this can be  performed solving
+two transport equations 
+$$
+\left\{
+\begin{array}{lll}
+\partial_t w +c \partial_x w=0, & w=E_{y}+ c H_z,  \\
+\partial_t z -c \partial_x z=0& z=E_{y}-  c H_z.
+\end{array}
+\right.
+$$
+In our case we used 
+a semi-lagrangian scheme for a time step $\Delta t$.
+In the tests, we used Strang's stencils described in \cite{cedar} with CFL $\nu=0.5$, at order 7. 
+It  yields the chain 
+$(E_y,H_z)_i^n\mapsto ( w,z)_i^n\mapsto ( w,z)_i^{n*}\mapsto E_y,H_z)_i^{n*} $.
+Here $n*$ denotes the intermediate stage of the algorithm.
+
+- The second (and final) step is to solve
+$$
+\left\{\begin{array}{l}
+\epsilon_0\partial_t E_{x}=-eN_e u_x,\\
+\epsilon_0\partial_t E_{y}=-eN_e u_y,\\
+\mu_0\partial_t H_z=0,\\
+m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\\
+m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y.
+\end{array}
+\right.$$
+This is performed locally in every cells starting from the data at the preceding 
+step. In our case we just adapt the algorithm developed for the staggered scheme.
+We make sure that the method is conservative in total energy if $\nu=0$, using a half step discretization
+of the right hand sides.
+
+- Therefore  all quantities are now given $(E_x,E_y, H_z, u_x,u_y)_{i}^{n+1}$ in the cells 
+at time step $t_{n+1}=(n+1)\Delta t$, and it is enough to loop in time.
+
+
+\begin{remark}
+	The structure of this algorithm is very similar to the one developed in \cite{compfluids} and can be adapted and studied numerically
+	in any dimension on a Cartesian grid and for more complex right hand sides.
+\end{remark}
