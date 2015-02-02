@@ -188,7 +188,7 @@ In our case we used
 a semi-lagrangian scheme for a time step $\Delta t$.
 In the tests, we used Strang's stencils described in \cite{cedar} with CFL $\nu=0.5$, at order 7. 
 It  yields the chain 
-$(E_y,H_z)_i^n\mapsto ( w,z)_i^n\mapsto ( w,z)_i^{n*}\mapsto E_y,H_z)_i^{n*} $.
+$(E_y,H_z)_i^n\mapsto ( w,z)_i^n\mapsto ( w,z)_i^{n*}\mapsto (E_y,H_z)_i^{n*} $.
 Here $n*$ denotes the intermediate stage of the algorithm.
 
 - The second (and final) step is to solve
