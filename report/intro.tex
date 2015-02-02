@@ -45,18 +45,18 @@ The energy of this system for $\nu=0$ in a domain $\Omega\in\mathbb R^2$ can be 
 \frac{\epsilon_0 |\E(t,\x)|^2}{2}+\frac{ |\B(t,\x)|^2}{2\mu_0}+\frac{m_e|\J (t,\x)|^2}{2|e|N_e(\x)} 
 \right)\mathrm{d}\x.
 \een
-It can be shown    \cite{Despres_2014} 
+In  \cite{Despres_2014} it was shown
 that the time harmonic electric field component $E_x$ in this case is no longer square 
-integrable, with 
+integrable, and  
 explicit estimates on the behavior of the solutions of \eqref{eq:main_model} in 1D were provided. 
 This apparent paradox  is of course the source of important numerical difficulties which are the subject of the present study.
 
 We complement Problem (\ref{eq:main_model}) with the boundary conditions.
 At the left boundary of the domain, which represents the wall of the Tokamak, we choose Robin boundary conditions 
 \be
--curl \E -\imath \omega\E \wedge \n = g_{inc} = -curl \E_{inc} -\imath\omega\E_{inc} \wedge \n,
+-curl \E -\imath \lambda\E \wedge \n = g_{inc} = -curl \E_{inc} -\imath\lambda\E_{inc} \wedge \n,
 \ee
-where $\E_{inc} = \exp \left(\imath \omega x\right)\begin{pmatrix} E_1\\ E_2 \end{pmatrix}$ and $\omega$ is 
+where $\E_{inc} = \exp \left(\imath \lambda x\right)\begin{pmatrix} E_1\\ E_2 \end{pmatrix}$ and $\lambda$ is 
 the frequency of the antenna.
 %some given 
 %frequency. 
@@ -89,28 +89,29 @@ $\hat{\mathbf{E}}\mathrm{e}^{i\omega t}$, computed in the frequency domain, for 
 $\lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}\mathbf{E}(t)$.
 Such a comparison is a way to study the formal commutation relation
 $$
-\lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}= \lim\limits_{t\rightarrow+\infty}\lim\limits_{\nu\rightarrow 0}.
+\lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}= \lim\limits_{t\rightarrow+\infty}\lim\limits_{\nu\rightarrow 0},
 $$
+see Figure \ref{fig:limits}. 
 Even it is true for standard linear wave problems, it is not clear that it still hold in our case due the singularity
 of the hybrid resonance.
-%\begin{figure}
-%\begin{tikzpicture}
-%   \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em] {
-%     \mathbf{E}^{\nu}(t) & \mathbf{E}^{0+}(t)\\
-%     \hat{\mathbf{E}}^{\nu}(t)\mathrm{e}^{i\omega t} & 
-%     \lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow \infty}\mathbf{E}^{\nu}(t)=\lim\limits_{t\rightarrow \infty}\lim\limits_{\nu\rightarrow 0}\mathbf{E}^{\nu}(t)\\
-%     };
-%  \path[-stealth,font=\scriptsize]    (m-1-1) edge node [left] {$t\rightarrow\infty$} (m-2-1);
-%  \path[-stealth, font=\scriptsize]   (m-1-1) edge node [above] {$\nu\rightarrow 0+$} (m-1-2);
-%  \path[-stealth, font=\scriptsize]   (m-2-1) edge node [above] {$\nu\rightarrow 0$} (m-2-2);
-%  \path[-stealth, font=\scriptsize]   (m-1-2) edge node [right] {$t\rightarrow \infty$} (m-2-2);
-%
-%
-%  % \path[-stealth] (m-2-1.east) edge node [above] {$\nu\rightarrow 0$} (m-2-2);
-%    %(m-1-2) edge node [right] {$\nu\rightarrow 0$} (m-2-2);
-%\end{tikzpicture}
-% \caption{\label{fig:limits}Schematic representation of the equivalence of the limited absorption and limiting amplitude principles.}
-%
-%\end{figure}
+\begin{figure}
+\begin{tikzpicture}
+   \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em] {
+     \mathbf{E}^{\nu}(t) & \mathbf{E}^{0+}(t)\\
+     \hat{\mathbf{E}}^{\nu}(t)\mathrm{e}^{i\omega t} & 
+    \lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow \infty}\mathbf{E}^{\nu}(t)=\lim\limits_{t\rightarrow \infty}\lim\limits_{\nu\rightarrow 0}\mathbf{E}^{\nu}(t)\\
+     };
+ \path[-stealth,font=\scriptsize]    (m-1-1) edge node [left] {$t\rightarrow\infty$} (m-2-1);
+  \path[-stealth, font=\scriptsize]   (m-1-1) edge node [above] {$\nu\rightarrow 0+$} (m-1-2);
+ \path[-stealth, font=\scriptsize]   (m-2-1) edge node [above] {$\nu\rightarrow 0$} (m-2-2);
+  \path[-stealth, font=\scriptsize]   (m-1-2) edge node [right] {$t\rightarrow \infty$} (m-2-2);
+
+
+   \path[-stealth] (m-2-1.east) edge node [above] {$\nu\rightarrow 0$} (m-2-2);
+   (m-1-2) edge node [right] {$\nu\rightarrow 0$} (m-2-2);
+\end{tikzpicture}
+ \caption{Schematic representation of the equivalence of the limited absorption and limiting amplitude principles.}
+\label{fig:limits}
+\end{figure}
 
 To our knowledge, such numerical studies have not been performed in the existing literature. 
