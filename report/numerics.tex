@@ -56,6 +56,9 @@ known analytic solution.
         xlabel=$h$,
         ylabel=$Error$,
         width=0.4\textwidth,
+        xmin=2e-6,
+        ymin=1e-8,
+        xmax=2,
         legend style={
 at={(1.7,0.5)},
 %legend pos=outer north east, 
@@ -65,12 +68,12 @@ anchor=east,
 draw=none,
 font=\small
 }
-]\addplot[mark=*,blue] table {pics/E1L2.dat}; 
+]\addplot[mark=*,black] table {pics/E1L2.dat}; 
     \addlegendentry{$\|E_{x}-E_{x}^{c}\|_{L_{2}}$};
-    \addplot[mark=*,red] table {pics/E2H1.dat};
+    \addplot[mark=*,red, mark size=1pt] table {pics/E2H1.dat};
         \addlegendentry{$\|E_{y}-E_{y}^{c}\|_{H_{1}}$};
         
-          \addplot[mark=*,cyan] table {pics/E2L2.dat};
+          \addplot[mark=*,cyan, mark size=1pt] table {pics/E2L2.dat};
         \addlegendentry{$\|E_{y}-E_{y}^{c}\|_{L_{2}}$};  
         \addplot[dotted] table{pics/E_h2.dat};
          \addlegendentry{$O(h^2)$};
@@ -191,40 +194,9 @@ h_{\epsilon}=\sup\{h: \|E_{x}^{h'}-E_{x}^{c}\|<\epsilon \text{ for all } h'<h\}.
 The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Fig.~\ref{fig:dependence}.
 \begin{figure}
 \begin{tabular}{cc}
-\begin{tikzpicture}
-    \begin{loglogaxis}[
-    	width=0.4\textwidth,
-    	height=0.4\textwidth,
-        xlabel=$\nu$,
-        ylabel=$h_{\epsilon}$,
-        ymax=5e3,
-        xmin=0.5e-4,
-        xmax=0.3,
-        legend style={
-at={(0.2,1.5)},
-legend pos=north west,
-font=\tiny, 
-draw=none
-}
-]
-\addplot[mark=*,blue] table {pics/h1e-1.dat}; 
-\addlegendentry{$\epsilon=1e-1$};
-%\addplot[mark=o,red] table {pics/h1e-2.dat}; 
-%\addlegendentry{$\epsilon=1e-2$};
-\addplot[mark=triangle,green] table {pics/h1e-3.dat}; 
-\addlegendentry{$\epsilon=1e-3$};
-%\addplot[mark=square,cyan] table {pics/h1e-4.dat}; 
-%\addlegendentry{$\epsilon=1e-4$};
-\addplot[dashed, red] table {pics/nu32.dat}; 
-\addlegendentry{$O\left(\nu^{\frac{3}{2}}\right)$};
-\addplot[dashed, blue] table {pics/nu54.dat}; 
-\addlegendentry{$O\left(\nu^{\frac{5}{4}}\right)$};
-\addplot[dashed, green] table {pics/nu1.dat}; 
-\addlegendentry{$O\left(\nu\right)$};
-\end{loglogaxis}
-\end{tikzpicture} 
+\includegraphics[height=0.35\textwidth]{h_nu.pdf}
 &
-\includegraphics[height=0.3\textwidth]{figure1-crop.pdf}
+\includegraphics[height=0.35\textwidth]{figure1-crop.pdf}
 \end{tabular}
 \caption{In the left figure the depenence of $h_{\epsilon}$ as defined by (\ref{eq:def_epsilon}) on $\nu$ is demonstrated. 
 In the right figure we show the computed solutions for the problem with parameters in Table \ref{tab:parameters} for different values of $\nu$. }
@@ -235,52 +207,51 @@ at least for given values of $\epsilon$ and for a chosen range of $\nu>0$.
 
 
 \begin{remark}
- We can show that 
-\bealn
- \|E^{\nu}_{x}\|_{L_{2}(\Omega)}\leq \frac{C}{\sqrt{\nu}},\; C>0, 
-\eealn
+ We can show that $\|E^{\nu}_{x}\|_{L_{2}(\Omega)}\leq \frac{C}{\sqrt{\nu}},\; C>0$, 
 and thus the relative error control
 \bealn
  \frac{\|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L_{2}(\Omega)}}{\|E^{\nu}_{x}\|_{L_{2}(\Omega)}}\leq \epsilon
 \eealn
-can be ensured by choosing $h$ as $\beta_{\epsilon}\nu^{\frac{3}{4}}$.
+ can be ensured by choosing $h$ as $\beta_{\epsilon}\nu^{\frac{3}{4}}$.
 \end{remark}
 
 \FloatBarrier
 \paragraph{Condition Number}
-In Figure \ref{tab:cond_number} we demonstrate the dependence of the condition number of the matrix of the system (\ref{eq:simple_system}) 
+In Figure \ref{fig:small_nu} we demonstrate the dependence of the condition number of the matrix of the system (\ref{eq:simple_system}) 
 on $\nu$, for several values of $h$.
 \begin{figure}
- 
-\end{figure}
-
-\begin{table}[ht!]
-\begin{tabular}{c|ccccccccc}
-\diagbox[width=10em]{$h$}{$\nu$}& 100 & 10 & 1 & 0.1 & 1e-2 & 1e-3 & 1e-4 & 1e-8 & 0\\
- \hline
-1 & 3.9634&4.3787 &4.987&36.949&42.394& 42.757 &42.79&42.793&42.793\\
-\hline
-0.5&      3.9931& 6.87&48.473 & 168.41  &207.34  & 209.63 & 209.83 & 209.85&  209.85\\
-\hline
- 0.1&      16.09  &     159.56  &     1146.1   &    8304.1   &     19169  &      20270   &     20344   &     20352   &     20352\\
- \hline
-0.05&      64.046  &     637.18  &     4686.2   &     38876 &  1.4e5 &  1.58e5 &   1.58e5 &  1.58e5 &  1.58e5\\
-\hline
- 0.01&       1600    &   15921 & 1.2e5  & 1.1e6 & 8.3e6  & 1.8e7   & 1.93e7  & 1.93e7  & 1.93e7\\
-\end{tabular}
-\caption{The condition number of the matrix of the system (\ref{eq:simple_system}) for different values of $\nu$ and $h$. }
-\label{tab:cond_number}
-\end{table}
-Remarkably, for $\nu=0$ the computed matrices are not singular. We do not know the exact reason for this.
-As an additional illustration, we compare the solutions for very small $\nu$ and $\nu=0$ for different meshes in Fig.~\ref{fig:small_nu}. 
-\begin{figure}
- \includegraphics[width=0.4\textwidth]{figure2-crop.pdf}
- \caption{The plot shows $E_{y}^{\nu}$ computed on different meshes for small $\nu$. It can be seen that for meshes that are coarse 
+\begin{tabular}{cc}
+\includegraphics[height=0.3\textwidth]{fig_cond_num.pdf}&
+ \includegraphics[height=0.3\textwidth]{figure2-crop.pdf}
+ \end{tabular}
+ \caption{
+ The left plot demonstrates the dependence of the condition number of the system (\ref{eq:simple_system}) on $\nu$, for different values of $h$ (the condition 
+ number for $\nu=0$ is not shown, however, for values of $h$ as shown in the plot, the matrix appears to be non-singular). 
+ The right plot shows $E_{y}^{\nu}$ computed on different meshes for small $\nu$. It can be seen that for meshes that are coarse 
  with respect to $\nu$ (e.g. $\nu=10^{-4}, \; h=10^{-2}$, or $\nu=0,\; h=10^{-2}$), the computed solution seems to be only piecewise-continuous in $\nu$, 
  while for finer meshes and $\nu>0$ the solution seems to be smooth. It can be also seen that for $h=10^{-2}$ and $h=10^{-3}$ the solutions 
  computed for $\nu=0$ are indistinguishable on this scale.}
  \label{fig:small_nu}
 \end{figure}
+%\begin{table}[ht!]
+%\begin{tabular}{c|ccccccccc}
+%\diagbox[width=10em]{$h$}{$\nu$}& 100 & 10 & 1 & 0.1 & 1e-2 & 1e-3 & 1e-4 & 1e-8 & 0\\
+% \hline
+%1 & 3.9634&4.3787 &4.987&36.949&42.394& 42.757 &42.79&42.793&42.793\\
+%\hline
+%0.5&      3.9931& 6.87&48.473 & 168.41  &207.34  & 209.63 & 209.83 & 209.85&  209.85\\
+%\hline
+% 0.1&      16.09  &     159.56  &     1146.1   &    8304.1   &     19169  &      20270   &     20344   &     20352   &     20352\\
+% \hline
+%0.05&      64.046  &     637.18  &     4686.2   &     38876 &  1.4e5 &  1.58e5 &   1.58e5 &  1.58e5 &  1.58e5\\
+%\hline
+% 0.01&       1600    &   15921 & 1.2e5  & 1.1e6 & 8.3e6  & 1.8e7   & 1.93e7  & 1.93e7  & 1.93e7\\
+%\end{tabular}
+%\caption{The condition number of the matrix of the system (\ref{eq:simple_system}) for different values of $\nu$ and $h$. }
+%\label{tab:cond_number}
+%\end{table}
+Remarkably, for $\nu=0$ the computed matrices are not singular. We do not know the exact reason for this.
+As an additional illustration, we compare the solutions for very small $\nu$ and $\nu=0$ for different meshes in Fig.~\ref{fig:small_nu}. 
 
 \FloatBarrier
 
