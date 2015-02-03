@@ -95,7 +95,7 @@ is continuous and coercive for all $\nu>0$: for all $\ubf,\vbf\in \mathbf{V}$ it
 \bealn
 \label{eq:bilinear_cont}
 \left\{\begin{array}{l}
-\Re\left(\mathrm{e}^{-i\alpha_{\nu}}a(\ubf,\ubf)\right)\geq \frac{\nu}{\sqrt{(\heps+\theta^2+1)^2+\nu^2}}\left(\frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2\right),\; 
+\Re\left(\mathrm{e}^{i\alpha_{\nu}}a(\ubf,\ubf)\right)\geq \frac{\nu}{\sqrt{(\heps+\theta^2+1)^2+\nu^2}}\left(\frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2\right),\; 
 \text{ for some $\alpha_{\nu}\in\left(0,\frac{\pi}{2}\right)$},\\
 |a(\ubf,\vbf)|\leq C \|\ubf\|_{\mathbf{V}}\|\vbf\|_{\mathbf{V}},
 \end{array}\right.
@@ -127,14 +127,14 @@ where $C>0$ does not depend on $\nu$. The problem~\eqref{vf1dcase} is well-posed
 	a_1(\ubf,\ubf)  \geq \frac{1}{2}\|u_2'\|^2_{L^2}-  (\heps  +  \theta^2) \| \ubf \|_{L^2}^2$.
 	One also has that
 	$
-	a_2 (\ubf ,\ubf) \geq \nu \| \ubf \|_{L^2}^2$. 
+	a_2 (\ubf ,\ubf) \leq -\nu \| \ubf \|_{L^2}^2$. 
 	Therefore
 	\ben
-	a_1(\ubf,\ubf)+\frac{\heps  +  \theta^2 + 1 }\nu a_2(\ubf,\ubf)\geq \frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2,
+	a_1(\ubf,\ubf)-\frac{\heps  +  \theta^2 + 1 }\nu a_2(\ubf,\ubf)\geq \frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2,
 	\een
 	or, introducing $\alpha_{\nu}=\arccos\frac{1}{\sqrt{1+\left(\heps+\theta^2+1\right)^2\nu^{-2}}}$, this is equivalent to 
 	\ben
-	\Re\left(\mathrm{e}^{-i\alpha_{\nu}}a(\ubf,\ubf)\right)\geq 
+	\Re\left(\mathrm{e}^{i\alpha_{\nu}}a(\ubf,\ubf)\right)\geq 
 	\frac{1}{\sqrt{1+\left(\heps+\theta^2+1\right)^2\nu^{-2}}} \left(\frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2\right)\\
 	\geq \frac{\nu}{\sqrt{(\heps+\theta^2+1)^2+\nu^2}}\left(\frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2\right).
 	\een
@@ -372,7 +372,7 @@ E_x=\sum\limits_{k=1}^{N_{1}}e_{xk}\psi_{k},\qquad E_{y}=\sum\limits_{k=1}^{N_{2
 % -
 % i\lambda\sum\limits_{k=1}^{N_{2}}e_{2k}\phi_{k}(-L)\bar{\phi}_{m}(-L)=-g_{inc}(x)\bar{\phi}_{m}(-L).
 % \end{align*}
-Consider the following notation:
+Introducing the notation
 \bealn
 \left(K^{\psi,\phi'}\right)_{mk}=\int\limits_{-L}^{H}\bar{\psi}_{m}\phi'_{k}dx,\qquad \left(M^{\psi}\right)_{mk}=\int\limits_{-L}^{H}\psi_{k}\bar{\psi}_{m}dx, \qquad 
 \left(M^{\alpha,\psi}\right)_{mk}=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\psi_{m}\bar{\psi}_{k}dx,\\
@@ -381,9 +381,9 @@ K_{\ell k}=\int\limits_{-L}^{H}\phi'_{k}(x)\bar{\phi}'_{\ell}(x)dx,\qquad
 \left(M^{\alpha,\phi}\right)_{\ell k}=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\bar{\phi}_{\ell}\phi_{k}dx,\\
 I_{km}^{\Gamma}=\bar{\phi}_{m}(-L)\phi_{k}(-L), \\
 \boldsymbol{e}_{x}=\left(e_{11},\ldots,e_{1 N_{1}}\right)^{T},\; \boldsymbol{e}_{y}=\left(e_{21},\ldots,e_{2 N_{1}}\right)^{T},\\
-\boldsymbol{0}_{n} \text{ is an $n$-dimensional zero column vector}.
+\boldsymbol{0}_{n} \text{ is an $n$-dimensional zero column vector},
 \eealn
-Then system (\ref{eq:var_form2}) can be rewritten in an antisymmetric block form:
+we rewrite the system (\ref{eq:var_form2}) in an antisymmetric block form:
 \ben
 \left(\begin{matrix}
 \theta^2 M^{\psi}-M^{\alpha,\psi} & i\theta K^{\psi,\phi'}-i M^{\delta,\psi,\phi} \\
@@ -398,8 +398,8 @@ Then system (\ref{eq:var_form2}) can be rewritten in an antisymmetric block form
 \left(
 \begin{matrix}
 \boldsymbol{0}_{N_{1}}\\
-\bar{\phi}_{x}(-L)\\
-\bar{\phi}_{y}(-L)\\
+\bar{\phi}_{1}(-L)\\
+\bar{\phi}_{2}(-L)\\
 \vdots\\
 \bar{\phi}_{N_{2}}(-L)
 \end{matrix}
