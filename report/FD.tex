@@ -23,7 +23,7 @@ After series expansion as $\nu\rightarrow 0$ gives at leading orders
  \tilde{\alpha}(\omega)=\alpha(\omega)+i\nu\frac{\omega_p^2(\omega^2+\omega_c^2)}{(\omega^2-\omega_c^2)^2}\frac{\omega^2}{c^2},\qquad \alpha(\omega)=\frac{\omega^2}{c^2}\left(1-\frac{\omega_p^2}{\omega^2-\omega_c^2}\right),\\
  \tilde{\delta}(\omega)=\delta(\omega)-\frac{2i\omega^3\nu}{c^2(\omega^2-\omega_c^2)^2},\qquad \delta(\omega)=\frac{\omega\omega_c\omega_p^2}{c^2(\omega^2-\omega_c^2)}.
 \eealn
-We finally obtain a simpler equation \cite{Despres_2014}) 
+We finally obtain a simpler equation \cite{Despres_2014} 
 %\ben
 % \epsilon_{\nu}(\omega)\approx \epsilon_0+i\nu Id,\; \nu\rightarrow 0.
 %\een
@@ -38,7 +38,7 @@ We finally obtain a simpler equation \cite{Despres_2014})
  \alpha & i\delta \\
  -i\delta & \alpha 
 \end{matrix}
-\right)
+\right).
 \end{align}
  In this model problem, the coefficients  $\alpha(\omega)$ and $\delta(\omega)$ are  sufficiently smooth, i.e. bounded and continuous in  
 $\left[-L,\; \mathbb{R}\right)$.
@@ -59,7 +59,8 @@ The resulting one dimensional system has the following variational formulation:
  - \imath \lambda E_y (-L)\overline{ \tilde E_y (-L)} = -g_{inc} (-L) \overline{( \tilde E_y(-L) )} \label{vf1dcase},
 \end{array}
 \end{align}
-where $\lambda=\omega\geq 0$. 
+where $\lambda\geq 0$. 
+%=\omega\geq 0$. 
 In this and further sections, where it is not ambiguous, we will use the notation $E_{x,y}$ instead of $\hat{E}_{x,y}$ for convenience.
 
 For the sake of mathematical clarity, we reformulate 
@@ -75,7 +76,7 @@ where $a_1= a_1^*$ and $a_2=a_2^*$ are hermitian
 \end{array}\right.
 \ee
 The unknown is $\ubf=(E_x,E_y)=(u_1,u_2)$ and $\vbf$ is a test function.
-Let us denote $\Omega=(-L,\; H)\in\mathbb R$ and introduce the function space of the problem  $\mathbf{V}=L_{2}(\Omega)\times H_{1}(\Omega)$, 
+Let us denote $\Omega=(-L,\; H)\subset \mathbb R$ and introduce the function space of the problem  $\mathbf{V}=L_{2}(\Omega)\times H_{1}(\Omega)$, 
 equipped with the norm
 \ben
  \|\mathbf{v}\|_{\mathbf{V}}^2= \|v_1\|_{L_{2}(\Omega)}^2+\|v_2\|_{H^{1}(\Omega)}^2.
@@ -94,21 +95,22 @@ is continuous and coercive for all $\nu>0$: for all $\ubf,\vbf\in \mathbf{V}$ it
 \bealn
 \label{eq:bilinear_cont}
 \left\{\begin{array}{l}
-|a(\ubf,\ubf)|\geq c\frac{1}{4} \sqrt{\frac{\nu}{\heps + \theta^2}}\|u_2\|^2_{H_{1}(\Omega)} +  \frac{\nu}{4} \|\ubf\|_{L^2(\Omega)}^2,\\
+\Re\left(\mathrm{e}^{i\alpha_{\nu}}a(\ubf,\ubf)\right)\geq \frac{\nu}{\sqrt{(\heps+\theta^2+1)^2+\nu^2}}\left(\frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2\right),\; 
+\text{ for some $\alpha_{\nu}\in\left(0,\frac{\pi}{2}\right)$},\\
 |a(\ubf,\vbf)|\leq C \|\ubf\|_{\mathbf{V}}\|\vbf\|_{\mathbf{V}},
 \end{array}\right.
 \eealn
-where $c, C>0$ do not depend on $\nu$. The problem~\eqref{vf1dcase} is well-posed in $\mathbf{V}$.
+where $C>0$ does not depend on $\nu$. The problem~\eqref{vf1dcase} is well-posed in $\mathbf{V}$.
 \end{lemma}
 %\textcolor{red}{!!!! redo coercivity computations !!!}
 \begin{proof}
 	The boundedness of $a$ is obvious using the continuous embedding in dimension
 	one  $H_1(\Omega)\subset C^0(\overline \Omega)$. Let us focus on the proof of coercivity. 
-	We note $\heps =  \|\rho(\eps_0)\|_{L^\infty}$, the spectral radius of $\eps_0$ so that
+	We denote $\heps =  \|\rho(\eps_0)\|_{L^\infty}$, the spectral radius of $\eps_0$ so that
 	$\heps Id- \eps_0 $ is a non negative hermitian matrix.
 	Therefore
 	\be 
-	a_1(\ubf,\ubf) + \heps\|\ubf\|^2_{L^2}= \|u_2' - \imath \theta u_1 \|^2_{L^2} + \int_{-L}^{H} \left( (\heps Id - \eps_0 ) \ubf, \overline{\ubf} \right)  \geq \|u_2 ' - \imath \theta u_1 \|_{L^ 2}^ 2
+	a_1(\ubf,\ubf) + \heps\|\ubf\|^2_{L^2}= \|u_2' - \imath \theta u_1 \|^2_{L^2} + \left( (\heps Id - \eps_0 ) \ubf, \overline{\ubf} \right)  \geq \|u_2 ' - \imath \theta u_1 \|_{L^ 2}^ 2
 	\geq \frac12 \|u_2 '  \|_{L^ 2}^ 2 -
 	\theta ^2 \| u_1 \|_{L^ 2}^ 2.
 	\ee
@@ -125,19 +127,31 @@ where $c, C>0$ do not depend on $\nu$. The problem~\eqref{vf1dcase} is well-pose
 	a_1(\ubf,\ubf)  \geq \frac{1}{2}\|u_2'\|^2_{L^2}-  (\heps  +  \theta^2) \| \ubf \|_{L^2}^2$.
 	One also has that
 	$
-	a_2 (\ubf ,\ubf) \geq \nu \| \ubf \|_{L^2}^2$. 
+	a_2 (\ubf ,\ubf) \leq -\nu \| \ubf \|_{L^2}^2$. 
 	Therefore
 	\ben
-	\left(  1+  \frac{\heps  +  \theta^2}\nu  \right)\left| a(\ubf,\ubf) \right| \geq
-	a_1(\ubf,\ubf)+\frac{\heps  +  \theta^2}\nu a_2(\ubf,\ubf) \geq  \frac12 \|u_2 '  \|_{L^ 2}^ 2
+	a_1(\ubf,\ubf)-\frac{\heps  +  \theta^2 + 1 }\nu a_2(\ubf,\ubf)\geq \frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2,
 	\een
-	and
+	or, introducing $\alpha_{\nu}=\arccos\frac{1}{\sqrt{1+\left(\heps+\theta^2+1\right)^2\nu^{-2}}}$, this is equivalent to 
 	\ben
-	\left(  1+  \frac{\heps  +  \theta^2}\nu + \frac1\nu \right) \left|a(\ubf,\ubf)\right| \geq\frac12 \|u_2 '  \|_{L^ 2}^ 2
-	+
-	\| \ubf \|_{L^2}^2.
+	\Re\left(\mathrm{e}^{i\alpha_{\nu}}a(\ubf,\ubf)\right)\geq 
+	\frac{1}{\sqrt{1+\left(\heps+\theta^2+1\right)^2\nu^{-2}}} \left(\frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2\right)\\
+	\geq \frac{\nu}{\sqrt{(\heps+\theta^2+1)^2+\nu^2}}\left(\frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2\right).
 	\een
-	The coercivity is proved.
+	%%Therefore
+	%%\ben
+	%%\left(  1+  \frac{\heps  +  \theta^2}\nu  \right)\left| a(\ubf,\ubf) \right| \geq
+	%%a_1(\ubf,\ubf)+\frac{\heps  +  \theta^2}\nu a_2(\ubf,\ubf) \geq  \frac12 \|u_2 '  \|_{L^ 2}^ 2
+	%%\een
+	%%and
+	%%\ben
+	%%\left(  1+  \frac{\heps  +  \theta^2}\nu + \frac1\nu \right) \left|a(\ubf,\ubf)\right| \geq\frac12 \|u_2 '  \|_{L^ 2}^ 2
+	%%+
+	%%\| \ubf \|_{L^2}^2.
+	%%\een
+	%%The coercivity is proved.
+	
+	
 	%
 	%Therefore
 	%\be
@@ -254,7 +268,7 @@ where $c, C>0$ do not depend on $\nu$. The problem~\eqref{vf1dcase} is well-pose
 
 \begin{remark} 
 \label{remark:other}
-The coercivity estimates in the above proof are not optimal in the case when $\left|\alpha(x)\right|>c>0$ for $c>0$ on the whole interval $[-L,\; H]$, at least 
+The above proof is not optimal in the case when $\left|\alpha(x)\right|>c>0$ for $c>0$ on the whole interval $[-L,\; H]$, at least 
 for the case $\theta=0$. Let us consider the problem (\ref{eq:var_form2}) for $\nu=0,\; \theta=0$, which, after testing it 
 with $(\tilde{E}_x,\; 0)$ and $(0,\; \tilde{E}_y)$ from $\mathbf{V}$, can be rewritten as, see also (\ref{eq:epsilon_0})
 \begin{align}
@@ -277,9 +291,9 @@ $\alpha \in C_{0}([-L,\;H])$ and $|\alpha(x)|>c>0$, for some $c>0$, on the whole
   \left(E_x,u\right)=-\left(\frac{i\delta}{\alpha}E_y,u\right),\; \text{ for all } u\in L_{2}(\Omega). 
 \end{align}
 
-Choosing in the above $u=i\delta \tilde{E}_y \in L_{2}(\Omega)$ and adding it to the second equation of (\ref{eq:full_var}), we obtain
+Choosing in the above $u=-i\delta \tilde{E}_y \in L_{2}(\Omega)$ and adding it to the second equation of (\ref{eq:full_var}), we obtain
 \bealn
- \displaystyle \int_{-L}^H E_y'\tilde {E_y'} - \int_{-L}^H \alpha-\frac{\delta^2}{\alpha})E_y \overline{\tilde{E}}_{y}
+ \displaystyle \int_{-L}^H E_y'\tilde {E_y'} - \int_{-L}^H (\alpha-\frac{\delta^2}{\alpha})E_y \overline{\tilde{E}}_{y}
   - \imath \lambda E_y (-L) \overline{\tilde E_y} (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
   \text{ for all } \tilde{E}_{y}\in H_{1}(\Omega). \nonumber
 \eealn
@@ -358,7 +372,7 @@ E_x=\sum\limits_{k=1}^{N_{1}}e_{xk}\psi_{k},\qquad E_{y}=\sum\limits_{k=1}^{N_{2
 % -
 % i\lambda\sum\limits_{k=1}^{N_{2}}e_{2k}\phi_{k}(-L)\bar{\phi}_{m}(-L)=-g_{inc}(x)\bar{\phi}_{m}(-L).
 % \end{align*}
-Consider the following notation:
+Introducing the notation
 \bealn
 \left(K^{\psi,\phi'}\right)_{mk}=\int\limits_{-L}^{H}\bar{\psi}_{m}\phi'_{k}dx,\qquad \left(M^{\psi}\right)_{mk}=\int\limits_{-L}^{H}\psi_{k}\bar{\psi}_{m}dx, \qquad 
 \left(M^{\alpha,\psi}\right)_{mk}=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\psi_{m}\bar{\psi}_{k}dx,\\
@@ -367,9 +381,9 @@ K_{\ell k}=\int\limits_{-L}^{H}\phi'_{k}(x)\bar{\phi}'_{\ell}(x)dx,\qquad
 \left(M^{\alpha,\phi}\right)_{\ell k}=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\bar{\phi}_{\ell}\phi_{k}dx,\\
 I_{km}^{\Gamma}=\bar{\phi}_{m}(-L)\phi_{k}(-L), \\
 \boldsymbol{e}_{x}=\left(e_{11},\ldots,e_{1 N_{1}}\right)^{T},\; \boldsymbol{e}_{y}=\left(e_{21},\ldots,e_{2 N_{1}}\right)^{T},\\
-\boldsymbol{0}_{n} \text{ is an $n$-dimensional zero column vector}.
+\boldsymbol{0}_{n} \text{ is an $n$-dimensional zero column vector},
 \eealn
-Then system (\ref{eq:var_form2}) can be rewritten in an antisymmetric block form:
+we rewrite the system (\ref{eq:var_form2}) in an antisymmetric block form:
 \ben
 \left(\begin{matrix}
 \theta^2 M^{\psi}-M^{\alpha,\psi} & i\theta K^{\psi,\phi'}-i M^{\delta,\psi,\phi} \\
@@ -384,8 +398,8 @@ Then system (\ref{eq:var_form2}) can be rewritten in an antisymmetric block form
 \left(
 \begin{matrix}
 \boldsymbol{0}_{N_{1}}\\
-\bar{\phi}_{x}(-L)\\
-\bar{\phi}_{y}(-L)\\
+\bar{\phi}_{1}(-L)\\
+\bar{\phi}_{2}(-L)\\
 \vdots\\
 \bar{\phi}_{N_{2}}(-L)
 \end{matrix}
@@ -415,5 +429,4 @@ i (M^{\delta,\phi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
 \end{matrix}
 \right).
 \end{align}
-
-%\mrev{In this work we use the Lagrange $P_{1}$ basis elements}.
+In this work we use the above formulation with the Lagrange $P_{1}$ basis elements. 

@@ -2,7 +2,7 @@
 Let us consider the system (\ref{eq:main_model}) in dimension one in the X-mode configuration which is transverse electric.
 \subsection{A staggered scheme}
 In this section, we develop a discretization of the time dependant problem~\eqref{eq:main_model} 
-in one dimension. In 1D, the derivatives with respect to $y$ vanish, and we are left with the following problem, 
+in one dimension. %In 1D, the derivatives with respect to $y$ vanish, and we are left with the following problem, 
 % \begin{align}
 % \epsilon_0\partial_t E_{x}=-eN_e u_x, \nonumber\\
 % \epsilon_0\partial_t E_{y}+\partial_x H_z=-eN_e u_y,\nonumber\\
@@ -188,7 +188,7 @@ In our case we used
 a semi-lagrangian scheme for a time step $\Delta t$.
 In the tests, we used Strang's stencils described in \cite{cedar} with CFL $\nu=0.5$, at order 7. 
 It  yields the chain 
-$(E_y,H_z)_i^n\mapsto ( w,z)_i^n\mapsto ( w,z)_i^{n*}\mapsto E_y,H_z)_i^{n*} $.
+$(E_y,H_z)_i^n\mapsto ( w,z)_i^n\mapsto ( w,z)_i^{n*}\mapsto (E_y,H_z)_i^{n*} $.
 Here $n*$ denotes the intermediate stage of the algorithm.
 
 - The second (and final) step is to solve

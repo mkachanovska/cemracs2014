@@ -3,7 +3,7 @@
 This section is organized as follows. The first part is dedicated to the numerical implementation
 of the frequency domain formulation \eqref{eq:main_frequency_domain}. We study the convergence of this formulation and the behaviour 
 of the numerical solution as the absorption parameter $\nu$ tends to zero. The experiments in this section were 
-performed on a laptop with 2.6GHz Intel Core i5 CPU, with the help of the code written in Octave (compatible with Matlab). 
+performed with the help of the code written in Octave.  
 We implemented the scheme described in Section \ref{sec:discr} for a simple case of $P_{1}$-space used 
 for the approximation of $E_{x}$ and $E_{y}$ and $\theta=0$, thus working with the system (\ref{eq:simple_system}). 
 We apply permutation to the above system 
@@ -28,7 +28,7 @@ To check the validity of the code, we first perform a numerical experiment with 
 Additionally, the boundary conditions read as 
 \begin{align}
 \label{eq:bcs_airy}
-\partial_{1}E_{y}(-L)+2iE_{y}(-L)=2iAi(-L)+Ai'(-L),\\
+\partial_{1}E_{y}(-L)+2iE_{y}(-L)=2iAi(-L)+Ai'(-L),\qquad 
 \partial_{1}E_{y}(H)=0,
 \end{align}
 where $Ai(x)$ is the Airy function. 
@@ -40,13 +40,15 @@ $
 E_{y}=Ai(x)  $  and   %,\qquad 
 $E_{x}=-i\frac{\delta(x)}{\alpha(x)}Ai(x)$
 is the solution to the problem with parameters (\ref{eq:parameters}) with the boundary condition (\ref{eq:bcs_airy}). 
-%The well-posedness of the respective variational formulation is due to Remark \ref{remark:other}. 
+The well-posedness of the respective variational formulation for $\nu=0$ is due to Remark \ref{remark:other}. 
 
-In Fig.~\ref{fig:conv_rate} we demonstrate the convergence rates for this problem, with 
-\ben
-\|E_{x}-E_{x}^{c}\|_{L_{2}(\Omega)}=\left(\int\limits_{\Omega}\left|E_{x}(x)-\sum\limits_{k=1}^{N}e_{xk}\phi_{k}\right|^2dx\right)^{\frac{1}{2}},
-\een
-where $\left(\phi_{i}\right)_{i=1}^{N}$ are $P_{1}$-finite elements and $E_{x}(x)$ is a known analytic solution. Similarly $\|E_{y}-E_{y}^{c}\|_{L_{2}(\Omega)}$ and $\|E_{y}-E_{y}^{c}\|_{H_{1}(\Omega)}$ are defined. 
+In Fig.~\ref{fig:conv_rate} we demonstrate the convergence rates for this problem, comparing the solution to the 
+known analytic solution. 
+%with 
+%\ben
+%\|E_{x}-E_{x}^{c}\|_{L_{2}(\Omega)}=\left(\int\limits_{\Omega}\left|E_{x}(x)-\sum\limits_{k=1}^{N}e_{xk}\phi_{k}\right|^2dx\right)^{\frac{1}{2}},
+%\een
+%where $\left(\phi_{i}\right)_{i=1}^{N}$ are $P_{1}$-finite elements and $E_{x}(x)$ is a known analytic solution. Similarly $\|E_{y}-E_{y}^{c}\|_{L_{2}(\Omega)}$ and $\|E_{y}-E_{y}^{c}\|_{H_{1}(\Omega)}$ are defined. 
 
 \begin{figure}
 \begin{tikzpicture}
@@ -80,8 +82,8 @@ font=\small
     \label{fig:conv_rate}
 \end{figure}
 
-Note that in the last 3 numerical experiments the error of the solution of the system of equations, namely $\|Ae-r\|$ (where $e$ is the solution vector, $r$ is the right hand side and $A$ is the block matrix (\ref{eq:simple_system}) ) exceeded 1.6e-9
-(namely, it was 1.6e-9 ($h=3.2e-5$), 1.3e-08 ($h=8e-6$), 1.04e-07 ($h=2e-6$)).
+%Note that in the last 3 numerical experiments the error of the solution of the system of equations, namely $\|Ae-r\|$ (where $e$ is the solution vector, $r$ is the right hand side and $A$ is the block matrix (\ref{eq:simple_system}) ) exceeded 1.6e-9
+%(namely, it was 1.6e-9 ($h=3.2e-5$), 1.3e-08 ($h=8e-6$), 1.04e-07 ($h=2e-6$)).
 
 Importantly, the obtained convergence rates are in agreement with known estimates of the standard theory of convergence~\cite{brenner}.
 
@@ -105,14 +107,14 @@ we look for a ratio $h(\nu)$ that would ensure the bound on the absolute error
 \end{align}
 given a fixed value of $\epsilon>0$. 
 
-We use the following well-known facts:
+We use the following ingredients (for $\nu\rightarrow 0$):
 \begin{itemize}
  \item The C\'ea's lemma applied to the problem (\ref{vf1dcase}); here $C_c$ is the continuity and $C_i$ is the coercivity constants:
 \begin{align}
 \label{eq:cea}
 \begin{split}
  \|\mathbf{E}^{\nu}-\mathbf{E}^{h,\nu}\|_{V}\leq \frac{C_c}{C_i}\min_{\mathbf{v}\in V_h}\|\mathbf{E}-\mathbf{v}\|_{V}
- \leq \nu^{-1}\min_{\mathbf{v}\in V_h}\|\mathbf{E}-\mathbf{v}\|_{V}.
+ \leq C\nu^{-1}\min_{\mathbf{v}\in V_h}\|\mathbf{E}-\mathbf{v}\|_{V},\; C>0.
  \end{split}
 \end{align}
 The last inequality follows from Lemma \ref{lemma:well_posedness}.  
@@ -128,7 +130,7 @@ for some $f(x)\in L_{2}(\Omega)$.
  \|v-I^{h}v\|_{L_{2}(\Omega)}\leq Ch^2\left|v''\right|_{L_{2}(\Omega)},\; C>0,
  %\\ \|v-I^{h}v\|_{H_{1}(\Omega)}\leq Ch|v''|_{L_{2}(\Omega)},\; C>0, 
 \end{align}
-where $I^{h}v$ is an interpolation operator onto $P_{h}^{1}$.
+where $I^{h}v$ is an interpolation operator onto $P_{h}^{1}$. 
 \end{itemize}
 For $E_x^{\nu},\;f(x)$ in (\ref{eq:exact}) being sufficiently smooth, 
 \ben
@@ -145,27 +147,27 @@ where $C>0$ does not depend on $\nu$. This, together with the estimates (\ref{eq
 \ben
  \|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L_{2}(\Omega)}\leq C\nu^{-\frac{7}{2}}h^2,
 \een
-Let us assume that $d=2$ is possible by some Aubin-Nitsche lemma for our problem.
-It follows that to ensure (\ref{eq:problem1}) $h$ should be chosen as 
+Let us assume that $d=2$ is possible by some Aubin-Nitsche lemma for our problem. It follows that to ensure (\ref{eq:problem1}) $h$ should be chosen as 
 \begin{align}
 \label{eq:estimate_h}
  h=\alpha_{\epsilon}\nu^{\frac{7}{4}},
 \end{align}
-where $\alpha_{\epsilon}>0$ depends on $\epsilon$ but does not depend on $\nu$. his prediction is very severe and is due to the singular nature of the problem under consideration.
+where $\alpha_{\epsilon}>0$ depends on $\epsilon$ but does not depend on $\nu$. 
+This prediction is very severe and is due to the singular nature of the problem under consideration.
 
 Let us check numerically whether this holds true. 
 To do so, we conduct the  numerical experiment with parameters for the problem as given in Table \ref{tab:parameters}.
 \begin{table}
-\begin{tabular}{l|r}
+\begin{tabular}{l|l}
 Parameter & Value \\
 \hline
-$\alpha(x)$ & $\left\{\begin{array}{cc}
+$\alpha(x)$ & $\left\{\begin{array}{lr}
 10, & x\leq -10,\\
 -x, & -10<x\leq 5,\\
 -5, & x>5.
 \end{array}\right.$ \\
 $\delta(x)$ & 
-$\left\{\begin{array}{cc}
+$\left\{\begin{array}{lr}
 0, & x\leq -10,\\
 4/30x+4/3,& -10<x\leq 5,\\
 2, & x>5.
@@ -181,7 +183,7 @@ $H$ & 10 \\
 \end{table}
 The results of the experiments for different $\nu$ are shown in Figure \ref{fig:dependence}. 
 
-Denoting by $E_{x}^{h}$ the solution $E_{x}(x)$ computed on the mesh with a width $h$, and by $E_{x}^{c}$ the solution computed on a \urev{mesh multiple times finer}, let 
+Denoting by $E_{x}^{h}$ the solution $E_{x}(x)$ computed on the mesh with a width $h$, and by $E_{x}^{c}$ the solution computed on a mesh multiple times finer, let 
 \begin{align}
 \label{eq:def_epsilon}
 h_{\epsilon}=\sup\{h: \|E_{x}^{h'}-E_{x}^{c}\|<\epsilon \text{ for all } h'<h\}.
@@ -195,12 +197,14 @@ The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Fig.~\ref{fig:dep
     	height=0.4\textwidth,
         xlabel=$\nu$,
         ylabel=$h_{\epsilon}$,
+        ymax=5e3,
+        xmin=0.5e-4,
+        xmax=0.3,
         legend style={
 at={(0.2,1.5)},
 legend pos=north west,
-%anchor=south east, 
-draw=none, 
-xmin=0.5e-5
+font=\tiny, 
+draw=none
 }
 ]
 \addplot[mark=*,blue] table {pics/h1e-1.dat}; 
@@ -211,21 +215,23 @@ xmin=0.5e-5
 \addlegendentry{$\epsilon=1e-3$};
 %\addplot[mark=square,cyan] table {pics/h1e-4.dat}; 
 %\addlegendentry{$\epsilon=1e-4$};
-\addplot[dashed, red] table {pics/nu1.dat}; 
-\addlegendentry{$O(\nu)$};
-\addplot[dashed, blue] table {pics/nu32.dat}; 
-\addlegendentry{$O(\nu^{\frac{3}{2}})$};
+\addplot[dashed, red] table {pics/nu32.dat}; 
+\addlegendentry{$O\left(\nu^{\frac{3}{2}}\right)$};
+\addplot[dashed, blue] table {pics/nu54.dat}; 
+\addlegendentry{$O\left(\nu^{\frac{5}{4}}\right)$};
+\addplot[dashed, green] table {pics/nu1.dat}; 
+\addlegendentry{$O\left(\nu\right)$};
 \end{loglogaxis}
 \end{tikzpicture} 
 &
-\includegraphics[width=0.4\textwidth]{figure1-crop.pdf}
+\includegraphics[height=0.3\textwidth]{figure1-crop.pdf}
 \end{tabular}
 \caption{In the left figure the depenence of $h_{\epsilon}$ as defined by (\ref{eq:def_epsilon}) on $\nu$ is demonstrated. 
 In the right figure we show the computed solutions for the problem with parameters in Table \ref{tab:parameters} for different values of $\nu$. }
 \label{fig:dependence}
 \end{figure}
 We can see that the estimate (\ref{eq:estimate_h}) is pessimistic compared to the one suggested by (\ref{eq:def_epsilon}), 
-at least for a given value of $\epsilon$.
+at least for given values of $\epsilon$ and for a chosen range of $\nu>0$.
 
 
 \begin{remark}
@@ -242,8 +248,12 @@ can be ensured by choosing $h$ as $\beta_{\epsilon}\nu^{\frac{3}{4}}$.
 
 \FloatBarrier
 \paragraph{Condition Number}
-In Table \ref{tab:cond_number} we demonstrate the dependence of the condition number of the matrix of the system (\ref{eq:simple_system}) 
+In Figure \ref{tab:cond_number} we demonstrate the dependence of the condition number of the matrix of the system (\ref{eq:simple_system}) 
 on $\nu$, for several values of $h$.
+\begin{figure}
+ 
+\end{figure}
+
 \begin{table}[ht!]
 \begin{tabular}{c|ccccccccc}
 \diagbox[width=10em]{$h$}{$\nu$}& 100 & 10 & 1 & 0.1 & 1e-2 & 1e-3 & 1e-4 & 1e-8 & 0\\
@@ -287,7 +297,7 @@ is the following. We use a 7th order semi-lagrangian scheme, and the CFL is $\nu
 The Pike is the hybrid resonance, visible on $E_x$ and $u_x$.
 The total energy $\mathcal E(t)$ is the physical energy. 
 The comparison with figures \ref{fig:dependence} and \ref{fig:resonance_nus_ey_x} show that the 
-singular nature of the resonant is captured by this new scheme without any duobt.
+singular nature of the resonant is captured by this new scheme without any doubt.
 
 \begin{figure}{h}
 	\begin{center}
