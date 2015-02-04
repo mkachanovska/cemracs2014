@@ -22,12 +22,15 @@ and zero initial conditions, and in the frequency domain
 \bealn
  \left.\partial_x \hat{E}_y\right|_{x=-L}=G,\; \left.\partial_x \hat{E}_y\right|_{x=H}=0.
 \eealn
-We compute the solution $\mathbf{E}^{\nu}(t)$ for large $t$ in the time domain (the solution computed numerically at the time step $n$ is denoted by $\mathbf{E}^{\nu}_{n}$), and the solution $\hat{\mathbf{E}}^{\nu}$ in the frequency domain. 
+We compute the solution $\mathbf{E}^{\nu}(t)$ for large $t$ in the time domain 
+(the solution computed numerically at the time step $n$ is denoted by $\mathbf{E}^{\nu}_{n}$), and the solution $\hat{\mathbf{E}}^{\nu}$ in the frequency domain. 
 In the numerical experiments we check whether the following two quantities
 \ben
 \lim_{t\rightarrow+\infty}\mathbf{E}^{\nu}(t), \text{ and } \Im\left(\hat{\mathbf{E}}^{\nu}\exp(it)\right)
 \een
 are close as $\nu\rightarrow 0$ (provided that the first of these quantities exists). 
+
+In all the experiments in this section the CFL number was chosen as 0.5.
 \subsubsection{No-Resonance Case}
 We choose the parameters so that in the frequency domain, for the limiting amplitude problem, $\hat{E}_{y}^{\nu},\; \nu=0,$ satisfies 
 the Airy equation, c.f. also Remark \ref{remark:other}. We set $\omega_c=0$ (thus $\delta(x)=0$), $\omega=1$ (hence $\alpha(x)=1-N_e(x)$), 
@@ -79,7 +82,7 @@ to obtain the limiting amplitude solution even for $t\approx 1.9e6$. }
 \label{sec:resn}
 For the resonance case, we choose the parameters as in Table \ref{tab:parameters_resonance}.
 \begin{table}[htb!]
-\begin{tabular}{c|c}
+\begin{tabular}{l|l}
 Parameter & Value \\
 \hline
 $L$ & 5\\
