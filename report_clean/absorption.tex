@@ -41,7 +41,7 @@ fixed values of $t$. Both solutions appear to be in close agreement.
 
 \begin{figure}[htb]
 \begin{tabular}{cc}
-\includegraphics[height=0.2\textwidth]{airy/figure_nu1e2-crop.pdf} & \includegraphics[height=0.2\textwidth]{airy/figure_nu1e2_2-crop.pdf}
+\includegraphics[height=0.2\textwidth]{pics_time_domain/airy/figure_nu1e2-crop.pdf} & \includegraphics[height=0.2\textwidth]{pics_time_domain/airy/figure_nu1e2_2-crop.pdf}
 \end{tabular}
 \caption{Dependence of the solution $E_{y}^{\nu}(x_c,t)$ on time for large times is demonstrated in the left figure.  
 In the right figure we show the solution for $\nu=10^{-2}$, for two fixed moment of times.}
@@ -65,8 +65,8 @@ For example, for $\nu=10^{-6}$ we were not able to reach the limiting amplitude 
 see Fig.~\ref{fig:nu1e4_harmon} (right). 
 \begin{figure}
 \begin{tabular}{cc}
- \includegraphics[width=0.45\textwidth]{airy/figure_nu1e4-crop.pdf}&
- \includegraphics[width=0.45\textwidth]{airy/figure_nu1e6-crop.pdf}\\
+ \includegraphics[width=0.45\textwidth]{pics_time_domain/airy/figure_nu1e4-crop.pdf}&
+ \includegraphics[width=0.45\textwidth]{pics_time_domain/airy/figure_nu1e6-crop.pdf}\\
 \end{tabular}
 \caption{In the left figure we plot the dependence of the solution $E_{y}^{\nu}(x_c,t)$ on time $t$, with $\nu=10^{-4}$ and $x_c=0.45$. 
 In the right figure we show the solution for $\nu=10^{-6}$ at the same point $x_c$, for larger times. As we can see, for 
@@ -103,15 +103,15 @@ The harmonic dependence of the solution on time is demonstrated by fixing $x_c$ 
 $E_x^{\nu}(x_c,t)$ and $E_y^{\nu}(x_c, t)$ for a range of $t$. 
 \begin{figure}
 \begin{tabular}{cc}
-\includegraphics[width=0.5\textwidth]{res/ey_fixed_x-crop.pdf}&
-\includegraphics[width=0.5\textwidth]{res/ey_fixed_x_1e3-crop.pdf}
+\includegraphics[width=0.45\textwidth]{pics_time_domain/res/ey_fixed_x-crop.pdf}&
+\includegraphics[width=0.45\textwidth]{pics_time_domain/res/ey_fixed_x_1e3-crop.pdf}
  \end{tabular}
 \caption{The figures demonstrate the dependence of the solutions 
 $E_y^{\nu}(-2.5125,t)$ on time $t$ for different values of $\nu$. }
 \label{fig:resonance_nus_ey_x}
 \end{figure}
 \begin{figure}
- \includegraphics[width=0.8\textwidth]{res/ex_fixed_x_nu1e4-crop.pdf}
+ \includegraphics[width=0.8\textwidth]{pics_time_domain/res/ex_fixed_x_nu1e4-crop.pdf}
  \caption{The plot shows the dependence of the solution $E_x^{\nu}(x_c,t),\;\nu=10^{-4}$ on time $t$ for fixed 
  $x_c=0.0125$ and for $x_c=-2.5$. We can see that the solutions computed in the time domain are in close agreement 
  with the solution computed in the frequency domain at the point $x_c=-2.5$, however, differ at the point $0.0125$ which is 
@@ -120,8 +120,8 @@ $E_y^{\nu}(-2.5125,t)$ on time $t$ for different values of $\nu$. }
 \end{figure}
 \begin{figure}
 \begin{tabular}{cc}
-\includegraphics[width=0.5\textwidth]{res/ex_fixed_t-crop.pdf}&
-\includegraphics[width=0.5\textwidth]{res/ex_fixed_t_1e3-crop.pdf}
+\includegraphics[width=0.45\textwidth]{pics_time_domain/res/ex_fixed_t-crop.pdf}&
+\includegraphics[width=0.45\textwidth]{pics_time_domain/res/ex_fixed_t_1e3-crop.pdf}
 \end{tabular}
 \caption{The figures demonstrate the dependence of the solutions 
 $E_x^{\nu}(x,t)$ on $x$ for fixed values of $t$. }
@@ -129,8 +129,8 @@ $E_x^{\nu}(x,t)$ on $x$ for fixed values of $t$. }
 \end{figure}
 \begin{figure}
 \begin{tabular}{cc}
-\includegraphics[width=0.45\textwidth]{res/ey_fixed_t_1e3-crop.pdf}&
-\includegraphics[width=0.55\textwidth]{res/ey_fixed_x_nu1e4-crop.pdf}
+\includegraphics[width=0.4\textwidth]{pics_time_domain/res/ey_fixed_t_1e3-crop.pdf}&
+\includegraphics[width=0.5\textwidth]{pics_time_domain/res/ey_fixed_x_nu1e4-crop.pdf}
 \end{tabular}
 \caption{The left figure demonstrates the dependence of the solution  
 $E_y^{\nu}(x,y)$ on $x$ for fixed values of $t$. For a chosen value of $\nu$ the solutions computed in the time domain are in close agreement 
@@ -138,13 +138,13 @@ to the solutions computed in the frequency domain. This seem to be only partiall
 true for the computed values $E_x^{\nu}(x,t)$ in this case (which may be caused by the discretization). 
 The right figure shows the dependence of the solution $E_y^{\nu}(x,t)$ for $\nu=10^{-4}$ on time for fixed $x=x_c$. 
 We can see that the while the limiting amplitude principle holds true, the difference between the solutions computed in 
-the time and frequency domain is pronounced on this scale. 
+the time and frequency domain is not visible on this scale (c.f. Figure \ref{fig:resonance_nus_eyx_t}). 
 }
 \label{fig:resonance_nus_ey_t}
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=0.95\textwidth]{res/ex_fixed_t_1e4_2-crop.pdf}
+\includegraphics[width=0.9\textwidth]{pics_time_domain/res/ex_fixed_t_1e4_2-crop.pdf}
 \caption{The figures demonstrate the dependence of the solutions 
 $E_x^{\nu}(x,t)$ and $E_y^{\nu}(x,y)$ on $x$ for fixed values of $t$. While the solution in the time-domain 
 in the resonance point $x=0$ has a smaller absolute value than that computed in the frequency domain (in the plot both solutions are truncated to 

@@ -53,6 +53,7 @@ known analytic solution. Importantly, the obtained convergence rates are in agre
         xmin=2e-6,
         ymin=1e-8,
         xmax=2,
+	legend cell align=left,
         legend style={
 at={(1.7,0.5)},
 %legend pos=outer north east, 
@@ -62,16 +63,16 @@ anchor=east,
 draw=none,
 font=\small
 }
-]\addplot[mark=*,black] table {pics/E1L2.dat}; 
+]\addplot[mark=*,black] table {pics_frequency_domain/data_airy/E1L2.dat}; 
     \addlegendentry{$\|E_{x}-E_{x}^{c}\|_{L_{2}}$};
-    \addplot[mark=*,red, mark size=1pt] table {pics/E2H1.dat};
+    \addplot[mark=*,red, mark size=1pt] table {pics_frequency_domain/data_airy/E2H1.dat};
         \addlegendentry{$\|E_{y}-E_{y}^{c}\|_{H_{1}}$};
         
-          \addplot[mark=*,cyan, mark size=1pt] table {pics/E2L2.dat};
+          \addplot[mark=*,cyan, mark size=1pt] table {pics_frequency_domain/data_airy/E2L2.dat};
         \addlegendentry{$\|E_{y}-E_{y}^{c}\|_{L_{2}}$};  
-        \addplot[dotted] table{pics/E_h2.dat};
+        \addplot[dotted] table{pics_frequency_domain/data_airy/E_h2.dat};
          \addlegendentry{$O(h^2)$};
-         \addplot[dashed] table{pics/H.dat};
+         \addplot[dashed] table{pics_frequency_domain/data_airy/H.dat};
          \addlegendentry{$O(h)$};
     \end{loglogaxis}
     \end{tikzpicture}
@@ -177,9 +178,9 @@ h_{\epsilon}=\sup\{h: \|E_{x}^{h'}-E_{x}^{c}\|<\epsilon \text{ for all } h'<h\}.
 The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Fig.~\ref{fig:dependence}.
 \begin{figure}
 \begin{tabular}{cc}
-\includegraphics[height=0.35\textwidth]{h_nu.pdf}
+\includegraphics[height=0.35\textwidth]{pics_frequency_domain/h_nu.pdf}
 &
-\includegraphics[height=0.35\textwidth]{figure1-crop.pdf}
+\includegraphics[height=0.35\textwidth]{pics_frequency_domain/res_sol.pdf}
 \end{tabular}
 \caption{In the left figure the depenence of $h_{\epsilon}$ as defined by (\ref{eq:def_epsilon}) on $\nu$ is demonstrated. 
 In the right figure we show the computed solutions for the problem with parameters in Table \ref{tab:parameters} for different values of $\nu$. }
@@ -204,8 +205,8 @@ In Figure \ref{fig:small_nu} we demonstrate the dependence of the condition numb
 on $\nu$, for several values of $h$.
 \begin{figure}
 \begin{tabular}{cc}
-\includegraphics[height=0.3\textwidth]{fig_cond_num.pdf}&
- \includegraphics[height=0.3\textwidth]{figure2-crop.pdf}
+\includegraphics[height=0.3\textwidth]{pics_frequency_domain/fig_cond_num.pdf}&
+ \includegraphics[height=0.3\textwidth]{pics_frequency_domain/ey_resonance.pdf}
  \end{tabular}
  \caption{
  The left plot demonstrates the dependence of the condition number of the system (\ref{eq:simple_system}) on $\nu$, for different values of $h$ (the condition 
@@ -256,19 +257,19 @@ singular nature of the resonant is captured by this new scheme without any doubt
 \begin{figure}{h}
 	\begin{center}
 		\begin{tabular}{ccc}
-			\includegraphics[angle=-90,width=5.cm]{Ey_moit.eps}
+			\includegraphics[angle=-90,width=5.cm]{pics_semilagrange/Ey_moit.eps}
 			&
-			\includegraphics[angle=-90,width=5.cm]{Hz_moit.eps} &
-			\includegraphics[angle=-90,width=5.cm]{Ex_moit.eps}
+			\includegraphics[angle=-90,width=5.cm]{pics_semilagrange/Hz_moit.eps} &
+			\includegraphics[angle=-90,width=5.cm]{pics_semilagrange/Ex_moit.eps}
 			\\
 			$E_y$ & $H_z$  & $E_x^\nu$ \\
 			%\hline
 			\hline
-			\includegraphics[angle=-90,width=5.cm]{uy_moit.eps}
+			\includegraphics[angle=-90,width=5.cm]{pics_semilagrange/uy_moit.eps}
 			&
-			\includegraphics[angle=-90,width=5.cm]{normes_moit.eps}
+			\includegraphics[angle=-90,width=5.cm]{pics_semilagrange/normes_moit.eps}
 			&
-			\includegraphics[angle=-90,width=5.cm]{ux_moit.eps}
+			\includegraphics[angle=-90,width=5.cm]{pics_semilagrange/ux_moit.eps}
 			\\      
 			$u_y$ & $t\mapsto \mathcal E(t)$ & $u_x^\nu$  \\
 			

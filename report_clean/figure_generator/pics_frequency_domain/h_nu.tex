@@ -1,0 +1,62 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[frenchb,english]{babel}
+%\usepackage{macros}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,array}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{pgfplots}
+\usepackage{ulem}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\usepackage{hyperref}
+
+\usepackage{color}
+\newenvironment{remark}[1][Remark]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\definecolor{blue}{rgb}{0.30,0.8,1}
+\definecolor{red}{rgb}{1,0.3,0.3}
+\usetikzlibrary{positioning,shapes,shadows,arrows}
+\begin{document}
+\pagenumbering{gobble}
+\begin{figure}
+\begin{tikzpicture}
+    \begin{loglogaxis}[
+    	width=\textwidth,
+    	height=0.8\textwidth,
+        xlabel=$\nu$,
+        ylabel=$h_{\epsilon}$,
+        ymax=1,
+        ymin=1e-5,
+        xmin=0.5e-4,
+        xmax=1.3,
+        legend style={
+at={(0.2,1.5)},
+legend pos=north west,
+draw=none
+}
+]
+\addplot[mark=*,red] table {h_nu/h1e-1.dat}; 
+\addlegendentry{$\epsilon=10^{-1}$};
+%\addplot[mark=o,red] table {h_nu/h1e-2.dat}; 
+%\addlegendentry{$\epsilon=1e-2$};
+\addplot[mark=triangle,black] table {h_nu/h1e-3.dat}; 
+\addlegendentry{$\epsilon=10^{-3}$};
+%\addplot[mark=square,cyan] table {h_nu/h1e-4.dat}; 
+%\addlegendentry{$\epsilon=1e-4$};
+\addplot[dashed, red] table {h_nu/nu32.dat}; 
+\addlegendentry{$O\left(\nu^{\frac{3}{2}}\right)$};
+%\addplot[dashed, blue] table {h_nu/nu54.dat}; 
+%\addlegendentry{$O\left(\nu^{\frac{5}{4}}\right)$};
+\addplot[dashed, green] table {h_nu/nu1.dat}; 
+\addlegendentry{$O\left(\nu\right)$};
+\end{loglogaxis}
+\end{tikzpicture} 
+\end{figure}
+
+
+\end{document}
