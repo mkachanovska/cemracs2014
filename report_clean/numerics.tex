@@ -206,7 +206,11 @@ and thus the relative error control
 \eealn
  is ensured by choosing $h$ as $\beta_{\epsilon}\nu^{\frac{3}{4}}$.
 \end{remark}
-
+\paragraph{Condition Number}
+In Figure \ref{fig:small_nu} we demonstrate the dependence of the condition number of the matrix of the system (\ref{eq:simple_system}) 
+on $\nu$, for several values of $h$.
+Remarkably, for $\nu=0$ the computed matrices are not singular. We do not know the exact reason for this.
+As an additional illustration, we compare the solutions for very small $\nu$ and $\nu=0$ for different meshes in Fig.~\ref{fig:small_nu}. 
 \begin{figure}[htb!]
 \begin{tabular}{cc}
 \includegraphics[height=0.32\textwidth]{pics_frequency_domain/fig_cond_num.pdf}&
@@ -215,10 +219,11 @@ and thus the relative error control
  \caption{
  The left plot demonstrates the dependence of the condition number of the system (\ref{eq:simple_system}) on $\nu$, for different values of $h$ (the condition 
  number for $\nu=0$ is not shown, however, for all values of $h$ as shown in the plot, the matrix was non-singular even for $\nu=0$). 
- The right plot shows $E_{y}^{\nu}$ computed on different meshes for small $\nu$. It can be seen that for meshes that are coarse 
- with respect to $\nu$ (e.g. $\nu=10^{-4}, \; h=10^{-2}$, or $\nu=0,\; h=10^{-2}$), the computed solution seems to be only piecewise-continuous in $\nu$, 
- while for finer meshes and $\nu>0$ the solution seems to be smooth. It can be also seen that for $h=10^{-2}$ and $h=10^{-3}$ the solutions 
+ The right plot shows $E_{y}^{\nu}$ computed on different meshes for small $\nu$. It can be seen that for $h=10^{-2}$ and $h=10^{-3}$ the solutions 
  computed for $\nu=0$ are almost indistinguishable.}
+ %It can be seen that for meshes that are coarse 
+ %with respect to $\nu$ (e.g. $\nu=10^{-4}, \; h=10^{-2}$, or $\nu=0,\; h=10^{-2}$), the computed solution seems to be only piecewise-continuous in $\nu$, 
+ %while for finer meshes and $\nu>0$ the solution seems to be smooth. }
  \label{fig:small_nu}
 \end{figure}
 %\begin{table}[ht!]
@@ -238,11 +243,7 @@ and thus the relative error control
 %\caption{The condition number of the matrix of the system (\ref{eq:simple_system}) for different values of $\nu$ and $h$. }
 %\label{tab:cond_number}
 %\end{table}
-\paragraph{Condition Number}
-In Figure \ref{fig:small_nu} we demonstrate the dependence of the condition number of the matrix of the system (\ref{eq:simple_system}) 
-on $\nu$, for several values of $h$.
-Remarkably, for $\nu=0$ the computed matrices are not singular. We do not know the exact reason for this.
-As an additional illustration, we compare the solutions for very small $\nu$ and $\nu=0$ for different meshes in Fig.~\ref{fig:small_nu}. 
+
 
 \FloatBarrier
 
