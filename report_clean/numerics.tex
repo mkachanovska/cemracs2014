@@ -113,8 +113,8 @@ The last inequality follows from Lemma \ref{lemma:well_posedness} and is valid f
 \label{eq:exact}
  E_x^{\nu}=-iE_{y}^{\nu}\frac{\delta}{\alpha+i\nu}=\frac{f^{\nu}(x)}{\alpha(x)+i\nu}, \; \text{for some }f^{\nu}(x)\in L_{2}(\Omega).
 \end{align}
-\mrev{We additionally assume that $E_y^{\nu}(x)$ is sufficiently smooth and $\|(E_y^{\nu})''\|_{H_{2}(\Omega)}$
-can be bounded independently of $\nu$}.
+We additionally assume that $E_y^{\nu}(x)$ is sufficiently smooth and $\|(E_y^{\nu})''\|_{H_{2}(\Omega)}$
+can be bounded independently of $\nu$. 
 \item The estimate from \cite[Chapter 0]{brenner} on the rate of convergence of the interpolation 
 \begin{align}
 \label{eq:interp}
@@ -125,13 +125,15 @@ can be bounded independently of $\nu$}.
 \end{align}
 where $I^{h}v$ is an interpolation operator onto $P_{h}^{1}$. 
 \end{itemize}
-\mrev{The estimate (\ref{eq:cea}) combined with (\ref{eq:interp}) results in, for some $C>0$,
+The estimate (\ref{eq:cea}) combined with (\ref{eq:interp}) results in, for some $C>0$,
 \begin{align}
   \label{eq:final_est}
   \|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L_{2}(\Omega)}%\leq C_1\nu^{-1}h\|\left(E_y^{\nu}\right)''\|_{L_{2}}+C_2\nu^{-1}h^2\|\left(E_x^{\nu}\right)''\|_{L_{2}}
   \leq C\nu^{-1}h+C\nu^{-1}h^2\|\left(E_x^{\nu}\right)''\|_{L_{2}},
 \end{align}
-where we used an assumption that the $L_2$-norm of $\left(E_y^{\nu}(x)\right)''$ can be bounded independently of $\nu$.} For $E_x^{\nu},\; f^{\nu}(x)$ in (\ref{eq:exact}) being sufficiently smooth, 
+where we used an assumption that the $L_2$-norm of $\left(E_y^{\nu}(x)\right)''$ can be bounded independently of $\nu$.
+
+For $E_x^{\nu},\; f^{\nu}(x)$ in (\ref{eq:exact}) being sufficiently smooth, 
 \ben
  \frac{d^2}{dx^2}E_x^{\nu}=\frac{(f^{\nu})''}{\alpha+i\nu}-2\frac{(f^{\nu})'\alpha'}{(\alpha+i\nu)^2}+\frac{f^{\nu}\alpha''}{(\alpha+i\nu)^3},
 \een
