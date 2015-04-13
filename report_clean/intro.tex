@@ -12,22 +12,62 @@ hybrid resonance appears in a simpler model coupling
 fluid equations with the non electrostatic part of Maxwell equations.
 
 
-We consider the model of cold plasma of \cite{Stix} which is described by the 2D time-dependent Maxwell system  
+\urev{
+We consider the wave propagation in the collisionless cold plasma that consists of particles of single species 
+under a uniform in time background magnetic field $\mathbf{B}_0=(0,\;0,\; B_0)$. This process can be described by the 2D time-dependent Maxwell system  \cite{Stix}
 \bealn
--\varepsilon_0 \partial_t \E + \curl\, \Hbf = \J\\
-\mu_0 \partial_t \Hbf + \curl\, \E = 0
+-\varepsilon_0 \partial_t E_x +\partial_y H_z = J_x,\\
+-\varepsilon_0 \partial_t E_y -\partial_x H_z = J_y,\\
+\mu_0 \partial_t H_z + \partial_x E_y-\partial_y E_x= 0
 \eealn
-coupled with a linear electronic current  $\J = eN_e \ubf_e$, 
+coupled with \mrev{an equation for the } linear electronic current  $\J = eN_e(\mathbf{r}) \ubf$, 
 \ben
-m_e \partial_t \ubf_e =e (\E +\ubf_e \wedge B_0) -m_e \nu \ubf_e, \label{eq:electronmove}
+m_e \partial_t u_x =\epsilon_0 e E_x+e B_0(\mathbf{r}) u_y -m_e \nu u_x, \label{eq:electronmove}\\
+m_e \partial_t u_y =\epsilon_0 e E_y-e B_0(\mathbf{r}) u_x -m_e \nu u_y,
 \een
-where $\nu$ is  the friction  between particles.
-The unknowns are the electromagnetic fields $(\E,\Hbf)$ with the usual notation $\Hbf = \B/\mu_0$, 
- %the electronic current $\J$, 
-and the velocity of electrons $\ubf_e$. Here $B_0$ is the background magnetic field, typically assumed to be uniform in time and space.  
-We denote by $e<0$ the value of the charge of electrons, $m_e$ the electron mass and $N_e$ the electron density that in general 
-depends on spatial variables and is uniform in time. 
-Without loss of generality, we set $\mathbf{B}_0=\left(0,\; 0,\; B_0\right)$, which allows to obtain the following system of 1D equations 
+where \mrev{$\nu>0$} is the friction  between particles, $e<0$ is the charge of electrons, $m_e$ the electron mass and $N_e$ the electron density that in general 
+depends on spatial variables and is uniform in time.
+The unknowns are the electron velocity $\ubf$ and the electromagnetic field. 
+
+The energy of this system in a domain $\Omega\in\mathbb R^2$ in the case $\nu=0$ can be expressed as \cite{stable_yee_plasma_current}
+\ben
+{\mathcal E}(t)= \int_\Omega \left(
+\frac{\epsilon_0 |\E(t,\x)|^2}{2}+\frac{ |\B(t,\x)|^2}{2\mu_0}+\frac{m_e|\J (t,\x)|^2}{2|e|N_e(\x)} 
+\right)\mathrm{d}\x.
+\een
+
+
+To demonstrate the resonance that can occur in the system, we introduce the plasma frequency $w_p(\mathbf{r})=\sqrt{\frac{|e|^2N_e(\mathbf{r})}{m\epsilon_0}}$, 
+the cyclotron frequency $w_c(\mathbf{r})=\frac{e B_0(\mathbf{r})}{m_e}$ and rewrite the system in the frequency domain ($\partial_t\rightarrow iw$) 
+\begin{align*}
+\label{eq:model_freq_domain}
+ \mathbf{curl}{\operatorname{curl}}\mathbf{E}-\frac{w^2}{c^2}\underline{\epsilon}(w,\mathbf{r})\mathbf{E}=0,
+\end{align*}
+where the cold-plasma dielectric tensor \cite[Chapter 1-2]{Stix}
+\begin{align*}
+ \underline{\epsilon}(w,\mathbf{r})=\left(
+ \begin{matrix}
+  \alpha(\mathbf{r}) & i\delta(\mathbf{r})\\
+  -i\delta(\mathbf{r}) & \alpha(\mathbf{r})
+ \end{matrix}
+\right),\; \alpha=1-\frac{w_p^2}{w^2-w_c^2},\; \delta=\frac{w_cw_p^2}{w(w^2-w_c^2)}.
+\end{align*}
+The case $w=w_c$, when $\underline{\epsilon}(w,\mathbf{r})$ is singular, is a so-called cyclotron resonance (c.f. \cite[Chapter 1-5]{Stix}). It can be 
+demonstrated that for this geometry there is no resonant heating associated to these points, see \cite{singular_solutions}, and the solutions are well-defined 
+in the limite $w\rightarrow w_c(\mathbf{r})$. Hence this case is not 
+studied in the present work. 
+
+Another interesting case is $w^2=w_p^2+w_c^2$, when the diagonal part of the tensor $\underline{\epsilon}(w,\mathbf{r})$ vanishes. 
+This is a hybrid resonance case. As demonstrated in  \cite{Despres_2014} the time-harmonic electric field component $E_x$ is not necessarily square 
+integrable. This apparent paradox is of course the source of important numerical difficulties which are the subject of the present study.
+}
+
+
+\urev{In some physical applications (e.g. when modelling antennas in plasmas), it is required to study the above system in an 
+infinite domain $(a,\; \infty)\times\mathbb{R}$, $a\in \mathbb{R}$, with appropriately chosen boundary conditions which will be discussed later}.
+\mrev{ADD REFERENCE}
+To simplify the above system, we perform the Fourier transform in $y$ ($\partial_y\rightarrow i\theta$) and consider the one-dimensional setting
+
 \begin{equation}
 \label{eq:main_model}
 \begin{cases}
@@ -39,17 +79,11 @@ m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y
 \end{cases}
 \end{equation}
 posed in $(-L,\; \infty)\times \mathbb{R}$, for some $L>0$. This domain represents the physical case of a wave sent from a wall facing a plasma. 
-The energy of this system for $\nu=0$ in a domain $\Omega\in\mathbb R^2$ can be expressed as \cite{stable_yee_plasma_current}
-\ben
-{\mathcal E}(t)= \int_\Omega \left(
-\frac{\epsilon_0 |\E(t,\x)|^2}{2}+\frac{ |\B(t,\x)|^2}{2\mu_0}+\frac{m_e|\J (t,\x)|^2}{2|e|N_e(\x)} 
-\right)\mathrm{d}\x.
-\een
-In  \cite{Despres_2014} it was shown
-that the time harmonic electric field component $E_x$ in this case is not necessarily square 
-integrable, and  
-explicit estimates on the behavior of the solutions of \eqref{eq:main_model} in 1D were provided. 
-This apparent paradox  is of course the source of important numerical difficulties which are the subject of the present study.
+
+%In  \cite{Despres_2014} it was shown
+%that the time harmonic electric field component $E_x$ in this case is not necessarily square 
+%integrable, and  
+%explicit estimates on the behavior of the solutions of \eqref{eq:main_model} in 1D were provided. 
 
 We complement Problem (\ref{eq:main_model}) with the boundary conditions.
 At the left boundary of the domain, which represents the wall of the Tokamak, we choose Robin boundary conditions 
