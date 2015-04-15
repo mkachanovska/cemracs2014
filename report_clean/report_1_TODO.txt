@@ -58,9 +58,6 @@ is quite misleading since the whole paper is about the 1d case (unless I missed 
 
 B. Specific remarks.
 
-- p1 in the abstract:
-  "we focus on"
-
 - p2 on top:
   in several places in the paper it seems that negative values of the friction coeficient \nu can be considered, see for instance
   Lemma 2.1 or p.9 after (15). This is strange for a friction coeficient, and should be better explained. Or \nu should be simply 
