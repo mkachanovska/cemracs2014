@@ -76,8 +76,7 @@ B. Specific remarks.
   with nu = 0, consistent with alpha and delta ?
   Also, the latex notation \varepsilon should be used here, and not \epsilon since it is used later to denote an error bound, see (15).
   
-- p4 on top
-  L^2 and H^1 are more standard notations
+
 
 - p4 Equation (5)
   why write i without a dot?
@@ -163,11 +162,6 @@ B. Specific remarks.
 - p15 in Conclusion
   "piecewise-constant FEM" -> not P1 ?
   
-- p17 in References
-  "Mehrenberg"
-  "T. Hattori"
-  "Simon", "Pierre" ...
-  "Xu L. ans Yuan N."
-  
+
   
   
