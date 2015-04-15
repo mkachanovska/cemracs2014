@@ -52,10 +52,10 @@ $\left[-L,\; \mathbb{R}\right)$.
 
 In order to reduce problem \eqref{eq:main_frequency_domain} to one dimension, perform a Fourier transform in the $y$ variable, 
 denoting by $\theta$ the corresponding Fourier variable. 
-After introducing $\Omega=(-L,\; H)\subset \mathbb R$ and defining the function space of the problem  $\mathbf{V}=L_{2}(\Omega)\times H^{1}(\Omega)$, 
+After introducing $\Omega=(-L,\; H)\subset \mathbb R$ and defining the function space of the problem  $\mathbf{V}=L^{2}(\Omega)\times H^{1}(\Omega)$, 
 equipped with the norm
 \ben
- \|\mathbf{v}\|_{\mathbf{V}}^2= \|v_1\|_{L_{2}(\Omega)}^2+\|v_2\|_{H^{1}(\Omega)}^2,
+ \|\mathbf{v}\|_{\mathbf{V}}^2= \|v_1\|_{L^{2}(\Omega)}^2+\|v_2\|_{H^{1}(\Omega)}^2,
 \een
 the resulting one-dimensional system can be rewritten in the following variational form:
 \begin{align}
@@ -151,42 +151,42 @@ for the case $\theta=0$. In this case the problem (\ref{eq:var_form2}) is well-p
 as a system of two equations, where the first equation (for $E_y$) is the variational formulation for the Helmholtz equation 
 with the variable coefficient $k^2=(\alpha-\frac{\delta^2}{\alpha})$, and the second equation 
 \begin{align*}
-  \left(E_x,u\right)=-\left(\frac{i\delta}{\alpha}E_y,u\right),\; \text{ for all } u\in L_{2}(\Omega), 
+  \left(E_x,u\right)=-\left(\frac{i\delta}{\alpha}E_y,u\right),\; \text{ for all } u\in L^{2}(\Omega), 
 \end{align*}
-uniquely defines $E_x\in L_{2}(\Omega)$. The well-posedness of the former problem, with additional assumptions on boundary conditions and smoothness of the coefficients, 
-was demonstrated in \cite{LMIG_thesis}. Provided the solution $E_y\in H_{1}(\Omega)$, we can obtain $E_x$ from the second equation.
+uniquely defines $E_x\in L^{2}(\Omega)$. The well-posedness of the former problem, with additional assumptions on boundary conditions and smoothness of the coefficients, 
+was demonstrated in \cite{LMIG_thesis}. Provided the solution $E_y\in H^{1}(\Omega)$, we can obtain $E_x$ from the second equation.
 
 %%Let us consider the problem (\ref{eq:var_form2}) for $\nu=0,\; \theta=0$, which, after testing it 
 %%with $(\tilde{E}_x,\; 0)$ and $(0,\; \tilde{E}_y)$ from $\mathbf{V}$, can be rewritten as, see also (\ref{eq:epsilon_0})
 %%\begin{align}
 %%\label{eq:full_var}
 %%\begin{split}
-%%\int_{-L}^H \left(\alpha E_x+i\delta E_y \right)_{1} \overline{\tilde E}_{x}&=0,\; \text{ for all }\tilde{E}_x\in L_{2}(\Omega), \;\\
+%%\int_{-L}^H \left(\alpha E_x+i\delta E_y \right)_{1} \overline{\tilde E}_{x}&=0,\; \text{ for all }\tilde{E}_x\in L^{2}(\Omega), \;\\
 %%\displaystyle \int_{-L}^H E_y'\tilde {E_y'} - \int_{-L}^H\left( -i\delta E_x+\alpha E_y \right)_{2}\overline{\tilde{E}}_{y}
 %%  - \imath \lambda E_y (-L) \overline{\tilde E_y} (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
-%%  \text{ for all }  \tilde{E}_{y}\in H_{1}(\Omega).
+%%  \text{ for all }  \tilde{E}_{y}\in H^{1}(\Omega).
 %%  \end{split}
 %%\end{align}
 %%The first equation of the above can be rewritten as 
 %%\ben
 %% \left(E_x,\alpha \tilde{E}_x\right)=-\left(i\delta E_y,  \tilde{E}_x\right).
 %%\een
-%%If the multiplication operator $M_{\alpha}$ defined as $M_{\alpha}\psi=\frac{1}{\alpha}\psi$ is an isomorphism from $L_{2}([-L,\;H])$ to $L_{2}([-L,\;H])$ (this is true if e.g.
+%%If the multiplication operator $M_{\alpha}$ defined as $M_{\alpha}\psi=\frac{1}{\alpha}\psi$ is an isomorphism from $L^{2}([-L,\;H])$ to $L^{2}([-L,\;H])$ (this is true if e.g.
 %%$\alpha \in C_{0}([-L,\;H])$ and $|\alpha(x)|>c>0$, for some $c>0$, on the whole interval), this equation is equivalent to 
 %%\begin{align}
 %%\label{eq:mult_eq}
-%%  \left(E_x,u\right)=-\left(\frac{i\delta}{\alpha}E_y,u\right),\; \text{ for all } u\in L_{2}(\Omega). 
+%%  \left(E_x,u\right)=-\left(\frac{i\delta}{\alpha}E_y,u\right),\; \text{ for all } u\in L^{2}(\Omega). 
 %%\end{align}
 
-%%Choosing in the above $u=-i\delta \tilde{E}_y \in L_{2}(\Omega)$ and adding it to the second equation of (\ref{eq:full_var}), we obtain
+%%Choosing in the above $u=-i\delta \tilde{E}_y \in L^{2}(\Omega)$ and adding it to the second equation of (\ref{eq:full_var}), we obtain
 %%\bealn
 %% \displaystyle \int_{-L}^H E_y'\tilde {E_y'} - \int_{-L}^H (\alpha-\frac{\delta^2}{\alpha})E_y \overline{\tilde{E}}_{y}
 %%  - \imath \lambda E_y (-L) \overline{\tilde E_y} (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
-%%  \text{ for all } \tilde{E}_{y}\in H_{1}(\Omega). \nonumber
+%%  \text{ for all } \tilde{E}_{y}\in H^{1}(\Omega). \nonumber
 %%\eealn
 %%Thus we obtain the variational formulation for $E_y$, or the variational formulation for the Helmholtz equation. The well-posedness 
 %%of this problem, with additional assumptions on boundary conditions and smoothness of the coefficients, 
-%%had been demonstrated in \cite{LMIG_thesis}. Provided the solution $E_y\in H_{1}(\Omega)$, we can obtain $E_x$ from the equation (\ref{eq:mult_eq}).
+%%had been demonstrated in \cite{LMIG_thesis}. Provided the solution $E_y\in H^{1}(\Omega)$, we can obtain $E_x$ from the equation (\ref{eq:mult_eq}).
 \end{remark}
 
 %\subsection{2D case}
@@ -221,7 +221,7 @@ an explicit expression for the tensor of the dielectric permittivity (\ref{eq:ep
 %&=0,\\
 %\displaystyle \int_{-L}^H (E_y' -\imath\theta E_x)\tilde {E_y'} - \int_{-L}^H\left( (\epsilon_0 +\imath\nu\operatorname{Id}) \E\right)_{2}\overline{\tilde{E}}_{y}
 %  - \imath \lambda E_y (-L) \tilde E_y (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
-%  \text{ for all } \tilde E_x\in L_{2}(\Omega), \; \tilde{E}_{y}\in H_{1}(\Omega).
+%  \text{ for all } \tilde E_x\in L^{2}(\Omega), \; \tilde{E}_{y}\in H^{1}(\Omega).
 %  \end{split}
 %\end{align*}
 %Using the explicit expression for the dielectric permittivity tensor in the above, it yields: 
@@ -235,7 +235,7 @@ an explicit expression for the tensor of the dielectric permittivity (\ref{eq:ep
 \int_{-L}^H (E_y' -\imath\theta E_x)\tilde {E_y'} -
 \int_{-L}^H\left( -\imath \delta E_x+(\alpha+i\nu) E_y\right)_{2}\overline{\tilde{E}}_{y}
   - \imath \lambda E_y (-L) \tilde E_y (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
- \text{ for all } \tilde E_x\in L_{2}(\Omega), \; \tilde{E}_{y}\in H_{1}(\Omega).
+ \text{ for all } \tilde E_x\in L^{2}(\Omega), \; \tilde{E}_{y}\in H^{1}(\Omega).
   \end{split}
 \end{align}
 Let us introduce two basis function spaces $V_{E_x}=\{\psi_{j}\}_{j=1}^{N_{1}}$ and $V_{E_{y}}=\{\phi_{i}\}_{i=1}^{N_{2}}$. 
