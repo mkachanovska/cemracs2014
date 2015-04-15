@@ -132,8 +132,7 @@ B. Specific remarks.
 - p10 before and after Table 1
   why dropping the exponents nu in the E field now?
   
-- p11 Figure 4
-  dependence
+
   
 - p11 Figure 5
   in the caption E^\nu now denotes the computed solution. Before that was the exact solution, see eg (17)
