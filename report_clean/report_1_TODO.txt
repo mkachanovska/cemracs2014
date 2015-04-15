@@ -90,8 +90,6 @@ B. Specific remarks.
 - p5 after (10)
   V_Ex and V_Ey are not function spaces
   
-- p6 before (11)
-  "matricial" is incorrect
   
 - p6 two lines before the discrete system
   "Ex"
@@ -132,7 +130,6 @@ B. Specific remarks.
 - p10 before and after Table 1
   why dropping the exponents nu in the E field now?
   
-
   
 - p11 Figure 5
   in the caption E^\nu now denotes the computed solution. Before that was the exact solution, see eg (17)
