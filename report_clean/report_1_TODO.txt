@@ -3,9 +3,7 @@ CELINE TODO
 
 
 2) change notation in the whole document : alpha = alpha(x)
-3) define epsion(x) in the beginning
-4) define epsion_{nu}(x) when we show how this tensor is regularized
-5) Afterwards say that from now on we define $epsilon_0(x)=epsilon(x)$...15:43
+DONE -> do double check  
  
 --------------------------------------------------------------------------------------------------
 
