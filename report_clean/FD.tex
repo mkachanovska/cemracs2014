@@ -11,7 +11,7 @@ of  Maxwell equations with the cold plasma dielectric tensor \cite{Stix,Despres_
  -i\tilde{\delta}  & \tilde{\alpha}
 \end{matrix}
 \right),\\
-\tilde{\alpha}(\omega)=\frac{\omega^2}{c^2}\left(1-\frac{\tilde{\omega}\omega_p^2}{\omega(\tilde{\omega}^2-\omega_c^2)}\right),\qquad 
+\tilde{\alpha}(\omega,x)=\frac{\omega^2}{c^2}\left(1-\frac{\tilde{\omega}\omega_p^2}{\omega(\tilde{\omega}^2-\omega_c^2)}\right),\qquad 
 \tilde{\delta}(\omega)=\frac{\omega_c\omega_p^2}{\omega(\tilde{\omega}^2-\omega_c^2)},
 \eealn
 where the frequency 
@@ -20,7 +20,7 @@ the cyclotron frequency is
 $ \omega_c={\frac{eB_0}{m_e}}$ and the plasma frequency is $ \omega_p^2=\frac{e^2 N_e}{\epsilon_0 m_e}$.
 The series expansion as $\nu\rightarrow 0$ gives at leading orders
 \bealn
- \tilde{\alpha}(\omega)=\alpha(\omega)+i\nu\frac{\omega_p^2(\omega^2+\omega_c^2)}{(\omega^2-\omega_c^2)^2}\frac{\omega^2}{c^2},\qquad \alpha(\omega)=\frac{\omega^2}{c^2}\left(1-\frac{\omega_p^2}{\omega^2-\omega_c^2}\right),\\
+ \tilde{\alpha}(\omega,x)=\alpha(\omega,x)+i\nu\frac{\omega_p^2(\omega^2+\omega_c^2)}{(\omega^2-\omega_c^2)^2}\frac{\omega^2}{c^2},\qquad \alpha(\omega)=\frac{\omega^2}{c^2}\left(1-\frac{\omega_p^2}{\omega^2-\omega_c^2}\right),\\
  \tilde{\delta}(\omega)=\delta(\omega)-\frac{2i\omega^3\nu}{c^2(\omega^2-\omega_c^2)^2},\qquad \delta(\omega)=\frac{\omega\omega_c\omega_p^2}{c^2(\omega^2-\omega_c^2)}.
 \eealn
 We finally obtain a simpler equation \cite{Despres_2014} 
@@ -40,7 +40,7 @@ We finally obtain a simpler equation \cite{Despres_2014}
 \end{matrix}
 \right).
 \end{align}
- In this model problem, the coefficients  $\alpha(\omega)$ and $\delta(\omega)$ are sufficiently smooth, i.e. bounded and continuous in  
+ In this model problem, the coefficients  $\alpha(\omega,x)$ and $\delta(\omega)$ are sufficiently smooth, i.e. bounded and continuous in  
 $\left[-L,\; \mathbb{R}\right)$.
 
 
@@ -149,9 +149,9 @@ where $C>0$ does not depend on $\nu$. The problem~\eqref{vf1dcase} is well-posed
 The above proof is not optimal in the case when $\left|\alpha(x)\right|>c>0$ for $c>0$ on the whole interval $[-L,\; H]$, at least 
 for the case $\theta=0$. In this case the problem (\ref{eq:var_form2}) is well-posed for $\nu=0$. More precisely, it can be written 
 as a system of two equations, where the first equation (for $E_y$) is the variational formulation for the Helmholtz equation 
-with the variable coefficient $k^2=(\alpha-\frac{\delta^2}{\alpha})$, and the second equation 
+with the variable coefficient $k^2=(\alpha(x)-\frac{\delta^2}{\alpha})$, and the second equation 
 \begin{align*}
-  \left(E_x,u\right)=-\left(\frac{i\delta}{\alpha}E_y,u\right),\; \text{ for all } u\in L^{2}(\Omega), 
+  \left(E_x,u\right)=-\left(\frac{i\delta}{\alpha(x)}E_y,u\right),\; \text{ for all } u\in L^{2}(\Omega), 
 \end{align*}
 uniquely defines $E_x\in L^{2}(\Omega)$. The well-posedness of the former problem, with additional assumptions on boundary conditions and smoothness of the coefficients, 
 was demonstrated in \cite{LMIG_thesis}. Provided the solution $E_y\in H^{1}(\Omega)$, we can obtain $E_x$ from the second equation.
