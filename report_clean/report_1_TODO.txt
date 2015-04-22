@@ -1,25 +1,13 @@
-Report on 
 
-   A NUMERICAL STUDY OF THE SOLUTION OF X-MODE EQUATIONS AROUND THE HYBRID RESONANCE
+CELINE TODO
 
-by
-
-   Céline Caldini-Queiros, Bruno Després, Lise-Marie Imbert-Gérard et Maryna Kachanovska
-
-submitted to ESAIM: Proceedings and Surveys.
-
-
-This article presents several numerical schemes for a linear model describing the interaction between an EM wave emitted by a 
-plane antenna and a plasma in the presence of a strong external magnetic field. Here the geometry is essentially 1d (dy = dz = 0) 
-and the considered EM wave is in X-mode (E = (Ex, Ey, 0), H = (0, 0, Hz)). 
-
-The main purpose of the article is to compare the behavior of the numerical solutions in the frequency domain and in the time 
-domain, especially when a hybrid resonance phenomenon shows up in the plasma. This is of practical interest for plasma heating applications. 
-Because the exact field can be singular it is not clear whether frequency-domain solutions should match with time-domain solutions
-as time goes to infinity, so this study is of interest and I think it deserves to be published. 
-
-However, I do not recommend a publication in its present state. To do so I need that the authors improve the presentation.
-Here are some suggestions in this direction.
+1) recall the limiting amplitude and absorption principles in a few words to go along Figure 1.
+2) change notation in the whole document : alpha = alpha(x)
+3) define epsion(x) in the beginning
+4) define epsion_{nu}(x) when we show how this tensor is regularized
+5) Afterwards say that from now on we define $epsilon_0(x)=epsilon(x)$...15:43
+all of the typoes
+--------------------------------------------------------------------------------------------------
 
 
 A. General issues.
@@ -158,6 +146,17 @@ B. Specific remarks.
 - p15 in Conclusion
   "piecewise-constant FEM" -> not P1 ?
   
+--------------------------------------
+REPORT 2
+• p2: In this case Ex is not square integrable: confirm that it is when ν is not zero and that
+the singularity appears for ν = 0.
+• p6: matricial structure → matrix structure
+• p6, 3.1. It is not clear how the Yee scheme, which is a finite difference scheme, is linked to the
+finite element scheme developed in the previous section. This should be made more explicit.
+• p10: mesh multiple times finer. It should be said exactly how many times.
+• p12, 4.2: much more → many more. Pike → peak. resonant → resonance. The validation of
+the semi-Lagrangian scheme is very short indeed! At list some words on the comparison to
+the other scheme should be given
 
   
   
