@@ -1,12 +1,12 @@
 
 CELINE TODO
 
-1) recall the limiting amplitude and absorption principles in a few words to go along Figure 1.
+
 2) change notation in the whole document : alpha = alpha(x)
 3) define epsion(x) in the beginning
 4) define epsion_{nu}(x) when we show how this tensor is regularized
 5) Afterwards say that from now on we define $epsilon_0(x)=epsilon(x)$...15:43
-all of the typoes
+ 
 --------------------------------------------------------------------------------------------------
 
 
@@ -153,7 +153,7 @@ the singularity appears for ν = 0.
 • p6, 3.1. It is not clear how the Yee scheme, which is a finite difference scheme, is linked to the
 finite element scheme developed in the previous section. This should be made more explicit.
 • p10: mesh multiple times finer. It should be said exactly how many times.
-• p12, 4.2:The validation of
+• p12, 4.2: The validation of
 the semi-Lagrangian scheme is very short indeed! At list some words on the comparison to
 the other scheme should be given
 
