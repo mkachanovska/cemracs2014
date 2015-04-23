@@ -1,51 +1,85 @@
 \section{Frequency domain study}
-In the frequency domain, the velocity can be eliminated and it yields a simpler system under the form
-of  Maxwell equations with the cold plasma dielectric tensor \cite{Stix,Despres_2014}. One obtains the equations
+The goal of this section is to review the connection between the system (\ref{eq:main_system}), its frequency domain counterpart and 
+the regularized problem (\ref{eq:seq_regularized}). 
+
+In the frequency domain, the velocity can be eliminated to obtain a simpler system under the form
+of  Maxwell equations with the cold plasma dielectric tensor \cite{Stix,Despres_2014}, more precisely
+\urev{
 \bealn
 %\label{eq:main_frequency_domain_1}
 \operatorname{curl}\operatorname{curl}\hat{\mathbf{E}}-
-\epsilon(\omega)\hat{\mathbf{E}}=0,\\
-\epsilon(\omega)=\left(
+\frac{\omega^2}{c^2}\underline{\epsilon}^{\nu}_{\omega}(\mathbf{r})\hat{\mathbf{E}}=0,\\
+\underline{\epsilon}^{\nu}_{\omega}(\mathbf{r})=\left(
 \begin{matrix}
- \tilde{\alpha} & i\tilde{\delta} \\
- -i\tilde{\delta}  & \tilde{\alpha}
+ \alpha^{\nu}_{\omega}(\mathbf{r}) & i\delta^{\nu}_{\omega}(\mathbf{r}) \\
+ -i\delta^{\nu}_{\omega}(\mathbf{r}) & \alpha^{\nu}_{\omega}(\mathbf{r})
 \end{matrix}
-\right),\\
-\tilde{\alpha}(\omega,x)=\frac{\omega^2}{c^2}\left(1-\frac{\tilde{\omega}\omega_p^2}{\omega(\tilde{\omega}^2-\omega_c^2)}\right),\qquad 
-\tilde{\delta}(\omega)=\frac{\omega_c\omega_p^2}{\omega(\tilde{\omega}^2-\omega_c^2)},
+\right),\qquad 
+ \alpha^{\nu}_{\omega}(\mathbf{r})=\frac{\omega^2}{c^2}\left(1-\frac{\omega_{\nu}\omega_p^2(\mathbf{r})}{\omega(\omega_{\nu}^2-\omega_c^2(\mathbf{r}))}\right),\qquad 
+\delta^{\nu}_{\omega}(\mathbf{r})=\frac{\omega_c(\mathbf{r})\omega_p^2(\mathbf{r})}{\omega(\omega_{\nu}^2-\omega_c^2(\mathbf{r}))},
 \eealn
-where the frequency 
-$\tilde{\omega}=\omega+i\nu$ is shifted in the complex plane,
-the cyclotron frequency is 
-$ \omega_c={\frac{eB_0}{m_e}}$ and the plasma frequency is $ \omega_p^2=\frac{e^2 N_e}{\epsilon_0 m_e}$,\textcolor{red}{and $\epsilon(\omega)$ is the dielectric tensor of the cold plasma approximation.}
+}
+\mrev{where the frequency 
+$\omega_{\nu}=\omega+i\nu$ is shifted in the complex plane. Note that neither cyclotron, nor hybrid resonances occur in the problem with the dielectric tensor $\epsilon^{\nu}_{\omega}(\mathbf{r}), \; \nu>0,$ (since all parameters are real). Hence 
+the choice of the non-zero plasma friction $\nu>0$ can be viewed as a regularization of the problem. }
+
+\mrev{
 The series expansion as $\nu\rightarrow 0$ gives at leading orders
 \bealn
- \tilde{\alpha}(\omega,x)=\alpha(\omega,x)+i\nu\frac{\omega_p^2(\omega^2+\omega_c^2)}{(\omega^2-\omega_c^2)^2}\frac{\omega^2}{c^2},\qquad \alpha(\omega)=\frac{\omega^2}{c^2}\left(1-\frac{\omega_p^2}{\omega^2-\omega_c^2}\right),\\
- \tilde{\delta}(\omega)=\delta(\omega)-\frac{2i\omega^3\nu}{c^2(\omega^2-\omega_c^2)^2},\qquad \delta(\omega)=\frac{\omega\omega_c\omega_p^2}{c^2(\omega^2-\omega_c^2)}.
+ \alpha^{\nu}_{\omega}=\alpha^{0}_{\omega}+i\nu\frac{\omega_p^2(\omega^2+\omega_c^2)}{(\omega^2-\omega_c^2)^2}=\alpha^{0}_{\omega}+i\nu D_{\alpha},\\
+ \delta^{\nu}_{\omega}=\delta^{0}_{\omega}-i\nu\frac{2\omega}{(\omega^2-\omega_c^2)^2}=\alpha^{0}_{\omega}+i\nu D_{\delta},
 \eealn
-%We finally obtain a simpler equation \cite{Despres_2014} 
-\textcolor{red}{
-We have }
+where $\alpha^{0}_{\omega},\;\delta^{0}_{\omega}$ are defined by (\ref{eq:alpha_delta}). In the frequency domain one thus can consider 
+the following regularization of the cold plasma dielectric tensor of (\ref{eq:main_frequency_domain}):
+\begin{align*}
+\underline{\epsilon}^{\nu}_{\omega}\approx \underline{\epsilon}^0_{\omega}+i\nu \left(
+ \begin{matrix}
+  D_{\alpha} & D_{\delta}\\
+  -D_{\delta} & D_{\alpha}
+ \end{matrix}
+\right).
+\end{align*}
+However, as demonstrated in \cite{singular_solutions} for the 1D setting, a significantly simpler regularization (considered in \cite{Despres_2014})
 \ben
- \textcolor{red}{\epsilon_{\nu}(\omega)\approx \epsilon_0+i\nu Id,\; \nu\rightarrow 0.}
+\epsilon^{\nu}_{\omega}(\mathbf{r})\approx \epsilon^{0}_{\omega}(\mathbf{r})+i\nu \mathbb{E}
 \een
+yields the same solution as $\nu\rightarrow 0$. }
+%We finally obtain a simpler equation \cite{Despres_2014} 
 
-\textcolor{red}{Thus, we finally obtain a simpler equation \cite{Despres_2014}, with the notation adopted from now on that $\epsilon_0(x) = \epsilon (x)$ }
+
+\textcolor{red}{Thus, applying the above process to (\ref{eq:main_model}), we obtain, see also \cite{Despres_2014},
 \begin{align}
 \label{eq:main_frequency_domain}
-\operatorname{curl}\operatorname{curl}\hat{\mathbf{E}}-\frac{\omega^2}{c^2}
-\left(\epsilon_0(\omega)+\nu Id\right)\hat{\mathbf{E}}=0,\\
-\label{eq:epsilon_0}
-\epsilon_0(\omega)=\left(
+\left(
 \begin{matrix}
- \alpha & i\delta \\
- -i\delta & \alpha 
+ i\theta \partial_x \hat{E}_y+\theta^2 \hat{E}_x\\
+ i\theta \partial_x \hat{E}_x -\partial_x^2 \hat{E}_y
+\end{matrix}
+\right)-\frac{\omega^2}{c^2}
+\left(\epsilon^{0}_{\omega}(x)+\nu \mathbb{E}\right)\left(
+\begin{matrix}
+ \hat{E}_x\\
+ \hat{E}_y
+\end{matrix}
+\right)
+=0,\\
+\label{eq:epsilon_0}
+\epsilon^0_{\omega}(x)=\left(
+\begin{matrix}
+ \alpha_{\omega}^{0}(x) & i\delta_{\omega}^{0}(x) \\
+ -i\delta_{\omega}^{0}(x) & \alpha_{\omega}^{0}(x)
+\end{matrix}
+\right)=
+\left(
+\begin{matrix}
+ \alpha(x) & i\delta(x) \\
+ -i\delta(x) & \alpha(x)
 \end{matrix}
 \right).
 \end{align}
- In this model problem, the coefficients  $\alpha(\omega,x)$ and $\delta(\omega)$ are sufficiently smooth, i.e. bounded and continuous in  
-$\left[-L,\; \mathbb{R}\right)$.
-
+ In this model problem, the coefficients  $\alpha(x)$ and $\delta(x)$ are sufficiently smooth, i.e. bounded and continuous in  
+$\left[-L,\; H\right)$.
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%% 
