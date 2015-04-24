@@ -14,7 +14,8 @@ fluid equations with the non electrostatic part of Maxwell equations.
 
 \urev{
 We consider the wave propagation in the cold plasma that consists of particles of single species 
-under a uniform in time background magnetic field $\mathbf{B}_0=(0,\;0,\; B_0)$. This process in 2D can be described by the time-dependent Maxwell system  \cite{Stix}
+under a uniform in time background magnetic field $\mathbf{B}_0=(0,\;0,\; B_0)$. In two dimensions, in the plane 
+perpendicular to the direction of the magnetic field, this process can be described by the time-dependent Maxwell system  \cite{Stix}
 \begin{align}
 \label{eq:main_system}
 \begin{split}
@@ -36,11 +37,15 @@ depends on spatial variables and is uniform in time. \mrev{A non-zero value of $
 The unknowns are the electron velocity $\ubf$ and the electromagnetic field. 
 
 
-The energy of this system in a domain $\Omega\in\mathbb R^2$ in the case $\nu=0$ can be expressed as \cite{stable_yee_plasma_current}
+The energy of this system in a domain $\Omega\in\mathbb R^2$ can be expressed as, see \cite{Despres_2014}
 \ben
 {\mathcal E}(t)= \int_\Omega \left(
 \frac{\epsilon_0 |\E(t,\mathbf{r})|^2}{2}+\frac{ |\B(t,\mathbf{r})|^2}{2\mu_0}+\frac{m_e|\J (t,\x)|^2}{2|e|N_e(\mathbf{r})} 
-\right)\mathrm{d}\mathbf{r}.
+\right)\mathrm{d}\mathbf{r},
+\een
+and
+\ben
+\frac{d}{dt}{\mathcal E}=-\nu\left(\|u_{x}\|_{L_{2}(\Omega)}^2+\|u_{y}\|_{L_{2}(\Omega)}^2\right)+\text{boundary terms}.
 \een
 
 To illustrate unexpected difficulties that can occur in this system, let us rewrite it in the frequency domain. To do so, 
@@ -50,37 +55,38 @@ in time of \ref{eq:main_system} ($\partial_t\rightarrow -i\omega$), for a
 particular case $\nu=0$:
 \begin{align}
 \label{eq:model_freq_domain}
- \mathbf{curl}{\operatorname{curl}}\hat{\mathbf{E}}-\frac{\omega^2}{c^2}\underline{\epsilon}^{0}_{\omega}(\mathbf{r})\hat{\mathbf{E}}=0,
+ \mathbf{curl}{\operatorname{curl}}\hat{\mathbf{E}}-\frac{\omega^2}{c^2}\underline{\varepsilon}^{0}_{\omega}(\mathbf{r})\hat{\mathbf{E}}=0,
 \end{align}
 where the cold-plasma dielectric tensor \cite[Chapter 1-2]{Stix}
 \begin{align}
 \nonumber
-\underline{\epsilon}^{0}_{\omega}(\mathbf{r})=\left(
+\underline{\varepsilon}^{0}_{\omega}(\mathbf{r})=\left(
  \begin{matrix}
-  \alpha_{\omega}^{0}(\mathbf{r}) & i\delta_{\omega}^{0}(\mathbf{r})\\
-  -i\delta_{\omega}^{0}(\mathbf{r}) & \alpha_{\omega}^{0}(\mathbf{r})
+  \alpha_{\omega}(\mathbf{r})& i\delta_{\omega}(\mathbf{r})\\
+  -i\delta_{\omega}(\mathbf{r}) & \alpha_{\omega}(\mathbf{r})
  \end{matrix}
 \right),\\
 \label{eq:alpha_delta}
-\alpha_{\omega}^{0}(\mathbf{r})=1-\frac{\omega_p^2(\mathbf{r})}{\omega^2-\omega_c^2(\mathbf{r})},\; \delta_{\omega}^{0}(\mathbf{r})=\frac{\omega_c(\mathbf{r})\omega_p^2(\mathbf{r})}{\omega(\omega^2-\omega_c^2(\mathbf{r}))}.
+\alpha_{\omega}(\mathbf{r})=1-\frac{\omega_p^2(\mathbf{r})}{\omega^2-\omega_c^2(\mathbf{r})},\; \delta_{\omega}(\mathbf{r})=\frac{\omega_c(\mathbf{r})\omega_p^2(\mathbf{r})}{\omega(\omega^2-\omega_c^2(\mathbf{r}))}.
 \end{align}
 
-The point $\mathbf{r}_c=(x_c,y_c)$ s.t. $\omega_c(\mathbf{r}_c)=\omega$, i.e. when $\underline{\epsilon}_{\omega}^{0}(\mathbf{r})$ is singular, is called a cyclotron resonance (c.f. \cite[Chapter 1-5]{Stix}). 
+The point $\mathbf{r}_c=(x_c,y_c)$ s.t. $\omega_c(\mathbf{r}_c)=\omega$, i.e. when $\underline{\varepsilon}_{\omega}^{0}(\mathbf{r})$ is singular, is called a cyclotron resonance (c.f. \cite[Chapter 1-5]{Stix}). 
 In \cite{singular_solutions} it was demonstrated for a 1D-counterpart of the above system that such points behave like removable singularities, 
 and the solutions are well-defined in the limit $x\rightarrow x_c$. Hence this case is not of interest for the present work. 
 
-Another interesting case is $\omega_p^2(\mathbf{r})+\omega_c^2(\mathbf{r})=\omega^2$, when the diagonal part of the tensor $\underline{\epsilon}_{\omega}^{0}(\mathbf{r})$ vanishes, 
+Another interesting case is $\omega_p^2(\mathbf{r})+\omega_c^2(\mathbf{r})=\omega^2$, when the diagonal part of the tensor $\underline{\varepsilon}_{\omega}^{0}(\mathbf{r})$ vanishes, 
 under the condition that the non-diagonal part remains non-zero. This is a hybrid resonance case. 
+
 As shown in \cite{Despres_2014, singular_solutions}, for a 1D-counterpart of (\ref{eq:model_freq_domain}), in this case the time-harmonic electric field component $E_x$ is not necessarily square 
 integrable. This apparent paradox is of course the source of important numerical difficulties which are the subject of the present study.  
 Jumping ahead, instead of (\ref{eq:model_freq_domain}) 
 one considers a sequence of regularized problems
 \begin{align}
 \label{eq:seq_regularized}
-  \mathbf{curl}{\operatorname{curl}}\hat{\mathbf{E}}-\frac{\omega^2}{c^2}\underline{\epsilon}^{\nu}_{\omega}(\mathbf{r})\hat{\mathbf{E}}=0,\;
-  \underline{\epsilon}^{\nu}_{\omega}(\mathbf{r})= \underline{\epsilon}^{0}_{\omega}(\mathbf{r})+i\nu \mathbb{E},\; 
+  \mathbf{curl}{\operatorname{curl}}\hat{\mathbf{E}}-\frac{\omega^2}{c^2}\underline{\varepsilon}^{\nu}_{\omega}(\mathbf{r})\hat{\mathbf{E}}=0,\;
+  \underline{\varepsilon}^{\nu}_{\omega}(\mathbf{r})= \underline{\varepsilon}^{0}_{\omega}(\mathbf{r})+i\nu \mathbb{E},\; 
 \end{align}
-with $\nu\rightarrow 0$. 
+with $\nu\rightarrow 0$ and $\mathbb{E}$ being an identity matrix. 
 }
 
 
@@ -103,7 +109,7 @@ $(-L,\; \infty)\times\mathbb{R}$ to $(-L,\; H)\times\mathbb{R}$ and set on the r
 Hence, recalling that $N_e=N_e(x), \; B_0=B_0(x)$, we perform the Fourier transform in $y$ ($\partial_y\rightarrow i\theta, \; \theta\in\mathbb{R},$) and consider the one-dimensional setting
 
 \begin{equation}
-\label{eq:main_model}
+ \label{eq:main_model}
 \begin{cases}
 \epsilon_0\partial_t E_{x}-i\theta H_z=-eN_e u_x,\\
 \epsilon_0\partial_t E_{y}+\partial_x H_z=-eN_e u_y,\\
@@ -118,7 +124,17 @@ m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y
   \left.\partial_xE_y\right|_{x=H}=0.
  \end{align*}
 This is the model that will be considered in the rest of the article, unless stated otherwise. 
+\urev{
+Indeed, the dielectric tensor for this problem with $\nu=0$ and its coefficients $\alpha_{\omega},\;\delta_{\omega}$, 
+see \ref{eq:alpha_delta}, depend solely on $x$, $\omega$ and $\theta$.  
 
+We concentrate on the physical situation of the hybrid resonance, which we define as in \cite{singular_solutions}.
+\begin{df}
+Let $\omega,\theta\in\mathbb{R}$ be fixed. 
+We will call a point $x_h\in \mathbb{R}$ a hybrid resonance if $\alpha_{\omega}$ has 
+a simple root in $x_h$ and has no other roots in an $\epsilon$-vicinity of $x_h$ $B_{\epsilon}(x_h)$, for some $\epsilon>0$. 
+\end{df}
+}
  %This domain represents the physical case of a wave sent from a wall facing a plasma. 
  
 %In  \cite{Despres_2014} it was shown

@@ -8,8 +8,8 @@ of  Maxwell equations with the cold plasma dielectric tensor \cite{Stix,Despres_
 \bealn
 %\label{eq:main_frequency_domain_1}
 \operatorname{curl}\operatorname{curl}\hat{\mathbf{E}}-
-\frac{\omega^2}{c^2}\underline{\epsilon}^{\nu}_{\omega}(\mathbf{r})\hat{\mathbf{E}}=0,\\
-\underline{\epsilon}^{\nu}_{\omega}(\mathbf{r})=\left(
+\frac{\omega^2}{c^2}\underline{\varepsilon}^{\nu}_{\omega}(\mathbf{r})\hat{\mathbf{E}}=0,\\
+\underline{\varepsilon}^{\nu}_{\omega}(\mathbf{r})=\left(
 \begin{matrix}
  \alpha^{\nu}_{\omega}(\mathbf{r}) & i\delta^{\nu}_{\omega}(\mathbf{r}) \\
  -i\delta^{\nu}_{\omega}(\mathbf{r}) & \alpha^{\nu}_{\omega}(\mathbf{r})
@@ -26,13 +26,13 @@ the choice of the non-zero plasma friction $\nu>0$ can be viewed as a regulariza
 \mrev{
 The series expansion as $\nu\rightarrow 0$ gives at leading orders
 \bealn
- \alpha^{\nu}_{\omega}=\alpha^{0}_{\omega}+i\nu\frac{\omega_p^2(\omega^2+\omega_c^2)}{(\omega^2-\omega_c^2)^2}=\alpha^{0}_{\omega}+i\nu D_{\alpha},\\
- \delta^{\nu}_{\omega}=\delta^{0}_{\omega}-i\nu\frac{2\omega}{(\omega^2-\omega_c^2)^2}=\alpha^{0}_{\omega}+i\nu D_{\delta},
+ \alpha^{\nu}_{\omega}=\alpha_{\omega}+i\nu\frac{\omega_p^2(\omega^2+\omega_c^2)}{(\omega^2-\omega_c^2)^2}=\alpha_{\omega}+i\nu D_{\alpha},\\
+ \delta^{\nu}_{\omega}=\delta_{\omega}-i\nu\frac{2\omega}{(\omega^2-\omega_c^2)^2}=\alpha_{\omega}+i\nu D_{\delta},
 \eealn
-where $\alpha^{0}_{\omega},\;\delta^{0}_{\omega}$ are defined by (\ref{eq:alpha_delta}). In the frequency domain one thus can consider 
+where $\alpha_{\omega},\;\delta_{\omega}$ are defined by (\ref{eq:alpha_delta}). In the frequency domain one thus can consider 
 the following regularization of the cold plasma dielectric tensor of (\ref{eq:main_frequency_domain}):
 \begin{align*}
-\underline{\epsilon}^{\nu}_{\omega}\approx \underline{\epsilon}^0_{\omega}+i\nu \left(
+\underline{\varepsilon}^{\nu}_{\omega}\approx \underline{\varepsilon}^0_{\omega}+i\nu \left(
  \begin{matrix}
   D_{\alpha} & D_{\delta}\\
   -D_{\delta} & D_{\alpha}
@@ -47,7 +47,7 @@ yields the same solution as $\nu\rightarrow 0$. }
 %We finally obtain a simpler equation \cite{Despres_2014} 
 
 
-\textcolor{red}{Thus, applying the above process to (\ref{eq:main_model}), we obtain, see also \cite{Despres_2014},
+Thus, applying the above process to (\ref{eq:main_model}), we obtain, see also \cite{Despres_2014},
 \begin{align}
 \label{eq:main_frequency_domain}
 \left(
@@ -66,8 +66,8 @@ yields the same solution as $\nu\rightarrow 0$. }
 \label{eq:epsilon_0}
 \epsilon^0_{\omega}(x)=\left(
 \begin{matrix}
- \alpha_{\omega}^{0}(x) & i\delta_{\omega}^{0}(x) \\
- -i\delta_{\omega}^{0}(x) & \alpha_{\omega}^{0}(x)
+ \alpha_{\omega}(x) & i\delta^{0}(x) \\
+ -i\delta_{\omega}(x) & \alpha^{0}(x)
 \end{matrix}
 \right)=
 \left(
@@ -77,10 +77,23 @@ yields the same solution as $\nu\rightarrow 0$. }
 \end{matrix}
 \right).
 \end{align}
- In this model problem, the coefficients  $\alpha(x)$ and $\delta(x)$ are sufficiently smooth, i.e. bounded and continuous in  
-$\left[-L,\; H\right)$.
+\urev{
+From now on we will assume the following assumption to hold.
+\begin{assumption}
+\label{assumption:smooth}
+The coefficients  $\alpha(x)$ and $\delta(x)$ are assumed to be sufficiently smooth, i.e. bounded and continuous in  
+$\left[-L,\; H\right]$.
+\end{assumption}
+It can be ensured e.g. by requiring the continuity of $N_e(x), B_0(x) \in [-L,\;H]$ and the absence of the cyclotron resonance, i.e. for all $x$ $|\omega_c^2(x)-\omega^2(x)|>c>0$ on this interval. 
 }
 
+\begin{remark}
+For the time domain problem (\ref{eq:main_model}) the choice of the sign of $\nu>0$ is of crucial importance for the stability of the problem. 
+In the frequency domain, as we can see from above and from \cite{Despres_2014,LMIG_thesis}, the sign 
+of the parameter $\nu$ can be chosen arbitrarily to regularize the problem. However, as demonstrated in the above references, as $\nu\rightarrow 0\pm$, the 
+limiting solutions differ, though both exhibit the singularity in the point of the hybrid resonance.  
+\end{remark}
+%}
 
 %%%%%%%%%%%%%%%%%%%%%% 
 \subsection{1D case}
@@ -126,14 +139,17 @@ where $a_1= a_1^*$ and $a_2=a_2^*$ are hermitian
 \ee
 The unknown is $\ubf=(E_x,E_y)=(u_1,u_2)$ and $\vbf$ is a test function.
 
-Let us denote the spectral radius of $\eps_0$ by $\heps =  \|\rho(\eps_0)\|_{L^\infty}$.
+\urev{
+Let us denote the spectral radius of $\eps_0$ by $\heps =  \|\rho(\eps_0)\|_{L^{\infty}[-L,\;H]}$. 
+By Assumption \ref{assumption:smooth}, the spectral radius $\heps=\max\left(\|\alpha+\delta^2\|_{L^{\infty}[-L,\;H]}, \|\alpha-\delta^2\|_{L^{\infty}[-L,\;H]}\right)$ 
+is bounded.}
 %\end{df}
 
 We now prove the following result.
 
 \begin{lemma}
 \label{lemma:well_posedness}
-If $\heps<+\infty$, the bilinear form 
+Provided that Assumption \ref{assumption:smooth} holds, the bilinear form 
 \ben
  a(\ubf,\vbf):  \mathbf{V}\times \mathbf{V}\rightarrow \mathbb{C}
 \een
