@@ -1,6 +1,7 @@
 \section{Time Dependent Problem Discretization}
 Let us consider the system (\ref{eq:main_model}) in dimension one in the X-mode configuration which is transverse electric.
 \subsection{A staggered scheme}
+\label{sec:staggered_discretization}
 In this section, we develop a discretization of the time dependant problem~\eqref{eq:main_model} 
 in one dimension. %In 1D, the derivatives with respect to $y$ vanish, and we are left with the following problem, 
 % \begin{align}
@@ -26,7 +27,7 @@ whereas the field $H_z$ on half time steps, $t_{n+1/2}$. The time discretization
 In Yee scheme, the differents components of the vector fields 
 are defined on staggered points. 
 We summarize this discretization on Fig.~\ref{schemepos} where the positions 
-of $Ex$, $u_x$ (black dots), $E_y$, $u_y$ (blue dots) and $H_z$ (red dots) 
+of \mrev{$E_x$}, $u_x$ (black dots), $E_y$, $u_y$ (blue dots) and $H_z$ (red dots) 
 on the discretized grid in space and time are shown. The fully discretized system then reads
 
 \ben 

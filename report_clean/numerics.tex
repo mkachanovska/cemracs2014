@@ -3,7 +3,7 @@
 This section is organized as follows. The first part is dedicated to the numerical implementation
 of the frequency domain formulation \eqref{eq:main_frequency_domain}. We study the convergence of this formulation and the behaviour 
 of the numerical solution as the absorption parameter $\nu$ tends to zero. The experiments in this section were 
-performed with the help of the code written in Octave.  
+performed with the help of \mrev{our} code written in Octave.  
 We implemented the scheme described in Section \ref{sec:discr} for a case of $P_{1}$-space used 
 for the approximation of $E_{x}$ and $E_{y}$ and $\theta=0$, thus working with the system (\ref{eq:simple_system}). 
 We apply permutation to the above system 
@@ -14,7 +14,7 @@ The intermediate part briefly validates the semi-lagrangian discretization of th
 The last part of the section deals with the question of the equivalence of the limiting absorption and limited amplitude 
 principle. We compare the solutions obtained as $\nu\rightarrow 0$ with the help of our frequency domain code 
 and of the time domain code (computed for large values of time). 
-The time-domain code implements the scheme described in Section \ref{sec:discr} and 
+The time-domain code implements the scheme described in \mrev{Section \ref{sec:staggered_discretization}} and 
 is written in Fortran.
  
 \subsection{Frequency Domain Problem}
@@ -23,22 +23,24 @@ is written in Fortran.
 To check the validity of the code, we first perform a numerical experiment with (formally chosen) parameters:
 \begin{align}
 \label{eq:parameters}
-\alpha(x)=x^2+1,\qquad \delta(x)=\left(\alpha^2+x\alpha\right)^{\frac{1}{2}}.
+\alpha(x)=x^2+1,\qquad \delta(x)=\left(\alpha^2+x\alpha\right)^{\frac{1}{2}}, \qquad \mrev{\nu=0}.
 \end{align}
+\mrev{As we remark a bit further, such a choice of parameters for the problem (\ref{eq:main_frequency_domain}) with $\theta=0$ will allow 
+us to obtain the solution in the analytic form}.
 Additionally, the boundary conditions read as 
 \begin{align}
 \label{eq:bcs_airy}
-\partial_{1}E_{y}(-L)+2iE_{y}(-L)=2iAi(-L)+Ai'(-L),\qquad 
+\partial_{1}E_{y}(-L)+2iE_{y}(-L)=2i\Ai(-L)+\Ai'(-L),\qquad 
 \partial_{1}E_{y}(H)=0,
 \end{align}
-where $Ai(x)$ is the Airy function. 
+where $\Ai(x)$ is the Airy function. 
 For more detail on Airy functions and the Airy equation see \cite[Chapter 10.4]{abramowitz_stegun}. 
 It can be shown that $E_{y}$ that solves (\ref{eq:main_frequency_domain}) in 1D, with the Fourier variable $\theta=0$ (see (\ref{vf1dcase}), and $\nu=0$, 
 satisfies the Airy equation, and hence, 
 with the choice of the boundary conditions as above, we obtain that 
 $
-E_{y}=Ai(x)  $  and   %,\qquad 
-$E_{x}=-i\frac{\delta(x)}{\alpha(x)}Ai(x)$
+E_{y}=\Ai(x)  $  and   %,\qquad 
+$E_{x}=-i\frac{\delta(x)}{\alpha(x)}\Ai(x)$
 is the solution to the problem with parameters (\ref{eq:parameters}) and the boundary condition (\ref{eq:bcs_airy}). 
 The well-posedness of the respective variational formulation for $\nu=0$ is due to Remark \ref{remark:other}. 
 
