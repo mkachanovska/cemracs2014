@@ -69,13 +69,31 @@ Thus, applying the above process to (\ref{eq:main_model}) in the frequency domai
  \alpha_{\omega}(x) & i\delta^{0}(x) \\
  -i\delta_{\omega}(x) & \alpha^{0}(x)
 \end{matrix}
-\right)=
+\right). 
+\end{align}
+\mrev{
+We consider the following generalized model of the above system
+\begin{align}
+\label{eq:main_frequency_domain_general}
 \left(
+\begin{matrix}
+ i\theta \partial_x \hat{E}_y+\theta^2 \hat{E}_x\\
+ i\theta \partial_x \hat{E}_x -\partial_x^2 \hat{E}_y
+\end{matrix}
+\right)-
+\left(\varepsilon^{0}(x)+i\nu \mathbb{E}\right)\left(
+\begin{matrix}
+ \hat{E}_x\\
+ \hat{E}_y
+\end{matrix}
+\right)
+=0,\\
+\varepsilon^{0}(x)=\left(
 \begin{matrix}
  \alpha(x) & i\delta(x) \\
  -i\delta(x) & \alpha(x)
 \end{matrix}
-\right)=\varepsilon^{0}(x).
+\right).
 \end{align}
 \urev{
 From now on we will assume the following assumption to hold.
@@ -102,7 +120,7 @@ limiting solutions differ, though both exhibit the singularity in the point of t
 
 %In order to reduce problem \eqref{eq:main_frequency_domain} to one dimension, perform a Fourier transform in the $y$ variable, 
 %denoting by $\theta$ the corresponding Fourier variable. 
-\mrev{In this section we study the well-posedness of the problem (\ref{eq:main_frequency_domain}) with the help of Lax-Milgram lemma.} 
+\mrev{In this section we study the well-posedness of the problem (\ref{eq:main_frequency_domain_general}) with the help of Lax-Milgram lemma.} 
 After introducing $\Omega=(-L,\; H)\subset \mathbb R$ and defining the function space of the problem  $\mathbf{V}=L^{2}(\Omega)\times H^{1}(\Omega)$, 
 equipped with the norm
 \ben

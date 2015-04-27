@@ -1,7 +1,7 @@
 
 \section{Numerical Experiments}
 This section is organized as follows. The first part is dedicated to the numerical implementation
-of the frequency domain formulation \eqref{eq:main_frequency_domain}. We study the convergence of this formulation and the behaviour 
+of the frequency domain formulation \eqref{eq:main_frequency_domain_general}. We study the convergence of this formulation and the behaviour 
 of the numerical solution as the absorption parameter $\nu$ tends to zero. The experiments in this section were 
 performed with the help of \mrev{our} code written in Octave.  
 We implemented the scheme described in Section \ref{sec:discr} for a case of $P_{1}$-space used 
@@ -25,27 +25,25 @@ To check the validity of the code, we first perform a numerical experiment with 
 \label{eq:parameters}
 \alpha(x)=x^2+1,\qquad \delta(x)=\left(\alpha^2+x\alpha\right)^{\frac{1}{2}}, \qquad \mrev{\nu=0}.
 \end{align}
-\mrev{As we remark a bit further, such a choice of parameters for the problem (\ref{eq:main_frequency_domain}) with $\theta=0$ will allow 
-us to obtain the solution in the analytic form}.
-Additionally, the boundary conditions read as 
+\mrev{It can be shown that $E_{y}$ that solves \mrev{(\ref{eq:main_frequency_domain_general})} in 1D, with the Fourier variable $\theta=0$ (see (\ref{vf1dcase}), 
+and $\nu=0$, satisfies the Airy equation, see also Remark \ref{remark:other},
+\begin{align*}
+ E_y''-xE_y=0,\qquad x\in [-L,\; H].
+\end{align*}
+One of the solutions of this equation, an Airy function $\Ai(x)$, see \cite[Chapter 10.4]{abramowitz_stegun}, decays rapidly as $x\rightarrow \infty$. 
+Hence, choosing $H$ sufficiently large \mrev{TODOOO(the actual value used in the experiments $H=10$)} and the boundary conditions as 
 \begin{align}
 \label{eq:bcs_airy}
 \partial_{1}E_{y}(-L)+2iE_{y}(-L)=2i\Ai(-L)+\Ai'(-L),\qquad 
-\partial_{1}E_{y}(H)=0,
+\partial_{1}E_{y}(H)=0\approx Ai(H),
 \end{align}
-where $\Ai(x)$ is the Airy function. 
-For more detail on Airy functions and the Airy equation see \cite[Chapter 10.4]{abramowitz_stegun}. 
-It can be shown that $E_{y}$ that solves (\ref{eq:main_frequency_domain}) in 1D, with the Fourier variable $\theta=0$ (see (\ref{vf1dcase}), and $\nu=0$, 
-satisfies the Airy equation, and hence, 
-with the choice of the boundary conditions as above, we obtain that 
-$
-E_{y}=\Ai(x)  $  and   %,\qquad 
-$E_{x}=-i\frac{\delta(x)}{\alpha(x)}\Ai(x)$
-is the solution to the problem with parameters (\ref{eq:parameters}) and the boundary condition (\ref{eq:bcs_airy}). 
-The well-posedness of the respective variational formulation for $\nu=0$ is due to Remark \ref{remark:other}. 
+where $\Ai(x)$ is an Airy function, we ensure that $E_{y}$ that solves the above problem is well approximated by $\Ai(x)$, and $E_{x}$ by $-i\frac{\delta(x)}{\alpha(x)}\Ai(x)$. 
+The well-posedness of the respective variational formulation for $\nu=0$ is due to Remark \ref{remark:other}. }
 
 In Fig.~\ref{fig:conv_rate} we demonstrate the convergence rates for this problem, comparing the solution with the 
-known analytic solution. Importantly, the obtained convergence rates are in agreement with known estimates of the standard theory of convergence~\cite{brenner}.
+known analytic solution. \mrev{TODO:We can expect the solution to be smooth, due to the smoothness of the coefficients of the problem}.
+Importantly, the obtained convergence rates are in agreement with known estimates of the standard theory of convergence~\cite[Chapter 5.7,
+Chapter 0.4]{brenner}.  
 \begin{figure}
 \begin{tikzpicture}
     \begin{loglogaxis}[
