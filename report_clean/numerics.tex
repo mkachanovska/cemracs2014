@@ -23,19 +23,19 @@ is written in Fortran.
 To check the validity of the code, we first perform a numerical experiment with (formally chosen) parameters:
 \begin{align}
 \label{eq:parameters}
-\alpha(x)=x^2+1,\qquad \delta(x)=\left(\alpha^2+x\alpha\right)^{\frac{1}{2}}, \qquad \mrev{\nu=0}.
+\alpha(x)=x^2+1,\qquad \delta(x)=\left(\alpha^2+x\alpha\right)^{\frac{1}{2}}, \qquad \mrev{\nu=0, \qquad \theta=0.}
 \end{align}
-\mrev{It can be shown that $E_{y}$ that solves \mrev{(\ref{eq:main_frequency_domain_general})} in 1D, with the Fourier variable $\theta=0$ (see (\ref{vf1dcase}), 
+\mrev{It can be shown that $E_{y}$ that solves (\ref{eq:main_frequency_domain_general}) in 1D, with the Fourier variable $\theta=0$ (see (\ref{vf1dcase}), 
 and $\nu=0$, satisfies the Airy equation, see also Remark \ref{remark:other},
 \begin{align*}
  E_y''-xE_y=0,\qquad x\in [-L,\; H].
 \end{align*}
-One of the solutions of this equation, an Airy function $\Ai(x)$, see \cite[Chapter 10.4]{abramowitz_stegun}, decays rapidly as $x\rightarrow \infty$. 
-Hence, choosing $H$ sufficiently large \mrev{TODOOO(the actual value used in the experiments $H=10$)} and the boundary conditions as 
+One of the solutions of this equation, an Airy function $\Ai(x)$, see \cite[Chapter 10.4]{abramowitz_stegun}, is analytic and decays rapidly as $x\rightarrow \infty$. 
+Hence, choosing $H$ sufficiently large \mrev{TODOOO(the actual value used in the experiments $H=10$, where $\Ai'(10)\approx -3.5e-10$)} and the boundary conditions as 
 \begin{align}
 \label{eq:bcs_airy}
 \partial_{1}E_{y}(-L)+2iE_{y}(-L)=2i\Ai(-L)+\Ai'(-L),\qquad 
-\partial_{1}E_{y}(H)=0\approx Ai(H),
+\partial_{1}E_{y}(H)=0\approx \Ai'(H),
 \end{align}
 where $\Ai(x)$ is an Airy function, we ensure that $E_{y}$ that solves the above problem is well approximated by $\Ai(x)$, and $E_{x}$ by $-i\frac{\delta(x)}{\alpha(x)}\Ai(x)$. 
 The well-posedness of the respective variational formulation for $\nu=0$ is due to Remark \ref{remark:other}. }
@@ -76,10 +76,12 @@ font=\small
          \addlegendentry{$O(h)$};
     \end{loglogaxis}
     \end{tikzpicture}
-    \caption{Convergence rates for the problem with parameters (\ref{eq:parameters}) with the boundary condition (\ref{eq:bcs}).}
+    \caption{Convergence rates for \mrev{the problem (\ref{eq:main_frequency_domain}) discretized as (\ref{eq:simple_system})} 
+    with the parameters (\ref{eq:parameters}) and the \mrev{boundary condition (\ref{eq:bcs_airy})}. \mrev{Here $E_{y}^{c}(x)=\Ai(x)$ and 
+    $E_{x}^{c}(x)=-i\frac{\delta(x)}{\alpha(x)}\Ai(x)$.} }
     \label{fig:conv_rate}
 \end{figure}
-\subsubsection{Solution of $X$-Mode Problem}
+\subsubsection{Solution of a Frequency-Domain Problem with Resonance}
 %\paragraph{Convergence}
 Let us consider the case of the resonance, more precisely, we choose sufficiently smooth
 $\alpha,\delta$, s.t. $\alpha(0)=0$ and $\delta(0)\neq 0$, and the solvability conditions 
@@ -90,6 +92,7 @@ For simplicity, let us assume
  \alpha(x)=-x \text{  in some neighbourhood of $0$ }.
 \end{align}
 Given $\mathbf{V}_{h}=P_{h}^{1}\times P_{h}^{1}$, with $P_{h}^{1}$ consisting of piecewise-linear (hat) functions, 
+\mrev{and $E^{\nu}_{x},\;E^{\nu,h}_{x}$ being correspondingly the exact solution and the solution computed with the help $\mathbf{V}_h$, }
 we look for a ratio $h(\nu)$ that would ensure the bound on the absolute error 
 \begin{align}
 \label{eq:problem1}
@@ -99,12 +102,13 @@ given a fixed value of $\epsilon>0$ and $\nu\rightarrow 0$. W.l.o.g. here we ass
 
 We use the following ingredients:
 \begin{itemize}
- \item The C\'ea's lemma applied to the problem (\ref{vf1dcase}); here $C_c$ is the continuity and $C_i$ is the coercivity constants:
+ \item The C\'ea's lemma applied to the problem (\ref{vf1dcase}); here \mrev{$\mathbf{E}^{\nu}$ is the exact solution, 
+ $\mathbf{E}^{\nu,h}$ is the computed solution}, and $C_c$ is the continuity and $C_i$ is the coercivity constants:
 \begin{align}
 \label{eq:cea}
 \begin{split}
- \|\mathbf{E}^{\nu}-\mathbf{E}^{h,\nu}\|_{V}\leq \frac{C_c}{C_i}\min_{\mathbf{v}\in V_h}\|\mathbf{E}-\mathbf{v}\|_{V}
- \leq C\nu^{-1}\min_{\mathbf{v}\in V_h}\|\mathbf{E}-\mathbf{v}\|_{V},\; C>0.
+ \|\mathbf{E}^{\nu}-\mathbf{E}^{\nu,h}\|_{V}\leq \frac{C_c}{C_i}\min_{\mathbf{v}\in V_h}\|\mathbf{E}^{\nu}-\mathbf{v}\|_{V}
+ \leq C\nu^{-1}\min_{\mathbf{v}\in V_h}\|\mathbf{E}^{\nu}-\mathbf{v}\|_{V},\; C>0.
  \end{split}
 \end{align}
 The last inequality follows from Lemma \ref{lemma:well_posedness} and is valid for $\nu\rightarrow 0$.   
@@ -133,7 +137,7 @@ The estimate (\ref{eq:cea}) combined with (\ref{eq:interp}) results in, for some
 \end{align}
 where we used an assumption that the $L_2$-norm of $\left(E_y^{\nu}(x)\right)''$ can be bounded independently of $\nu$.
 
-For $E_x^{\nu},\; f^{\nu}(x)$ in (\ref{eq:exact}) being sufficiently smooth, 
+For $E_x^{c,\nu},\; f^{\nu}(x)$ in (\ref{eq:exact}) being sufficiently smooth, 
 \ben
  \frac{d^2}{dx^2}E_x^{\nu}=\frac{(f^{\nu})''}{\alpha+i\nu}-2\frac{(f^{\nu})'\alpha'}{(\alpha+i\nu)^2}+\frac{f^{\nu}\alpha''}{(\alpha+i\nu)^3},
 \een
@@ -157,7 +161,7 @@ where $\alpha_{\epsilon}>0$ depends on $\epsilon$ but does not depend on $\nu$.
 This prediction is very severe and is due to the singular nature of the problem under consideration.
 
 Let us check numerically whether this holds true. 
-To do so, we conduct the  numerical experiment with parameters for the problem as given in Table \ref{tab:parameters}.
+To do so, we conduct the  numerical experiment with parameters for the problem (\ref{eq:main_frequency_domain} as given in Table \ref{tab:parameters}.
 \begin{table}[htb!]
 \begin{tabular}{l|l}
 Parameter & Value \\
@@ -182,10 +186,13 @@ $H$ & 10 \\
 \caption{The parameters for the problem with the resonance.}
 \label{tab:parameters}
 \end{table}
-Denoting by $E_{x}^{h}$ the solution $E_{x}(x)$ computed on the mesh with a width $h$, and by $E_{x}^{c}$ the solution computed on a mesh multiple times finer, let 
+\mrev{Recall that we choose $\theta=0$. }
+Denoting by \mrev{$E_{x}^{\nu,h}$ the solution $E_{x}(x)$} computed on the mesh with a \mrev{ width $h$ with 
+the absorption $\nu$, and by $E_{x}^{\nu}$} the solution computed on a mesh multiple times finer (\mrev{more precisely, the reference mesh
+was typically 10-20 times finer, with the exception when the computation was done for very small values of $h$ where twice finer meshes for comparison were used}), let 
 \begin{align}
 \label{eq:def_epsilon}
-h_{\epsilon}=\sup\{h: \|E_{x}^{h'}-E_{x}^{c}\|<\epsilon \text{ for all } h'<h\}.
+h_{\epsilon}=\sup\{h: \|E_{x}^{\nu,h'}-E_{x}^{\nu}\|<\epsilon \text{ for all } h'<h\}.
 \end{align}
 The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Fig.~\ref{fig:dependence}.
 \begin{figure}
@@ -194,8 +201,9 @@ The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Fig.~\ref{fig:dep
 &
 \includegraphics[height=0.32\textwidth]{pics_frequency_domain/res_sol.pdf}
 \end{tabular}
-\caption{In the left figure the dependence of $h_{\epsilon}$ as defined by (\ref{eq:def_epsilon}) on $\nu$ is demonstrated. 
-In the right figure we show the computed solutions for the problem with parameters in Table \ref{tab:parameters} for different values of $\nu$. }
+\caption{We consider the problem (\ref{eq:main_frequency_domain}) with the parameters 
+defined in Table \ref{tab:parameters}. In the left figure the dependence of $h_{\epsilon}$ as defined by (\ref{eq:def_epsilon}) on $\nu$ is demonstrated.  
+In the right figure we show the computed solutions for this problem (\mrev{for brevity denoted as $E_{x,y}^{\nu}$}) for different values of $\nu$. }
 \label{fig:dependence}
 \end{figure}
 We can see that the estimate (\ref{eq:estimate_h}) is pessimistic compared to the one suggested by (\ref{eq:def_epsilon}), 
@@ -206,7 +214,7 @@ and thus the relative error control
 \bealn
  \frac{\|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L_{2}(\Omega)}}{\|E^{\nu}_{x}\|_{L_{2}(\Omega)}}\leq \epsilon
 \eealn
- is ensured by choosing $h$ as $\beta_{\epsilon}\nu^{\frac{3}{4}}$.
+ is ensured by choosing $h$ as $\beta_{\epsilon}\nu^{\frac{3}{4}}$, \mrev{$\beta_{\epsilon}>0$.}
 \end{remark}
 
 In Figure \ref{fig:small_nu} we demonstrate the dependence of the condition number of the matrix of the system (\ref{eq:simple_system}) 
@@ -219,9 +227,10 @@ As an additional illustration, we compare the solutions for very small $\nu$ and
  \includegraphics[height=0.32\textwidth]{pics_frequency_domain/ey_resonance.pdf}
  \end{tabular}
  \caption{
- The left plot demonstrates the dependence of the condition number of the system (\ref{eq:simple_system}) on $\nu$, for different values of $h$ (the condition 
+ We consider the problem (\ref{eq:main_frequency_domain}) with the parameters 
+defined in Table \ref{tab:parameters}. The left plot demonstrates the dependence of the condition number of the system (\ref{eq:simple_system}) on $\nu$, for different values of $h$ (the condition 
  number for $\nu=0$ is not shown, however, for all values of $h$ as shown in the plot, the matrix was non-singular even for $\nu=0$). 
- The right plot shows $E_{y}^{\nu}$ computed on different meshes for small $\nu$. It can be seen that for $h=10^{-2}$ and $h=10^{-3}$ the solutions 
+ The right plot shows \mrev{$E_{y}^{\nu,h}$} computed on different meshes for small $\nu$. It can be seen that for $h=10^{-2}$ and $h=10^{-3}$ the solutions 
  computed for $\nu=0$ are almost indistinguishable.}
  %It can be seen that for meshes that are coarse 
  %with respect to $\nu$ (e.g. $\nu=10^{-4}, \; h=10^{-2}$, or $\nu=0,\; h=10^{-2}$), the computed solution seems to be only piecewise-continuous in $\nu$, 

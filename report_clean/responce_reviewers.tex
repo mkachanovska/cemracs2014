@@ -85,7 +85,60 @@ just underlines the dependence of this angle $\beta_{\nu}$ on $\nu$.
  - p.8: added the Airy equation. Additionally added a remark on the behaviour of the Airy function to justify the choice of the right boundary 
  condition $\partial_x E=0$. 
  
- -
+ -  p9, Figure 3: fixed the captions. This had been done for other figures as well. The values $E^{c}_{x,y}$ had been defined in the caption.
+ 
+ -p9 on top
+  The title of Section 4.1.2 had been changed to Solution of a Frequency-Domain Problem with Resonance
+  
+ - p9 Equation (15,16): changed  
+
+ - p9 after (17): we would like to assume that it is $H^2$-norm that is bounded, for using the inequality (19). 
+  \mrev{TODO: While this assumption is fairly strong, it is not unsubstantial: for sufficiently smooth $\alpha,\delta$,  }
+  
+ - p10 before and after Table 1 : fixed
+ 
+ -- p11 Figure 5:
+Agree, fixed. We added a remark in a caption to Figure 4 as well.
+
+
+
+- p12 Section 4.3: this explanation had been moved to the introduction
+
+
+
+- p12 Section 4.3.1
+
+  It is true, but in this case there is no resonance, since $\delta(x)\equiv 0$. Hence $E_x=-\frac{i\delta}{\alpha}E_y\equiv 0$, 
+  and $E_y$ solves the Airy equation in the frequency domain. We added a small to Section 4.3.1 to underline this. 
+
+  
+- p12 Equation (23)
+We changed it to $e$
+  
+- p14 Figures 8 and 9
+Added the captions  
+- p15 in Conclusion
+  Indeed $P1$!
+  
+
+ Reviewer 2:
+ 
+ • p2: In this case Ex is not square integrable: confirm that it is when ν is not zero and that
+the singularity appears for ν = 0.
+
+We tried to change the wording in the introduction to make it more clear what is a hybrid resonance. 
+The singularity appears for $\nu=0$, when the diagonal part of the dielectric tensor vanishes and non-diagonal part does not. 
+
+• p6, 3.1. It is not clear how the Yee scheme, which is a finite difference scheme, is linked to the
+finite element scheme developed in the previous section. This should be made more explicit.
+
+We employed the Yee scheme to discretize the problem in the time domain, and the finite element scheme solely for the frequency domain, 
+and considered them independently. We added a remark on that in the very beginning of Section 3. 
+
+• p10: mesh multiple times finer. It should be said exactly how many times. 
+
+We added a remark that it was at least two times for very fine meshes, and more for coarser ones.
+
 
   
  

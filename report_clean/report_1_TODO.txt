@@ -146,11 +146,10 @@ B. Specific remarks.
   
 --------------------------------------
 REPORT 2
-• p2: In this case Ex is not square integrable: confirm that it is when ν is not zero and that
-the singularity appears for ν = 0.
-• p6, 3.1. It is not clear how the Yee scheme, which is a finite difference scheme, is linked to the
-finite element scheme developed in the previous section. This should be made more explicit.
-• p10: mesh multiple times finer. It should be said exactly how many times.
+
+
+
+
 • p12, 4.2: The validation of
 the semi-Lagrangian scheme is very short indeed! At list some words on the comparison to
 the other scheme should be given
