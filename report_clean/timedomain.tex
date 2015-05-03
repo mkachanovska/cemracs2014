@@ -1,7 +1,11 @@
 \section{Time Dependent Problem Discretization}
-Let us consider the system (\ref{eq:main_model}) in dimension one in the X-mode configuration which is transverse electric.
+\arev{
+In this section we develop the discretization of the time-dependent one-dimensional model (\ref{eq:main_model}), for a particular case $\theta=0$. 
+In the first part of this section we show how this system can be discretized with the help of 
+a version of the Yee scheme suggested in \cite{stable_yee_plasma_current}, and in the second part a scheme based on semi-lagrangian discretization is employed.}
 \subsection{A staggered scheme}
-In this section, we develop a discretization of the time dependant problem~\eqref{eq:main_model} 
+\label{sec:staggered_discretization}
+In this section, we develop a discretization of the time-dependent problem~\eqref{eq:main_model} 
 in one dimension. %In 1D, the derivatives with respect to $y$ vanish, and we are left with the following problem, 
 % \begin{align}
 % \epsilon_0\partial_t E_{x}=-eN_e u_x, \nonumber\\
@@ -10,7 +14,7 @@ in one dimension. %In 1D, the derivatives with respect to $y$ vanish, and we are
 % m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\nonumber\\
 % m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y.\nonumber
 % \end{align}
-We compute a numerical approximation of~\eqref{eq:main_model} on a cartesian grid using the Yee scheme, 
+We compute a numerical approximation of~\eqref{eq:main_model} \mrev{with $\theta=0$} on a cartesian grid using the Yee scheme, 
 as suggested in \cite{stable_yee_plasma_current}. Let $n$ denote the time step index, as usual $t_n = n \Delta t$. 
 It is standard (see \cite{Xu_2006,stable_yee_plasma_current }) to discretize the electrical field on the integer time steps, 
 whereas the field $H_z$ on half time steps, $t_{n+1/2}$. The time discretization of the system reads:
@@ -26,7 +30,7 @@ whereas the field $H_z$ on half time steps, $t_{n+1/2}$. The time discretization
 In Yee scheme, the differents components of the vector fields 
 are defined on staggered points. 
 We summarize this discretization on Fig.~\ref{schemepos} where the positions 
-of $Ex$, $u_x$ (black dots), $E_y$, $u_y$ (blue dots) and $H_z$ (red dots) 
+of \mrev{$E_x$}, $u_x$ (black dots), $E_y$, $u_y$ (blue dots) and $H_z$ (red dots) 
 on the discretized grid in space and time are shown. The fully discretized system then reads
 
 \ben 
@@ -171,7 +175,7 @@ $$
 \epsilon_0\partial_t E_{y}+\partial_x H_z=0,\\
 \mu_0\partial_t H_z+\partial_x E_y=0,\\
 m_e\partial_t u_x=0,\\
-m_e\partial_t u_y=0,
+m_e\partial_t u_y=0.
 \end{array}
 \right.
 $$

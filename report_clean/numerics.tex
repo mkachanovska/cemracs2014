@@ -3,7 +3,7 @@
 This section is organized as follows. The first part is dedicated to the numerical implementation
 of the frequency domain formulation \eqref{eq:main_frequency_domain}. We study the convergence of this formulation and the behaviour 
 of the numerical solution as the absorption parameter $\nu$ tends to zero. The experiments in this section were 
-performed with the help of the code written in Octave.  
+performed with the help of \mrev{our} code written in Octave.  
 We implemented the scheme described in Section \ref{sec:discr} for a case of $P_{1}$-space used 
 for the approximation of $E_{x}$ and $E_{y}$ and $\theta=0$, thus working with the system (\ref{eq:simple_system}). 
 We apply permutation to the above system 
@@ -12,9 +12,9 @@ to obtain a 7-diagonal Hermitian matrix and solve the system with the Gauss back
 The intermediate part briefly validates the semi-lagrangian discretization of the time domain formulation.
 
 The last part of the section deals with the question of the equivalence of the limiting absorption and limited amplitude 
-principle. We compare the solutions obtained as $\nu\rightarrow 0$ with the help of our frequency domain code 
-and of the time domain code (computed for large values of time). 
-The time-domain code implements the scheme described in Section \ref{sec:discr} and 
+principle. We compare the solutions obtained as $\nu\rightarrow 0$ with the help of \mrev{the frequency   
+and time domain codes }(computed for large values of time). 
+The time-domain code implements the scheme described in \mrev{Section \ref{sec:staggered_discretization}} and 
 is written in Fortran.
  
 \subsection{Frequency Domain Problem}
@@ -23,27 +23,29 @@ is written in Fortran.
 To check the validity of the code, we first perform a numerical experiment with (formally chosen) parameters:
 \begin{align}
 \label{eq:parameters}
-\alpha(x)=x^2+1,\qquad \delta(x)=\left(\alpha^2+x\alpha\right)^{\frac{1}{2}}.
+\alpha(x)=x^2+1,\qquad \delta(x)=\left(\alpha^2+x\alpha\right)^{\frac{1}{2}}, \qquad \mrev{\nu=0, \qquad \theta=0.}
 \end{align}
-Additionally, the boundary conditions read as 
+\urev{It can be shown that $E_{y}$ that solves (\ref{eq:main_frequency_domain}) with the above parameters,  
+and $\nu=0$, satisfies the Airy equation, see also Remark \ref{remark:other},
+\begin{align*}
+ E_y''-xE_y=0,\qquad x\in [-L,\; H].
+\end{align*}
+One of the solutions of this equation, an Airy function $\Ai(x)$, see \cite[Chapter 10.4]{abramowitz_stegun}, is analytic and 
+decays rapidly as $x\rightarrow \infty$. }
+\mrev{Hence, choosing $H$ sufficiently large (the actual value used in the experiments $H=10$, where $\Ai'(10)\approx -3.5e-10$) and the boundary conditions as 
 \begin{align}
 \label{eq:bcs_airy}
-\partial_{1}E_{y}(-L)+2iE_{y}(-L)=2iAi(-L)+Ai'(-L),\qquad 
-\partial_{1}E_{y}(H)=0,
+\partial_{1}E_{y}(-L)+2iE_{y}(-L)=2i\Ai(-L)+\Ai'(-L),\qquad 
+\partial_{1}E_{y}(H)=0\approx \Ai'(H),
 \end{align}
-where $Ai(x)$ is the Airy function. 
-For more detail on Airy functions and the Airy equation see \cite[Chapter 10.4]{abramowitz_stegun}. 
-It can be shown that $E_{y}$ that solves (\ref{eq:main_frequency_domain}) in 1D, with the Fourier variable $\theta=0$ (see (\ref{vf1dcase}), and $\nu=0$, 
-satisfies the Airy equation, and hence, 
-with the choice of the boundary conditions as above, we obtain that 
-$
-E_{y}=Ai(x)  $  and   %,\qquad 
-$E_{x}=-i\frac{\delta(x)}{\alpha(x)}Ai(x)$
-is the solution to the problem with parameters (\ref{eq:parameters}) and the boundary condition (\ref{eq:bcs_airy}). 
-The well-posedness of the respective variational formulation for $\nu=0$ is due to Remark \ref{remark:other}. 
+where $\Ai(x)$ is an Airy function, we ensure that $E_{y}$ that solves the above problem is well approximated by $\Ai(x)$, and $E_{x}$ by $-i\frac{\delta(x)}{\alpha(x)}\Ai(x)$. 
+The well-posedness of the respective variational formulation for $\nu=0$ is due to Remark \ref{remark:other}. }
 
 In Fig.~\ref{fig:conv_rate} we demonstrate the convergence rates for this problem, comparing the solution with the 
-known analytic solution. Importantly, the obtained convergence rates are in agreement with known estimates of the standard theory of convergence~\cite{brenner}.
+known analytic solution. 
+Importantly, the obtained convergence rates are in agreement with known estimates of the standard theory of convergence~\cite[Chapter 5.7,
+Chapter 0.4]{brenner}, \mrev{provided that the Aubin-Nitsche lemma \cite[Theorems 3.2.4,3.2.5]{ciarlet_fem} holds for the variational formulation.}  
+\urev{Since the coefficients of the problem are smooth, we expect the solution to be at least in $C^2(\Omega)$.}  
 \begin{figure}
 \begin{tikzpicture}
     \begin{loglogaxis}[
@@ -76,10 +78,12 @@ font=\small
          \addlegendentry{$O(h)$};
     \end{loglogaxis}
     \end{tikzpicture}
-    \caption{Convergence rates for the problem with parameters (\ref{eq:parameters}) with the boundary condition (\ref{eq:bcs}).}
+    \caption{Convergence rates for \mrev{the problem (\ref{eq:main_frequency_domain}) discretized as (\ref{eq:simple_system})} 
+    with the parameters (\ref{eq:parameters}) and the \mrev{boundary condition (\ref{eq:bcs_airy})}. \mrev{Here $E_{y}^{c}(x)=\Ai(x)$ and 
+    $E_{x}^{c}(x)=-i\frac{\delta(x)}{\alpha(x)}\Ai(x)$.} }
     \label{fig:conv_rate}
 \end{figure}
-\subsubsection{Solution of $X$-Mode Problem}
+\subsubsection{Solution of a Frequency-Domain Problem with Resonance}
 %\paragraph{Convergence}
 Let us consider the case of the resonance, more precisely, we choose sufficiently smooth
 $\alpha,\delta$, s.t. $\alpha(0)=0$ and $\delta(0)\neq 0$, and the solvability conditions 
@@ -90,6 +94,7 @@ For simplicity, let us assume
  \alpha(x)=-x \text{  in some neighbourhood of $0$ }.
 \end{align}
 Given $\mathbf{V}_{h}=P_{h}^{1}\times P_{h}^{1}$, with $P_{h}^{1}$ consisting of piecewise-linear (hat) functions, 
+\mrev{and $E^{\nu}_{x},\;E^{\nu,h}_{x}$ being correspondingly the exact solution and the solution computed with the help $\mathbf{V}_h$, }
 we look for a ratio $h(\nu)$ that would ensure the bound on the absolute error 
 \begin{align}
 \label{eq:problem1}
@@ -99,12 +104,13 @@ given a fixed value of $\epsilon>0$ and $\nu\rightarrow 0$. W.l.o.g. here we ass
 
 We use the following ingredients:
 \begin{itemize}
- \item The C\'ea's lemma applied to the problem (\ref{vf1dcase}); here $C_c$ is the continuity and $C_i$ is the coercivity constants:
+ \item The C\'ea's lemma applied to the problem (\ref{vf1dcase}); here \mrev{$\mathbf{E}^{\nu}$ is the exact solution, 
+ $\mathbf{E}^{\nu,h}$ is the computed solution}, and $C_c$ is the continuity and $C_i$ is the coercivity constants:
 \begin{align}
 \label{eq:cea}
 \begin{split}
- \|\mathbf{E}^{\nu}-\mathbf{E}^{h,\nu}\|_{V}\leq \frac{C_c}{C_i}\min_{\mathbf{v}\in V_h}\|\mathbf{E}-\mathbf{v}\|_{V}
- \leq C\nu^{-1}\min_{\mathbf{v}\in V_h}\|\mathbf{E}-\mathbf{v}\|_{V},\; C>0.
+ \|\mathbf{E}^{\nu}-\mathbf{E}^{\nu,h}\|_{V}\leq \frac{C_c}{C_i}\min_{\mathbf{v}\in V_h}\|\mathbf{E}^{\nu}-\mathbf{v}\|_{V}
+ \leq C\nu^{-1}\min_{\mathbf{v}\in V_h}\|\mathbf{E}^{\nu}-\mathbf{v}\|_{V},\; C>0.
  \end{split}
 \end{align}
 The last inequality follows from Lemma \ref{lemma:well_posedness} and is valid for $\nu\rightarrow 0$.   
@@ -113,8 +119,16 @@ The last inequality follows from Lemma \ref{lemma:well_posedness} and is valid f
 \label{eq:exact}
  E_x^{\nu}=-iE_{y}^{\nu}\frac{\delta}{\alpha+i\nu}=\frac{f^{\nu}(x)}{\alpha(x)+i\nu}, \; \text{for some }f^{\nu}(x)\in L_{2}(\Omega).
 \end{align}
-We additionally assume that $E_y^{\nu}(x)$ is sufficiently smooth and $\|(E_y^{\nu})''\|_{H_{2}(\Omega)}$
-can be bounded independently of $\nu$.
+\item \mrev{An explicit bound on $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ based on the results of \cite{singular_solutions}. First of all, we
+will assume that the main contribution to $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ comes from the behaviour in the vicinity of the point of the resonance, where 
+the following expansion is valid \cite[Proposition 1]{singular_solutions}
+\begin{align*}
+E_{y}^{\nu}(x)=\tilde{E}_{y}^{\nu}(x)+\text{smooth terms with derivatives bounded independently of $\nu$,} \\
+\tilde{E}_{y}^{\nu}(x)=\log\rho_{\nu}(x-X_{\nu})(\alpha(x)+i\nu)p_{\nu}(x),
+\end{align*}
+where $\rho_{\nu}$ is a smooth function s.t. $\rho_{\nu}(0)=0,\; \rho_{\nu}'(0)\neq 0$, the point $X_{\nu}\approx i\nu c+O(\nu^2)$, for some $c\in\mathbb{R}$, 
+and $p_{\nu}(x)$ is a smooth function with derivatives bounded independently of $\nu$. 
+}
 \item The estimate from \cite[Chapter 0]{brenner} on the rate of convergence of the interpolation 
 \begin{align}
 \label{eq:interp}
@@ -129,11 +143,37 @@ The estimate (\ref{eq:cea}) combined with (\ref{eq:interp}) results in, for some
 \begin{align}
   \label{eq:final_est}
   \|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L_{2}(\Omega)}%\leq C_1\nu^{-1}h\|\left(E_y^{\nu}\right)''\|_{L_{2}}+C_2\nu^{-1}h^2\|\left(E_x^{\nu}\right)''\|_{L_{2}}
-  \leq C\nu^{-1}h+C\nu^{-1}h^2\|\left(E_x^{\nu}\right)''\|_{L_{2}},
+  \leq C\nu^{-1}h\|\left(E_y^{\nu}\right)''\|_{L_{2}}+C\nu^{-1}h^2\|\left(E_x^{\nu}\right)''\|_{L_{2}}.
 \end{align}
-where we used an assumption that the $L_2$-norm of $\left(E_y^{\nu}(x)\right)''$ can be bounded independently of $\nu$.
+\mrev{
+First of all let us examine the behaviour the derivatives of $E_{y}^{\nu}$ in the vicinity of the resonance:
+\begin{align}
+\label{eq:eynuprime}
+ \left(\tilde{E}_{y}^{\nu}\right)'&=\frac{\alpha(x)+i\nu}{\rho_{\nu}(x-X_{\nu})}p_{\nu}(x)+\alpha'\log\rho_{\nu}(x-X_{\nu})p_{\nu}(x)+p'_{\nu}(x)(\alpha+i\nu)\log\rho_{\nu}(x-X_{\nu}).
+\end{align}
+The first term in the above expression is well-defined in $x=0$ (the L'Hopital's rule), and for sufficiently small $\nu$ can be bounded independently of $\nu$. 
+Similarly, the third term is non-singular. To examine the behaviour of $\left(\tilde{E}_{y}^{\nu}\right)''$, we study solely the singular second term of (\ref{eq:eynuprime}) (the derivatives for the rest of the terms can be shown to be bounded 
+independently of $\nu$)
+\begin{align*}
+ \left(\alpha'\log\rho_{\nu}(x-X_{\nu})p_{\nu}\right)'=\alpha''\log\rho_{\nu}(x-X_{\nu})p_{\nu}+\frac{\alpha'p_{\nu}}{\rho_{\nu}(x-X_{\nu})}\rho'_{\nu}(x-X_{\nu})+
+ \alpha'\log\rho_{\nu}(x-X_{\nu})p_{\nu}'.
+\end{align*}
+The most singular term in the above expression is $\frac{\alpha'p_{\nu}}{\rho_{\nu}(x-X_{\nu})}\rho'_{\nu}(x-X_{\nu})$ which can be bounded, for sufficiently small $x$, 
+\begin{align*}
+ \left|\frac{\alpha'p_{\nu}}{\rho_{\nu}(x-X_{\nu})}\rho'_{\nu}(x-X_{\nu})\right|\leq \frac{C}{|x+i\nu c|},\; C>0,c\in\mathbb{R},
+\end{align*}
+where we used an explicit form for $X_{\nu}$. 
 
- For $E_x^{\nu},\; f^{\nu}(x)$ in (\ref{eq:exact}) being sufficiently smooth, 
+Therefore, assuming that the main contribution to $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ comes from the vicinity of the resonance, where for $\nu=0$ this function is singular, 
+we obtain the following rough bound
+\begin{align*}
+ \|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}\leq G+G'\left(\int\limits_{-L}^{H}\frac{1}{|x+i\nu c|^2}dx\right)^{\frac{1}{2}}\\
+ \leq G+G'\left(\frac{1}{\nu c}\int\limits_{-\infty}^{\infty}\frac{dv}{v^2+1}\right)^{\frac{1}{2}}\\
+ \leq \frac{C}{\sqrt{\nu}},\qquad G,G',C>0,
+\end{align*}
+for sufficiently small $\nu>0$.
+}
+For $E_x^{c,\nu},\; f^{\nu}(x)$ in (\ref{eq:exact}) being sufficiently smooth, 
 \ben
  \frac{d^2}{dx^2}E_x^{\nu}=\frac{(f^{\nu})''}{\alpha+i\nu}-2\frac{(f^{\nu})'\alpha'}{(\alpha+i\nu)^2}+\frac{f^{\nu}\alpha''}{(\alpha+i\nu)^3},
 \een
@@ -146,7 +186,7 @@ from which, together with (\ref{eq:cond}), it follows that there exists $c>0$ s.
 \eealn
 where $C>0$ does not depend on $\nu$. After inserting this into (\ref{eq:final_est}) we obtain
 \ben
- \|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L_{2}(\Omega)}\leq C\nu^{-\frac{7}{2}}h^2+C\nu^{-1}h.
+ \|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L_{2}(\Omega)}\leq C\nu^{-\frac{7}{2}}h^2+C\nu^{-\frac{3}{2}}h.
 \een
 From this it thus follows that to ensure (\ref{eq:problem1}) $h$ should be chosen as 
 \begin{align}
@@ -157,7 +197,7 @@ where $\alpha_{\epsilon}>0$ depends on $\epsilon$ but does not depend on $\nu$.
 This prediction is very severe and is due to the singular nature of the problem under consideration.
 
 Let us check numerically whether this holds true. 
-To do so, we conduct the  numerical experiment with parameters for the problem as given in Table \ref{tab:parameters}.
+To do so, we conduct the  numerical experiment with parameters for the problem (\ref{eq:main_frequency_domain} as given in Table \ref{tab:parameters}.
 \begin{table}[htb!]
 \begin{tabular}{l|l}
 Parameter & Value \\
@@ -182,10 +222,13 @@ $H$ & 10 \\
 \caption{The parameters for the problem with the resonance.}
 \label{tab:parameters}
 \end{table}
-Denoting by $E_{x}^{h}$ the solution $E_{x}(x)$ computed on the mesh with a width $h$, and by $E_{x}^{c}$ the solution computed on a mesh multiple times finer, let 
+\mrev{Recall that we choose $\theta=0$. }
+Denoting by \mrev{$E_{x}^{\nu,h}$ the solution $E_{x}(x)$} computed on the mesh with a \mrev{ width $h$ with 
+the absorption $\nu$, and by $E_{x}^{\nu}$} the solution computed on a mesh multiple times finer (\mrev{more precisely, the reference mesh
+was typically 10-20 times finer, with the exception when the computation was done for very small values of $h$ where twice finer meshes for comparison were used}), let 
 \begin{align}
 \label{eq:def_epsilon}
-h_{\epsilon}=\sup\{h: \|E_{x}^{h'}-E_{x}^{c}\|<\epsilon \text{ for all } h'<h\}.
+h_{\epsilon}=\sup\{h: \|E_{x}^{\nu,h'}-E_{x}^{\nu}\|<\epsilon \text{ for all } h'<h\}.
 \end{align}
 The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Fig.~\ref{fig:dependence}.
 \begin{figure}
@@ -194,8 +237,9 @@ The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Fig.~\ref{fig:dep
 &
 \includegraphics[height=0.32\textwidth]{pics_frequency_domain/res_sol.pdf}
 \end{tabular}
-\caption{In the left figure the depenence of $h_{\epsilon}$ as defined by (\ref{eq:def_epsilon}) on $\nu$ is demonstrated. 
-In the right figure we show the computed solutions for the problem with parameters in Table \ref{tab:parameters} for different values of $\nu$. }
+\caption{We consider the problem (\ref{eq:main_frequency_domain}) with the parameters 
+defined in Table \ref{tab:parameters}. In the left figure the dependence of $h_{\epsilon}$ as defined by (\ref{eq:def_epsilon}) on $\nu$ is demonstrated.  
+In the right figure we show the computed solutions for this problem (\mrev{for brevity denoted as $E_{x,y}^{\nu}$}) for different values of $\nu$. }
 \label{fig:dependence}
 \end{figure}
 We can see that the estimate (\ref{eq:estimate_h}) is pessimistic compared to the one suggested by (\ref{eq:def_epsilon}), 
@@ -206,9 +250,9 @@ and thus the relative error control
 \bealn
  \frac{\|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L_{2}(\Omega)}}{\|E^{\nu}_{x}\|_{L_{2}(\Omega)}}\leq \epsilon
 \eealn
- is ensured by choosing $h$ as $\beta_{\epsilon}\nu^{\frac{3}{4}}$.
+ is ensured by choosing $h$ as $\beta_{\epsilon}\nu^{\frac{3}{4}}$, \mrev{$\beta_{\epsilon}>0$.}
 \end{remark}
-\paragraph{Condition Number}
+
 In Figure \ref{fig:small_nu} we demonstrate the dependence of the condition number of the matrix of the system (\ref{eq:simple_system}) 
 on $\nu$, for several values of $h$.
 Remarkably, for $\nu=0$ the computed matrices are not singular. We do not know the exact reason for this.
@@ -219,9 +263,10 @@ As an additional illustration, we compare the solutions for very small $\nu$ and
  \includegraphics[height=0.32\textwidth]{pics_frequency_domain/ey_resonance.pdf}
  \end{tabular}
  \caption{
- The left plot demonstrates the dependence of the condition number of the system (\ref{eq:simple_system}) on $\nu$, for different values of $h$ (the condition 
+ We consider the problem (\ref{eq:main_frequency_domain}) with the parameters 
+defined in Table \ref{tab:parameters}. The left plot demonstrates the dependence of the condition number of the system (\ref{eq:simple_system}) on $\nu$, for different values of $h$ (the condition 
  number for $\nu=0$ is not shown, however, for all values of $h$ as shown in the plot, the matrix was non-singular even for $\nu=0$). 
- The right plot shows $E_{y}^{\nu}$ computed on different meshes for small $\nu$. It can be seen that for $h=10^{-2}$ and $h=10^{-3}$ the solutions 
+ The right plot shows \mrev{$E_{y}^{\nu,h}$} computed on different meshes for small $\nu$. It can be seen that for $h=10^{-2}$ and $h=10^{-3}$ the solutions 
  computed for $\nu=0$ are almost indistinguishable.}
  %It can be seen that for meshes that are coarse 
  %with respect to $\nu$ (e.g. $\nu=10^{-4}, \; h=10^{-2}$, or $\nu=0,\; h=10^{-2}$), the computed solution seems to be only piecewise-continuous in $\nu$, 
@@ -254,15 +299,15 @@ As an additional illustration, we compare the solutions for very small $\nu$ and
 We show the results of very basic simulations that the numerical strategy 
 based on co-localised semi-lagrangian discretization is valid even for the resonant 
 case.
-The numerical tests have been kept to a minimum since much more are needed to fully validate
+The numerical tests have been kept to a minimum since many more are needed to fully validate
 the concept.
 
 The setting of the numerical results of figure \ref{fig:vasl}
 is the following. We use a 7th order semi-lagrangian scheme, and the CFL is $\nu=0.5$.
-The Pike is the hybrid resonance, visible on $E_x$ and $u_x$.
+The peak is the hybrid resonance, visible on $E_x$ and $u_x$.
 The total energy $\mathcal E(t)$ is the physical energy. 
 The comparison with figures \ref{fig:dependence} and \ref{fig:resonance_nus_ey_x} show that the 
-singular nature of the resonant is captured by this new scheme without any doubt.
+singular nature of the resonance is captured by this new scheme without any doubt.
 
 \begin{figure}{h}
 	\begin{center}
