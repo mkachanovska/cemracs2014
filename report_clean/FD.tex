@@ -10,17 +10,17 @@ The model (\ref{eq:main_model}) can be rewritten in the frequency domain as
  i\theta \partial_x \hat{E}_x -\partial_x^2 \hat{E}_y
 \end{matrix}
 \right)-\frac{\omega^2}{c^2}
-\underline{\varepsilon}_{\omega}^{\nu}(x)\left(
+\uuline{\varepsilon_{\omega}}^{\nu}(x)\left(
 \begin{matrix}
  \hat{E}_x\\
  \hat{E}_y
 \end{matrix}
 \right)
 =0,\\
-\underline{\varepsilon}^{\nu}_{\omega}(x)=\left(
+\uuline{\varepsilon_{\omega}}^{\nu}(x)=\left(
 \begin{matrix}
- \alpha^{\nu}_{\omega}(x) & i\delta^{\nu}_{\omega}(x) \\
- -i\delta^{\nu}_{\omega}(x) & \alpha^{\nu}_{\omega}(x)
+ \alpha^{\nu}_{\omega}(x) & -i\delta^{\nu}_{\omega}(x) \\
+ i\delta^{\nu}_{\omega}(x) & \alpha^{\nu}_{\omega}(x)
 \end{matrix}
 \right),\qquad 
  \alpha^{\nu}_{\omega}(x)=1-\frac{\omega_{\nu}\omega_p^2(x)}{\omega(\omega_{\nu}^2-\omega_c^2(x))},\qquad 
@@ -40,16 +40,16 @@ The series expansion as $\nu\rightarrow 0$ gives at leading orders
 where $\alpha_{\omega},\;\delta_{\omega}$ are defined by (\ref{eq:alpha_delta}). In the frequency domain one thus can consider 
 the following regularization of the cold plasma dielectric tensor of the above problem:
 \begin{align*}
-\underline{\varepsilon}^{\nu}_{\omega}\approx \underline{\varepsilon}^0_{\omega}+i\nu \left(
+\uuline{\varepsilon_{\omega}}^{\nu}\approx \uuline{\varepsilon_{\omega}}^{0}+i\nu \left(
  \begin{matrix}
-  D_{\alpha} & D_{\delta}\\
-  -D_{\delta} & D_{\alpha}
+  D_{\alpha} & -D_{\delta}\\
+  D_{\delta} & D_{\alpha}
  \end{matrix}
 \right).
 \end{align*}
 However, as demonstrated in \cite{singular_solutions} for the 1D setting, a significantly simpler regularization (considered in \cite{Despres_2014})
 \ben
-\underline{\varepsilon}^{\nu}_{\omega}(\mathbf{r})\approx \underline{\varepsilon}^{0}_{\omega}(\mathbf{r})+i\nu \mathrm{Id}
+\uuline{\varepsilon_{\omega}}^{\nu}(\mathbf{r})\approx \uuline{\varepsilon_{\omega}}^{0}(\mathbf{r})+i\nu \mathrm{Id}
 \een
 yields the same solution as $\nu\rightarrow 0$. }
 Thus, applying the above process to (\ref{eq:main_model}) in the frequency domain, we obtain, see also \cite{Despres_2014},
@@ -60,17 +60,17 @@ Thus, applying the above process to (\ref{eq:main_model}) in the frequency domai
  i\theta \partial_x \hat{E}_x -\partial_x^2 \hat{E}_y
 \end{matrix}
 \right)-\frac{\omega^2}{c^2}
-\left(\underline{\varepsilon}^{0}_{\omega}(x)+i\nu \mathrm{Id}\right)\left(
+\left(\uuline{\varepsilon_{\omega}}^{0}(x)+i\nu \mathrm{Id}\right)\left(
 \begin{matrix}
  \hat{E}_x\\
  \hat{E}_y
 \end{matrix}
 \right)
 =0,\\
-\underline{\varepsilon}^0_{\omega}(x)=\left(
+\uuline{\varepsilon_{\omega}}^{0}(x)=\left(
 \begin{matrix}
- \alpha_{\omega}(x) & i\delta_{\omega}(x) \\
- -i\delta_{\omega}(x) & \alpha_{\omega}(x)
+ \alpha_{\omega}(x) & -i\delta_{\omega}(x) \\
+ i\delta_{\omega}(x) & \alpha_{\omega}(x)
 \end{matrix}
 \right). 
 \end{align*}
@@ -84,7 +84,7 @@ For brevity, from now on we will denote $\alpha_{\omega},\; \delta_{\omega}$ by 
  i\theta \partial_x \hat{E}_x -\partial_x^2 \hat{E}_y
 \end{matrix}
 \right)-
-\left(\underline{\varepsilon}^{0}(x)+i\nu \mathrm{Id}\right)\left(
+\left(\uuline{\varepsilon}^{0}(x)+i\nu \mathrm{Id}\right)\left(
 \begin{matrix}
  \hat{E}_x\\
  \hat{E}_y
@@ -92,10 +92,10 @@ For brevity, from now on we will denote $\alpha_{\omega},\; \delta_{\omega}$ by 
 \right)
 =0,\\
 \label{eq:epsilon_0}
-\underline{\varepsilon}^{0}(x)=\left(
+\uuline{\varepsilon}^{0}(x)=\left(
 \begin{matrix}
- \alpha(x) & i\delta(x) \\
- -i\delta(x) & \alpha(x)
+ \alpha(x) & -i\delta(x) \\
+ i\delta(x) & \alpha(x)
 \end{matrix}
 \right),
 \end{align}
@@ -136,7 +136,7 @@ the resulting one-dimensional system can be rewritten in the following variation
 \begin{align}
 \label{vf1dcase}
 \begin{array}{l}
-\displaystyle \int_{-L}^H (E_y' -i\theta E_x)\overline{(\tilde E_y' -\urev{i} \theta \tilde E_x)} - \int_{-L}^H (\varepsilon^{0} +i\nu \mathrm{Id}) \E \cdot \overline{\tilde \E}
+\displaystyle \int_{-L}^H (E_y' -i\theta E_x)\overline{(\tilde E_y' -\urev{i} \theta \tilde E_x)} - \int_{-L}^H (\uuline{\varepsilon}^{0} +i\nu \mathrm{Id}) \E \cdot \overline{\tilde \E}
 %\\ \displaystyle 
  - i \lambda E_y (-L)\overline{ \tilde E_y (-L)} = -g_{inc} (-L) \overline{( \tilde E_y(-L) )},
 \end{array}\\
@@ -160,14 +160,14 @@ a(\ubf,\vbf) = a_1 (\ubf,\vbf) +i a_2(\ubf,\vbf)\  \text{ and } \  l(\vbf) = -g_
 where $a_1= a_1^*$ and $a_2=a_2^*$ are hermitian
 \be
 \left\{\begin{array}{l}
-	a_1(\ubf,\vbf) = \int_{-L}^H (u_2' -i\theta u_1)\overline{(v_2' -i \theta v_1)} - \int_{-L}^H \varepsilon^{0} \ubf\cdot \overline{\vbf}, 
+	a_1(\ubf,\vbf) = \int_{-L}^H (u_2' -i\theta u_1)\overline{(v_2' -i \theta v_1)} - \int_{-L}^H \uuline{\varepsilon}^{0} \ubf\cdot \overline{\vbf}, 
 	\\ a_2(\ubf,\vbf) = -\nu \int_{-L}^H  \ubf\cdot \overline{\vbf} - \lambda u_2 (-L) \overline{v_2 (-L)} , 
 \end{array}\right.
 \ee
 
 
 \urev{
-Let us denote the spectral radius of $\underline{\varepsilon}^{0}$ by $\heps =  \|\rho(\underline{\varepsilon}^{0})\|_{L^{\infty}(\Omega)}$. 
+Let us denote the spectral radius of $\uuline{\varepsilon}^{0}$ by $\heps =  \|\rho(\uuline{\varepsilon}^{0})\|_{L^{\infty}(\Omega)}$. 
 By Assumption \ref{assumption:smooth}, the spectral radius $\heps=\max\left(\|\alpha+\delta^2\|_{L^{\infty}(\Omega)}, \|\alpha-\delta^2\|_{L^{\infty}(\Omega)}\right)$ 
 is bounded.}
 %\end{df}
@@ -195,11 +195,11 @@ where $C>0$ does not depend on $\nu$. The problem~\eqref{vf1dcase} is well-posed
 \begin{proof}
 	The boundedness of $a$ is obvious using the continuous embedding in dimension
 	one  $H^1(\Omega)\subset C^0(\overline \Omega)$. Let us focus on the proof of coercivity. 
-	\mrev{Given $\heps$ the spectral radius of $\underline{\varepsilon}^{0}$, 
-	$\heps \mathrm{Id}- \underline{\varepsilon}^{0} $ is a non-negative hermitian matrix.}
+	\mrev{Given $\heps$ the spectral radius of $\uuline{\varepsilon}^{0}$, 
+	$\heps \mathrm{Id}- \uuline{\varepsilon}^{0} $ is a non-negative hermitian matrix.}
 	Therefore
 	\be 
-	a_1(\ubf,\ubf) + \heps\|\ubf\|^2_{L^2}= \|u_2' - i \theta u_1 \|^2_{L^2} + \left( (\heps \mathrm{Id} - \underline{\varepsilon}^{0} ) \ubf, \overline{\ubf} \right)  \geq \|u_2 ' - i \theta u_1 \|_{L^ 2}^ 2
+	a_1(\ubf,\ubf) + \heps\|\ubf\|^2_{L^2}= \|u_2' - i \theta u_1 \|^2_{L^2} + \left( (\heps \mathrm{Id} - \uuline{\varepsilon}^{0} ) \ubf, \overline{\ubf} \right)  \geq \|u_2 ' - i \theta u_1 \|_{L^ 2}^ 2
 	\geq \frac12 \|u_2 '  \|_{L^2}^ 2 -
 	\theta ^2 \| u_1 \|_{L^2}^ 2.
 	\ee
@@ -237,7 +237,7 @@ for the case $\theta=0$. In this case the problem (\ref{eq:var_form2}) is well-p
 as a system of two equations, where the first equation (for $E_y$) is the variational formulation for the Helmholtz equation 
 with the variable coefficient $k^2=(\alpha-\frac{\delta^2}{\alpha})$ \mrev{and the boundary conditions (\ref{eq:boundary_conditions_frequency_domain})}, and the second equation 
 \begin{align*}
-  \left(E_x,u\right)=-\left(\frac{i\delta}{\alpha}E_y,u\right),\; \text{ for all } u\in L^{2}(\Omega), 
+  \left(E_x,u\right)=\left(\frac{i\delta}{\alpha}E_y,u\right),\; \text{ for all } u\in L^{2}(\Omega), 
 \end{align*}
 uniquely defines $E_x\in L^{2}(\Omega)$. The well-posedness of the former problem, with additional assumptions on boundary conditions and smoothness of the coefficients, 
 was demonstrated in \cite{LMIG_thesis}. Provided the solution $E_y\in H^{1}(\Omega)$, we can obtain $E_x$ from the second equation.
@@ -284,10 +284,10 @@ an explicit expression for the tensor of the dielectric permittivity (\ref{eq:ep
 \label{eq:var_form2}
 \begin{split}
  i\theta \displaystyle \int_{-L}^H (E_y' -i\theta E_x)\overline{\tilde E_x} - 
- \int_{-L}^H \left((\alpha+i\nu)E_x+i\delta E_y\right)_{1} \overline{\tilde E}_{x}
+ \int_{-L}^H \left((\alpha+i\nu)E_x-i\delta E_y\right)_{1} \overline{\tilde E}_{x}
 &=0,\\
 \int_{-L}^H (E_y' -i\theta E_x)\tilde {E_y'} -
-\int_{-L}^H\left( -i \delta E_x+(\alpha+i\nu) E_y\right)_{2}\overline{\tilde{E}}_{y}
+\int_{-L}^H\left( i \delta E_x+(\alpha+i\nu) E_y\right)_{2}\overline{\tilde{E}}_{y}
   - i \lambda E_y (-L) \overline{\tilde E_y (-L)} &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
  \text{ for all } \tilde E_x\in L^{2}(\Omega), \; \tilde{E}_{y}\in H^{1}(\Omega).
   \end{split}
@@ -327,8 +327,8 @@ I_{km}^{\Gamma}=\bar{\phi}_{m}(-L)\phi_{k}(-L), \\
 we rewrite the system (\ref{eq:var_form2}) in an antisymmetric block form:
 \ben
 \left(\begin{matrix}
-\theta^2 M^{\psi}-M^{\alpha,\psi} & i\theta K^{\psi,\phi'}-i M^{\delta,\psi,\phi} \\
--i\theta (K^{\psi,\phi'})^{*}+i (M^{\delta,\psi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
+\theta^2 M^{\psi}-M^{\alpha,\psi} & i\theta K^{\psi,\phi'}+i M^{\delta,\psi,\phi} \\
+-i\theta (K^{\psi,\phi'})^{*}-i (M^{\delta,\psi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
 \end{matrix}\right)
 \left(
 \begin{matrix}
@@ -351,8 +351,8 @@ in the case $\theta=0$. One obtains the \urev{matrix} structure
 \begin{align}
 \label{eq:simple_system}
 \left(\begin{matrix}
-M^{\alpha,\phi} & i M^{\delta,\phi,\phi} \\
-i (M^{\delta,\phi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
+M^{\alpha,\phi} & -i M^{\delta,\phi,\phi} \\
+-i (M^{\delta,\phi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
 \end{matrix}\right)
 \left(
 \begin{matrix}

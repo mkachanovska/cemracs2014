@@ -155,7 +155,7 @@ The first term in the above expression is well-defined in $x=0$, even for $\nu=0
  \left(\alpha'\log\rho_{\nu}(x-X_{\nu})p_{\nu}\right)'=\alpha''\log\rho_{\nu}(x-X_{\nu})p_{\nu}+\frac{\alpha'p_{\nu}}{\rho_{\nu}(x-X_{\nu})}\rho'_{\nu}(x-X_{\nu})+
  \alpha'\log\rho_{\nu}(x-X_{\nu})p_{\nu}'.
 \end{align*}
-The most singular term in the above expression is $\frac{\alpha'p_{\nu}}{\rho_{\nu}(x-X_{\nu})}\rho'_{\nu}(x-X_{\nu})$ which can be bounded, for sufficiently small $x$, 
+The most singular term in the above expression is $\frac{\alpha'p_{\nu}}{\rho_{\nu}(x-X_{\nu})}\rho'_{\nu}(x-X_{\nu})$ which can be bounded, for sufficiently small $x$, by 
 \begin{align*}
  \left|\frac{\alpha'p_{\nu}}{\rho_{\nu}(x-X_{\nu})}\rho'_{\nu}(x-X_{\nu})\right|\leq \frac{C}{|x+i\nu c|},\; C>0,c\in\mathbb{R},
 \end{align*}
@@ -220,8 +220,8 @@ $H$ & 10 \\
 \label{tab:parameters}
 \end{table}
 \mrev{Recall that we choose $\theta=0$. }
-Denoting by \mrev{$E_{x}^{\nu,h}$ the solution $E_{x}(x)$} computed on the mesh with a \mrev{ width $h$ with 
-the absorption $\nu$, and by $E_{x}^{\nu}$} the solution computed on a mesh multiple times finer (\mrev{more precisely, the reference mesh
+Denoting by \mrev{$E_{x}^{\nu,h}$ the solution $E_{x}(x)$} computed on the mesh with the \mrev{width $h$ with 
+the absorption $\nu$, and by $E_{x}^{\nu}$} the solution computed on a mesh multiple times finer (\arev{more precisely, the reference mesh
 was typically 10-20 times finer, with the exception when the computation was done for very small values of $h$ where twice finer meshes for comparison were used}), let 
 \begin{align}
 \label{eq:def_epsilon}
@@ -236,7 +236,7 @@ The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Fig.~\ref{fig:dep
 \end{tabular}
 \caption{We consider the problem (\ref{eq:main_frequency_domain}) with the parameters 
 defined in Table \ref{tab:parameters}. In the left figure the dependence of $h_{\epsilon}$ as defined by (\ref{eq:def_epsilon}) on $\nu$ is demonstrated.  
-In the right figure we show the computed solutions for this problem (\mrev{for brevity denoted as $E_{x,y}^{\nu}$}) for different values of $\nu$. }
+In the right figure we show the computed solutions for this problem (\urev{for brevity denoted by $E_{x,y}^{\nu}$}) for different values of $\nu$. }
 \label{fig:dependence}
 \end{figure}
 We can see that the estimate (\ref{eq:estimate_h}) is pessimistic compared to the one suggested by (\ref{eq:def_epsilon}), 
@@ -296,15 +296,15 @@ defined in Table \ref{tab:parameters}. The left plot demonstrates the dependence
 We show the results of very basic simulations that the numerical strategy 
 based on co-localised semi-lagrangian discretization is valid even for the resonant 
 case.
-The numerical tests have been kept to a minimum since many more are needed to fully validate
+The numerical tests have been kept to a minimum since \arev{many more} are needed to fully validate
 the concept.
 
 The setting of the numerical results of figure \ref{fig:vasl}
 is the following. We use a 7th order semi-lagrangian scheme, and the CFL is $\nu=0.5$.
-The peak is the hybrid resonance, visible on $E_x$ and $u_x$.
+The \arev{peak} is the hybrid resonance, visible on $E_x$ and $u_x$.
 The total energy $\mathcal E(t)$ is the physical energy. 
 The comparison with figures \ref{fig:dependence} and \ref{fig:resonance_nus_ey_x} show that the 
-singular nature of the resonance is captured by this new scheme without any doubt.
+singular nature of the \arev{resonance} is captured by this new scheme without any doubt.
 
 \begin{figure}{h}
 	\begin{center}

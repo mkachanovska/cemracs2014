@@ -64,9 +64,10 @@ Specific remarks:
 
 - p1, abstract: changed
 
-- p2: in the frequency domain, as we have shown in Lemma 2.1, the problem is regularized by a choice $|\nu|>0$, independently of the sign of $\nu$. 
+- p2: in the frequency domain  the problem is regularized by a choice $|\nu|>0$, independently of the sign of $\nu$. 
 It is interesting however that for a fixed $\omega$ the limits $\lim_{\nu\rightarrow 0\pm}$ do not result in the same solution. 
-In the time domain the sign of $\nu>0$ is indeed of crucial importance for the stability. We added a remark on this before Section 2.1  
+In the time domain the sign of $\nu>0$ is indeed of crucial importance for the stability, as well as in Lemma 2.1, provided that $\lambda$ in the 
+frequency of the antenna is larger than zero. We added a remark on this before Section 2.1  
 
 - p2, after (1): $L$ is just a non-negative real number. We found it more convenient to place the point of the isolated hybrid resonance in $x=0$.
 For $\nu\neq 0$ the energy decays, we added this in the introduction.
@@ -108,8 +109,10 @@ in the end of the proof of the lemma).
   
  - p9 Equation (15,16): changed  
 
- - p9 after (17): we would like to assume that it is $H^2$-norm that is bounded, for using the inequality (19). 
-  \mrev{TODO: While this assumption is fairly strong, it is often used in the approximation theory.   }
+ - p9 after (17): it is really necessary to assume that $H^2$-norm that is bounded, for using the inequality (19). 
+ We fixed an assumption of $E_y$.
+
+
   
  - p10 before and after Table 1 : fixed
  
@@ -137,23 +140,24 @@ Added the captions
   Indeed $P1$!
   
 
- Reviewer 2:
+\section{Response to  Reviewer 2}
  
- • p2: In this case Ex is not square integrable: confirm that it is when ν is not zero and that
-the singularity appears for ν = 0.
+-p2:  We tried to change the wording in the introduction to make it more clear what is a hybrid resonance. 
+The singularity appears for $\nu=0$, provided that the diagonal part of the dielectric tensor vanishes and the non-diagonal part does not. 
 
-We tried to change the wording in the introduction to make it more clear what is a hybrid resonance. 
-The singularity appears for $\nu=0$, when the diagonal part of the dielectric tensor vanishes and non-diagonal part does not. 
+- 'matricial' had been changed to 'matrix'.
 
-• p6, 3.1. It is not clear how the Yee scheme, which is a finite difference scheme, is linked to the
+- p6, 3.1. It is not clear how the Yee scheme, which is a finite difference scheme, is linked to the
 finite element scheme developed in the previous section. This should be made more explicit.
 
 We employed the Yee scheme to discretize the problem in the time domain, and the finite element scheme solely for the frequency domain, 
 and considered them independently. We added a remark on that in the very beginning of Section 3. 
 
-• p10: mesh multiple times finer. It should be said exactly how many times. 
+- p10: mesh multiple times finer. It should be said exactly how many times. 
 
 We added a remark that it was at least two times for very fine meshes, and more for coarser ones.
+
+-p.12: fixed the typos.
 
 
   

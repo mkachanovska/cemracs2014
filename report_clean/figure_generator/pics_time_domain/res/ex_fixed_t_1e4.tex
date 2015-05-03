@@ -6,7 +6,7 @@
 \usepackage{pgfplots}
 \usepackage{ulem}
 \usepackage{pifont}% http://ctan.org/pkg/pifont
-\pgfplotsset{compat=1.10}
+\pgfplotsset{compat=newest}
 \usepackage{hyperref}
 \usepackage{lscape}
 \begin{document}
@@ -32,9 +32,9 @@
     \addplot[color=blue] file{nu_1e4/e2_td_t_119000.dat};
   \addlegendentry{$E_y^{\nu}(x,t_c),\; t_c=119000, \; \nu=10^{-4}$};
      \addplot[color=green, dashed, each nth point=10] file{nu_1e4/e2_fd_t_119000.dat};
-  \addlegendentry{$\Im\left(\hat{E}_y^{\nu}(x)\mathrm{e}^{it_c}\right)\; t_c=119000, \; \nu=10^{-4}$};
+  \addlegendentry{$\Im\left(\hat{E}_y^{\nu}(x)\mathrm{e}^{-it_c}\right)\; t_c=119000, \; \nu=10^{-4}$};
     \addplot[color=red,each nth point=10] file{nu_1e4/e2_fd_t_120000.dat};
- \addlegendentry{$\Im\left(\hat{E}_y^{\nu}(x)\mathrm{e}^{it_c}\right),\; t_c=120000, \; \nu=10^{-4}$};
+ \addlegendentry{$\Im\left(\hat{E}_y^{\nu}(x)\mathrm{e}^{-it_c}\right),\; t_c=120000, \; \nu=10^{-4}$};
    \addplot[color=black,dashed] file{nu_1e4/e2_td_t_120000.dat};
  \addlegendentry{$E_y^{\nu}(x,t_c),\; t_c=120000, \; \nu=10^{-4}$};
   \end{axis}
@@ -54,7 +54,7 @@
   \addplot[color=blue] file{nu_1e4/e1_td_t_120000.dat};
  \addlegendentry{$E_x^{\nu}(x,t_c),\; t_c=120000, \; \nu=10^{-4}$};
   \addplot[color=red, dashed] file{nu_1e4/e1_fd_t_120000.dat};
- \addlegendentry{$\Im\left(\hat{E}_x^{\nu}(x)\mathrm{e}^{it_c}\right),\; t_c=120000, \; \nu=10^{-4}$};
+ \addlegendentry{$\Im\left(\hat{E}_x^{\nu}(x)\mathrm{e}^{-it_c}\right),\; t_c=120000, \; \nu=10^{-4}$};
   \end{axis}
 \end{tikzpicture}
 \end{tabular}
