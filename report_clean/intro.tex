@@ -24,7 +24,7 @@ perpendicular to the direction of the magnetic field, this process can be descri
 \mu_0 \partial_t H_z + \partial_x E_y-\partial_y E_x= 0
 \end{split}
 \end{align}
-coupled with an equation for the linear electronic current  $\J = eN_e(\mathbf{r}) \ubf$, 
+coupled with the equations for the linear electronic current  $\J = eN_e(\mathbf{r}) \ubf$
 \begin{align}
 \begin{split}
 \label{eq:electronmove}
@@ -37,7 +37,7 @@ depends on spatial variables and is uniform in time. A non-zero value of $\nu$ c
 The unknowns are the electron velocity $\ubf$ and the electromagnetic field. 
 
 
-The energy of this system in a domain $\Omega\in\mathbb R^2$ can be expressed as, see \cite{Despres_2014}
+The energy of this system in a domain $\Omega\in\mathbb R^2$ can be expressed as, see \cite{Despres_2014},
 \ben
 {\mathcal E}(t)= \int_\Omega \left(
 \frac{\epsilon_0 |\E(t,\mathbf{r})|^2}{2}+\frac{ |\B(t,\mathbf{r})|^2}{2\mu_0}+\frac{m_e|\J (t,\x)|^2}{2|e|N_e(\mathbf{r})} 
@@ -85,7 +85,7 @@ Before proceeding, let us define the geometrical setting of the problem. We cons
  boundary conditions chosen as follows. At the left boundary of the domain, which represents the wall of the Tokamak, we pose Robin boundary conditions 
 \be
 \label{eq:boundary_conditions_intro}
-curl \hat{\mathbf{E}} -\imath \lambda\hat{\mathbf{E}}\wedge \n = \hat{g}_{inc} =curl \E_{inc} -\imath\lambda\E_{inc}\wedge \n,
+curl \hat{\mathbf{E}} -i \lambda\hat{\mathbf{E}}\wedge \n = \hat{g}_{inc} =curl \E_{inc} -\imath\lambda\E_{inc}\wedge \n,
 \ee
 where $\E_{inc} = \exp \left(\imath \lambda x\right)\begin{pmatrix} E_1\\ E_2 \end{pmatrix}$ and $\lambda$ is 
 the frequency of the antenna. We truncate the domain 
@@ -95,9 +95,7 @@ In this article we concentrate on a simplified model (which nevertheless is of p
 where it is required to study the above system under the assumption that the electron density $N_{e}$ and the magnetic field $B_0$ are \textbf{uniform} in the second coordinate, more precisely 
 $N_{e}=N_{e}(x)$ and $B_0=B_0(x)$, see e.g. \cite{Despres_2014}. Even this simplified case contains difficulties intrinsic to hybrid resonance \cite{Despres_2014, singular_solutions}. 
 
-The one-dimensional model can be derived from (\ref{eq:main_system}) by performing the Fourier transform in $y$ ($\partial_y\rightarrow i\theta, \; \theta\in\mathbb{R}$), 
-under the assumption that $N_e=N_e(x), \; B_0=B_0(x)$
-
+Under the aforementioned assumptions on $N_e$ and $B_0$, the one-dimensional model can be derived from (\ref{eq:main_system}) by performing the Fourier transform in $y$ ($\partial_y\rightarrow i\theta, \; \theta\in\mathbb{R}$). For a parameter $\theta$,
 \begin{equation}
  \label{eq:main_model}
 \begin{cases}
@@ -108,12 +106,16 @@ m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\\
 m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y
 \end{cases}
 \end{equation}
- posed in $(-L,\; H)$, for some $L,H>0$, with \mrev{the (simplified) boundary conditions compatible with (\ref{eq:boundary_conditions_intro})}
+ posed in $(-L,\; H)$, for some $L,H>0$, with \mrev{the boundary conditions as in (\ref{eq:boundary_conditions_intro}),
  \begin{align}
  \label{eq:boundary_conditions_frequency_domain}
-  \left.\left(-\partial_x E_y -\imath \lambda E_y\right)\right|_{x=-L} =g_{inc},\\
-  \left.\partial_xE_y\right|_{x=H}=0.
+ \begin{split}
+  \left.\left(\partial_x E_y -i\theta E_x-i\lambda E_y\right)\right|_{x=-L} =g_{inc}(t),\\
+  \left.\partial_xE_y\right|_{x=H}=0, 
+  \end{split}
  \end{align}
+and the initial conditions for values $\left.E_{x}\right|_{t=0},\; \left.u_{x}\right|_{t=0},\; \left.E_{y}\right|_{t=0}, \; \left.u_{y}\right|_{t=0}, \; \left.H_z\right|_{t=0}$. }
+
 This is the time-domain model that will be considered in the rest of the article, unless stated otherwise. 
 
 In the frequency domain (\ref{eq:main_model}) for $\nu=0$ is of the form 
@@ -139,13 +141,13 @@ We concentrate on a physical situation of the hybrid resonance, which we define 
 \begin{df}
 Let $\omega\in\mathbb{R}$ be fixed. 
 We will call a point $x_h\in \mathbb{R}$ a hybrid resonance if $\alpha_{\omega}$ has 
-a simple root in $x_h$ and has no other roots in an $\epsilon$-vicinity of $x_h$ $B_{\epsilon}(x_h)$, for some $\epsilon>0$, and 
+a simple root in $x_h$ and has no other roots in an $\epsilon$-vicinity of this point $B_{\epsilon}(x_h)$, for some $\epsilon>0$, and 
 $\delta(x_h)\neq 0$. 
 \end{df}
 }
 
-To investigate the behaviour of the solutions in the vicinity of the hybrid resonance, 
-instead of the above problem we will study a sequence of the regularized problems 
+To investigate the behaviour of the solutions in the case when the hybrid resonance occurs in the sustem, 
+instead of the above problem we will study a sequence of the regularized problems, for $\nu\rightarrow 0$, 
 \begin{align}
 \label{eq:seq_regularized}
 \left(
@@ -202,7 +204,7 @@ Thirdly, we consider the case $\nu\rightarrow 0$, and study the limiting amplitu
 $\lim\limits_{t\rightarrow +\infty}\lim\limits_{\nu\rightarrow 0}\mathbf{E}(t)$ obtained with the help of 
 the FDTD discretization of \eqref{eq:main_model}, suggested in \cite{stable_yee_plasma_current}. 
 We compare this result with 
-$\hat{\mathbf{E}}\mathrm{e}^{i\omega t}$, computed in the frequency domain, for $\nu\rightarrow 0$, which is equivalent to considering
+$\hat{\mathbf{E}}\mathrm{e}^{\mrev{-i\omega} t}$, computed in the frequency domain, for $\nu\rightarrow 0$, which is equivalent to considering
 $\lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}\mathbf{E}(t)$.
 \urev{Such a comparison is a way to study the formal commutation relation between the limited absorption and the limiting amplitude principles. 
 In application to e.g. non-resonant case of (\ref{eq:model_freq_domain}), the limited absorption principle states that with 
