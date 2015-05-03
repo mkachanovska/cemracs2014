@@ -19,6 +19,7 @@ r=construct_rhs(x);
 
 tic
 [M,rhs]=permute(A,B,D,r);
+%save('D.mat', 'D');
 %save('M.mat', 'M');
 sol=M\rhs;
 
@@ -326,6 +327,8 @@ function [A,B,D]=construct_block_matrix(x,nu,lambda)
                    A=Malpha+1i*nu*M;
                    B=1i*Mdelta;
                    D=S-(Malpha+1i*nu*M);
+		   %save ('D1.mat', 'D');
+
 %adding a boundary condition
                    D(1,1)=D(1,1)-1i*lambda;
 
