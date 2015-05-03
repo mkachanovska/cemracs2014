@@ -66,12 +66,12 @@ draw=none,
 font=\small
 }
 ]\addplot[mark=*,black] table {pics_frequency_domain/data_airy/E1L2.dat}; 
-    \addlegendentry{$\|E_{x}-E_{x}^{c}\|_{L_{2}}$};
+    \addlegendentry{$\|E_{x}-E_{x}^{c}\|_{L^2}$};
     \addplot[mark=*,red, mark size=1pt] table {pics_frequency_domain/data_airy/E2H1.dat};
-        \addlegendentry{$\|E_{y}-E_{y}^{c}\|_{H_{1}}$};
+        \addlegendentry{$\|E_{y}-E_{y}^{c}\|_{H^{1}}$};
         
           \addplot[mark=*,cyan, mark size=1pt] table {pics_frequency_domain/data_airy/E2L2.dat};
-        \addlegendentry{$\|E_{y}-E_{y}^{c}\|_{L_{2}}$};  
+        \addlegendentry{$\|E_{y}-E_{y}^{c}\|_{L^{2}}$};  
         \addplot[dotted] table{pics_frequency_domain/data_airy/E_h2.dat};
          \addlegendentry{$O(h^2)$};
          \addplot[dashed] table{pics_frequency_domain/data_airy/H.dat};
@@ -98,7 +98,7 @@ For simplicity, let us assume
 we look for a ratio $h(\nu)$ that would ensure the bound on the absolute error 
 \begin{align}
 \label{eq:problem1}
-\|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L_{2}(\Omega)}<\epsilon,
+\|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L^2}<\epsilon,
 \end{align}
 given a fixed value of $\epsilon>0$ and $\nu\rightarrow 0$. W.l.o.g. here we assume that $\nu>0$. 
 
@@ -117,24 +117,23 @@ The last inequality follows from Lemma \ref{lemma:well_posedness} and is valid f
 \item The form of the exact solution to the problem (\ref{vf1dcase}), see \cite{Despres_2014},
 \begin{align}
 \label{eq:exact}
- E_x^{\nu}=-iE_{y}^{\nu}\frac{\delta}{\alpha+i\nu}=\frac{f^{\nu}(x)}{\alpha(x)+i\nu}, \; \text{for some }f^{\nu}(x)\in L_{2}(\Omega).
+ E_x^{\nu}=-iE_{y}^{\nu}\frac{\delta}{\alpha+i\nu}=\frac{f^{\nu}(x)}{\alpha(x)+i\nu}, \; \text{for some }f^{\nu}(x)\in L^2(\Omega).
 \end{align}
 \item \mrev{An explicit bound on $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ based on the results of \cite{singular_solutions}. First of all, we
 will assume that the main contribution to $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ comes from the behaviour in the vicinity of the point of the resonance, where 
 the following expansion is valid \cite[Proposition 1]{singular_solutions}
 \begin{align*}
-E_{y}^{\nu}(x)=\tilde{E}_{y}^{\nu}(x)+\text{smooth terms, which, together with their derivatives, are bounded independently of $\nu$,} \\
+E_{y}^{\nu}(x)=\tilde{E}_{y}^{\nu}(x)+S_{\nu}(x), \\
 \tilde{E}_{y}^{\nu}(x)=\log\rho_{\nu}(x-X_{\nu})(\alpha(x)+i\nu)p_{\nu}(x),
 \end{align*}
 where $\rho_{\nu}$ is a smooth function s.t. $\rho_{\nu}(0)=0,\; \rho_{\nu}'(0)\neq 0$, the point $X_{\nu}\approx i\nu c+O(\nu^2)$, for some $c\in\mathbb{R}$, 
-and $p_{\nu}(x)$ is a smooth function, which, together with its derivatives,  is bounded independently of $\nu$. 
-}
+and $p_{\nu}(x),\; S_{\nu}(x)$ are smooth functions, which, together with their derivatives, are bounded independently of $\nu$.}
 \item The estimate from \cite[Chapter 0]{brenner} on the rate of convergence of the interpolation 
 \begin{align}
 \label{eq:interp}
 \begin{split}
- \|v-I^{h}v\|_{L_{2}(\Omega)}\leq Ch^2\left|v''\right|_{L_{2}(\Omega)},\; C>0,\\
- \|v-I^{h}v\|_{H_{1}(\Omega)}\leq Ch|v''|_{L_{2}(\Omega)},\; C>0, 
+ \|v-I^{h}v\|_{L^2}\leq Ch^2\left|v''\right|_{L^2},\; C>0,\\
+ \|v-I^{h}v\|_{H^1}\leq Ch|v''|_{L^2},\; C>0, 
  \end{split}
 \end{align}
 where $I^{h}v$ is an interpolation operator onto $P_{h}^{1}$. 
@@ -143,7 +142,7 @@ The estimate (\ref{eq:cea}) combined with (\ref{eq:interp}) results in, for some
 \begin{align}
   \label{eq:final_est}
   \|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L^2}%\leq C_1\nu^{-1}h\|\left(E_y^{\nu}\right)''\|_{L_{2}}+C_2\nu^{-1}h^2\|\left(E_x^{\nu}\right)''\|_{L_{2}}
-  \leq C\nu^{-1}h\|\left(E_y^{\nu}\right)''\|_{L_{2}}+C\nu^{-1}h^2\|\left(E_x^{\nu}\right)''\|_{L_{2}}.
+  \leq C\nu^{-1}h\|\left(E_y^{\nu}\right)''\|_{L^2}+C\nu^{-1}h^2\|\left(E_x^{\nu}\right)''\|_{L^2}.
 \end{align}
 \mrev{
 First of all let us examine the behaviour the derivatives of $E_{y}^{\nu}$ in the vicinity of the resonance:
@@ -184,7 +183,7 @@ from which, together with (\ref{eq:cond}, \ref{eq:eynuprime}, \ref{eq:exact}), i
 \eealn
 where $C>0$ does not depend on $\nu$. After inserting this into (\ref{eq:final_est}) we obtain
 \ben
- \|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L_{2}(\Omega)}\leq C\nu^{-\frac{7}{2}}h^2+C\nu^{-\frac{3}{2}}h.
+ \|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L^2}\leq C\nu^{-\frac{7}{2}}h^2+C\nu^{-\frac{3}{2}}h.
 \een
 From this it thus follows that to ensure (\ref{eq:problem1}) $h$ should be chosen as 
 \begin{align}
@@ -243,10 +242,10 @@ In the right figure we show the computed solutions for this problem (\mrev{for b
 We can see that the estimate (\ref{eq:estimate_h}) is pessimistic compared to the one suggested by (\ref{eq:def_epsilon}), 
 at least for given values of $\epsilon$ and for a chosen range of $\nu>0$.
 \begin{remark}
-It can be shown that $\|E^{\nu}_{x}\|_{L_{2}(\Omega)}\leq \frac{C}{\sqrt{\nu}},\; C>0$, 
+It can be shown that $\|E^{\nu}_{x}\|_{L^2}\leq \frac{C}{\sqrt{\nu}},\; C>0$, 
 and thus the relative error control
 \bealn
- \frac{\|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L_{2}(\Omega)}}{\|E^{\nu}_{x}\|_{L_{2}(\Omega)}}\leq \epsilon
+ \frac{\|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L^2}}{\|E^{\nu}_{x}\|_{L^2}}\leq \epsilon
 \eealn
  is ensured by choosing $h$ as $\beta_{\epsilon}\nu^{\frac{3}{4}}$, \mrev{$\beta_{\epsilon}>0$.}
 \end{remark}
