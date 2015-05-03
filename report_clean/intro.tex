@@ -87,7 +87,7 @@ Before proceeding, let us define the geometrical setting of the problem. We cons
 \label{eq:boundary_conditions_intro}
 curl \hat{\mathbf{E}} -i \lambda\hat{\mathbf{E}}\wedge \n = \hat{g}_{inc} =curl \E_{inc} -\imath\lambda\E_{inc}\wedge \n,
 \ee
-where $\E_{inc} = \exp \left(\imath \lambda x\right)\begin{pmatrix} E_1\\ E_2 \end{pmatrix}$ and $\lambda$ is 
+where $\E_{inc} = \exp \left(\imath \lambda x\right)\begin{pmatrix} E_1\\ E_2 \end{pmatrix}$ and \mrev{$\lambda\geq 0$} is 
 the frequency of the antenna. We truncate the domain 
 $(-L,\; \infty)\times\mathbb{R}$ to $(-L,\; H)\times\mathbb{R},\; H>0,$ and set on the right boundary $\operatorname{curl} \hat{\E} = 0$. 
 
@@ -208,7 +208,7 @@ $\hat{\mathbf{E}}\mathrm{e}^{\mrev{-i\omega} t}$, computed in the frequency doma
 $\lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}\mathbf{E}(t)$.
 \urev{Such a comparison is a way to study the formal commutation relation between the limited absorption and the limiting amplitude principles. 
 In application to a non-resonant case of (\ref{eq:main_frequency_domain_intro}), equipped with boundary conditions, the limited absorption principle states that the solution of (\ref{eq:seq_regularized}) would coincide with the solution of (\ref{eq:main_frequency_domain_intro})
-as $\nu\rightarrow 0\pm$. Similarly, the limiting amplitude principle applied to the problem (\ref{eq:main_model}) 
+as $\nu\rightarrow 0$. Similarly, the limiting amplitude principle applied to the problem (\ref{eq:main_model}) 
 states that if the boundary conditions are chosen harmonic in time, e.g. $\left.\partial_x E_y\right|_{x=-L}=\mathrm{e}^{-i\omega_{*} t}$, then the solution of this problem $(\mathbf{E}(t),\;H(t))$ asymptotically ($t\rightarrow +\infty$)
 tends to a steady state of the form $ \left(\mathbf{E}(\omega_{*}),\; \hat{H}(\omega_{*})\right)\mathrm{e}^{-i\omega_{*} t}$, where 
 $\left(\hat{\mathbf{E}}(\omega_{*}),\; \hat{H}(\omega_{*})\right)$ is the solution of (\ref{eq:main_model})

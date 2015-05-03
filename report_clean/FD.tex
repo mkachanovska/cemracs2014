@@ -113,11 +113,11 @@ This assumption can be ensured, for example, by requiring the continuity of $N_e
 \begin{remark}
 For the time domain problem (\ref{eq:main_model}) the choice of the sign of $\nu>0$ is of crucial importance for the stability of the problem. 
 In the frequency domain, as we can see from the above and from \cite{Despres_2014,LMIG_thesis}, the sign 
-of the parameter $\nu$ can be chosen arbitrarily to regularize the problem. However, as demonstrated in the aforementioned works, as $\nu\rightarrow 0\pm$, the 
+of the parameter $\nu$ can be chosen arbitrarily to regularize the problem. 
+However, as demonstrated in the aforementioned works, as $\nu\rightarrow 0\pm$, the 
 corresponding limiting solutions differ, though both exhibit the singularity in the point of the hybrid resonance.  
 \end{remark}
 }
-
 %%%%%%%%%%%%%%%%%%%%%% 
 \mrev{\subsection{Well-Posedness of the Frequency Domain Problem}}
 %%%%%%%%%%%%%%%%%%%%%% 
@@ -145,8 +145,9 @@ the resulting one-dimensional system can be rewritten in the following variation
 \end{align}
 Recall that here $\lambda\geq 0$. 
 %=\omega\geq 0$. 
-Let us remark that in this and further sections, where it is not ambiguous, we will use the notation $E_{x,y}$ instead of $\hat{E}_{x,y}$ for convenience, \mrev{
-and $\|.\|_{L^2}$ and $\|.\|_{H^1}$ will denote the norms in $L^2(\Omega)$ and $H^1(\Omega)$. }
+Let us remark that in this and further sections, where it is not ambiguous, we will use the notation $E_{x,y}$ instead of $\hat{E}_{x,y}$ for convenience. \mrev{Also, 
+by $\|u\|_{L^{2}}$ we will denote $\|u\|_{L^{2}(\Omega)}$, for $u\in L^2(\Omega)$, and $\|\ubf\|_{L^2(\Omega)}=\left(\|u_1\|^2_{L_2}+\|u_2\|^2_{L_2}\right)^{\frac{1}{2}}$, 
+for $\ubf=(u_1,\;u_2)\in \left(L^2(\Omega)\right)^2$.}
 
 The above can be reformulated as, \urev{for the unknown $\mathbf{E}$ and $\tilde{\mathbf{E}}$ a test function},
 \be
@@ -175,16 +176,16 @@ We now prove the following result.
 
 \begin{lemma}
 \label{lemma:well_posedness}
-Provided that Assumption \ref{assumption:smooth} holds, the bilinear form 
+\urev{Let Assumption \ref{assumption:smooth} holds}. Then the bilinear form 
 \ben
  a(\ubf,\vbf):  \mathbf{V}\times \mathbf{V}\rightarrow \mathbb{C}
 \een
-is continuous and coercive for all $\nu\neq 0$: for all $\ubf,\vbf\in \mathbf{V}$ it holds that
+is continuous and coercive for all \mrev{$\lambda\geq 0$} and $\nu>0$: for all $\ubf,\vbf\in \mathbf{V}$ it holds that
 \bealn
 \label{eq:bilinear_cont}
 \left\{\begin{array}{l}
 \Re\left(\mathrm{e}^{i\urev{\beta_{\nu}}}a(\ubf,\ubf)\right)\geq \frac{|\nu|}{\sqrt{(\heps+\theta^2+1)^2+\nu^2}}\left(\frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2\right),\; 
-\text{ for some $\urev{\beta_{\nu}}\in\left(-\frac{\pi}{2}, 0\right)\cup \left(0,\frac{\pi}{2}\right)$},\\
+\text{ for some $\urev{\beta_{\nu}}\in\left(0,\frac{\pi}{2}\right)$},\\
 |a(\ubf,\vbf)|\leq C \|\ubf\|_{\mathbf{V}}\|\vbf\|_{\mathbf{V}},
 \end{array}\right.
 \eealn
@@ -194,18 +195,18 @@ where $C>0$ does not depend on $\nu$. The problem~\eqref{vf1dcase} is well-posed
 \begin{proof}
 	The boundedness of $a$ is obvious using the continuous embedding in dimension
 	one  $H^1(\Omega)\subset C^0(\overline \Omega)$. Let us focus on the proof of coercivity. 
-	Without loss of generality let us assume that $\nu>0$. \mrev{Given $\heps$ the spectral radius of $\underline{\varepsilon}^{0}$, 
+	\mrev{Given $\heps$ the spectral radius of $\underline{\varepsilon}^{0}$, 
 	$\heps \mathrm{Id}- \underline{\varepsilon}^{0} $ is a non-negative hermitian matrix.}
 	Therefore
 	\be 
 	a_1(\ubf,\ubf) + \heps\|\ubf\|^2_{L^2}= \|u_2' - i \theta u_1 \|^2_{L^2} + \left( (\heps \mathrm{Id} - \underline{\varepsilon}^{0} ) \ubf, \overline{\ubf} \right)  \geq \|u_2 ' - i \theta u_1 \|_{L^ 2}^ 2
-	\geq \frac12 \|u_2 '  \|_{L^ 2}^ 2 -
-	\theta ^2 \| u_1 \|_{L^ 2}^ 2.
+	\geq \frac12 \|u_2 '  \|_{L^2}^ 2 -
+	\theta ^2 \| u_1 \|_{L^2}^ 2.
 	\ee
 	Thus one can write
 	$
 	a_1(\ubf,\ubf)  \geq \frac{1}{2}\|u_2'\|^2_{L^2}-  (\heps  +  \theta^2) \| \ubf \|_{L^2}^2$.
-	One also has that
+	One also has that, \mrev{for $\lambda \geq 0$},
 	$
 	a_2 (\ubf ,\ubf) \leq -\nu \| \ubf \|_{L^2}^2$. 
 	Therefore
@@ -217,9 +218,18 @@ where $C>0$ does not depend on $\nu$. The problem~\eqref{vf1dcase} is well-posed
 	\Re\left(\mathrm{e}^{i\beta_{\nu}}a(\ubf,\ubf)\right)\geq 
 	\frac{1}{\sqrt{1+\left(\heps+\theta^2+1\right)^2\nu^{-2}}} \left(\frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2\right)\\
 	\geq \frac{\nu}{\sqrt{(\heps+\theta^2+1)^2+\nu^2}}\left(\frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2\right).
-	\een
+	\een	
 	The problem \eqref{vf1dcase} is uniquely solvable thanks to Lax-Milgram theorem.
 \end{proof}
+\begin{remark}
+\mrev{Note that in the case $\lambda=0$, one can show that the problem is well-posed for all $\nu\neq 0$, since $a_2(\ubf,\ubf)=-\nu\|\ubf\|_{L^2}^2$ and 
+thus in the above proof
+\begin{align*}
+a_1(\ubf,\ubf)-\frac{\heps  +  \theta^2 + 1 }\nu a_2(\ubf,\ubf)=\left(a_1(\ubf,\ubf)+(\heps  +  \theta^2)\|\ubf\|_{L^2}^2\right)+\|\ubf\|_{L^2}^2.
+\end{align*}
+Similarly, in the case $\lambda<0$, it is possible to demonstrate the well-posedness of the problem for $\nu<0$. 
+}
+\end{remark}
 \begin{remark} 
 \label{remark:other}
 The above proof is not optimal in the case when $\left|\alpha(x)\right|>c>0$ for $c>0$ on the whole interval $[-L,\; H]$, at least 
@@ -282,7 +292,7 @@ an explicit expression for the tensor of the dielectric permittivity (\ref{eq:ep
  \text{ for all } \tilde E_x\in L^{2}(\Omega), \; \tilde{E}_{y}\in H^{1}(\Omega).
   \end{split}
 \end{align}
-\urev{Let us introduce two function spaces $V_{E_x}\subset L_{2}(\Omega)$ spanned by the basis function set $\{\psi_{j}\}_{j=1}^{N_{1}}$ and $V_{E_{y}}\subset H_{1}(\Omega)$ spanned by 
+\urev{Let us introduce two function spaces $V_{E_x}\subset L^{2}(\Omega)$ spanned by the basis function set $\{\psi_{j}\}_{j=1}^{N_{1}}$ and $V_{E_{y}}\subset H^{1}(\Omega)$ spanned by 
 the set $\{\phi_{i}\}_{i=1}^{N_{2}}$. }
 %We look for the solution of the problem (\ref{eq:var_form2}) in the form:
 We discretize problem (\ref{eq:var_form2}) as:
