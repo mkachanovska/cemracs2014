@@ -39,7 +39,7 @@ decays rapidly as $x\rightarrow \infty$. }
 \partial_{1}E_{y}(-L)+2iE_{y}(-L)=2i\Ai(-L)+\Ai'(-L),\qquad 
 \partial_{1}E_{y}(H)=0\approx \Ai'(H),
 \end{align}
-where $\Ai(x)$ is an Airy function, we ensure that $E_{y}$ that solves the above problem is well approximated by $\Ai(x)$, and $E_{x}$ by $-i\frac{\delta(x)}{\alpha(x)}\Ai(x)$. 
+we ensure that $E_{y}$ that solves the above problem is well approximated by $\Ai(x)$, and $E_{x}$ by $-i\frac{\delta(x)}{\alpha(x)}\Ai(x)$ (\urev{and hence both functions are smooth}). 
 The well-posedness of the respective variational formulation for $\nu=0$ is due to Remark \ref{remark:other}. }
 
 In Fig.~\ref{fig:conv_rate} we demonstrate the convergence rates for this problem, comparing the solution with the 
@@ -83,7 +83,7 @@ font=\small
     $E_{x}^{c}(x)=i\frac{\delta(x)}{\alpha(x)}\Ai(x)$.}}
     \label{fig:conv_rate}
 \end{figure}
-\subsubsection{Solution of a Frequency-Domain Problem with Resonance}
+\subsubsection{Solution of the Frequency-Domain Problem with Resonance}
 %\paragraph{Convergence}
 Let us consider the case of the resonance, more precisely, we choose sufficiently smooth
 $\alpha,\delta$, s.t. $\alpha(0)=0$ and $\delta(0)\neq 0$, and the solvability conditions 
@@ -234,7 +234,7 @@ The computed dependence of $h_{\epsilon}$ on $\nu$ is shown in Fig.~\ref{fig:dep
 \includegraphics[height=0.32\textwidth]{pics_frequency_domain/res_sol.pdf}
 \end{tabular}
 \caption{We consider the problem (\ref{eq:main_frequency_domain}) with the parameters 
-defined in Table \ref{tab:parameters}. In the left figure the dependence of $h_{\epsilon}$ as defined by (\ref{eq:def_epsilon}) on $\nu$ is demonstrated.  
+defined in Table \ref{tab:parameters}. In the left figure the \urev{dependence} of $h_{\epsilon}$ as defined by (\ref{eq:def_epsilon}) on $\nu$ is demonstrated.  
 In the right figure we show the computed solutions for this problem (\urev{for brevity denoted by $E_{x,y}^{\nu}$}) for different values of $\nu$. }
 \label{fig:dependence}
 \end{figure}

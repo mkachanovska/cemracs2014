@@ -75,7 +75,7 @@ Thus, applying the above process to (\ref{eq:main_model}) in the frequency domai
 \right). 
 \end{align*}
 \mrev{
-For brevity, from now on we will denote $\alpha_{\omega},\; \delta_{\omega}$ by $\alpha,\; \delta$ and consider a sequence of regularized problems. 
+For brevity, from now on we will denote $\frac{\omega^2}{c^2}\alpha_{\omega},\; \frac{\omega^2}{c^2}\delta_{\omega}$ by $\alpha,\; \delta$ and consider a sequence of regularized problems. 
 \begin{align}
 \label{eq:main_frequency_domain}
 \left(
@@ -146,7 +146,7 @@ the resulting one-dimensional system can be rewritten in the following variation
 Recall that here $\lambda\geq 0$. 
 %=\omega\geq 0$. 
 Let us remark that in this and further sections, where it is not ambiguous, we will use the notation $E_{x,y}$ instead of $\hat{E}_{x,y}$ for convenience. \mrev{Also, 
-by $\|u\|_{L^{2}}$ we will denote $\|u\|_{L^{2}(\Omega)}$, for $u\in L^2(\Omega)$, and $\|\ubf\|_{L^2(\Omega)}=\left(\|u_1\|^2_{L_2}+\|u_2\|^2_{L_2}\right)^{\frac{1}{2}}$, 
+by $\|u\|_{L^{2}}$ we will denote $\|u\|_{L^{2}(\Omega)}$, for $u\in L^2(\Omega)$, and $\|\ubf\|_{L^2(\Omega)}=\left(\|u_1\|^2_{L^2}+\|u_2\|^2_{L^2}\right)^{\frac{1}{2}}$, 
 for $\ubf=(u_1,\;u_2)\in \left(L^2(\Omega)\right)^2$.}
 
 The above can be reformulated as, \urev{for the unknown $\mathbf{E}$ and $\tilde{\mathbf{E}}$ a test function},
@@ -267,7 +267,7 @@ was demonstrated in \cite{LMIG_thesis}. Provided the solution $E_y\in H^{1}(\Ome
 %%%%%%%%%%%%%%%%%%%%
 \subsection{Discretization of the Frequency Domain Problem}
 \label{sec:discr}
-Testing the variational formulation (\ref{vf1dcase}) with $(\tilde E_x,0)$ and $(0,\; \tilde{E}_y)\in\mathbf{V}(\Omega)$ and using 
+Testing the variational formulation (\ref{vf1dcase}) with $(\tilde E_x,0)$ and $(0,\; \tilde{E}_y)\in\mathbf{V}$ and using 
 an explicit expression for the tensor of the dielectric permittivity (\ref{eq:epsilon_0}), we can rewrite it as a system of two equations
 %\begin{align*}
 %\begin{split}
@@ -284,16 +284,15 @@ an explicit expression for the tensor of the dielectric permittivity (\ref{eq:ep
 \label{eq:var_form2}
 \begin{split}
  i\theta \displaystyle \int_{-L}^H (E_y' -i\theta E_x)\overline{\tilde E_x} - 
- \int_{-L}^H \left((\alpha+i\nu)E_x-i\delta E_y\right)_{1} \overline{\tilde E}_{x}
+ \int_{-L}^H \left((\alpha+i\nu)E_x-i\delta E_y\right) \overline{\tilde E}_{x}
 &=0,\\
 \int_{-L}^H (E_y' -i\theta E_x)\tilde {E_y'} -
-\int_{-L}^H\left( i \delta E_x+(\alpha+i\nu) E_y\right)_{2}\overline{\tilde{E}}_{y}
+\int_{-L}^H\left( i \delta E_x+(\alpha+i\nu) E_y\right)\overline{\tilde{E}}_{y}
   - i \lambda E_y (-L) \overline{\tilde E_y (-L)} &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
  \text{ for all } \tilde E_x\in L^{2}(\Omega), \; \tilde{E}_{y}\in H^{1}(\Omega).
   \end{split}
 \end{align}
-\urev{Let us introduce two function spaces $V_{E_x}\subset L^{2}(\Omega)$ spanned by the basis function set $\{\psi_{j}\}_{j=1}^{N_{1}}$ and $V_{E_{y}}\subset H^{1}(\Omega)$ spanned by 
-the set $\{\phi_{i}\}_{i=1}^{N_{2}}$. }
+\urev{Let us introduce two function spaces $V_{E_x}\subset L^{2}(\Omega)$ spanned by a set of basis functions $\{\psi_{j}\}_{j=1}^{N_{1}}$ and $V_{E_{y}}\subset H^{1}(\Omega)$ spanned by $\{\phi_{i}\}_{i=1}^{N_{2}}$. }
 %We look for the solution of the problem (\ref{eq:var_form2}) in the form:
 We discretize problem (\ref{eq:var_form2}) as:
 \ben

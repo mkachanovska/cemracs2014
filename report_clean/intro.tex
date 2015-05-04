@@ -40,12 +40,12 @@ The unknowns are the electron velocity $\ubf$ and the electromagnetic field.
 The energy of this system in a domain $\Omega\in\mathbb R^2$ can be expressed as, see \cite{Despres_2014},
 \ben
 {\mathcal E}(t)= \int_\Omega \left(
-\frac{\epsilon_0 |\E(t,\mathbf{r})|^2}{2}+\frac{ |\B(t,\mathbf{r})|^2}{2\mu_0}+\frac{m_e|\J (t,\x)|^2}{2|e|N_e(\mathbf{r})} 
+\frac{\epsilon_0 |\E(t,\mathbf{r})|^2}{2}+\frac{ |\B(t,\mathbf{r})|^2}{2\mu_0}+\frac{m_e|\J (t,\mathbf{r})|^2}{2|e|N_e(\mathbf{r})} 
 \right)\mathrm{d}\mathbf{r},
 \een
 and
 \ben
-\frac{d}{dt}{\mathcal E}=-\nu\left(\|u_{x}\|_{L_{2}(\Omega)}^2+\|u_{y}\|_{L_{2}(\Omega)}^2\right)+\text{boundary terms}.
+\frac{d}{dt}{\mathcal E}=-\nu\left(\|u_{x}\|_{L^{2}(\Omega)}^2+\|u_{y}\|_{L^{2}(\Omega)}^2\right)+\text{boundary terms}.
 \een
 
 To illustrate unexpected difficulties that can occur in this system, let us rewrite it in the frequency domain. To do so, 
