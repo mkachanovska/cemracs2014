@@ -55,12 +55,12 @@ in time of (\ref{eq:main_system}) (with the convention $\partial_t\rightarrow -i
 particular case $\nu=0$:
 \begin{align}
 \label{eq:model_freq_domain}
- \mathbf{curl}{\operatorname{curl}}\hat{\mathbf{E}}-\frac{\omega^2}{c^2}\uuline{\varepsilon_{\omega}}^{0}(\mathbf{r})\hat{\mathbf{E}}=0,
+ \mathbf{curl}{\operatorname{curl}}\hat{\mathbf{E}}-\frac{\omega^2}{c^2}\uuline{\varepsilon_{\omega}^{0}}(\mathbf{r})\hat{\mathbf{E}}=0,
 \end{align}
 where the cold-plasma dielectric tensor \cite[Chapter 1-2]{Stix}
 \begin{align}
 \nonumber
-\uuline{\varepsilon_{\omega}}^{0}(\mathbf{r})=\left(
+\uuline{\varepsilon_{\omega}^{0}}(\mathbf{r})=\left(
  \begin{matrix}
   \alpha_{\omega}(\mathbf{r})& -i\delta_{\omega}(\mathbf{r})\\
   i\delta_{\omega}(\mathbf{r}) & \alpha_{\omega}(\mathbf{r})
@@ -70,12 +70,12 @@ where the cold-plasma dielectric tensor \cite[Chapter 1-2]{Stix}
 \alpha_{\omega}(\mathbf{r})=1-\frac{\omega_p^2(\mathbf{r})}{\omega^2-\omega_c^2(\mathbf{r})},\; \delta_{\omega}(\mathbf{r})=\frac{\omega_c(\mathbf{r})\omega_p^2(\mathbf{r})}{\omega(\omega^2-\omega_c^2(\mathbf{r}))}.
 \end{align}
 
-The point $\mathbf{r}_0$ s.t. $\omega_c(\mathbf{r}_0)=\omega$, i.e. when $\uuline{\varepsilon_{\omega}}^{0}(\mathbf{r}_0)$ is singular, is called a cyclotron resonance (c.f. \cite[Chapter 1-5]{Stix}). 
+The point $\mathbf{r}_0$ s.t. $\omega_c(\mathbf{r}_0)=\omega$, i.e. when $\uuline{\varepsilon_{\omega}^{0}}(\mathbf{r}_0)$ is singular, is called a cyclotron resonance (c.f. \cite[Chapter 1-5]{Stix}). 
 In \cite{singular_solutions} it was demonstrated for a 1D-counterpart of the above system that such points behave like removable singularities, 
 hence this case is not of interest for the present work. 
 
 Another interesting case is $\omega_p^2(\mathbf{r})+\omega_c^2(\mathbf{r})=\omega^2$ and $\omega_c(\mathbf{r})\omega_p^2(\mathbf{r})\neq 0$, i.e. when the diagonal part of the tensor 
-$\uuline{\varepsilon_{\omega}}^{0}(\mathbf{r})$ vanishes and the non-diagonal part remains non-zero. This is a hybrid resonance case. 
+$\uuline{\varepsilon_{\omega}^{0}}(\mathbf{r})$ vanishes and the non-diagonal part remains non-zero. This is a hybrid resonance case. 
 
 As shown in \cite{Despres_2014, singular_solutions}, for a 1D-counterpart of (\ref{eq:model_freq_domain}), in this case the time-harmonic electric field component $E_x$ is not necessarily square 
 integrable. This apparent paradox is of course the source of important numerical difficulties which are the subject of the present study. 
@@ -127,7 +127,7 @@ In the frequency domain (\ref{eq:main_model}) for $\nu=0$ is of the form
  i\theta \partial_x \hat{E}_x -\partial_x^2 \hat{E}_y
 \end{matrix}
 \right)-\frac{\omega^2}{c^2}
-\uuline{\varepsilon_{\omega}}^{0}(x)\left(
+\uuline{\varepsilon_{\omega}^{0}}(x)\left(
 \begin{matrix}
  \hat{E}_x\\
  \hat{E}_y
@@ -156,7 +156,7 @@ instead of the above problem we will study a sequence of the regularized problem
  i\theta \partial_x \hat{E}_x -\partial_x^2 \hat{E}_y
 \end{matrix}
 \right)-\frac{\omega^2}{c^2}
-\left(\uuline{\varepsilon_{\omega}}{0}(x)+i\nu \mathrm{Id}\right)\left(
+\left(\uuline{\varepsilon_{\omega}^{0}}(x)+i\nu \mathrm{Id}\right)\left(
 \begin{matrix}
  \hat{E}_x\\
  \hat{E}_y

@@ -24,7 +24,7 @@ is written in Fortran.
 To check the validity of the code, we first perform a numerical experiment with (formally chosen) parameters:
 \begin{align}
 \label{eq:parameters}
-\alpha(x)=x^2+1,\qquad \delta(x)=\left(\alpha^2+x\alpha\right)^{\frac{1}{2}}, \qquad \mrev{\nu=0, \qquad \theta=0.}
+\alpha(x)=x^2+1,\qquad \delta(x)=-\left(\alpha^2+x\alpha\right)^{\frac{1}{2}}, \qquad \mrev{\nu=0, \qquad \theta=0.}
 \end{align}
 \urev{It can be shown that $E_{y}$ that solves (\ref{eq:main_frequency_domain}) with the above parameters,  
 and $\nu=0$, satisfies the Airy equation, see also Remark \ref{remark:other},
@@ -80,7 +80,7 @@ font=\small
     \end{tikzpicture}
     \caption{Convergence rates for the \mrev{problem described in Section \ref{sec:airy_fd_validity} (the problem (\ref{eq:main_frequency_domain}) discretized as (\ref{eq:simple_system})} 
     with the parameters (\ref{eq:parameters}) and the \mrev{boundary condition (\ref{eq:bcs_airy}))}. \mrev{Here $E_{y}^{c}(x)=\Ai(x)$ and 
-    $E_{x}^{c}(x)=-i\frac{\delta(x)}{\alpha(x)}\Ai(x)$.}}
+    $E_{x}^{c}(x)=i\frac{\delta(x)}{\alpha(x)}\Ai(x)$.}}
     \label{fig:conv_rate}
 \end{figure}
 \subsubsection{Solution of a Frequency-Domain Problem with Resonance}
@@ -117,7 +117,7 @@ The last inequality follows from Lemma \ref{lemma:well_posedness} and is valid f
 \item The form of the exact solution to the problem (\ref{vf1dcase}), see \cite{Despres_2014},
 \begin{align}
 \label{eq:exact}
- E_x^{\nu}=-iE_{y}^{\nu}\frac{\delta}{\alpha+i\nu}=\frac{f^{\nu}(x)}{\alpha(x)+i\nu}, \; \text{for some }f^{\nu}(x)\in L^2(\Omega).
+ E_x^{\nu}=iE_{y}^{\nu}\frac{\delta}{\alpha+i\nu}=\frac{f^{\nu}(x)}{\alpha(x)+i\nu}, \; \text{for some }f^{\nu}(x)\in L^2(\Omega).
 \end{align}
 \item \mrev{An explicit bound on $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ based on the results of \cite{singular_solutions}. First of all, we
 will assume that the main contribution to $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ comes from the behaviour in the vicinity of the point of the resonance, where 
@@ -194,7 +194,7 @@ where $\alpha_{\epsilon}>0$ depends on $\epsilon$ but does not depend on $\nu$.
 This prediction is very severe and is due to the singular nature of the problem under consideration.
 
 Let us check numerically whether this holds true. 
-To do so, we conduct the  numerical experiment with parameters for the problem (\ref{eq:main_frequency_domain} as given in Table \ref{tab:parameters}.
+To do so, we conduct the  numerical experiment with parameters for the problem (\ref{eq:main_frequency_domain} as given in Table \ref{tab:parameters}. \mrev{Recall as well that we choose $\theta=0$. }
 \begin{table}[htb!]
 \begin{tabular}{l|l}
 Parameter & Value \\
@@ -207,8 +207,8 @@ $\alpha(x)$ & $\left\{\begin{array}{lr}
 $\delta(x)$ & 
 $\left\{\begin{array}{lr}
 0, & x\leq -10,\\
-4/30x+4/3,& -10<x\leq 5,\\
-2, & x>5.
+-4/30x-4/3,& -10<x\leq 5,\\
+-2, & x>5.
 \end{array}\right.$ \\
 $g^{inc}(-L)$ & $-2 \sqrt{2}i\exp(-22\sqrt{2}i)$\\
 $\lambda$ & 
@@ -219,7 +219,6 @@ $H$ & 10 \\
 \caption{The parameters for the problem with the resonance.}
 \label{tab:parameters}
 \end{table}
-\mrev{Recall that we choose $\theta=0$. }
 Denoting by \mrev{$E_{x}^{\nu,h}$ the solution $E_{x}(x)$} computed on the mesh with the \mrev{width $h$ with 
 the absorption $\nu$, and by $E_{x}^{\nu}$} the solution computed on a mesh multiple times finer (\arev{more precisely, the reference mesh
 was typically 10-20 times finer, with the exception when the computation was done for very small values of $h$ where twice finer meshes for comparison were used}), let 
