@@ -28,7 +28,7 @@ The model (\ref{eq:main_model}) can be rewritten in the frequency domain as
 \eealn
 where the frequency 
 $\omega_{\nu}=\omega+i\nu$ is shifted in the complex plane. \arev{Note that neither cyclotron, nor hybrid resonances occur in the problem 
-with the dielectric tensor $\varepsilon^{\nu}_{\omega}(\mathbf{r}), \; \nu>0$ (since all the parameters are real). Hence 
+with the dielectric tensor $\varepsilon^{\nu}_{\omega}(x), \; \nu>0$ (since all the parameters are real). Hence 
 the choice of the non-zero plasma friction $\nu>0$ can be viewed as a regularization of the problem. }
 
 \mrev{
@@ -38,7 +38,7 @@ The series expansion as $\nu\rightarrow 0$ gives at leading orders
  \delta^{\nu}_{\omega}=\delta_{\omega}-i\nu\frac{2\omega_c\omega_p^2}{(\omega^2-\omega_c^2)^2}=\delta_{\omega}+i\nu D_{\delta},
 \eealn
 where $\alpha_{\omega},\;\delta_{\omega}$ are defined by (\ref{eq:alpha_delta}). In the frequency domain one thus can consider 
-the following regularization of the cold plasma dielectric tensor of the above problem:
+the following regularization of the cold plasma dielectric tensor of the above problem, valid as $\nu\rightarrow 0$:
 \begin{align*}
 \uuline{\varepsilon_{\omega}^{\nu}}\approx \uuline{\varepsilon_{\omega}^{0}}+i\nu \left(
  \begin{matrix}
@@ -49,7 +49,7 @@ the following regularization of the cold plasma dielectric tensor of the above p
 \end{align*}
 However, as demonstrated in \cite{singular_solutions} for the 1D setting, a significantly simpler regularization (considered in \cite{Despres_2014})
 \ben
-\uuline{\varepsilon_{\omega}}^{\nu}(\mathbf{r})\approx \uuline{\varepsilon_{\omega}^{0}}(\mathbf{r})+i\nu \mathrm{Id}
+\uuline{\varepsilon_{\omega}^{\nu}}(x)\approx \uuline{\varepsilon_{\omega}^{0}}(x)+i\nu \mathrm{Id}
 \een
 yields the same solution as $\nu\rightarrow 0$. }
 Thus, applying the above process to (\ref{eq:main_model}) in the frequency domain, we obtain, see also \cite{Despres_2014},
@@ -84,7 +84,7 @@ For brevity, from now on we will denote $\frac{\omega^2}{c^2}\alpha_{\omega},\; 
  i\theta \partial_x \hat{E}_x -\partial_x^2 \hat{E}_y
 \end{matrix}
 \right)-
-\left(\uuline{\varepsilon^{0}}(x)+i\nu \mathrm{Id}\right)\left(
+\left(\uuline{\varepsilon}^{0}(x)+i\nu \mathrm{Id}\right)\left(
 \begin{matrix}
  \hat{E}_x\\
  \hat{E}_y
@@ -92,7 +92,7 @@ For brevity, from now on we will denote $\frac{\omega^2}{c^2}\alpha_{\omega},\; 
 \right)
 =0,\\
 \label{eq:epsilon_0}
-\uuline{\varepsilon^{0}}(x)=\left(
+\uuline{\varepsilon}^{0}(x)=\left(
 \begin{matrix}
  \alpha(x) & -i\delta(x) \\
  i\delta(x) & \alpha(x)
@@ -126,7 +126,7 @@ corresponding limiting solutions differ, though both exhibit the singularity in 
 %In order to reduce problem \eqref{eq:main_frequency_domain} to one dimension, perform a Fourier transform in the $y$ variable, 
 %denoting by $\theta$ the corresponding Fourier variable. 
 \mrev{In this section we study the well-posedness of the problem (\ref{eq:main_frequency_domain}) with the 
- boundary conditions (\ref{eq:boundary_conditions_frequency_domain}) with the help of Lax-Milgram lemma.} 
+ boundary conditions (\ref{eq:boundary_conditions_intro}) with the help of Lax-Milgram lemma.} 
 After introducing $\Omega=(-L,\; H)\subset \mathbb R$ and defining the function space of the problem  $\mathbf{V}=L^{2}(\Omega)\times H^{1}(\Omega)$, 
 equipped with the norm
 \ben
@@ -136,7 +136,7 @@ the resulting one-dimensional system can be rewritten in the following variation
 \begin{align}
 \label{vf1dcase}
 \begin{array}{l}
-\displaystyle \int_{-L}^H (E_y' -i\theta E_x)\overline{(\tilde E_y' -\urev{i} \theta \tilde E_x)} - \int_{-L}^H (\uuline{\varepsilon^{0}} +i\nu \mathrm{Id}) \E \cdot \overline{\tilde \E}
+\displaystyle \int_{-L}^H (E_y' -i\theta E_x)\overline{(\tilde E_y' -\urev{i} \theta \tilde E_x)} - \int_{-L}^H (\uuline{\varepsilon}^{0} +i\nu \mathrm{Id}) \E \cdot \overline{\tilde \E}
 %\\ \displaystyle 
  - i \lambda E_y (-L)\overline{ \tilde E_y (-L)} = -g_{inc} (-L) \overline{( \tilde E_y(-L) )},
 \end{array}\\
@@ -150,24 +150,24 @@ by $\|u\|_{L^{2}}$ we will denote $\|u\|_{L^{2}(\Omega)}$, for $u\in L^2(\Omega)
 for $\ubf=(u_1,\;u_2)\in \left(L^2(\Omega)\right)^2$.}
 
 The above can be reformulated as, \urev{for the unknown $\mathbf{E}$ and $\tilde{\mathbf{E}}$ a test function},
-\be
+\ben
 a\left(\mathbf{E},\tilde{\mathbf{E}}\right)=l(\tilde{\mathbf{E}}), \; \text{ for all }\tilde{\mathbf{E}}\in \mathbf{V},
-\ee
+\een
 with a bilinear form $a$ and a linear form $l$, \urev{defined for $\mathbf{u},\; \mathbf{v}\in \mathbf{V}$}:
-\be
+\ben
 a(\ubf,\vbf) = a_1 (\ubf,\vbf) +i a_2(\ubf,\vbf)\  \text{ and } \  l(\vbf) = -g_{inc} (-L) \overline{(v_2(-L) )} 
-\ee
+\een
 where $a_1= a_1^*$ and $a_2=a_2^*$ are hermitian
-\be
+\ben
 \left\{\begin{array}{l}
-	a_1(\ubf,\vbf) = \int_{-L}^H (u_2' -i\theta u_1)\overline{(v_2' -i \theta v_1)} - \int_{-L}^H \uuline{\varepsilon^{0}} \ubf\cdot \overline{\vbf}, 
+	a_1(\ubf,\vbf) = \int_{-L}^H (u_2' -i\theta u_1)\overline{(v_2' -i \theta v_1)} - \int_{-L}^H \uuline{\varepsilon}^{0} \ubf\cdot \overline{\vbf}, 
 	\\ a_2(\ubf,\vbf) = -\nu \int_{-L}^H  \ubf\cdot \overline{\vbf} - \lambda u_2 (-L) \overline{v_2 (-L)} , 
 \end{array}\right.
-\ee
+\een
 
 
 \urev{
-Let us denote the spectral radius of $\uuline{\varepsilon}^{0}$ by $\heps =  \|\rho(\uuline{\varepsilon^{0}})\|_{L^{\infty}(\Omega)}$. 
+Let us denote the spectral radius of $\uuline{\varepsilon}^{0}$ by $\heps =  \|\rho(\uuline{\varepsilon}^{0})\|_{L^{\infty}(\Omega)}$. 
 By Assumption \ref{assumption:smooth}, the spectral radius $\heps=\max\left(\|\alpha+\delta^2\|_{L^{\infty}(\Omega)}, \|\alpha-\delta^2\|_{L^{\infty}(\Omega)}\right)$ 
 is bounded.}
 %\end{df}
@@ -198,11 +198,11 @@ where $C>0$ does not depend on $\nu$. The problem~\eqref{vf1dcase} is well-posed
 	\mrev{Given $\heps$ the spectral radius of $\uuline{\varepsilon}^{0}$, 
 	$\heps \mathrm{Id}- \uuline{\varepsilon}^{0} $ is a non-negative hermitian matrix.}
 	Therefore
-	\be 
-	a_1(\ubf,\ubf) + \heps\|\ubf\|^2_{L^2}= \|u_2' - i \theta u_1 \|^2_{L^2} + \left( (\heps \mathrm{Id} - \uuline{\varepsilon^{0}} ) \ubf, \overline{\ubf} \right)  \geq \|u_2 ' - i \theta u_1 \|_{L^ 2}^ 2
+	\ben
+	a_1(\ubf,\ubf) + \heps\|\ubf\|^2_{L^2}= \|u_2' - i \theta u_1 \|^2_{L^2} + \left( (\heps \mathrm{Id} - \uuline{\varepsilon}^{0} ) \ubf, \overline{\ubf} \right)  \geq \|u_2 ' - i \theta u_1 \|_{L^ 2}^ 2
 	\geq \frac12 \|u_2 '  \|_{L^2}^ 2 -
 	\theta ^2 \| u_1 \|_{L^2}^ 2.
-	\ee
+	\een
 	Thus one can write
 	$
 	a_1(\ubf,\ubf)  \geq \frac{1}{2}\|u_2'\|^2_{L^2}-  (\heps  +  \theta^2) \| \ubf \|_{L^2}^2$.

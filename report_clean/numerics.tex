@@ -1,7 +1,7 @@
 
 \section{Numerical Experiments}
 This section is organized as follows. The first part is dedicated to the numerical implementation
-of the frequency domain formulation \eqref{eq:main_frequency_domain}. We study the convergence of this formulation and the behaviour 
+of the frequency domain formulation \eqref{vf1dcase}. We study the convergence of this formulation and the behaviour 
 of the numerical solution as the absorption parameter $\nu$ tends to zero. The experiments in this section were 
 performed with the help of \urev{our} code written in Octave.  
 We implemented the scheme described in Section \ref{sec:discr} for a case of $P_{1}$-space used 
@@ -36,11 +36,11 @@ decays rapidly as $x\rightarrow \infty$. }
 \mrev{Hence, choosing $H$ sufficiently large (the actual value used in the experiments $H=10$, where $\left|\Ai'(10)\right|<1e-9$) and the boundary conditions as 
 \begin{align}
 \label{eq:bcs_airy}
-\partial_{1}E_{y}(-L)+2iE_{y}(-L)=2i\Ai(-L)+\Ai'(-L),\qquad 
-\partial_{1}E_{y}(H)=0\approx \Ai'(H),
+\partial_{x}E_{y}(-L)+2iE_{y}(-L)=2i\Ai(-L)+\Ai'(-L),\qquad 
+\partial_{x}E_{y}(H)=0\approx \Ai'(H),
 \end{align}
 we ensure that $E_{y}$ that solves the above problem is well approximated by $\Ai(x)$, and $E_{x}$ by $-i\frac{\delta(x)}{\alpha(x)}\Ai(x)$ (\urev{and hence both functions are smooth}). 
-The well-posedness of the respective variational formulation for $\nu=0$ is due to Remark \ref{remark:other}. }
+The well-posedness of the respective variational formulation is due to Remark \ref{remark:other}. }
 
 In Fig.~\ref{fig:conv_rate} we demonstrate the convergence rates for this problem, comparing the solution with the 
 known analytic solution. 
@@ -124,7 +124,7 @@ will assume that the main contribution to $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}
 the following expansion is valid \cite[Proposition 1]{singular_solutions}
 \begin{align*}
 E_{y}^{\nu}(x)=\tilde{E}_{y}^{\nu}(x)+S_{\nu}(x), \\
-\tilde{E}_{y}^{\nu}(x)=\log\rho_{\nu}(x-X_{\nu})(\alpha(x)+i\nu)p_{\nu}(x),
+\tilde{E}_{y}^{\nu}(x)=(\alpha(x)+i\nu)p_{\nu}(x)\log\rho_{\nu}(x-X_{\nu})=(-x+i\nu)p_{\nu}(x)\log\rho_{\nu}(x-X_{\nu}),
 \end{align*}
 where $\rho_{\nu}$ is a smooth function s.t. $\rho_{\nu}(0)=0,\; \rho_{\nu}'(0)\neq 0$, the point $X_{\nu}\approx i\nu c+O(\nu^2)$, for some $c\in\mathbb{R}$, 
 and $p_{\nu}(x),\; S_{\nu}(x)$ are smooth functions, which, together with their derivatives, are bounded independently of $\nu$.}
@@ -148,18 +148,21 @@ The estimate (\ref{eq:cea}) combined with (\ref{eq:interp}) results in, for some
 First of all let us examine the behaviour the derivatives of $E_{y}^{\nu}$ in the vicinity of the resonance:
 \begin{align}
 \label{eq:eynuprime}
- \left(\tilde{E}_{y}^{\nu}\right)'&=\frac{\alpha(x)+i\nu}{\rho_{\nu}(x-X_{\nu})}p_{\nu}(x)+\alpha'\log\rho_{\nu}(x-X_{\nu})p_{\nu}(x)+p'_{\nu}(x)(\alpha+i\nu)\log\rho_{\nu}(x-X_{\nu}).
+ \left(\tilde{E}_{y}^{\nu}\right)'&=\frac{-x+i\nu}{\rho_{\nu}(x-X_{\nu})}p_{\nu}(x)-\log\rho_{\nu}(x-X_{\nu})p_{\nu}(x)+p'_{\nu}(x)(-x+i\nu)\log\rho_{\nu}(x-X_{\nu}).
 \end{align}
-The first term in the above expression is well-defined in $x=0$, even for $\nu=0$ (the limit can be obtained with the help of the L'Hopital's rule), and is uniformly bounded in $\nu$, together with its derivatives. The same holds for the third term. To examine the behaviour of $\left(\tilde{E}_{y}^{\nu}\right)''$, we study solely the singular second term of (\ref{eq:eynuprime})
+The first term in the above expression is well-defined in $x=0$, even for $\nu=0$ (the limit can be obtained with the help of the L'Hopital's rule 
+and recalling that $\rho_{\nu}=O(x-X_{\nu})$ in the vicinity of the resonance), and is uniformly bounded in $\nu$, together with its derivatives. 
+The same holds for the third term. To examine the behaviour of $\left(\tilde{E}_{y}^{\nu}\right)''$, 
+we study solely the singular second term of (\ref{eq:eynuprime})
 \begin{align*}
- \left(\alpha'\log\rho_{\nu}(x-X_{\nu})p_{\nu}\right)'=\alpha''\log\rho_{\nu}(x-X_{\nu})p_{\nu}+\frac{\alpha'p_{\nu}}{\rho_{\nu}(x-X_{\nu})}\rho'_{\nu}(x-X_{\nu})+
- \alpha'\log\rho_{\nu}(x-X_{\nu})p_{\nu}'.
+ \left(\log\rho_{\nu}(x-X_{\nu})p_{\nu}\right)'=\frac{p_{\nu}}{\rho_{\nu}(x-X_{\nu})}\rho'_{\nu}(x-X_{\nu})+\log\rho_{\nu}(x-X_{\nu})p_{\nu}'.
 \end{align*}
-The most singular term in the above expression is $\frac{\alpha'p_{\nu}}{\rho_{\nu}(x-X_{\nu})}\rho'_{\nu}(x-X_{\nu})$ which can be bounded, for sufficiently small $x$, by 
+The most singular term in the above expression is $\frac{p_{\nu}}{\rho_{\nu}(x-X_{\nu})}\rho'_{\nu}(x-X_{\nu})$ which can be bounded, for all sufficiently small $x$, by 
 \begin{align*}
- \left|\frac{\alpha'p_{\nu}}{\rho_{\nu}(x-X_{\nu})}\rho'_{\nu}(x-X_{\nu})\right|\leq \frac{C}{|x-i\nu c|},\; C>0,
+ \left|\frac{p_{\nu}\rho'_{\nu}(x-X_{\nu})}{\rho_{\nu}(x-X_{\nu})}\right|\leq \frac{C}{|x-i\nu c|},\; C>0,
 \end{align*}
-where we used an explicit form of $\rho_{\nu}=G(x-X_{\nu})+O((x-X_{\nu})^2),$ valid for sufficiently small $\nu$ and $|x|$, and $X_{\nu}$. 
+where we used an explicit form of $\rho_{\nu}=G(x-X_{\nu})+O((x-X_{\nu})^2), G\in\mathbb{R},$ valid for sufficiently small $\nu$ and $|x|$, as well as 
+the expansion $X_{\nu}=ic\nu+O(\nu^2)$. 
 
 Therefore, assuming that the main contribution to $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ comes from the vicinity of the resonance, where for $\nu=0$ this function is singular, 
 we obtain the following rough bound
@@ -176,7 +179,7 @@ Let us now derive a similar bound on the second derivative of $E_{x}^{\nu}$:
 \een
 from which, together with (\ref{eq:cond}, \ref{eq:eynuprime}, \ref{eq:exact}), it follows that there exists $c>0$ s.t. for all sufficiently small $\nu$ 
 \bealn
- \left|\frac{d^2}{dx^2}E_x^{\nu}\right|_{L^2}^{2}&\leq c\int\limits_{\Omega}\frac{1}{(x^2+\nu^2)^{3}}dx
+ \left|\frac{d^2E_x^{\nu}{dx^2}}\right|_{L^2}^{2}&\leq c\int\limits_{\Omega}\frac{1}{(x^2+\nu^2)^{3}}dx
  % &=c\left.
  %\left(\frac{x}{4(x^2+\nu^2)^2}\nu^{-2}+\frac{3x}{8(x^2+\nu^2)}\nu^{-4}+\frac{3}{8}\nu^{-5}\operatorname{atan}\frac{x}{\nu}\right)\right|_{-L}^{H}
  \leq C\nu^{-5},\; 
@@ -221,7 +224,7 @@ $H$ & 10 \\
 \end{table}
 Denoting by \mrev{$E_{x}^{\nu,h}$ the solution $E_{x}(x)$} computed on the mesh with the \mrev{width $h$ with 
 the absorption $\nu$, and by $E_{x}^{\nu}$} the solution computed on a mesh multiple times finer (\arev{more precisely, the reference mesh
-was typically 10-20 times finer, with the exception when the computation was done for very small values of $h$ where twice finer meshes for comparison were used}), let 
+was typically 10-20 times finer, with the exception when the computation was done for very small values of $h$ where for comparison twice finer meshes were used}), let 
 \begin{align}
 \label{eq:def_epsilon}
 h_{\epsilon}=\sup\{h: \|E_{x}^{\nu,h'}-E_{x}^{\nu}\|<\epsilon \text{ for all } h'<h\}.
