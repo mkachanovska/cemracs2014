@@ -6,7 +6,7 @@
 \usepackage{pgfplots}
 \usepackage{ulem}
 \usepackage{pifont}% http://ctan.org/pkg/pifont
-\pgfplotsset{compat=1.10}
+\pgfplotsset{compat=newest}
 \usepackage{hyperref}
 
 \begin{document}
@@ -21,17 +21,19 @@
   xlabel={$x$},
   enlarge x limits=false,
   x tick label style={/pgf/number format/fixed, /pgf/number format/precision=4},
+  ymax=0.8,
+  xmin=-0.45,
   ylabel={$E_y^{\nu}(x,t_c)$},
   legend style={draw=none, fill=white, font=\small}
    ]
- \addplot[color=blue, line width=1] file{airy/td_nu_0.01_dt0.05_t28525.dat};
-  \addlegendentry{$E_y^{\nu}(x,t_c),\; t_c=28525, \; \nu=10^{-2}$};
-  \addplot[color=red, mark=*, dashed, mark size=0.6] file{airy/fd_nu_0.01_dt0.05_t28525.dat};
-  \addlegendentry{$\Im\left(\hat{E}_y^{\nu}(x)\mathrm{e}^{it_c}\right),\; t_c=28525, \; \nu=10^{-2}$};
-  \addplot[color=blue, dashed] file{airy/sol_1e2_dt0.05_td_t_28509.9.dat};
-  \addlegendentry{$E_y^{\nu}(x,t_c),\; t_c=28509.9, \; \nu=10^{-2}$};
-  \addplot[color=red] file{airy/sol_1e2_dt0.05_fd_t_28509.9.dat};
-  \addlegendentry{$\Im\left(\hat{E}_y^{\nu}(x)\mathrm{e}^{it_c}\right),\; t_c=28509.9, \; \nu=10^{-2}$};
+ \addplot[color=blue, line width=1] file{airy/ey_td_nu1e2_t_29730.dat};
+  \addlegendentry{$E_y^{\nu}(x,t_c),\; t_c=29730, \; \nu=10^{-2}$};
+  \addplot[color=red, mark=*, dashed, mark size=0.6] file{airy/ey_fd_nu1e2_t_29730.dat};
+ \addlegendentry{$\Im\left(\hat{E}_y^{\nu}(x)\mathrm{e}^{-it_c}\right),\; t_c=29730, \; \nu=10^{-2}$};
+  \addplot[color=blue, mark=*, dashed, mark size=0.6] file{airy/ey_td_nu1e2_t_29960.dat};
+  \addlegendentry{$E_y^{\nu}(x,t_c),\; t_c=29960, \; \nu=10^{-2}$};
+  \addplot[color=red] file{airy/ey_fd_nu1e2_t_29960.dat};
+  \addlegendentry{$\Im\left(\hat{E}_y^{\nu}(x)\mathrm{e}^{-it_c}\right),\; t_c=29960, \; \nu=10^{-2}$};
   \end{axis}
 \end{tikzpicture}
 \end{figure}

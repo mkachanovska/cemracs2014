@@ -6,7 +6,7 @@
 \usepackage{pgfplots}
 \usepackage{ulem}
 \usepackage{pifont}% http://ctan.org/pkg/pifont
-\pgfplotsset{compat=1.10}
+\pgfplotsset{compat=newest}
 \usepackage{hyperref}
 
 \begin{document}
@@ -21,8 +21,10 @@
    xlabel={$t$},
   enlarge x limits=false,
   ymax=0.6,
-  xtick={1.9198e6, 1.91999e6},
-  x tick label style={/pgf/number format/fixed, /pgf/number format/precision=4},
+  xmin=1.91981e6,
+  xtick={1.91981e6, 1.91999e6},
+  %extra x ticks={1.91981e6},
+  x tick label style={/pgf/number format/fixed, /pgf/number format/fixed zerofill, /pgf/number format/precision=6},
   ylabel={$E_y^{\nu}(x_c,t)$},
   legend style={draw=none, fill=white, font=\small}
    ]

@@ -21,8 +21,8 @@
    xlabel={$t$},
   enlarge x limits=false,
   ymax=0.5,
-  xmin=2.97e4,
-  xtick={2.97e4,2.98e4,2.99e4,3e4},
+ % xmin=2.97e4,
+ % xtick={2.97e4,2.98e4,2.99e4,3e4},
   x tick label style={/pgf/number format/fixed, /pgf/number format/precision=4},
   ylabel={$E_y^{\nu}(x_c,t)$},
   legend style={draw=none, fill=white, font=\tiny}
@@ -30,7 +30,7 @@
  \addplot[color=blue] file{airy/sol_1e2_dt0.05_timedomain.dat};
   \addlegendentry{$E_y^{\nu}(x_c,t),\; x_c=0.45, \; \nu=10^{-2}$};
   \addplot[color=red, mark=*, dashed, mark size=0.6] file{airy/sol_1e2_dt0.05_freqdomain.dat};
-  \addlegendentry{$\Im\left(\hat{E}_y^{\nu}(x_c)\mathrm{e}^{it}\right),\; x_c=0.45, \; \nu=10^{-2}$};
+  \addlegendentry{$\Im\left(\hat{E}_y^{\nu}(x_c)\mathrm{e}^{-it}\right),\; x_c=0.45, \; \nu=10^{-2}$};
   \end{axis}
 \end{tikzpicture}
 \end{figure}
