@@ -40,12 +40,12 @@ The unknowns are the electron velocity $\ubf$ and the electromagnetic field.
 The energy of this system in a domain $\Omega\in\mathbb R^2$ can be expressed as, see \cite{Despres_2014},
 \ben
 {\mathcal E}(t)= \int_\Omega \left(
-\frac{\epsilon_0 |\E(t,\mathbf{r})|^2}{2}+\frac{ |\B(t,\mathbf{r})|^2}{2\mu_0}+\frac{m_e|\J (t,\x)|^2}{2|e|N_e(\mathbf{r})} 
+\frac{\epsilon_0 |\E(t,\mathbf{r})|^2}{2}+\frac{ |\B(t,\mathbf{r})|^2}{2\mu_0}+\frac{m_e|\J (t,\mathbf{r})|^2}{2|e|N_e(\mathbf{r})} 
 \right)\mathrm{d}\mathbf{r},
 \een
 and
 \ben
-\frac{d}{dt}{\mathcal E}=-\nu\left(\|u_{x}\|_{L_{2}(\Omega)}^2+\|u_{y}\|_{L_{2}(\Omega)}^2\right)+\text{boundary terms}.
+\frac{d}{dt}{\mathcal E}=-\nu\left(\|u_{x}\|_{L^{2}(\Omega)}^2+\|u_{y}\|_{L^{2}(\Omega)}^2\right)+\text{boundary terms}.
 \een
 
 To illustrate unexpected difficulties that can occur in this system, let us rewrite it in the frequency domain. To do so, 
@@ -78,7 +78,8 @@ Another interesting case is $\omega_p^2(\mathbf{r})+\omega_c^2(\mathbf{r})=\omeg
 $\uuline{\varepsilon_{\omega}^{0}}(\mathbf{r})$ vanishes and the non-diagonal part remains non-zero. This is a hybrid resonance case. 
 
 As shown in \cite{Despres_2014, singular_solutions}, for a 1D-counterpart of (\ref{eq:model_freq_domain}), in this case the time-harmonic electric field component $E_x$ is not necessarily square 
-integrable (for an illustrative example of such a system in one dimension see \cite{Despres_2014}). This apparent paradox is of course the source of important numerical difficulties which are the subject of the present study. 
+integrable (for a demonstration of this behaviour with the help of a simpler example, namely the Budden problem, see e.g. \cite{Despres_2014}). 
+This apparent paradox is of course the source of important numerical difficulties which are the subject of the present study. 
 
 
 Before proceeding, let us define the geometrical setting of the problem. We consider the frequency domain problem (\ref{eq:model_freq_domain}) posed in the domain $(-L,\;\infty)\times\mathbb{R},\; L>0$, with the 
@@ -93,9 +94,10 @@ $(-L,\; \infty)\times\mathbb{R}$ to $(-L,\; H)\times\mathbb{R},\; H>0,$ and set 
 
 In this article we concentrate on a simplified model (which nevertheless is of physical interest when modelling antennas in plasmas), 
 where it is required to study the above system under the assumption that the electron density $N_{e}$ and the magnetic field $B_0$ are \textbf{uniform} in the second coordinate, more precisely 
-$N_{e}=N_{e}(x)$ and $B_0=B_0(x)$, see e.g. \cite{Despres_2014}. Even this simplified case contains difficulties intrinsic to hybrid resonance \cite{Despres_2014, singular_solutions}. 
+$N_{e}=N_{e}(x)$ and $B_0=B_0(x)$, see e.g. \cite{Despres_2014}. 
+We additionally assume that $N_e>0$ on $[-L,\;H]$. Even this simplified case contains difficulties intrinsic to the hybrid resonance \cite{Despres_2014, singular_solutions}. 
 
-Under the aforementioned assumptions on $N_e$ and $B_0$, the one-dimensional model can be derived from (\ref{eq:main_system}) by performing the Fourier transform in $y$ ($\partial_y\rightarrow i\theta, \; \theta\in\mathbb{R}$). For a parameter $\theta$,
+Under the aforementioned assumptions on $N_e$ and $B_0$, the one-dimensional model can be derived from (\ref{eq:main_system}) by performing the Fourier transform in $y$ ($\partial_y\rightarrow i\theta, \; \theta\in\mathbb{R}$):
 \begin{equation}
  \label{eq:main_model}
 \begin{cases}
@@ -103,18 +105,19 @@ Under the aforementioned assumptions on $N_e$ and $B_0$, the one-dimensional mod
 \epsilon_0\partial_t E_{y}+\partial_x H_z=-eN_e u_y,\\
 \mu_0\partial_t H_z+\partial_x E_y-i\theta E_x =0,\\
 m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\\
-m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y
+m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y,
 \end{cases}
 \end{equation}
- posed in $(-L,\; H)$, for some $L,H>0$, with \mrev{the boundary conditions as in (\ref{eq:boundary_conditions_intro}),
+ posed in $(-L,\; H)$, for some $L,H>0$, with \mrev{the boundary conditions as in (\ref{eq:boundary_conditions_intro})
  \begin{align}
  \label{eq:boundary_conditions_frequency_domain}
  \begin{split}
-  \left.\left(\partial_x E_y -i\theta E_x-i\lambda E_y\right)\right|_{x=-L} =g_{inc}(t),\\
+  \left.\left(\partial_x E_y -i\theta E_x+i\lambda E_y\right)\right|_{x=-L} =g_{inc}(t),\\
   \left.\partial_xE_y\right|_{x=H}=0, 
   \end{split}
  \end{align}
 and the initial conditions for values $\left.E_{x}\right|_{t=0},\; \left.u_{x}\right|_{t=0},\; \left.E_{y}\right|_{t=0}, \; \left.u_{y}\right|_{t=0}, \; \left.H_z\right|_{t=0}$. }
+
 
 This is the time-domain model that will be considered in the rest of the article, unless stated otherwise. 
 
@@ -135,18 +138,18 @@ In the frequency domain (\ref{eq:main_model}) for $\nu=0$ is of the form
 \right)
 =0,
 \end{align}
-see (\ref{eq:alpha_delta}). Indeed, the coefficients $\alpha_{\omega},\;\delta_{\omega}$ depend solely on $x$ and $\omega$.  
+see (\ref{eq:alpha_delta}). Indeed, the coefficients $\alpha_{\omega},\;\delta_{\omega}$, see (\ref{eq:alpha_delta}), in this case depend solely on $x$ and $\omega$.  
 \arev{
 We concentrate on a physical situation of the hybrid resonance, which we define as in \cite{singular_solutions}.
 \begin{df}
 Let $\omega\in\mathbb{R}$ be fixed. 
 We will call a point $x_h\in \mathbb{R}$ a hybrid resonance if $\alpha_{\omega}$ has 
-a simple root in $x_h$ and has no other roots in an $\epsilon$-vicinity of this point $B_{\epsilon}(x_h)$, for some $\epsilon>0$, and 
-$\delta(x_h)\neq 0$. 
+a simple root in $x_h$ and has no other roots in an $\epsilon$-vicinity of this point $B_{\epsilon}(x_h)$, for some $\epsilon>0$, 
+and $\delta_{\omega}(x_h)\neq 0$.
 \end{df}
 }
 
-To investigate the behaviour of the solutions in the case when the hybrid resonance occurs in the sustem, 
+To investigate the behaviour of the solutions in the case when the hybrid resonance occurs in the system, 
 instead of the above problem we will study a sequence of the regularized problems, for $\nu\rightarrow 0$, 
 \begin{align}
 \label{eq:seq_regularized}
@@ -194,7 +197,7 @@ problem (\ref{eq:seq_regularized}), with a dielectric tensor \mrev{regularized
 with the help of a small parameter $\nu$}. 
 %linearized with respect to $\nu$.
 We prove the well-posedness of this problem for \mrev{$\nu\neq 0$} in Section~\ref{sec:wellposedness} and 
-demonstrate that the use of  (P1) finite elements allows to approximate the singularity 
+demonstrate that the use of  $P_1$ finite elements allows to approximate the singularity 
 of the solution fairly well (Section \ref{sec:freq_dep}). 
 }
 
@@ -207,12 +210,13 @@ We compare this result with
 $\hat{\mathbf{E}}\mathrm{e}^{\mrev{-i\omega} t}$, computed in the frequency domain, for $\nu\rightarrow 0$, which is equivalent to considering
 $\lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}\mathbf{E}(t)$.
 \urev{Such a comparison is a way to study the formal commutation relation between the limited absorption and the limiting amplitude principles. 
-In application to a non-resonant case of (\ref{eq:main_frequency_domain_intro}), equipped with boundary conditions, the limited absorption principle states that the solution of (\ref{eq:seq_regularized}) would coincide with the solution of (\ref{eq:main_frequency_domain_intro})
+In application to a non-resonant case of (\ref{eq:main_frequency_domain_intro}), equipped with boundary conditions, the limited absorption principle states that the solution of (\ref{eq:seq_regularized}) 
+would approach the solution of (\ref{eq:main_frequency_domain_intro})
 as $\nu\rightarrow 0$. Similarly, the limiting amplitude principle applied to the problem (\ref{eq:main_model}) 
 states that if the boundary conditions are chosen harmonic in time, e.g. $\left.\partial_x E_y\right|_{x=-L}=\mathrm{e}^{-i\omega_{*} t}$, then the solution of this problem $(\mathbf{E}(t),\;H(t))$ asymptotically ($t\rightarrow +\infty$)
-tends to a steady state of the form $ \left(\mathbf{E}(\omega_{*}),\; \hat{H}(\omega_{*})\right)\mathrm{e}^{-i\omega_{*} t}$, where 
+tends to a steady state of the form $ \left(\hat{\mathbf{E}}(\omega_{*}),\; \hat{H}(\omega_{*})\right)\mathrm{e}^{-i\omega_{*} t}$, where 
 $\left(\hat{\mathbf{E}}(\omega_{*}),\; \hat{H}(\omega_{*})\right)$ is the solution of (\ref{eq:main_model})
-in the frequency domain, with $\omega=\omega_{*}$ and the boundary condition $\left.\partial_x \hat{E}_y\right|_{x=-L}=1$. For more details see e.g. \cite{Morawetz, Eidus}. The commutation between the two principles then write as}
+in the frequency domain, with $\omega=\omega_{*}$ and the boundary condition $\left.\partial_x \hat{E}_y\right|_{x=-L}=1$. For more details see e.g. \cite{Morawetz, Eidus}. The commutation between the two principles then writes as}
 $$
 \lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}= \lim\limits_{t\rightarrow+\infty}\lim\limits_{\nu\rightarrow 0},
 $$

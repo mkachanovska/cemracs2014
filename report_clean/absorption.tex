@@ -22,8 +22,7 @@ and zero initial conditions, and in the frequency domain
 \bealn
  \left.\partial_x \hat{E}_y\right|_{x=-L}=G,\; \left.\partial_x \hat{E}_y\right|_{x=H}=0.
 \eealn
-We compute the solution $\mathbf{E}^{\nu}(t)$ for large $t$ in the time domain 
-(the solution computed numerically at the time step $n$ is denoted by $\mathbf{E}^{\nu}_{n}$), and the solution $\hat{\mathbf{E}}^{\nu}$ in the frequency domain. 
+We compute the solution $\mathbf{E}^{\nu}(t)$ for large $t$ in the time domain, and the solution $\hat{\mathbf{E}}^{\nu}$ in the frequency domain. 
 In the numerical experiments we check whether the following two quantities
 \ben
 \lim_{t\rightarrow+\infty}\mathbf{E}^{\nu}(t), \text{ and } \Im\left(\hat{\mathbf{E}}^{\nu}\exp(\mrev{-it})\right)
@@ -36,14 +35,14 @@ In all the experiments in this section the CFL number was chosen as 0.5.
 We choose the parameters so that in the frequency domain, for the limiting amplitude problem, $\hat{E}_{y}^{\nu},\; \nu=0,$ satisfies 
 the Airy equation, c.f. also Remark \ref{remark:other}. We set $\omega_c=0$ (thus $\delta(x)=0$), $\omega=1$ (hence $\alpha(x)=1-N_e(x)$), 
 choose the domain as $(-0.5, 10)$ and set the electron density $N_e(x)=1+x>0,\; x\in \Omega$. 
-\urev{Importantly, since $\delta(x)=0$, in this case no resonance occurs and $\hat{E}_x(x)\equiv 0$. This corresponds to the case when the
+\urev{Importantly, since $\delta(x)=0$, in this case no resonance occurs and $E(x,t)\equiv 0$. This corresponds to the case when the
 tensor of dielectric permittivity $\uuline{\varepsilon^{\nu}_{\omega}}$ is 
 diagonal.} 
 
 The boundary conditions in (\ref{eq:bcs}) are chosen as $G=Ai'(-0.5)$. 
 
 First we set $\nu=10^{-2}$. To demonstrate that the limiting amplitude principle indeed holds, we fix a point $x=x_c$ 
-inside the domain and plot the dependence of the solution $E_{y}^{\nu}(x_c,t), \; \Im\left(\hat{E}_y^{\nu}(x_c)\mathrm{e}^{\mrev{-it}}\right)$ 
+inside the domain and plot the dependence of the solution $E_{y}^{\nu}(x_c,t)$ 
 on time $t$ for a range of $t\gg 1$ in Fig.~\ref{fig:nu1e2_harmon}. We compare this solution to the computed $\Im\left(\hat{E}_y^{\nu}\mathrm{e}^{\mrev{-it}}\right)$, for
 fixed values of $t$. Both solutions appear to be in close agreement. 
 
@@ -58,7 +57,7 @@ In the right figure we show the solution \urev{to the same problem} for $\nu=10^
 
 
 \FloatBarrier
-Fig.~\ref{fig:nu1e4_harmon} (left) shows the solutions at a fixed point in space for $\nu=1e-4$. As previously, 
+Fig.~\ref{fig:nu1e4_harmon} (left) shows the solutions at a fixed point in space for $\nu=10^{-4}$. As previously, 
  we fix a point $x=x_c$ inside the domain and plot 
 the dependence of the solution $E_{y}^{\nu}(x_c,t)$ on time $t$ for a range of $t\gg 1$. 
 One of our observations was that for smaller $\nu$ one requires more time steps to achieve the limiting amplitude solution. 
