@@ -117,7 +117,7 @@ The last inequality follows from Lemma \ref{lemma:well_posedness} and is valid f
 \item The form of the exact solution to the problem (\ref{vf1dcase}), see \cite{Despres_2014},
 \begin{align}
 \label{eq:exact}
- E_x^{\nu}=iE_{y}^{\nu}\frac{\delta}{\alpha+i\nu}=\frac{f^{\nu}(x)}{\alpha(x)+i\nu}, \; \text{for some }f^{\nu}(x)\in L^2(\Omega).
+ E_x^{\nu}(x)=iE_{y}^{\nu}(x)\frac{\delta(x)}{\alpha(x)+i\nu}=\frac{f^{\nu}(x)}{\alpha(x)+i\nu}, \; \text{for some }f^{\nu}(x)\in L^2(\Omega).
 \end{align}
 \item \mrev{An explicit bound on $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ based on the results of \cite{singular_solutions}. First of all, we
 will assume that the main contribution to $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ comes from the behaviour in the vicinity of the point of the resonance, where 
@@ -145,26 +145,28 @@ The estimate (\ref{eq:cea}) combined with (\ref{eq:interp}) results in, for some
   \leq C\nu^{-1}h\|\left(E_y^{\nu}\right)''\|_{L^2}+C\nu^{-1}h^2\|\left(E_x^{\nu}\right)''\|_{L^2}.
 \end{align}
 \mrev{
-First of all let us examine the behaviour the derivatives of $E_{y}^{\nu}$ in the vicinity of the resonance:
+First of all let us examine the behaviour the derivatives of $E_{y}^{\nu}$ in the vicinity of the resonance, 
+in particular, the term $\tilde{E}_{y}^{\nu}$ which is singular for $\nu=0$ in the resonant point:
 \begin{align}
 \label{eq:eynuprime}
- \left(\tilde{E}_{y}^{\nu}\right)'&=\frac{-x+i\nu}{\rho_{\nu}(x-X_{\nu})}p_{\nu}(x)-\log\rho_{\nu}(x-X_{\nu})p_{\nu}(x)+p'_{\nu}(x)(-x+i\nu)\log\rho_{\nu}(x-X_{\nu}).
+ \left(\tilde{E}_{y}^{\nu}\right)'&=\frac{(-x+i\nu)\rho_{\nu}'(x-X_{\nu})}{\rho_{\nu}(x-X_{\nu})}p_{\nu}(x)-p_{\nu}(x)\log\rho_{\nu}(x-X_{\nu})+p'_{\nu}(x)(-x+i\nu)\log\rho_{\nu}(x-X_{\nu}).
 \end{align}
-The first term in the above expression is well-defined in $x=0$, even for $\nu=0$ (the limit can be obtained with the help of the L'Hopital's rule 
+The first term in the above expression is well-defined in $x=0$, even for $\nu=0$ (the limit can be obtained with the help of the L'Hôpital's rule 
 and recalling that $\rho_{\nu}=O(x-X_{\nu})$ in the vicinity of the resonance), and is uniformly bounded in $\nu$, together with its derivatives. 
 The same holds for the third term. To examine the behaviour of $\left(\tilde{E}_{y}^{\nu}\right)''$, 
 we study solely the singular second term of (\ref{eq:eynuprime})
 \begin{align*}
- \left(\log\rho_{\nu}(x-X_{\nu})p_{\nu}\right)'=\frac{p_{\nu}}{\rho_{\nu}(x-X_{\nu})}\rho'_{\nu}(x-X_{\nu})+\log\rho_{\nu}(x-X_{\nu})p_{\nu}'.
+ \left(p_{\nu}(x)\log\rho_{\nu}(x-X_{\nu})\right)'=\frac{p_{\nu}(x)\rho'_{\nu}(x-X_{\nu})}{\rho_{\nu}(x-X_{\nu})}+p_{\nu}'(x)\log\rho_{\nu}(x-X_{\nu}).
 \end{align*}
-The most singular term in the above expression is $\frac{p_{\nu}}{\rho_{\nu}(x-X_{\nu})}\rho'_{\nu}(x-X_{\nu})$ which can be bounded, for all sufficiently small $x$, by 
+The term $\frac{p_{\nu}(x)\rho'_{\nu}(x-X_{\nu})}{\rho_{\nu}(x-X_{\nu})}$ can be bounded, for all sufficiently small $|x|$, by 
 \begin{align*}
- \left|\frac{p_{\nu}\rho'_{\nu}(x-X_{\nu})}{\rho_{\nu}(x-X_{\nu})}\right|\leq \frac{C}{|x-i\nu c|},\; C>0,
+ \left|\frac{p_{\nu}(x)\rho'_{\nu}(x-X_{\nu})}{\rho_{\nu}(x-X_{\nu})}\right|\leq \frac{C}{|x-i\nu c|},\; C>0,
 \end{align*}
-where we used an explicit form of $\rho_{\nu}=G(x-X_{\nu})+O((x-X_{\nu})^2), G\in\mathbb{R},$ valid for sufficiently small $\nu$ and $|x|$, as well as 
-the expansion $X_{\nu}=ic\nu+O(\nu^2)$. 
+where we used an explicit form of $\rho_{\nu}=O(x-X_{\nu})$ valid for small $\nu$ and $|x|$, as well as 
+the expansion $X_{\nu}=ic\nu+O(\nu^2)$.  For sufficiently small $\nu$, the term $p_{\nu}'(x)\log\rho_{\nu}(x-X_{\nu})$ can be bounded by the above expression. 
 
-Therefore, assuming that the main contribution to $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ comes from the vicinity of the resonance, where for $\nu=0$ this function is singular, 
+Therefore, assuming that the main contribution to $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ comes from the vicinity of the resonance, 
+where for $\nu=0$ this function is singular, 
 we obtain the following rough bound
 \begin{align*}
  \|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}\leq G+G'\left(\int\limits_{-L}^{H}\frac{1}{|x+i\nu c|^2}dx\right)^{\frac{1}{2}}
