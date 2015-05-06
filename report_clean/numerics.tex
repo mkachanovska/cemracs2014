@@ -91,7 +91,7 @@ of Lemma \ref{lemma:well_posedness}  are satisfied.
 For simplicity, let us assume 
 \begin{align}
 \label{eq:cond}
- \alpha(x)=-x \text{  in some neighbourhood of $0$ }.
+ \mrev{\alpha(x)=-x+O(x^2) \text{  in some neighbourhood of $0$ }}.
 \end{align}
 \mrev{Let $h>0$ denote the meshwidth. }Given $\mathbf{V}_{h}=P_{h}^{1}\times P_{h}^{1}$, with $P_{h}^{1}$ consisting of piecewise-linear (hat) functions, 
 \mrev{and $E^{\nu}_{x},\;E^{\nu,h}_{x}$ being correspondingly the exact and the numerical solution, }
@@ -124,16 +124,17 @@ will assume that the main contribution to $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}
 the following expansion is valid \cite[Proposition 1]{singular_solutions}
 \begin{align*}
 E_{y}^{\nu}(x)=\tilde{E}_{y}^{\nu}(x)+S_{\nu}(x), \\
-\tilde{E}_{y}^{\nu}(x)=(\alpha(x)+i\nu)p_{\nu}(x)\log\rho_{\nu}(x-X_{\nu})=(-x+i\nu)p_{\nu}(x)\log\rho_{\nu}(x-X_{\nu}),
+\tilde{E}_{y}^{\nu}(x)=(\alpha(x)+i\nu)p_{\nu}(x)\log\rho_{\nu}(x-X_{\nu}).
 \end{align*}
-where $\rho_{\nu}$ is a smooth function s.t. $\rho_{\nu}(0)=0,\; \rho_{\nu}'(0)\neq 0$, the point $X_{\nu}\approx i\nu c+O(\nu^2)$, for some $c\in\mathbb{R}$, 
+Here $\rho_{\nu}$ is a smooth function s.t. $\rho_{\nu}(0)=0,\; \rho_{\nu}'(0)\neq 0$, i.e. $\rho_{\nu}=C_{\rho}(x-X_{\nu})+O\left((x-X_{\nu})^2\right), \; C_{\rho}\neq 0$, 
+the point $X_{\nu}\approx i\nu c+O(\nu^2)$, for some $c\in\mathbb{R},\; c\neq 0,$, 
 and $p_{\nu}(x),\; S_{\nu}(x)$ are smooth functions, which, together with their derivatives, are bounded independently of $\nu$.}
 \item The estimate from \cite[Chapter 0]{brenner} on the rate of convergence of the interpolation 
 \begin{align}
 \label{eq:interp}
 \begin{split}
- \|v-I^{h}v\|_{L^2}\leq Ch^2\left|v''\right|_{L^2},\; C>0,\\
- \|v-I^{h}v\|_{H^1}\leq Ch|v''|_{L^2},\; C>0, 
+ \|v-I^{h}v\|_{L^2}\leq C_1h^2\left|v''\right|_{L^2},\; C_1>0,\\
+ \|v-I^{h}v\|_{H^1}\leq C_2h|v''|_{L^2},\; C_2>0, 
  \end{split}
 \end{align}
 where $I^{h}v$ is an interpolation operator onto $P_{h}^{1}$. 
@@ -142,28 +143,30 @@ The estimate (\ref{eq:cea}) combined with (\ref{eq:interp}) results in, for some
 \begin{align}
   \label{eq:final_est}
   \|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L^2}%\leq C_1\nu^{-1}h\|\left(E_y^{\nu}\right)''\|_{L_{2}}+C_2\nu^{-1}h^2\|\left(E_x^{\nu}\right)''\|_{L_{2}}
-  \leq C\nu^{-1}h\|\left(E_y^{\nu}\right)''\|_{L^2}+C\nu^{-1}h^2\|\left(E_x^{\nu}\right)''\|_{L^2}.
+  \leq C\left(\nu^{-1}h\|\left(E_y^{\nu}\right)''\|_{L^2}+\nu^{-1}h^2\|\left(E_x^{\nu}\right)''\|_{L^2}\right).
 \end{align}
 \mrev{
 First of all let us examine the behaviour the derivatives of $E_{y}^{\nu}$ in the vicinity of the resonance, 
-in particular, the term $\tilde{E}_{y}^{\nu}$ which is singular for $\nu=0$ in the resonant point:
+in particular, the term $\tilde{E}_{y}^{\nu}$ which is singular for $\nu=0$ in the resonance:
 \begin{align}
 \label{eq:eynuprime}
- \left(\tilde{E}_{y}^{\nu}\right)'&=\frac{(-x+i\nu)\rho_{\nu}'(x-X_{\nu})}{\rho_{\nu}(x-X_{\nu})}p_{\nu}(x)-p_{\nu}(x)\log\rho_{\nu}(x-X_{\nu})+p'_{\nu}(x)(-x+i\nu)\log\rho_{\nu}(x-X_{\nu}).
+ \left(\tilde{E}_{y}^{\nu}\right)'&=\frac{(\alpha(x)+i\nu)\rho_{\nu}'(x-X_{\nu})}{\rho_{\nu}(x-X_{\nu})}p_{\nu}(x)+
+ \alpha'(x)p_{\nu}(x)\log\rho_{\nu}(x-X_{\nu})+p'_{\nu}(x)(\alpha(x)+i\nu)\log\rho_{\nu}(x-X_{\nu}).
 \end{align}
 The first term in the above expression is well-defined in $x=0$, even for $\nu=0$ (the limit can be obtained with the help of the L'Hôpital's rule 
-and recalling that $\rho_{\nu}=O(x-X_{\nu})$ in the vicinity of the resonance), and is uniformly bounded for sufficiently small $\nu$, together with its derivatives. 
+and recalling that $\rho_{\nu}=C_{\rho}(x-X_{\nu})+O((x-X_{\nu})^2)$ in the vicinity of the resonance), and is uniformly bounded for sufficiently small $\nu$, together with its derivatives. 
 The same holds for the third term. To examine the behaviour of $\left(\tilde{E}_{y}^{\nu}\right)''$, 
 we study solely the singular second term of (\ref{eq:eynuprime})
 \begin{align*}
- \left(p_{\nu}(x)\log\rho_{\nu}(x-X_{\nu})\right)'=\frac{p_{\nu}(x)\rho'_{\nu}(x-X_{\nu})}{\rho_{\nu}(x-X_{\nu})}+p_{\nu}'(x)\log\rho_{\nu}(x-X_{\nu}).
+ \left(\alpha'(x)p_{\nu}(x)\log\rho_{\nu}(x-X_{\nu})\right)'=\frac{\alpha'(x)p_{\nu}(x)\rho'_{\nu}(x-X_{\nu})}{\rho_{\nu}(x-X_{\nu})}+(\alpha'(x)p_{\nu}(x))'\log\rho_{\nu}(x-X_{\nu}).
 \end{align*}
-The term $\frac{p_{\nu}(x)\rho'_{\nu}(x-X_{\nu})}{\rho_{\nu}(x-X_{\nu})}$ can be bounded, for all sufficiently small $|x|$, by 
+The term $\frac{\alpha'(x)p_{\nu}(x)\rho'_{\nu}(x-X_{\nu})}{\rho_{\nu}(x-X_{\nu})}$ can be bounded, for all sufficiently small $|x|$, by 
 \begin{align*}
  \left|\frac{p_{\nu}(x)\rho'_{\nu}(x-X_{\nu})}{\rho_{\nu}(x-X_{\nu})}\right|\leq \frac{C}{|x-i\nu c|},\; C>0,
 \end{align*}
 where we used an explicit form of $\rho_{\nu}=O(x-X_{\nu})$ valid for small $\nu$ and $|x|$, as well as 
-the expansion $X_{\nu}=ic\nu+O(\nu^2)$.  For sufficiently small $\nu$, the term $p_{\nu}'(x)\log\rho_{\nu}(x-X_{\nu})$ can be bounded by the above expression. 
+the expansion $X_{\nu}=ic\nu+O(\nu^2)$.  For sufficiently small $\nu$, the term $(\alpha'(x)p_{\nu}(x))'\log\rho_{\nu}(x-X_{\nu})$ 
+can be bounded by the above expression. 
 
 Therefore, assuming that the main contribution to $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ comes from the vicinity of the resonance, 
 where for $\nu=0$ this function is singular, 
@@ -173,12 +176,13 @@ we obtain the following rough bound
  %\leq G+G'\left(\frac{1}{\nu c}\int\limits_{-\infty}^{\infty}\frac{dv}{v^2+1}\right)^{\frac{1}{2}}\\
  \leq \frac{C}{\sqrt{\nu}},\qquad G,G',C>0,
 \end{align*}
-for sufficiently small $\nu>0$.
+valid for sufficiently small $\nu>0$.
 }
 Let us now derive a similar bound on the second derivative of $E_{x}^{\nu}$:
-\ben
+\begin{align}
+\label{eq:ex_eq1}
  \frac{d^2}{dx^2}E_x^{\nu}=\frac{(f^{\nu})''}{\alpha+i\nu}-2\frac{(f^{\nu})'\alpha'}{(\alpha+i\nu)^2}+\frac{f^{\nu}\alpha''}{(\alpha+i\nu)^3},
-\een
+\end{align}
 from which, together with (\ref{eq:cond}, \ref{eq:eynuprime}, \ref{eq:exact}), it follows that there exists $c>0$ s.t. for all sufficiently small $\nu$ 
 \bealn
  \left|\frac{d^2E_x^{\nu}}{dx^2}\right|_{L^2}^{2}&\leq c\int\limits_{\Omega}\frac{1}{(x^2+\nu^2)^{3}}dx
@@ -196,10 +200,31 @@ From this it thus follows that to ensure (\ref{eq:problem1}) $h$ should be chose
  h=\alpha_{\epsilon}\nu^{\frac{7}{4}},
 \end{align}
 where $\alpha_{\epsilon}>0$ depends on $\epsilon$ but does not depend on $\nu$. 
-This prediction is very severe and is due to the singular nature of the problem under consideration.
+This prediction is very severe and is due to the singular nature of the problem under consideration. 
 
-Let us check numerically whether this holds true. 
-To do so, we conduct the  numerical experiment with parameters for the problem (\ref{eq:main_frequency_domain} as given in Table \ref{tab:parameters}. \mrev{Recall as well that we choose $\theta=0$. }
+\mrev{
+One can assume $\alpha(x)=-x$ in some interval around zero. In this case the above estimate can be improved. Due to $\alpha''(x)\equiv 0$, 
+the equation (\ref{eq:ex_eq1}) reads
+\begin{align*}
+ \frac{d^2}{dx^2}E_x^{\nu}=\frac{(f^{\nu})''}{\alpha+i\nu}-2\frac{(f^{\nu})'\alpha'}{(\alpha+i\nu)^2},
+\end{align*}
+which, in turn, for sufficiently small $\nu$, can be bounded as follows, see (\ref{eq:eynuprime}), (\ref{eq:exact}) and recall that $\rho_{\nu}=C_{\rho}(x-X_{\nu})+O((x-X_{\nu})^2)$ and $X_{\nu}=ic\nu+O(\nu^2)$, 
+\begin{align*}
+ \left| \frac{d^2}{dx^2}E_x^{\nu}\right|_{L^2}^{2}\leq C\int\limits_{\Omega}\frac{\left|\log\rho_{\nu}(x-X_{\nu})\right|^2}{(x^2+\nu^2)^{2}}dx,
+ \leq G\nu^{-3}\log^2\nu,\qquad C,G>0,
+\end{align*}
+and hence the estimate 
+\ben
+ \|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L^2}\leq C\nu^{-\frac{5}{2}}h^2\log\frac{1}{\nu}+C\nu^{-\frac{3}{2}}h
+\een
+holds true. From this it follows that $h=O\left(\nu^{\frac{3}{2}}\right)$ in this particular case.  
+
+}
+
+
+To check numerically whether this holds true we conduct the  numerical experiment with parameters for the problem (\ref{eq:main_frequency_domain}) as given in Table \ref{tab:parameters}. 
+Recall as well that we choose $\theta=0$. 
+
 \begin{table}[htb!]
 \begin{tabular}{l|l}
 Parameter & Value \\
@@ -224,8 +249,8 @@ $H$ & 10 \\
 \caption{The parameters for the problem with the resonance.}
 \label{tab:parameters}
 \end{table}
-Denoting by \mrev{$E_{x}^{\nu,h}$ the solution $E_{x}(x)$} computed on the mesh with the \mrev{width $h$ with 
-the absorption $\nu$, and by $E_{x}^{\nu}$} the solution computed on a mesh multiple times finer (\arev{more precisely, the reference mesh
+Denoting by \mrev{$E_{x}^{\nu,h}$ the solution} computed on the mesh with the \mrev{width $h$ with 
+the absorption $\nu$, and by $E_{x}^{\nu}$ the exact solution} (which in practice was approximated by the solution computed on a mesh multiple times finer, \arev{more precisely, the reference mesh
 was typically 10-20 times finer, with the exception when the computation was done for very small values of $h$ where for comparison twice finer meshes were used}), let 
 \begin{align}
 \label{eq:def_epsilon}
