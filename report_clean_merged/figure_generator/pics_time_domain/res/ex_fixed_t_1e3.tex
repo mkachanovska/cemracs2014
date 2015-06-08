@@ -1,0 +1,58 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,array}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{pgfplots}
+\usepackage{ulem}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\pgfplotsset{compat=1.10}
+\usepackage{hyperref}
+
+\begin{document}
+\pagenumbering{gobble}% Remove page numbers (and reset to 1)
+\clearpage
+\thispagestyle{empty}
+\begin{figure}
+\begin{tabular}{c}
+\begin{tikzpicture}
+ \begin{axis}[
+  width=\textwidth, 
+  height=0.5\textwidth,
+  xlabel={$x$},
+  ymax=0.6,
+  enlarge x limits=false,
+  x tick label style={/pgf/number format/fixed, /pgf/number format/precision=4},
+  ylabel={$E_x^{\nu}(x,t_c)$},
+  legend style={draw=none, fill=white, font=\small}
+   ]
+     \addplot[color=red, dashed] file{nu1e3/Ex_nu1e3_t_29765_FD.dat};
+  \addlegendentry{$\Im\left(\hat{E}_x^{\nu}(x)\mathrm{e}^{-it_c}\right),\; t_c=29765, \; \nu=10^{-3}$};
+ \addplot[color=blue] file{nu1e3/Ex_nu1e3_t_29765_TD.dat};
+  \addlegendentry{$E_x^{\nu}(x,t_c),\; t_c=29765, \; \nu=10^{-3}$};
+\end{axis}
+\end{tikzpicture}
+\\
+\begin{tikzpicture}
+ \begin{axis}[
+  width=\textwidth, 
+  height=0.5\textwidth,
+  xlabel={$x$},
+  ymax=0.6,
+  ymin=-2,
+  enlarge x limits=false,
+  x tick label style={/pgf/number format/fixed, /pgf/number format/precision=4},
+  ylabel={$E_x^{\nu}(x,t_c)$},
+  legend style={draw=none, fill=white, font=\small}, 
+  legend pos=south east
+   ]
+  \addplot[color=red, dashed] file{nu1e3/Ex_nu1e3_t_29800_FD.dat};
+  \addlegendentry{$\Im\left(\hat{E}_x^{\nu}(x)\mathrm{e}^{-it_c}\right),\; t_c=29800, \; \nu=10^{-3}$};
+  
+  \addplot[color=blue] file{nu1e3/Ex_nu1e3_t_29800_TD.dat};
+  \addlegendentry{$E_x^{\nu}(x,t_c),\; t_c=29800, \; \nu=10^{-3}$};
+  \end{axis}
+\end{tikzpicture}
+\end{tabular}
+\end{figure}
+\end{document}

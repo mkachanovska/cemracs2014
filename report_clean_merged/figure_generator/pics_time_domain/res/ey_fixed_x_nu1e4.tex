@@ -1,0 +1,43 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,array}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{pgfplots}
+\usepackage{ulem}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\pgfplotsset{compat=1.10}
+\usepackage{hyperref}
+
+\begin{document}
+\pagenumbering{gobble}% Remove page numbers (and reset to 1)
+\clearpage
+\thispagestyle{empty}
+\begin{figure}
+\begin{tikzpicture}
+ \begin{axis}[
+  width=1.2\textwidth, 
+  height=0.5\textwidth,
+   xlabel={$t$},
+  enlarge x limits=false,
+  ymax=0.5,
+  xmin=1.1988e5,
+  xtick={1.1988e5,1.1994e5,1.1999e5},
+  x tick label style={/pgf/number format/fixed, /pgf/number format/precision=4},
+  ylabel={$E_y^{\nu}(x_c,t)$},
+  legend style={draw=none, fill=white, font=\tiny}, 
+  legend columns=2
+   ]
+   \addplot[color=blue,each nth point=10] file{nu_1e4/e2_point1.25625.dat};
+  \addlegendentry{$E_y^{\nu}(x_c,t),\; x_c=1.25625, \; \nu=10^{-4}$};
+    \addplot[color=red, dashed, each nth point=10] file{nu_1e4/e2_fd_point1.25625.dat};
+  \addlegendentry{$\Im\left(\hat{E}_y^{\nu}(x_c)\mathrm{e}^{-it}\right),\; x_c=1.25625, \; \nu=10^{-4}$};
+
+   \addplot[color=green,each nth point=10] file{nu_1e4/e2_point2.5125.dat};
+  \addlegendentry{$E_y^{\nu}(x_c,t),\; x_c=-2.50625, \; \nu=10^{-4}$};
+      \addplot[color=black, dashed, each nth point=10] file{nu_1e4/e2_fd_point2.5125.dat};
+  \addlegendentry{$\Im\left(\hat{E}_y^{\nu}(x_c)\mathrm{e}^{-it}\right),\; x_c=-2.50625, \; \nu=10^{-4}$};
+  \end{axis}
+\end{tikzpicture}
+\end{figure}
+\end{document}

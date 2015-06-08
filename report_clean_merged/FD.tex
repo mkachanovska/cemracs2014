@@ -1,0 +1,382 @@
+\section{Frequency domain study}
+This section reviews the connection between the frequency domain counterpart of the problem (\ref{eq:main_model}) and 
+the regularized problem (\ref{eq:seq_regularized}). 
+
+Model (\ref{eq:main_model}) can be rewritten in the frequency domain as 
+\bealn
+\left(
+\begin{matrix}
+ i\theta \partial_x \widehat{E}_y+\theta^2 \widehat{E}_x\\
+ i\theta \partial_x \widehat{E}_x -\partial_x^2 \widehat{E}_y
+\end{matrix}
+\right)-\frac{\omega^2}{c^2}
+\uuline{\varepsilon_{\omega}^{\nu}}(x)\left(
+\begin{matrix}
+ \widehat{E}_x\\
+ \widehat{E}_y
+\end{matrix}
+\right)
+=0,\\
+\uuline{\varepsilon_{\omega}^{\nu}}(x)=\left(
+\begin{matrix}
+ \alpha^{\nu}_{\omega}(x) & -i\delta^{\nu}_{\omega}(x) \\
+ i\delta^{\nu}_{\omega}(x) & \alpha^{\nu}_{\omega}(x)
+\end{matrix}
+\right),\qquad 
+ \alpha^{\nu}_{\omega}(x)=1-\frac{\omega_{\nu}\omega_p^2(x)}{\omega(\omega_{\nu}^2-\omega_c^2(x))},\qquad 
+\delta^{\nu}_{\omega}(x)=\frac{\omega_c(\mathbf{r})\omega_p^2(x)}{\omega(\omega_{\nu}^2-\omega_c^2(x))},
+\eealn
+where the frequency 
+$\omega_{\nu}=\omega+i\nu$ is shifted in the complex plane. \arev{ %Notice that neither cyclotron, nor hybrid resonances occur in the problem 
+%with the dielectric tensor $\uuline{\varepsilon_{\omega}^{\nu}}(x), \; \nu>0$ (since all the problem parameters are real). Hence 
+%t
+The choice of the non-zero plasma friction $\nu>0$ is a regularization of the problem. }
+
+\mrev{
+A series expansion as $\nu\rightarrow 0$ gives at leading orders
+\bealn
+ \alpha^{\nu}_{\omega}=\alpha_{\omega}+i\nu\frac{\omega_p^2(\omega^2+\omega_c^2)}{\omega(\omega^2-\omega_c^2)^2}=\alpha_{\omega}+i\nu D_{\alpha},\\
+ \delta^{\nu}_{\omega}=\delta_{\omega}-i\nu\frac{2\omega_c\omega_p^2}{(\omega^2-\omega_c^2)^2}=\delta_{\omega}+i\nu D_{\delta},
+\eealn
+where $\alpha_{\omega},\;\delta_{\omega}$ are defined by (\ref{eq:alpha_delta}). %In the frequency domain 
+One thus can consider 
+the following regularization of the cold plasma dielectric tensor of the above problem, valid as $\nu\rightarrow 0$:
+\begin{align*}
+\uuline{\varepsilon_{\omega}^{\nu}}\approx \uuline{\varepsilon_{\omega}^{0}}+i\nu \left(
+ \begin{matrix}
+  D_{\alpha} & -D_{\delta}\\
+  D_{\delta} & D_{\alpha}
+ \end{matrix}
+\right).
+\end{align*}
+However, as demonstrated in \cite{singular_solutions} for the 1D setting, a significantly simpler regularization (considered in \cite{Despres_2014})
+\ben
+\uuline{\varepsilon_{\omega}^{\nu}}(x)\approx \uuline{\varepsilon_{\omega}^{0}}(x)+i\nu \mathrm{Id}
+\een
+yields to the same limit solution as $\nu\rightarrow 0$. }
+As a consequence we will consider in this work the simpler regularized system
+%Thus, applying the above process to (\ref{eq:main_model}) in the frequency domain, we obtain, see also \cite{Despres_2014},
+\begin{align*}
+\left(
+\begin{matrix}
+ i\theta \partial_x \widehat{E}_y+\theta^2 \widehat{E}_x\\
+ i\theta \partial_x \widehat{E}_x -\partial_x^2 \widehat{E}_y
+\end{matrix}
+\right)-\frac{\omega^2}{c^2}
+\left(\uuline{\varepsilon_{\omega}^{0}}(x)+i\nu \mathrm{Id}\right)\left(
+\begin{matrix}
+ \widehat{E}_x\\
+ \widehat{E}_y
+\end{matrix}
+\right)
+=0,\\
+\uuline{\varepsilon_{\omega}^{0}}(x)=\left(
+\begin{matrix}
+ \alpha_{\omega}(x) & -i\delta_{\omega}(x) \\
+ i\delta_{\omega}(x) & \alpha_{\omega}(x)
+\end{matrix}
+\right). 
+\end{align*}
+\mrev{
+For brevity, from now on we will denote $\frac{\omega^2}{c^2}\alpha_{\omega},\; \frac{\omega^2}{c^2}\delta_{\omega}$ by $\alpha,\; \delta$ and consider a sequence of regularized problems. 
+\begin{align}
+\label{eq:main_frequency_domain}
+\left(
+\begin{matrix}
+ i\theta \partial_x \widehat{E}_y+\theta^2 \widehat{E}_x\\
+ i\theta \partial_x \widehat{E}_x -\partial_x^2 \widehat{E}_y
+\end{matrix}
+\right)-
+\left(\uuline{\varepsilon}^{0}(x)+i\nu \mathrm{Id}\right)\left(
+\begin{matrix}
+ \widehat{E}_x\\
+ \widehat{E}_y
+\end{matrix}
+\right)
+=0,\\
+\label{eq:epsilon_0}
+\uuline{\varepsilon}^{0}(x)=\left(
+\begin{matrix}
+ \alpha(x) & -i\delta(x) \\
+ i\delta(x) & \alpha(x)
+\end{matrix}
+\right),
+\end{align}
+where $\alpha,\;\delta$ satisfy the following assumption.
+}
+\urev{
+\begin{assumption}
+\label{assumption:smooth}
+The coefficients  $\alpha(x)$ and $\delta(x)$ are assumed to be sufficiently smooth, i.e. continuous in  
+$\left[-L,\; H\right]$.
+\end{assumption}
+This assumption can be ensured, for example, by requiring the continuity of $N_e(x), B_0(x)$ in $[-L,\;H]$ and the absence of the cyclotron resonance, i.e. for all $x$ $|\omega_c^2(x)-\omega^2(x)|>c>0$ on this interval. 
+}
+\urev{
+\begin{remark}
+For the time domain problem (\ref{eq:main_model}) the choice of the sign of $\nu>0$ is of crucial importance for the stability of the problem. 
+In the frequency domain, as we can see from the above and from \cite{Despres_2014,LMIG_thesis}, the sign 
+of the parameter $\nu$ can be chosen arbitrarily to regularize the problem. 
+However, as demonstrated in the aforementioned works, as $\nu\rightarrow 0\pm$, the 
+corresponding limiting solutions differ, though both exhibit the singularity in the point of the hybrid resonance.  
+\end{remark}
+}
+%%%%%%%%%%%%%%%%%%%%%% 
+\mrev{\subsection{Well-Posedness of the Frequency Domain Problem}}
+%%%%%%%%%%%%%%%%%%%%%% 
+\label{sec:wellposedness}
+
+%In order to reduce problem \eqref{eq:main_frequency_domain} to one dimension, perform a Fourier transform in the $y$ variable, 
+%denoting by $\theta$ the corresponding Fourier variable. 
+\mrev{In this section we study the well-posedness of Problem (\ref{eq:main_frequency_domain}) with the 
+ boundary conditions (\ref{eq:boundary_conditions_intro}), thanks to the Lax-Milgram lemma.} 
+After introducing $\Omega=(-L,\; H)\subset \mathbb R$ and defining the function space  $\mathbf{V}=L^{2}(\Omega)\times H^{1}(\Omega)$, 
+equipped with the norm
+\ben
+ \|\mathbf{v}\|_{\mathbf{V}}^2= \|v_1\|_{L^{2}(\Omega)}^2+\|v_2\|_{H^{1}(\Omega)}^2,
+\een
+the resulting one-dimensional system reads in the following variational form:
+\begin{align}
+\label{vf1dcase}
+\begin{array}{l}
+\displaystyle \int_{-L}^H (E_y' -i\theta E_x)\overline{(\widetilde E_y' -\urev{i} \theta \widetilde E_x)} 
+- \int_{-L}^H (\uuline{\varepsilon}^{0} +i\nu \mathrm{Id}) \E \cdot \overline{\widetilde \E}
+%\\ \displaystyle 
+ - i \lambda E_y (-L)\overline{ \widetilde E_y (-L)} = -g_{inc} (-L) \overline{( \widetilde E_y(-L) )},
+\end{array}\\
+\nonumber
+\text{ for all } \widetilde{\mathbf{E}}=(\widetilde E_x,\widetilde E_y)\in \mathbf{V}.
+\end{align}
+Recall that here $\lambda\geq 0$. 
+%=\omega\geq 0$. 
+Let us remark that in this and further sections, where it is not ambiguous, we will use the notation $E_{x,y}$ instead of $\widehat{E}_{x,y}$ for convenience. \mrev{Also, 
+by $\|u\|_{L^{2}}$ we will denote $\|u\|_{L^{2}(\Omega)}$, for $u\in L^2(\Omega)$, and $\|\ubf\|_{L^2(\Omega)}=\left(\|u_1\|^2_{L^2}+\|u_2\|^2_{L^2}\right)^{\frac{1}{2}}$, 
+for $\ubf=(u_1,\;u_2)\in \left(L^2(\Omega)\right)^2$.}
+
+For the sake of conciseness, consider the following definitions. Let $a$ and $l$ be the bilinear and linear forms, \urev{defined for $\mathbf{u},\; \mathbf{v}\in \mathbf{V}$}:
+\ben
+a(\ubf,\vbf) = a_1 (\ubf,\vbf) +i a_2(\ubf,\vbf)\  \text{ and } \  l(\vbf) = -g_{inc} (-L) \overline{(v_2(-L) )} 
+\een
+where $a_1= a_1^*$ and $a_2=a_2^*$ are hermitian
+\ben
+\left\{\begin{array}{l}
+	a_1(\ubf,\vbf) = \int_{-L}^H (u_2' -i\theta u_1)\overline{(v_2' -i \theta v_1)} - \int_{-L}^H \uuline{\varepsilon}^{0} \ubf\cdot \overline{\vbf}, 
+	\\ a_2(\ubf,\vbf) = -\nu \int_{-L}^H  \ubf\cdot \overline{\vbf} - \lambda u_2 (-L) \overline{v_2 (-L)}.
+\end{array}\right.
+\een
+Then \eqref{vf1dcase} reads: \urev{find $\mathbf{E}$ such that},
+\ben
+a\left(\mathbf{E},\tilde{\mathbf{E}}\right)=l(\tilde{\mathbf{E}}), \; \text{ for all }\tilde{\mathbf{E}}\in \mathbf{V}.
+\een
+
+\urev{
+Let us denote the spectral radius of $\uuline{\varepsilon}^{0}$ by $\heps =  \|\rho(\uuline{\varepsilon}^{0})\|_{L^{\infty}(\Omega)}$. 
+By Assumption \ref{assumption:smooth}, the spectral radius $\heps=\max\left(\|\alpha+\delta\|_{L^{\infty}(\Omega)}, \|\alpha-\delta\|_{L^{\infty}(\Omega)}\right)$ 
+is bounded.}
+%\end{df}
+
+We now prove the following result.
+
+\begin{lemma}
+\label{lemma:well_posedness}
+\urev{Let Assumption \ref{assumption:smooth} hold}. Then the bilinear form 
+\ben
+ a(\ubf,\vbf):  \mathbf{V}\times \mathbf{V}\rightarrow \mathbb{C}
+\een
+is continuous and coercive for all \mrev{$\lambda\geq 0$} and $\nu>0$: for all $\ubf,\vbf\in \mathbf{V}$ it holds that
+\bealn
+\label{eq:bilinear_cont}
+\left\{\begin{array}{l}
+\Re\left(\mathrm{e}^{i\urev{\beta_{\nu}}}a(\ubf,\ubf)\right)\geq \frac{|\nu|}{\sqrt{(\heps+\theta^2+1)^2+\nu^2}}\left(\frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2\right),\; 
+\text{ for some $\urev{\beta_{\nu}}\in\left(0,\frac{\pi}{2}\right)$},\\
+|a(\ubf,\vbf)|\leq C \|\ubf\|_{\mathbf{V}}\|\vbf\|_{\mathbf{V}},
+\end{array}\right.
+\eealn
+where $C>0$ does not depend on $\nu$. Problem~\eqref{vf1dcase} is well-posed in $\mathbf{V}$.
+
+\end{lemma}
+\begin{proof}
+	The boundedness of $a$ is obvious using the continuous embedding in dimension
+	one  $H^1(\Omega)\subset C^0(\overline \Omega)$. Let us focus on the proof of coercivity. 
+	\mrev{Given $\heps$ the spectral radius of $\uuline{\varepsilon}^{0}$, 
+	$\heps \mathrm{Id}- \uuline{\varepsilon}^{0} $ is a non-negative hermitian matrix.}
+	Therefore
+	\ben
+	a_1(\ubf,\ubf) + \heps\|\ubf\|^2_{L^2}= \|u_2' - i \theta u_1 \|^2_{L^2} + \left( (\heps \mathrm{Id} - \uuline{\varepsilon}^{0} ) \ubf, \overline{\ubf} \right)  \geq \|u_2 ' - i \theta u_1 \|_{L^ 2}^ 2
+	\geq \frac12 \|u_2 '  \|_{L^2}^ 2 -
+	\theta ^2 \| u_1 \|_{L^2}^ 2.
+	\een
+	Thus
+	$
+	a_1(\ubf,\ubf)  \geq \frac{1}{2}\|u_2'\|^2_{L^2}-  (\heps  +  \theta^2) \| \ubf \|_{L^2}^2$.
+	On the other hand, \mrev{for $\lambda \geq 0$},
+	$
+	a_2 (\ubf ,\ubf) \leq -\nu \| \ubf \|_{L^2}^2$. 
+	Therefore
+	\ben
+	a_1(\ubf,\ubf)-\frac{\heps  +  \theta^2 + 1 }\nu a_2(\ubf,\ubf)\geq \frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2,
+	\een
+	or, introducing $\beta_{\nu}=\arccos\frac{1}{\sqrt{1+\left(\heps+\theta^2+1\right)^2\nu^{-2}}}$, this is equivalent to 
+	\ben
+	\Re\left(\mathrm{e}^{i\beta_{\nu}}a(\ubf,\ubf)\right)\geq 
+	\frac{1}{\sqrt{1+\left(\heps+\theta^2+1\right)^2\nu^{-2}}} \left(\frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2\right)\\
+	\geq \frac{\nu}{\sqrt{(\heps+\theta^2+1)^2+\nu^2}}\left(\frac{1}{2}\|u_2'\|^2_{L^2}  + \| \ubf \|_{L^2}^2\right).
+	\een	
+	Problem \eqref{vf1dcase} is then uniquely solvable thanks to Lax-Milgram theorem.
+\end{proof}
+%
+%
+%\begin{remark}
+%\mrev{Not the variational problem can be proved well-posed
+%with the same method for  slightly different coefficients.
+%%For example for $\lambda<0$ and  Note that in the case $\lambda=0$, one can show that the problem is well-posed for all $\nu< 0$, since $a_2(\ubf,\ubf)=-\nu\|\ubf\|_{L^2}^2$ and 
+%%thus in the above proof
+%%\begin{align*}
+%%a_1(\ubf,\ubf)-\frac{\heps  +  \theta^2 + 1 }\nu a_2(\ubf,\ubf)=\left(a_1(\ubf,\ubf)+(\heps  +  \theta^2)\|\ubf\|_{L^2}^2\right)+\|\ubf\|_{L^2}^2.
+%%\end{align*}
+%%Similarly, in the case $\lambda<0$, it is possible to demonstrate the well-posedness of the problem for $\nu<0$. 
+%}
+%\end{remark}
+
+
+\begin{remark} 
+\label{remark:other}
+The above proof is not optimal when the diagonal coefficient is uniformly positive, namely 
+$\alpha(x)>c$ for some $c>0$ on the whole interval $[-L,\; H]$, at least 
+for the case $\theta=0$. In this particular case Problem (\ref{eq:var_form2}) is well-posed for $\nu=0$. More precisely, it can be written 
+as a system of two equations, the first equation (for $E_y$) being the variational formulation for the Helmholtz equation 
+with the variable coefficient $k^2=(\alpha-\frac{\delta^2}{\alpha})$ \mrev{coupled to boundary conditions (\ref{eq:boundary_conditions_frequency_domain})}, and the second equation being  
+\begin{align*}
+  \left(E_x,u\right)=\left(\frac{i\delta}{\alpha}E_y,u\right),\; \text{ for all } u\in L^{2}(\Omega).
+\end{align*}
+The well-posedness of the former problem, with additional assumptions on boundary conditions and smoothness of the coefficients, 
+was demonstrated in \cite{LMIG_thesis}. Provided the solution $E_y\in H^{1}(\Omega)$, $E_x\in L^{2}(\Omega)$ is uniquely defined from the latter equation.
+\end{remark}
+
+%\subsection{2D case}
+%%%%%%%%%%%%%%%%%%%%%% 
+
+
+%%%%%%%%%%%%%%%%%%%%%% 
+%\textcolor{red}{!!!!!!!!!!!!!!!! TODO : deal with this part !!!!!!!!!!!}
+%$curl$ ibp formula
+%\be
+%\int_\Omega \curl u \cdot \f = \int_\Omega u\ curl \f + \int_\Gamma u (\f \wedge \n)
+%\ee
+%\be
+%\int_\Omega curl \E \cdot \overline{curl \tilde \E} - \int_\Omega \eps \E \cdot \overline{\tilde \E} + \int _\Gamma curl \E \overline{\left( \tilde \E\wedge \n \right)} d\sigma = 0
+%\ee
+%\be
+%\begin{array}{l}
+%\displaystyle \int_\Omega curl \E \cdot \overline{curl \tilde \E} - \int_\Omega (\varepsilon^{0}+i\nu Id) \E \cdot \overline{\tilde \E} - \int _{\{x=-L\}} i \sqrt{\alpha(-L)}(\E\wedge \n) \overline{\left( \tilde \E\wedge \n \right)} d\sigma 
+%\\ \displaystyle \phantom{ fffffffff}= \int_{\{x=-L\}} g_{inc}  \overline{\left( \tilde \E\wedge \n \right)} d\sigma
+%\end{array}\ee
+%\textcolor{red}{!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!}
+
+
+%%%%%%%%%%%%%%%%%%%%
+\subsection{Discretization of the Frequency Domain Problem}
+\label{sec:discr}
+Testing the variational formulation (\ref{vf1dcase}) with $(\tilde E_x,0)$ and $(0,\; \tilde{E}_y)\in\mathbf{V}$ and using 
+an explicit expression for the tensor of the dielectric permittivity (\ref{eq:epsilon_0}), we get the following system of two equations
+%\begin{align*}
+%\begin{split}
+%i\theta \displaystyle \int_{-L}^H (E_y' -i\theta E_x)\overline{\tilde E_x} - \int_{-L}^H \left((\epsilon_0 +i\nu \operatorname{Id}) \E\right)_{1} \overline{\tilde E}_{x}
+%&=0,\\
+%\displaystyle \int_{-L}^H (E_y' -i\theta E_x)\tilde {E_y'} - \int_{-L}^H\left( (\epsilon_0 +i\nu\operatorname{Id}) \E\right)_{2}\overline{\tilde{E}}_{y}
+%  - i \lambda E_y (-L) \tilde E_y (-L) &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
+%  \text{ for all } \tilde E_x\in L^{2}(\Omega), \; \tilde{E}_{y}\in H^{1}(\Omega).
+%  \end{split}
+%\end{align*}
+%Using the explicit expression for the dielectric permittivity tensor in the above, it yields: 
+
+\begin{align}
+\label{eq:var_form2}
+\begin{split}
+ i\theta \displaystyle \int_{-L}^H (E_y' -i\theta E_x)\overline{\tilde E_x} - 
+ \int_{-L}^H \left((\alpha+i\nu)E_x-i\delta E_y\right) \overline{\tilde E}_{x}
+&=0,\\
+\int_{-L}^H (E_y' -i\theta E_x)\tilde {E_y'} -
+\int_{-L}^H\left( i \delta E_x+(\alpha+i\nu) E_y\right)\overline{\tilde{E}}_{y}
+  - i \lambda E_y (-L) \overline{\tilde E_y (-L)} &= -g_{inc} (-L) \overline{( \tilde E_y(-L) )},\\
+ \text{ for all } \tilde E_x\in L^{2}(\Omega), \; \tilde{E}_{y}\in H^{1}(\Omega).
+  \end{split}
+\end{align}
+\urev{Let us introduce two function spaces $V_{E_x}\subset L^{2}(\Omega)$ spanned by a set of basis functions $\{\psi_{j}\}_{j=1}^{N_{1}}$ and $V_{E_{y}}\subset H^{1}(\Omega)$ spanned by $\{\phi_{i}\}_{i=1}^{N_{2}}$. }
+%We look for the solution of the problem (\ref{eq:var_form2}) in the form:
+We discretize problem (\ref{eq:var_form2}) as:
+\ben
+E_x=\sum\limits_{k=1}^{N_{1}}e_{xk}\psi_{k},\qquad E_{y}=\sum\limits_{k=1}^{N_{2}}e_{yk}\phi_{k}.
+\een
+
+% Substituting $\tilde{E}_{x}=\psi_{m}, \; m=1,\ldots,N_{1}$ and $\tilde{E}_{y}=0$ into the variational formulation (\ref{}), we obtain:
+% \begin{align*}
+% i\theta\sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\phi'_{k}\bar{\psi}_{m}dx+\theta^2\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\psi_{k}\bar{\psi}_{m}dx\\
+% -\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}(\alpha(x)+i\nu)\psi_{k}\bar{\psi}_{m}dx-i\sum\limits_{1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\delta(x)\phi_{k}(x)\bar{\psi}_{m}dx=0.
+% \end{align*}
+% Similarly, for $\tilde{E}_{x}=0$ and $\tilde{E}_{y}=\phi_{\ell},\; \ell=1,\ldots, N_{2}$:
+% \begin{align*}
+% \sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}\phi'_{k}(x)\bar{\phi}'_{\ell}(x)dx-i\theta\sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\psi_{k}(x)\bar{\phi}'_{\ell}(x)dx\\
+% +i
+% \sum\limits_{k=1}^{N_{1}}e_{1k}\int\limits_{-L}^{H}\delta(x)\psi_{k}\bar{\phi}_{m}dx-\sum\limits_{k=1}^{N_{2}}e_{2k}\int\limits_{-L}^{H}(\alpha(x)+i\nu)\phi_{k}\bar{\phi}_{m}dx\\
+% -
+% i\lambda\sum\limits_{k=1}^{N_{2}}e_{2k}\phi_{k}(-L)\bar{\phi}_{m}(-L)=-g_{inc}(x)\bar{\phi}_{m}(-L).
+% \end{align*}
+Introducing
+\bealn
+\left(K^{\psi,\phi'}\right)_{mk}=\int\limits_{-L}^{H}\bar{\psi}_{m}\phi'_{k}dx,\qquad \left(M^{\psi}\right)_{mk}=\int\limits_{-L}^{H}\psi_{k}\bar{\psi}_{m}dx, \qquad 
+\left(M^{\alpha,\psi}\right)_{mk}=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\psi_{m}\bar{\psi}_{k}dx,\\
+\left(M^{\delta,\psi,\phi}\right)_{mk}=\int\limits_{-L}^{H}\delta(x)\bar{\psi}_{m}\phi_{k}dx, \qquad 
+K_{\ell k}=\int\limits_{-L}^{H}\phi'_{k}(x)\bar{\phi}'_{\ell}(x)dx,\qquad
+\left(M^{\alpha,\phi}\right)_{\ell k}=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\bar{\phi}_{\ell}\phi_{k}dx,\\
+I_{km}^{\Gamma}=\bar{\phi}_{m}(-L)\phi_{k}(-L), \\
+\boldsymbol{e}_{x}=\left(e_{11},\ldots,e_{1 N_{1}}\right)^{T},\; \boldsymbol{e}_{y}=\left(e_{21},\ldots,e_{2 N_{1}}\right)^{T},\\
+\boldsymbol{0}_{n} \text{ is an $n$-dimensional zero column vector},
+\eealn
+we rewrite System (\ref{eq:var_form2}) in an antisymmetric block form:
+\ben
+\left(\begin{matrix}
+\theta^2 M^{\psi}-M^{\alpha,\psi} & i\theta K^{\psi,\phi'}+i M^{\delta,\psi,\phi} \\
+-i\theta (K^{\psi,\phi'})^{*}-i (M^{\delta,\psi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
+\end{matrix}\right)
+\left(
+\begin{matrix}
+\boldsymbol{e}_x\\
+\boldsymbol{e}_y
+\end{matrix}
+\right)=-g_{inc}(-L)
+\left(
+\begin{matrix}
+\boldsymbol{0}_{N_{1}}\\
+\bar{\phi}_{1}(-L)\\
+\bar{\phi}_{2}(-L)\\
+\vdots\\
+\bar{\phi}_{N_{2}}(-L)
+\end{matrix}
+\right).
+\een
+This expression greatly simplifies when \urev{ choosing $V_{E_x}=V_{E_{y}}$, spanned by a unique set of basis funtions $\left(\phi_{m}\right)_{m=1}^{N_{2}}$,} and
+in the case $\theta=0$. One obtains the \urev{matrix} structure
+\begin{align}
+\label{eq:simple_system}
+\left(\begin{matrix}
+M^{\alpha,\phi} & -i M^{\delta,\phi,\phi} \\
+-i (M^{\delta,\phi,\phi})^{*} & K-M^{\alpha,\phi}-i\lambda I^{\Gamma}
+\end{matrix}\right)
+\left(
+\begin{matrix}
+\boldsymbol{e}_x\\ 
+\boldsymbol{e}_y
+\end{matrix}
+\right)=-g_{inc}(-L)
+\left(
+\begin{matrix}
+\boldsymbol{0}_{N_{1}}\\
+\bar{\phi}_{x}(-L)\\
+\bar{\phi}_{y}(-L)\\
+\vdots\\
+\bar{\phi}_{N_{2}}(-L)
+\end{matrix}
+\right).
+\end{align}
+In this work we use the above formulation with the Lagrange $P_{1}$ basis elements. 
