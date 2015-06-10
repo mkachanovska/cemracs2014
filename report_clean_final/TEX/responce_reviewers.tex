@@ -1,0 +1,206 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+
+%opening
+\title{}
+\author{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+\section{General}
+
+We deeply thank the referees for their remarks. We tried at best to answer and to modify the text accordingly.
+Additional corrections have been made.
+%We marked corrections suggested by the reviewer 1 in blue, by the reviewer 2 in red, 
+%and some extra corrections made by us that can be important in green.
+ More important corrections include
+\begin{itemize}
+\item changed the wording in the abstract
+
+\item corrected the definition of the cold plasma dielectric tensor, to match the convention $\partial_t\rightarrow -i\omega$ (it had to be hermitian conjugate; 
+this had been done everywhere, the corresponding corrections had been made in Table 1 and some figures)
+
+\item corrected the definitions of $\alpha,\delta$ to comply with the definition of the cold plasma dielectric tensor of Stix 
+
+(more precisely, removed terms $\frac{\omega^2}{c^2}$ in 
+front of them)
+
+\item corrected the formulation of the lemma 2.3 on the well-posedness and added a remark after the lemma on the sign of $\nu$.
+
+\item Section 4.1.1: corrected assumption on smoothness of $E_y^{\nu}$ in the section 'Numerical Experiments'.
+
+\item shortened slightly the section on limiting amplitude for a non-resonant case.
+\end{itemize}
+
+Please find below the detail of the modifications/answers.
+
+\section{Response to the reviewer 1}
+
+%All the corrections are marked in blue. 
+
+A. General issues.
+
+1. We agree with the remarks of the reviewer. We included a short introduction into the physics of the problem, 
+which hopefully will facilitate in reading the article. 
+\begin{itemize}
+ \item Concerning Sections 4.1.2, 4.3.1: 
+We define more precisely the hybrid resonance now, which in fact requires that $\alpha$ vanishes, 
+and $\delta$ does not (while in Section 4.3.1 $\delta$ vanishes as well).
+To give a hint on singularity of equations, we cite an article where a simple model problem is considered. 
+
+\item 
+The notation: 
+from now on $\varepsilon^{\nu}_{\omega}(\mathbf{r})$ denotes the cold plasma dielectric tensor, similarly we denote its parameters. 
+We added explicitely dependence on space in parameters that depend on the spatial variables. 
+
+\item The case $\omega=\omega_c$:
+Indeed, $\epsilon_{\infty}<\infty$ if $\omega_c^2\neq \omega^2$, but formally one also needs to require the boundedness of $\omega_p^2$. Therefore we 
+added an assumption in the end of the Section Frequency Domain Study on the coefficients of the dielectric tensor, and made a remark on the absence
+of the cyclotron resonance. The formulation of Lemma is correspondingly corrected. 
+
+\item The limiting amplitude/absorption principle: 
+
+A brief description of what limiting absorption and limiting amplitude principles had been added in the end of the introduction.
+\end{itemize}
+
+
+2. 'The reduction to a 1d problem is not clearly justified':  indeed, we changed this in the introduction by adding an assumption on $N_e, B_0$, 
+and changed the wording in the introduction to underline that the 1D case is the one of interest. 
+We also explain that the mathematics of hybrid resonance is understood essentially
+in 1D, so the reason to concentrate to 1D model. In multiD we know almost nothing concerning the functional spaces
+that would allow for the   study of the hybrid resonance with a limit process $\nu\rightarrow 0^+$.
+
+
+B. Specific remarks: 
+\begin{itemize}
+\item p1, abstract: changed
+
+\item p2: in the frequency domain  the problem is regularized by a choice $|\nu|>0$, independently of the sign of $\nu$. 
+It is interesting however that for a fixed $\omega$ the limits $\lim_{\nu\rightarrow 0\pm}$ do not result in the same solution. 
+In the time domain the sign of $\nu>0$ is indeed of crucial importance for the stability, as well as in Lemma 2.1, provided that $\lambda$ in the 
+frequency of the antenna is larger than zero. We added a remark on this before Section 2.1  
+
+\item p2, after (1): $L$ is just a non-negative real number. We found it more convenient to place the point of the isolated hybrid resonance in $x=0$.
+For $\nu\neq 0$ the energy decays, we added this in the introduction.
+
+
+\item p3: this should be now fixed in the whole of the article.
+
+\item p3 eq (4): the notation had been changed
+  
+\item p4, top: we changed the notation  
+
+\item p4, eq. (5) fixed
+
+\item p4, eq. (8): changed the notation in eq (8), though a more general result in Lemma 2.1 is formulated with $u,v$. 
+
+\item p4: we changed $\alpha_{\nu}$ to $\beta_{\nu}$ not to confuse with $\alpha$ in the dielectric tensor. The index $\nu$ 
+just underlines the dependence of the angle $\beta_{\nu}$ on $\nu$ (indeed, the coercivity result as it is stated, holds for this specific value of $\beta_{\nu}$ defined 
+in the end of the proof of the lemma).
+
+\item p. 5: indeed, we changed this 
+
+\item p.6:  changed
+
+\item p 6: $Ex$ changed
+
+\item p 8: 'our' code, changed
+
+ \item p.8: fixed section number
+ 
+ \item p.8 eq (12): added $\nu=0$ + explanation
+ 
+ \item p.8: added the Airy equation and pointed out the analyticity of the Airy equation. Additionally added a remark on the behaviour of the Airy function to justify the choice of the right boundary 
+ condition $\partial_x E=0$. 
+ 
+ \item p.8: the citation had been fixed; we expect $E_y$ to be analytic in this case (since we want it to be equal $\mathrm{Ai}(x)$, this is pointed out right now), 
+ and $E_x$ thus is smooth.
+ 
+ \item  p9, Figure 3: fixed the captions. This had been done for other figures as well. The values $E^{c}_{x,y}$ had been defined in the caption.
+ 
+ \item p9 on top
+  The title of Section 4.1.2 had been changed to Solution of a Frequency-Domain Problem with Resonance
+  
+ \item p9 Equation (15,16): changed  
+
+ \item p9 after (17): it is really necessary to assume that $H^2$-norm that is bounded, for using the inequality (25). 
+ We fixed an assumption on $E_y$, which was incorrect before.
+
+
+  
+ \item p10 before and after Table 1 : fixed
+ 
+ \item p 11 Figure 4: fixed
+ 
+ \item p11 Figure 5:
+Agree, fixed. We added a remark in a caption to Figure 4 as well.
+
+
+\item p.12: 
+The $h$ was an error.
+The $^\nu$ is now for all variables.
+Note all fields are real functions, this is a time domain simulation.
+$T$ is a time sufficiently large to that a periodic solution seems 
+to be captured by the scheme.
+
+\item p12 Section 4.3: this explanation had been moved to the introduction
+
+
+
+\item p12 Section 4.3.1
+
+  True, but in this case there is no resonance, since $\delta(x)\equiv 0$. Hence $E_x=\frac{i\delta}{\alpha}E_y\equiv 0$, 
+  and $E_y$ solves the Airy equation in the frequency domain. We added a small remark to Section 4.3.1 to underline this. 
+
+  
+\item p12 Equation (23): it had been removed
+  
+\item p14 Figures 8 and 9
+
+Added the captions  
+
+
+\item p15 in Conclusion
+
+  Indeed $P1$
+  
+\item references: corrected
+  \end{itemize}
+
+
+\section{Response to  Reviewer 2}
+ \begin{itemize}
+\item p2:  We tried to change the wording in the introduction to make it more clear what is a hybrid resonance. 
+The singularity appears for $\nu=0$, provided that the diagonal part of the dielectric tensor vanishes and the non-diagonal part does not. 
+See definition 1.1.
+
+\item 'matricial' had been changed to 'matrix'.
+
+\item p6, 3.1. 
+
+We employed the Yee scheme to discretize the problem in the time domain, and the finite element scheme solely for the frequency domain, 
+and considered them independently. We added a remark on that in the very beginning of Section 3. 
+
+\item p10: 
+
+We added a remark that it was at least two times for very fine meshes, and more for coarser ones.
+
+\item p. 12: 
+Typos fixed.
+Additional references on semi-lagrangian schemes have been included.
+
+\end{itemize}
+
+  
+ 
+
+
+
+\end{document}

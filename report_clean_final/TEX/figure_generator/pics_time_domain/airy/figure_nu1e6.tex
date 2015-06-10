@@ -1,0 +1,36 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,epsfig,epstopdf,array}
+\usepackage{tikz}
+\usepackage{caption}
+\usepackage{pgfplots}
+\usepackage{ulem}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\pgfplotsset{compat=newest}
+\usepackage{hyperref}
+
+\begin{document}
+\pagenumbering{gobble}% Remove page numbers (and reset to 1)
+\clearpage
+\thispagestyle{empty}
+\begin{figure}
+\begin{tikzpicture}
+ \begin{axis}[
+  width=1.2\textwidth, 
+  height=0.5\textwidth,
+   xlabel={$t$},
+  enlarge x limits=false,
+  ymax=0.6,
+  xmin=1.91981e6,
+  xtick={1.91981e6, 1.91999e6},
+  %extra x ticks={1.91981e6},
+  x tick label style={/pgf/number format/fixed, /pgf/number format/fixed zerofill, /pgf/number format/precision=6},
+  ylabel={$E_y^{\nu}(x_c,t)$},
+  legend style={draw=none, fill=white, font=\small}
+   ]
+ \addplot[color=blue] file{airy/td_nu_1e6_unachived.dat};
+  \addlegendentry{$E_y^{\nu}(x_c,t),\; x_c=0.45, \; \nu=10^{-6}$};
+  \end{axis}
+\end{tikzpicture}
+\end{figure}
+\end{document}

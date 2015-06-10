@@ -1,0 +1,222 @@
+\section{Time-Dependent Problem Discretization}
+\arev{
+We develop hereafter the discretization of the time-dependent one-dimensional model (\ref{eq:main_model}), for the particular case $\theta=0$. 
+We first show how this system can be discretized thanks to a Yee scheme suggested in \cite{stable_yee_plasma_current}, then a scheme based on semi-lagrangian discretization is employed.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{A staggered scheme}
+\label{sec:staggered_discretization}
+%In this section, we develop a discretization of the time-dependent problem~\eqref{eq:main_model} in one dimension. %In 1D, the derivatives with respect to $y$ vanish, and we are left with the following problem, 
+% \begin{align}
+% \epsilon_0\partial_t E_{x}=-eN_e u_x, \nonumber\\
+% \epsilon_0\partial_t E_{y}+\partial_x H_z=-eN_e u_y,\nonumber\\
+% \mu_0\partial_t H_z+\partial_x E_y-\partial_y E_x=0, \label{eq:tdpb}\\
+% m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\nonumber\\
+% m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y.\nonumber
+% \end{align}
+We compute a numerical approximation of~\eqref{eq:main_model} \mrev{with $\theta=0$} on a cartesian grid using the Yee scheme, 
+as suggested in \cite{stable_yee_plasma_current}. Let $n$ and $\Delta t$ denote the time step index and the time step, as usual the discrete time is $t_n = n \Delta t$. 
+It is standard (see \cite{Xu_2006,stable_yee_plasma_current }) to discretize the electrical field on the integer time steps, 
+whereas the field $H_z$ on half time steps, $t_{n+1/2}$. The time discretization of the system reads:
+ \bealn
+ \left\{\begin{array}{l}
+ \epsilon_0\frac{ E_{x}^{n+1}-E_x^{n}}{\Delta t}=-eN_e \frac{u_x^{n+1}+u_x^{n}}{2}, \nonumber\\
+ \epsilon_0\frac{ E_{y}^{n+1}-E_y^{n}}{\Delta t}+\partial_x H_z^{n+1/2}=-eN_e \frac{u_y^{n+1}+u_{y}^{n}}{2},\nonumber\\
+ \mu_0\frac{ H_z^{n+1/2}-H_z^{n-1/2}}{\Delta t}+\partial_x E_y^{n}-\partial_y E_x^{n}=0, \label{eq:tdiscretizedpb}\\
+ m_e\frac{ u_{x}^{n+1}-u_x^{n}}{\Delta t}=e\frac{E_x^{n+1}+E_x^{n}}{2}+e\frac{u_y^{n+1}+u_{y}^{n}}{2}B_0-\nu m_e \frac{u_x^{n+1}+u_x^{n}}{2},\nonumber\\
+ m_e\frac{u_{y}^{n+1}-u_y^{n}}{\Delta t}=e\frac{E_y^{n+1}+E_y^{n}}{2}-e\frac{u_x^{n+1}+u_x^{n}}{2}B_0-\nu m_e \frac{u_y^{n+1}+u_y^{n}}{2}.\nonumber
+\end{array}\right.
+ \eealn
+In Yee scheme, the different components of the vector fields 
+are defined on staggered points. 
+We summarize this discretization on Fig.~\ref{schemepos} where the positions 
+of \urev{$E_x$}, $u_x$ (black dots), $E_y$, $u_y$ (blue dots) and $H_z$ (red dots) 
+on the discretized grid in space and time are displayed. The fully discretized system then reads
+
+\ben 
+\eps_0 \frac{E_x\inp- E_x\midin}{\Delta t} = -e N_e \frac{u_x\inp + u_x \midin}{2},
+\label{eq:ns1}
+\een 
+\ben
+\eps_0 \frac{E_y\ihnp-E_y\ihn}{\Delta t}+ \frac{H_z\ipnh-H_z\inh}{\Delta x} = -eN_x \frac{u_y\ihnp + u_y\ihn}{2} ,
+\label{eq:ns2}
+\een
+\ben
+ \frac{H_z\inh-H_z\inmh}{\Delta t}+ \frac{E_y\ihn-E_y\imhn}{\Delta x}=0,
+ \label{eq:ns3}
+\een
+\ben 
+m_e \frac{u_x\inp-u_x\midin }{\Delta x} = e N_e \frac{E_x\inp+E_x\midin}{2}-\nu m_e\frac{u_x\inp+u_x \midin}{2}+ eB_0\frac{u_y\ihn+u_y\ihnp}{2},
+\label{eq:ns4}
+\een
+\ben
+m_e \frac{u_y\ihnp-u_y\ihn}{\Delta t} = eN_e \frac{E_y\ihnp + E_y\ihn}{2}- \nu m_e \frac{u_y\ihnp +u_y\ihn}{2}-eB_0 \frac{u_x\midin+u_x\inp}{2},
+\label{eq:ns401}
+\een
+%\input{grid}
+\begin{figure}[h!]
+	\begin{center}
+ \scalebox{1.2}{
+		\begin{tikzpicture}
+		
+		\draw[thin] (0, 0) grid (2, 2);
+		\foreach \x in {0,1,2}
+		\foreach \y in {0,1,2}
+		\draw[fill](\x,\y) circle (2pt) ;
+		\foreach \x in {0.5,1.5}
+		\foreach \y in {0,1,2}
+		\draw[fill,blue](\x,\y) circle (2pt) ;
+		\foreach \x in {0,1,2}
+		\foreach \y in {0.5,1.5}
+		\draw[fill,red](\x,\y) circle (2pt) ;		
+		\draw[->] (0,0) -- (0,2.5);
+		\draw[->] (0,0) -- (2.5,0);
+		\coordinate (Origin)   at (0,0);
+		\node (xlab) at (2.5,-0.5){\small $x$};
+		\node (tlab) at (-0.5,2.5){\small $t$};
+		%      \node[black] (exux) at (2.6,1){\tiny $E_x$, $u_x$};
+		%      \node[blue](eyuy) at (1.5,2.5){\tiny $E_y$, $u_y$};
+		%      \node[red] (hz) at (2.5,1.5) {\tiny $H_z$};
+		\node[black] (xilab) at (-0.5,0){\tiny $(x_i, t^n)$};
+		\node[blue](xid) at (0.5,-0.3){\tiny $(x_{i+1/2},t^n)$};
+		\node[red] (tid) at (-0.8,0.5) {\tiny $(x_i,t^{n+1/2})$};
+		
+		
+		\end{tikzpicture} 
+}
+	\end{center}
+	\caption{Positions of $E_x$, $u_x$ (black dots), $E_y$, $u_y$ (blue dots) and $H_z$ (red dots) on the discretized grid in space and time}
+	
+	\label{schemepos}
+\end{figure}
+
+It is straightforward to rewrite this system in an explicit form (we omit here these simple but slightly tedious computations).
+%It is now possible to describe explicitly how to solve the proviso discrete system. We first compute $H_z$ at time $n+1/2$ with \eqref{eq:ns3}. Then, \eqref{eq:ns2} gives the expression $E_y\ihnp$ as a function of known variables, and $u_y^{n+1}$, as follow
+%\be
+%E_y\ihnp = E_y\ihn - \frac{\Delta t }{\eps_0}\frac{H_z\ipnh-H_z\inh}{\Delta x} - \frac{\Delta t e N_e}{\eps_0}\frac{u_y\ihnp + u_y\ihn}{2}.
+%\label{eq:ns5}
+%\ee
+%
+%By incorporating this expression into \eqref{eq:ns401} we then obtain $u_y$ at time $n+1$ as a function of known variables and $u_x^{n+1}$, 
+%\be 
+%\begin{array}{l}
+%u_y\ihnp m_e = m_e u_y\ihn + \Delta t eN_e \frac{E_y\ihn}{2}\\
+%+ \Delta teN_e\left(E_y\ihn - \frac{\Delta t }{\eps_0}\frac{H_z\ipnh-H_z\inh}{\Delta x} - \frac{\Delta t e N_e}{\eps_0}\frac{u_y\ihnp + u_y\ihn}{2}\right) \\
+%-\nu \Delta t m_e \frac{u_y\ihnp +u_y\ihn}{2}-\Delta teB_0 \frac{u_x\midin-u_x\inp}{2},
+%\end{array}
+%\label{eq:ns6}
+%\ee
+%or equivalently the explicit expression
+%\begin{align}
+%u_y\ihnp \left(m_e(1+\frac{\Delta t \nu}{2}) +\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}\right) =&\left(m_e(1-\frac{\Delta t \nu}{2}) -\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}\right)u_y\ihn +\Delta t eN_e E_y\ihn \nonumber\\
+%&- \frac{(\Delta t )^2 e N_e}{2\eps_0} \frac{H_z \ipnh- H_z \inh}{\Delta x} - \frac{e Bo \Delta t}{2}\left(u_x\midin+u_x\inp\right).
+%\label{eq:ns7} 
+%\end{align}
+%To simplify this expression, consider
+%\begin{align}
+%u_y\ihnp K_1&= K_2 u_y\ihn +\Delta t eN_e E_y\ihn-  \frac{(\Delta t )^2 e N_e}{2\eps_0} \frac{H_z \ipnh- H_z \inh}{\Delta x}- \frac{e Bo \Delta t}{2}\left(u_x\midin+u_x\inp\right).
+%\label{eq:ns7bis} 
+%\end{align}
+%with $K_1 =  m_e(1+\frac{\Delta t \nu}{2}) +\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}$ and $K_2 =m_e(1- \frac{\Delta t \nu}{2}) -\frac{\left(\Delta t e N_e\right)^ 2}{2\eps_0}$.
+%
+%
+%At this point only $E_x^{n+1}$ and $u_x^{n+1}$ still need to be computed. 
+%Since \eqref{eq:ns1} reads
+%\be 
+%E_x\inp = E_x\midin - \frac{\Delta t e N_e}{\eps_0}\frac{u_x\inp + u_x\midin}{2},
+%\label{eq:ns8}
+%\ee
+%we then have the scheme 
+%\begin{align}
+%m_e u_x\inp= & m_e u_x\midin  + \Delta t e N_e \frac{1}{2}\left( E_x\midin - \frac{\Delta t e N_e}{\eps_0}\frac{u_x\inp + u_x\midin}{2}\right) + \Delta t  e N_e \frac{1}{2}E_x\midin -\Delta t\nu m_e\frac{u_x\inp+u_x \midin}{2}\nonumber\\
+%&+  \frac{e B_0 \Delta t}{2K_1}\Big(K_2 u_y\ihn +\Delta t eN_e E_y\ihn -  \frac{(\Delta t )^2 e N_e}{2\eps_0} \frac{H_z \ipnh- H_z \inh}{\Delta x}\nonumber\\
+%&- \frac{e B_0 \Delta t}{2}\left(u_x\midin+u_x\inp\right)\Big)+  \frac{1}{2}\Delta teB_0u_y\ihn,
+%\label{eq:ns9}
+%\end{align}
+%which can be simplified as
+%\begin{align}
+% \left(me(1+\frac{\Delta t \nu}{2})+ \frac{(eB_0\Delta t)^2}{4K_1} + \frac{(e\Delta t N_e)^2}{4\eps_0}\right) u_x\inp 
+%= \left(me(1-\frac{\Delta t \nu}{2})- \frac{(eB_0\Delta t)^2}{4K_1} -\frac{(e\Delta t N_e)^2}{4\eps_0}\right) u_x\midin \nonumber\\
+% + e \Delta t N_e E_x \midin  + \left( \frac{eB_0 \Delta t K_2}{2 K_1}+ \frac{e B_0 \Delta t}{2}\right) u_y\ihn - \frac{(e\Delta t)^2 N_e B_0}{2K_1}E_y\ihn  - \frac{e^2(\Delta t)^3 B_0}{4K_1}\frac{H_z \ipnh- H_z \inh}{\Delta x},
+%\labelnd{align}{eq:ns10} 
+%\end{align}
+%and the scheme is then fully explicit.
+%
+%To summarize, the algorithm to solve the discrete system \eqref{} is
+%\begin{itemize}
+%\item compute $H_z^{n+1/2}$ thanks to \eqref{eq:ns3},
+%\item compute $E_y^{n+1/2}$ thanks to \eqref{eq:ns6},
+%\item compute $u_y^{n+1}$ thanks to \eqref{eq:ns7bis},
+%\item compute $u_x^{n+1}$ thanks to \eqref{eq:ns10},
+%\item compute $E_x^{n+1}$ thanks to \eqref{eq:ns8}.
+%\end{itemize}
+\subsection{A co-localized scheme based on semi-lagrangian discretisation}
+
+
+The scheme described hereafter is mentioned since it is based on some well-known 
+numerical methods in plasma physics, the so-called semi-lagrangian schemes widely used for the numerical approximation of transport equations.
+It seems to be an original use of semi-lagrangian schemes 
+and is mentioned as possible other option. 
+We restrict the presentation to the minimum and leave the details  of the construction to the alert reader.
+Concerning the   vast literature on the use of semi-lagrangian schemes
+in numerical plasma physics, we refer the reader to \cite{feix,guo,umeda,fifi,soso} and references therein.
+	The structure of the following  algorithm is very similar to the one developed in \cite{compfluids} and can be adapted and studied numerically
+	in any dimension on a Cartesian grid and for more complex right-hand sides.
+	So mathematical properties of the  first step of the following semi-lagrangian scheme have been described in  \cite{cedar}.
+
+
+
+The idea is to split 
+System (\ref{eq:main_model})
+into a series of  transport equations (here just 2) and a local in-the-cell system. 
+
+- At time step $t_n=n\Delta t$, all quantities are given $(E_x,E_y, H_z, u_x,u_y)_{i}^n$ in the cells, that is for all $i$ in the 
+computational domain.
+
+- The first step is to solve 
+$$
+\left\{
+\begin{array}{lll}
+\epsilon_0\partial_t E_{x}=0,\\
+\epsilon_0\partial_t E_{y}+\partial_x H_z=0,\\
+\mu_0\partial_t H_z+\partial_x E_y=0,\\
+m_e\partial_t u_x=0,\\
+m_e\partial_t u_y=0.
+\end{array}
+\right.
+$$
+Since  $\epsilon_0 \mu_0c^2=1$, this can be  performed solving
+two transport equations 
+$$
+\left\{
+\begin{array}{lll}
+\partial_t w +c \partial_x w=0, & w=E_{y}+ c H_z,  \\
+\partial_t z -c \partial_x z=0& z=E_{y}-  c H_z.
+\end{array}
+\right.
+$$
+In our case we used 
+a semi-lagrangian scheme for a time step $\Delta t$.
+In the tests, we used Strang's stencils described in \cite{cedar} with CFL $\nu=0.5$, at order 7. 
+It  yields to the chain 
+$(E_y,H_z)_i^n\mapsto ( w,z)_i^n\mapsto ( w,z)_i^{n*}\mapsto (E_y,H_z)_i^{n*} $.
+Here $n*$ denotes the intermediate time step of the algorithm.
+
+- The second (and final) step is to solve
+$$
+\left\{\begin{array}{l}
+\epsilon_0\partial_t E_{x}=-eN_e u_x,\\
+\epsilon_0\partial_t E_{y}=-eN_e u_y,\\
+\mu_0\partial_t H_z=0,\\
+m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\\
+m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y.
+\end{array}
+\right.$$
+This is performed locally in every cell starting from the data at the preceding 
+step. In our case we just adapt the algorithm developed for the staggered scheme.
+We make sure that the method is conservative in total energy if $\nu=0$, using a half-step discretization
+of the right-hand sides.
+
+- Therefore  all quantities are now given $(E_x,E_y, H_z, u_x,u_y)_{i}^{n+1}$ in the cells 
+at time step $t_{n+1}=(n+1)\Delta t$, and that defines totally a time step of the algorithm.
+
+

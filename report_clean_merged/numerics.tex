@@ -112,24 +112,6 @@ We use the following ingredients:
  \end{split}
 \end{align}
 The last inequality follows from Lemma \ref{lemma:well_posedness} and is still valid for $\nu\rightarrow 0$.   
-\item The form of the exact solution to the problem (\ref{vf1dcase}), see \cite{Despres_2014} and \cite[Proposition 1]{singular_solutions}
-\begin{align}
-\label{eq:exact}
- E_x^{\nu}(x)=f_{\nu}(x)\log\rho_{\nu}(x-X_{\nu})+\frac{g_{\nu}(x)}{\rho(x-X_{\nu})}+S_{1}^{\nu}(x),
-\end{align}
-where $\rho_{\nu}$ is a smooth function s.t. $\rho_{\nu}(0)=0,$ with the derivative $\rho_{\nu}'(0)=1$, 
-the point $X_{\nu}\approx i\nu c+O(\nu^2)$, for some $c\in\mathbb{R}_{*}$; $f_{\nu},\; g_{\nu}, \; S_{1}^{\nu}(x)$ are smooth functions, 
-which, together with their derivatives, are bounded independently of $\nu$. 
-\item \mrev{An explicit bound on $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ is available,  
-based on the results of \cite{singular_solutions}. First of all, we
-will assume that the main contribution to $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ comes from the behaviour in the vicinity of the resonance, where 
-the following expansion is valid \cite[Proposition 1]{singular_solutions}
-\begin{align*}
-E_{y}^{\nu}(x)=\tilde{E}_{y}^{\nu}(x)+S^{\nu}_2(x), \\
-\tilde{E}_{y}^{\nu}(x)=(\alpha(x)+i\nu)p_{\nu}(x)\log\rho_{\nu}(x-X_{\nu}),%=(-x+i\nu)p_{\nu}(x)\log\rho_{\nu}(x-X_{\nu}),
-\end{align*}
-where $\rho_{\nu},X_{\nu}$ are is in (\ref{eq:exact}), 
-and $p_{\nu}(x),\; S_{2}^{\nu}(x)$ are smooth functions, which, together with their derivatives, are bounded independently of $\nu$.}
 \item The estimate from \cite[Chapter 0]{brenner} on the rate of convergence of the interpolation 
 \begin{align}
 \label{eq:interp}
@@ -139,6 +121,32 @@ and $p_{\nu}(x),\; S_{2}^{\nu}(x)$ are smooth functions, which, together with th
  \end{split}
 \end{align}
 where $I^{h}$ is an interpolation operator onto $P_{h}^{1}$. 
+\item \mrev{An explicit bound on $\|\left(E_{x}^{\nu}\right)''\|_{L^{2}(\Omega)}$ from \cite{Despres_2014} and \cite[Proposition 1]{singular_solutions}. 
+First of all, we 
+will assume that the main contribution to $\|\left(E_{x}^{\nu}\right)''\|_{L^{2}(\Omega)}$ comes from the behaviour in the vicinity of the resonance, where, 
+for sufficiently small $\nu$, the following expansion is valid \cite[Proposition 1]{singular_solutions}
+\begin{align}
+\begin{split}
+\label{eq:exact}
+ E_x^{\nu}(x)=\tilde{E}_x^{\nu}+S_{1}^{\nu}(x),\\
+ \tilde{E}_x^{\nu}=f_{\nu}(x)\log\rho_{\nu}(x-X_{\nu})+\frac{g_{\nu}(x)}{\rho(x-X_{\nu})},
+ \end{split}
+\end{align}
+where $f_{\nu},\; g_{\nu}, \; S_{1}^{\nu}(x)$ are smooth functions, 
+which, together with their derivatives, are bounded independently of $\nu$ for all sufficiently small values of $\nu$; 
+$\rho_{\nu}$ is a smooth function s.t. $\rho_{\nu}(0)=0,$ with the derivative $\rho_{\nu}'(0)=1$, 
+the point $X_{\nu}\approx i\nu c+O(\nu^2)$, for some $c\in\mathbb{R}_{*}$. 
+}
+\item \mrev{An explicit bound on $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ from \cite{singular_solutions}. As before, we 
+will assume that the main contribution to $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ comes from the behaviour in the vicinity of the resonance, where,
+for sufficiently small $\nu$, it holds \cite[Proposition 1]{singular_solutions}
+\begin{align*}
+E_{y}^{\nu}(x)=\tilde{E}_{y}^{\nu}(x)+S^{\nu}_2(x), \\
+\tilde{E}_{y}^{\nu}(x)=(\alpha(x)+i\nu)p_{\nu}(x)\log\rho_{\nu}(x-X_{\nu}),%=(-x+i\nu)p_{\nu}(x)\log\rho_{\nu}(x-X_{\nu}),
+\end{align*}
+where $\rho_{\nu},X_{\nu}$ are is in (\ref{eq:exact}), 
+and $p_{\nu}(x),\; S_{2}^{\nu}(x)$ are smooth functions, which, together with their derivatives, are bounded independently of $\nu$ 
+for all sufficiently small values of $\nu$.}
 \end{itemize}
 Estimate (\ref{eq:cea}) combined with (\ref{eq:interp}) results in, for some $C>0$,
 \begin{align}
@@ -148,7 +156,7 @@ Estimate (\ref{eq:cea}) combined with (\ref{eq:interp}) results in, for some $C>
 \end{align}
 \mrev{
 First of all let us examine the behaviour the derivatives of $E_{y}^{\nu}$ in the vicinity of the resonance, 
-in particular, the term $\tilde{E}_{y}^{\nu}$ which is singular for $\nu=0$ in the resonance:
+in particular, the term $\tilde{E}_{y}^{\nu}$:
 \begin{align}
 \label{eq:eynuprime}
  \left(\tilde{E}_{y}^{\nu}\right)'&= \alpha'(x)p_{\nu}(x)\log\rho_{\nu}(x-X_{\nu})+(\alpha(x)+i\nu)p'_{\nu}(x)\log\rho_{\nu}(x-X_{\nu})
@@ -163,14 +171,14 @@ we study solely the singular first term of (\ref{eq:eynuprime})
 \end{align*}
 The term $\frac{\alpha'(x)p_{\nu}(x)\rho'_{\nu}(x-X_{\nu})}{\rho_{\nu}(x-X_{\nu})}$ can be bounded, for all sufficiently small $|x|$, by 
 \begin{align*}
- \left|\frac{p_{\nu}(x)\rho'_{\nu}(x-X_{\nu})}{\rho_{\nu}(x-X_{\nu})}\right|\leq \frac{C}{|x-i\nu c|},\; C>0,
+ \left|\frac{\alpha'(x)p_{\nu}(x)\rho'_{\nu}(x-X_{\nu})}{\rho_{\nu}(x-X_{\nu})}\right|\leq \frac{C}{|x-i\nu c|},\; C>0,
 \end{align*}
 where we used an explicit form of $\rho_{\nu}(x-X_{\nu})=x-X_{\nu}+O((x-X_{\nu})^2)$ valid for small $\nu$ and $|x|$, as well as 
 the expansion $X_{\nu}=ic\nu+O(\nu^2)$.  For sufficiently small $\nu$, the term $(\alpha'(x)p_{\nu}(x))'\log\rho_{\nu}(x-X_{\nu})$ 
 can be bounded by the above expression as well.
 
 Therefore, assuming that the main contribution to $\|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}$ comes from the vicinity of the resonance, 
-where for $\nu=0$ this function is singular, 
+where for $\nu=0$ $\left(E_{y}^{\nu}\right)''$ is singular,  
 we obtain the following rough bound
 \begin{align*}
  \|\left(E_{y}^{\nu}\right)''\|_{L^{2}(\Omega)}\leq G+G'\left(\int\limits_{-L}^{H}\frac{1}{|x-i\nu c|^2}dx\right)^{\frac{1}{2}}
@@ -178,15 +186,16 @@ we obtain the following rough bound
  \leq \frac{C}{\sqrt{\nu}},\qquad G,G',C>0,
 \end{align*}
 for sufficiently small $\nu>0$.
-}
-To derive a similar bound on the second derivative of $E_{x}^{\nu}$, we notice that it can be represented in the following form, 
-for some functions $F_{\nu,k}(x),\; k=0,..,3,$ uniformly bounded in $x,\; \nu$ in the vicinity of $(0,0)$:
+
+To derive a similar bound on the second derivative of $E_{x}^{\nu}$, we assume that the main contribution to $\|\left(E_{x}^{\nu}\right)''\|_{L^{2}(\Omega)}$
+comes from the singular part of $\tilde{E}_{x}^{\nu}$, whose second derivative can be represented in the following form, 
+for some functions $F_{\nu,k}(x),\; k=0,..,3,$ uniformly bounded in $x,\; \nu$ in the vicinity of $(x,\nu)=(0,0)$:
 \begin{align}
 \label{eq:ex_eq1}
- \frac{d^2E_x^{\nu}}{dx^2}=\sum\limits_{k=1}^{3}\frac{F_{\nu,k}(x)}{\rho_{\nu}^{k}(x-X_{\nu})}+F_{\nu,0}(x)\log\rho_{\nu}(x-X_{\nu}).
+ \frac{d^2\tilde{E}_x^{\nu}}{dx^2}=\sum\limits_{k=1}^{3}\frac{F_{\nu,k}(x)}{\left(\rho_{\nu}(x-X_{\nu})\right)^{k}}+F_{\nu,0}(x)\log\rho_{\nu}(x-X_{\nu}).
 \end{align}
-Assuming again that the main contribution to $\|\left(E_{x}^{\nu}\right)''\|_{L^{2}(\Omega)}$ comes from the vicinity of the resonance, 
-we deduce that there exists $c>0$, s.t. for all sufficiently small $\nu$ 
+}
+Then there exists $c>0$, s.t. for all sufficiently small $\nu$ 
 \bealn
  \left|\frac{d^2E_x^{\nu}}{dx^2}\right|_{L^2}^{2}&\leq c\int\limits_{-L}^{H}\frac{1}{(x^2+\nu^2)^{3}}dx
  % &=c\left.
@@ -261,7 +270,7 @@ and thus the relative error control
 \bealn
  \frac{\|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L^2}}{\|E^{\nu}_{x}\|_{L^2}}\leq \epsilon
 \eealn
- is ensured by choosing $h$ as $\beta_{\epsilon}\nu^{\frac{3}{4}}$, \mrev{$\beta_{\epsilon}>0$.}
+ is ensured by choosing $h$ as \mrev{$\beta_{\epsilon}\nu^{\frac{3}{2}}$}, \mrev{$\beta_{\epsilon}>0$.}
 \end{remark}
 
 In Figure \ref{fig:small_nu} we demonstrate the dependence of the condition number of the matrix of System (\ref{eq:simple_system}) 
@@ -313,14 +322,16 @@ case.
 The numerical tests have been kept to a minimum since \arev{much more} is needed to fully validate
 the concept.
 
-The setting of the numerical results of figure \ref{fig:vasl}
+The setting of the numerical results of Figure \ref{fig:vasl}
 is the following. We use a 7th order semi-lagrangian scheme, and the CFL is $\nu=0.5$.
 The \arev{peak} is the hybrid resonance, visible on $E_x$ and $u_x$.
 The total energy $\mathcal E(t)$ is the physical energy. 
-The comparison with figures \ref{fig:dependence} and \ref{fig:resonance_nus_ey_x} shows that the 
+The comparison with Figures \ref{fig:dependence} and \ref{fig:resonance_nus_ey_x} shows that the 
 singular nature of the \arev{resonance} is captured by this new scheme without any doubt.
 
-\begin{figure}{h}
+\urev{Notice that in this case we shifted the computational domain so that $L=0$ and the point where the resonance occurs is $x_h=20$.}
+
+\begin{figure}[h]
 	\begin{center}
 		\begin{tabular}{ccc}
 			\includegraphics[angle=-90,width=5.cm]{pics_semilagrange/Ey_moit.eps}
@@ -330,7 +341,7 @@ singular nature of the \arev{resonance} is captured by this new scheme without a
 			\\
 			$E_y$ & $H_z$  & $E_x^\nu$ \\
 			%\hline
-			\hline
+			%\hline
 			\includegraphics[angle=-90,width=5.cm]{pics_semilagrange/uy_moit.eps}
 			&
 			\includegraphics[angle=-90,width=5.cm]{pics_semilagrange/normes_moit.eps}

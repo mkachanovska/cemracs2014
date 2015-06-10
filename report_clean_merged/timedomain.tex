@@ -19,8 +19,8 @@ It is standard (see \cite{Xu_2006,stable_yee_plasma_current }) to discretize the
 whereas the field $H_z$ on half time steps, $t_{n+1/2}$. The time discretization of the system reads:
  \bealn
  \left\{\begin{array}{l}
- \epsilon_0\frac{ E_{x}^{n+1}-E_x^{n}}{\Delta t}=-eN_e \frac{u_x^{n}+u_x^{n+1}}{2}, \nonumber\\
- \epsilon_0\frac{ E_{y}^{n+1}-E_y^{n}}{\Delta t}+\partial_x H_z^{n+1/2}=-eN_e \frac{u_y^{n}+u_{y}^{n+1}}{2},\nonumber\\
+ \epsilon_0\frac{ E_{x}^{n+1}-E_x^{n}}{\Delta t}=-eN_e \frac{u_x^{n+1}+u_x^{n}}{2}, \nonumber\\
+ \epsilon_0\frac{ E_{y}^{n+1}-E_y^{n}}{\Delta t}+\partial_x H_z^{n+1/2}=-eN_e \frac{u_y^{n+1}+u_{y}^{n}}{2},\nonumber\\
  \mu_0\frac{ H_z^{n+1/2}-H_z^{n-1/2}}{\Delta t}+\partial_x E_y^{n}-\partial_y E_x^{n}=0, \label{eq:tdiscretizedpb}\\
  m_e\frac{ u_{x}^{n+1}-u_x^{n}}{\Delta t}=e\frac{E_x^{n+1}+E_x^{n}}{2}+e\frac{u_y^{n+1}+u_{y}^{n}}{2}B_0-\nu m_e \frac{u_x^{n+1}+u_x^{n}}{2},\nonumber\\
  m_e\frac{u_{y}^{n+1}-u_y^{n}}{\Delta t}=e\frac{E_y^{n+1}+E_y^{n}}{2}-e\frac{u_x^{n+1}+u_x^{n}}{2}B_0-\nu m_e \frac{u_y^{n+1}+u_y^{n}}{2}.\nonumber

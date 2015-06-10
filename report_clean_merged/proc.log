@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.12.18)  8 JUN 2015 14:36
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.12.18)  9 JUN 2015 10:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**proc.tex -save-size=50000
+**proc.tex
 (./proc.tex
 LaTeX2e <2011/06/27>
 Babel <3.9f> and hyphenation patterns for 78 languages loaded.
@@ -1387,39 +1387,44 @@ so unbounded coords=jump).
 Missing character: There is no ; in font nullfont!
 PGFPlots: reading {pics_frequency_domain/data_airy/H.dat}
 Missing character: There is no ; in font nullfont!
-[11] [12] [13]
-<pics_frequency_domain/h_nu.pdf, id=315, 340.27126pt x 258.9675pt>
+[11] [12]
+Overfull \hbox (7.79704pt too wide) in paragraph at lines 197--197
+[]\OT1/cmr/m/n/10 To de-rive a sim-i-lar bound on the sec-ond de-riv-a-tive of 
+$\OML/cmm/m/it/10 E[]$\OT1/cmr/m/n/10 , we as-sume that the main con-tri-bu-tio
+n to $\OMS/cmsy/m/n/10 k [][] k[]$
+ []
+
+[13] <pics_frequency_domain/h_nu.pdf, id=314, 340.27126pt x 258.9675pt>
 File: pics_frequency_domain/h_nu.pdf Graphic file (type pdf)
 
 <use pics_frequency_domain/h_nu.pdf>
-Package pdftex.def Info: pics_frequency_domain/h_nu.pdf used on input line 247.
+Package pdftex.def Info: pics_frequency_domain/h_nu.pdf used on input line 256.
 
 (pdftex.def)             Requested size: 203.3907pt x 154.78653pt.
 
-<pics_frequency_domain/res_sol.pdf, id=316, 345.29pt x 324.21124pt>
+<pics_frequency_domain/res_sol.pdf, id=315, 345.29pt x 324.21124pt>
 File: pics_frequency_domain/res_sol.pdf Graphic file (type pdf)
 
 <use pics_frequency_domain/res_sol.pdf>
 Package pdftex.def Info: pics_frequency_domain/res_sol.pdf used on input line 2
-49.
+58.
 (pdftex.def)             Requested size: 164.85216pt x 154.78653pt.
-
-<pics_frequency_domain/fig_cond_num.pdf, id=328, 346.29375pt x 324.21124pt>
+ [14 <./pics_frequency_domain/h_nu.pdf> <./pics_frequency_domain/res_sol.pdf>]
+<pics_frequency_domain/fig_cond_num.pdf, id=409, 346.29375pt x 324.21124pt>
 File: pics_frequency_domain/fig_cond_num.pdf Graphic file (type pdf)
 
 <use pics_frequency_domain/fig_cond_num.pdf>
 Package pdftex.def Info: pics_frequency_domain/fig_cond_num.pdf used on input l
-ine 273.
+ine 282.
 (pdftex.def)             Requested size: 165.33139pt x 154.78653pt.
 
-<pics_frequency_domain/ey_resonance.pdf, id=329, 345.29pt x 324.21124pt>
+<pics_frequency_domain/ey_resonance.pdf, id=410, 345.29pt x 324.21124pt>
 File: pics_frequency_domain/ey_resonance.pdf Graphic file (type pdf)
 
 <use pics_frequency_domain/ey_resonance.pdf>
 Package pdftex.def Info: pics_frequency_domain/ey_resonance.pdf used on input l
-ine 274.
+ine 283.
 (pdftex.def)             Requested size: 164.85216pt x 154.78653pt.
- [14 <./pics_frequency_domain/h_nu.pdf> <./pics_frequency_domain/res_sol.pdf>]
 Package epstopdf Info: Source file: <pics_semilagrange/Ey_moit.eps>
 (epstopdf)                    date: 2015-01-29 17:02:06
 (epstopdf)                    size: 35106 bytes
@@ -1429,15 +1434,15 @@ Package epstopdf Info: Source file: <pics_semilagrange/Ey_moit.eps>
 (epstopdf)                    size: 21485 bytes
 (epstopdf)             Command: <repstopdf --outfile=pics_semilagrange/Ey_moit-
 eps-converted-to.pdf pics_semilagrange/Ey_moit.eps>
-(epstopdf)             \includegraphics on input line 326.
+(epstopdf)             \includegraphics on input line 337.
 Package epstopdf Info: Output file is already uptodate.
 
-<pics_semilagrange/Ey_moit-eps-converted-to.pdf, id=421, 505.89pt x 722.7pt>
+<pics_semilagrange/Ey_moit-eps-converted-to.pdf, id=420, 505.89pt x 722.7pt>
 File: pics_semilagrange/Ey_moit-eps-converted-to.pdf Graphic file (type pdf)
 
 <use pics_semilagrange/Ey_moit-eps-converted-to.pdf>
 Package pdftex.def Info: pics_semilagrange/Ey_moit-eps-converted-to.pdf used on
- input line 326.
+ input line 337.
 (pdftex.def)             Requested size: 505.88875pt x 722.69823pt.
 Package epstopdf Info: Source file: <pics_semilagrange/Hz_moit.eps>
 (epstopdf)                    date: 2015-01-29 17:02:06
@@ -1448,15 +1453,15 @@ Package epstopdf Info: Source file: <pics_semilagrange/Hz_moit.eps>
 (epstopdf)                    size: 21701 bytes
 (epstopdf)             Command: <repstopdf --outfile=pics_semilagrange/Hz_moit-
 eps-converted-to.pdf pics_semilagrange/Hz_moit.eps>
-(epstopdf)             \includegraphics on input line 328.
+(epstopdf)             \includegraphics on input line 339.
 Package epstopdf Info: Output file is already uptodate.
 
-<pics_semilagrange/Hz_moit-eps-converted-to.pdf, id=422, 505.89pt x 722.7pt>
+<pics_semilagrange/Hz_moit-eps-converted-to.pdf, id=421, 505.89pt x 722.7pt>
 File: pics_semilagrange/Hz_moit-eps-converted-to.pdf Graphic file (type pdf)
 
 <use pics_semilagrange/Hz_moit-eps-converted-to.pdf>
 Package pdftex.def Info: pics_semilagrange/Hz_moit-eps-converted-to.pdf used on
- input line 328.
+ input line 339.
 (pdftex.def)             Requested size: 505.88875pt x 722.69823pt.
 Package epstopdf Info: Source file: <pics_semilagrange/Ex_moit.eps>
 (epstopdf)                    date: 2015-01-29 17:02:06
@@ -1467,15 +1472,15 @@ Package epstopdf Info: Source file: <pics_semilagrange/Ex_moit.eps>
 (epstopdf)                    size: 16958 bytes
 (epstopdf)             Command: <repstopdf --outfile=pics_semilagrange/Ex_moit-
 eps-converted-to.pdf pics_semilagrange/Ex_moit.eps>
-(epstopdf)             \includegraphics on input line 329.
+(epstopdf)             \includegraphics on input line 340.
 Package epstopdf Info: Output file is already uptodate.
 
-<pics_semilagrange/Ex_moit-eps-converted-to.pdf, id=423, 505.89pt x 722.7pt>
+<pics_semilagrange/Ex_moit-eps-converted-to.pdf, id=422, 505.89pt x 722.7pt>
 File: pics_semilagrange/Ex_moit-eps-converted-to.pdf Graphic file (type pdf)
 
 <use pics_semilagrange/Ex_moit-eps-converted-to.pdf>
 Package pdftex.def Info: pics_semilagrange/Ex_moit-eps-converted-to.pdf used on
- input line 329.
+ input line 340.
 (pdftex.def)             Requested size: 505.88875pt x 722.69823pt.
 Package epstopdf Info: Source file: <pics_semilagrange/uy_moit.eps>
 (epstopdf)                    date: 2015-01-29 17:02:06
@@ -1486,15 +1491,15 @@ Package epstopdf Info: Source file: <pics_semilagrange/uy_moit.eps>
 (epstopdf)                    size: 21571 bytes
 (epstopdf)             Command: <repstopdf --outfile=pics_semilagrange/uy_moit-
 eps-converted-to.pdf pics_semilagrange/uy_moit.eps>
-(epstopdf)             \includegraphics on input line 334.
+(epstopdf)             \includegraphics on input line 345.
 Package epstopdf Info: Output file is already uptodate.
 
-<pics_semilagrange/uy_moit-eps-converted-to.pdf, id=424, 505.89pt x 722.7pt>
+<pics_semilagrange/uy_moit-eps-converted-to.pdf, id=423, 505.89pt x 722.7pt>
 File: pics_semilagrange/uy_moit-eps-converted-to.pdf Graphic file (type pdf)
 
 <use pics_semilagrange/uy_moit-eps-converted-to.pdf>
 Package pdftex.def Info: pics_semilagrange/uy_moit-eps-converted-to.pdf used on
- input line 334.
+ input line 345.
 (pdftex.def)             Requested size: 505.88875pt x 722.69823pt.
 Package epstopdf Info: Source file: <pics_semilagrange/normes_moit.eps>
 (epstopdf)                    date: 2015-01-29 17:02:06
@@ -1505,16 +1510,16 @@ d-to.pdf>
 (epstopdf)                    size: 49211 bytes
 (epstopdf)             Command: <repstopdf --outfile=pics_semilagrange/normes_m
 oit-eps-converted-to.pdf pics_semilagrange/normes_moit.eps>
-(epstopdf)             \includegraphics on input line 336.
+(epstopdf)             \includegraphics on input line 347.
 Package epstopdf Info: Output file is already uptodate.
 
-<pics_semilagrange/normes_moit-eps-converted-to.pdf, id=425, 505.89pt x 722.7pt
+<pics_semilagrange/normes_moit-eps-converted-to.pdf, id=424, 505.89pt x 722.7pt
 >
 File: pics_semilagrange/normes_moit-eps-converted-to.pdf Graphic file (type pdf
 )
  <use pics_semilagrange/normes_moit-eps-converted-to.pdf>
 Package pdftex.def Info: pics_semilagrange/normes_moit-eps-converted-to.pdf use
-d on input line 336.
+d on input line 347.
 (pdftex.def)             Requested size: 505.88875pt x 722.69823pt.
 Package epstopdf Info: Source file: <pics_semilagrange/ux_moit.eps>
 (epstopdf)                    date: 2015-01-29 17:02:06
@@ -1525,20 +1530,27 @@ Package epstopdf Info: Source file: <pics_semilagrange/ux_moit.eps>
 (epstopdf)                    size: 20428 bytes
 (epstopdf)             Command: <repstopdf --outfile=pics_semilagrange/ux_moit-
 eps-converted-to.pdf pics_semilagrange/ux_moit.eps>
-(epstopdf)             \includegraphics on input line 338.
+(epstopdf)             \includegraphics on input line 349.
 Package epstopdf Info: Output file is already uptodate.
 
-<pics_semilagrange/ux_moit-eps-converted-to.pdf, id=426, 505.89pt x 722.7pt>
+<pics_semilagrange/ux_moit-eps-converted-to.pdf, id=425, 505.89pt x 722.7pt>
 File: pics_semilagrange/ux_moit-eps-converted-to.pdf Graphic file (type pdf)
 
 <use pics_semilagrange/ux_moit-eps-converted-to.pdf>
 Package pdftex.def Info: pics_semilagrange/ux_moit-eps-converted-to.pdf used on
- input line 338.
+ input line 349.
 (pdftex.def)             Requested size: 505.88875pt x 722.69823pt.
-) (./absorption.tex
-[15 <./pics_frequency_domain/fig_cond_num.pdf> <./pics_frequency_domain/ey_reso
-nance.pdf>]
-<pics_time_domain/airy/figure_nu1e2-crop.pdf, id=500, 412.54124pt x 153.57375pt
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) (./absorption.tex [15 <./pics_frequency_domain/fig_cond_num.pdf> <./pics_freq
+uency_domain/ey_resonance.pdf>] [16 <./pics_semilagrange/Ey_moit-eps-converted-
+to.pdf> <./pics_semilagrange/Hz_moit-eps-converted-to.pdf> <./pics_semilagrange
+/Ex_moit-eps-converted-to.pdf> <./pics_semilagrange/uy_moit-eps-converted-to.pd
+f> <./pics_semilagrange/normes_moit-eps-converted-to.pdf> <./pics_semilagrange/
+ux_moit-eps-converted-to.pdf>]
+<pics_time_domain/airy/figure_nu1e2-crop.pdf, id=541, 412.54124pt x 153.57375pt
 >
 File: pics_time_domain/airy/figure_nu1e2-crop.pdf Graphic file (type pdf)
  <use pics_time_domain/airy/figure_nu1e2-crop.pdf>
@@ -1546,7 +1558,7 @@ Package pdftex.def Info: pics_time_domain/airy/figure_nu1e2-crop.pdf used on in
 put line 51.
 (pdftex.def)             Requested size: 259.8646pt x 96.73788pt.
 
-<pics_time_domain/airy/figure_nu1e2_2-crop.pdf, id=501, 343.2825pt x 150.5625pt
+<pics_time_domain/airy/figure_nu1e2_2-crop.pdf, id=542, 343.2825pt x 150.5625pt
 >
 File: pics_time_domain/airy/figure_nu1e2_2-crop.pdf Graphic file (type pdf)
  <use pics_time_domain/airy/figure_nu1e2_2-crop.pdf>
@@ -1558,10 +1570,7 @@ Overfull \hbox (16.7373pt too wide) in paragraph at lines 50--54
  [][] 
  []
 
-[16 <./pics_semilagrange/Ey_moit-eps-converted-to.pdf> <./pics_semilagrange/Hz_
-moit-eps-converted-to.pdf> <./pics_semilagrange/Ex_moit-eps-converted-to.pdf> <
-./pics_semilagrange/uy_moit-eps-converted-to.pdf> <./pics_semilagrange/normes_m
-oit-eps-converted-to.pdf> <./pics_semilagrange/ux_moit-eps-converted-to.pdf>]
+
 <pics_time_domain/airy/figure_nu1e4-crop.pdf, id=547, 416.55624pt x 156.585pt>
 File: pics_time_domain/airy/figure_nu1e4-crop.pdf Graphic file (type pdf)
 
@@ -1669,11 +1678,11 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 166.
 Here is how much of TeX's memory you used:
  26777 strings out of 493315
  583879 string characters out of 6127697
- 745307 words of memory out of 5000000
+ 745378 words of memory out of 5000000
  29322 multiletter control sequences out of 15000+600000
  21152 words of font info for 80 fonts, out of 8000000 for 9000
  1118 hyphenation exceptions out of 8191
- 56i,20n,84p,996b,2094s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 56i,20n,84p,980b,2094s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/uma/pack/tex/texlive_2013_full-20131218/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmbx10.pfb></usr/uma/pack/tex/texlive_2013_full-20131218/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/uma/pack/tex/texlive_2013_full-2
@@ -1710,7 +1719,7 @@ a/pack/tex/texlive_2013_full-20131218/texmf-dist/fonts/type1/public/amsfonts/cm
 xmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/uma/pack/tex/texl
 ive_2013_full-20131218/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pf
 b>
-Output written on proc.pdf (21 pages, 3123210 bytes).
+Output written on proc.pdf (21 pages, 3123927 bytes).
 PDF statistics:
  1288 PDF objects out of 1440 (max. 8388607)
  1010 compressed objects within 11 object streams
