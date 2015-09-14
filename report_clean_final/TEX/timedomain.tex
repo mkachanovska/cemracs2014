@@ -21,12 +21,12 @@ whereas the field $H_z$ on half time steps, $t_{n+1/2}$. The time discretization
  \left\{\begin{array}{l}
  \epsilon_0\frac{ E_{x}^{n+1}-E_x^{n}}{\Delta t}=-eN_e \frac{u_x^{n+1}+u_x^{n}}{2}, \nonumber\\
  \epsilon_0\frac{ E_{y}^{n+1}-E_y^{n}}{\Delta t}+\partial_x H_z^{n+1/2}=-eN_e \frac{u_y^{n+1}+u_{y}^{n}}{2},\nonumber\\
- \mu_0\frac{ H_z^{n+1/2}-H_z^{n-1/2}}{\Delta t}+\partial_x E_y^{n}-\partial_y E_x^{n}=0, \label{eq:tdiscretizedpb}\\
+ \lastrev{\mu_0\frac{ H_z^{n+1/2}-H_z^{n-1/2}}{\Delta t}+\partial_x E_y^{n}=0,} \label{eq:tdiscretizedpb}\\
  m_e\frac{ u_{x}^{n+1}-u_x^{n}}{\Delta t}=e\frac{E_x^{n+1}+E_x^{n}}{2}+e\frac{u_y^{n+1}+u_{y}^{n}}{2}B_0-\nu m_e \frac{u_x^{n+1}+u_x^{n}}{2},\nonumber\\
  m_e\frac{u_{y}^{n+1}-u_y^{n}}{\Delta t}=e\frac{E_y^{n+1}+E_y^{n}}{2}-e\frac{u_x^{n+1}+u_x^{n}}{2}B_0-\nu m_e \frac{u_y^{n+1}+u_y^{n}}{2}.\nonumber
 \end{array}\right.
  \eealn
-In Yee scheme, the different components of the vector fields 
+In \lastrev{the} Yee scheme, the different components of the vector fields 
 are defined on staggered points. 
 We summarize this discretization on Fig.~\ref{schemepos} where the positions 
 of \urev{$E_x$}, $u_x$ (black dots), $E_y$, $u_y$ (blue dots) and $H_z$ (red dots) 
@@ -37,19 +37,19 @@ on the discretized grid in space and time are displayed. The fully discretized s
 \label{eq:ns1}
 \een 
 \ben
-\eps_0 \frac{E_y\ihnp-E_y\ihn}{\Delta t}+ \frac{H_z\ipnh-H_z\inh}{\Delta x} = -eN_x \frac{u_y\ihnp + u_y\ihn}{2} ,
+\eps_0 \frac{E_y\ihnp-E_y\ihn}{\Delta t}+ \frac{H_z\ipnh-H_z\inh}{\Delta x} = -e\lastrev{N_e} \frac{u_y\ihnp + u_y\ihn}{2} ,
 \label{eq:ns2}
 \een
 \ben
- \frac{H_z\inh-H_z\inmh}{\Delta t}+ \frac{E_y\ihn-E_y\imhn}{\Delta x}=0,
+\lastrev{\mu_0} \frac{H_z\inh-H_z\inmh}{\Delta t}+ \frac{E_y\ihn-E_y\imhn}{\Delta x}=0,
  \label{eq:ns3}
 \een
 \ben 
-m_e \frac{u_x\inp-u_x\midin }{\Delta x} = e N_e \frac{E_x\inp+E_x\midin}{2}-\nu m_e\frac{u_x\inp+u_x \midin}{2}+ eB_0\frac{u_y\ihn+u_y\ihnp}{2},
+m_e \frac{u_x\inp-u_x\midin }{\lastrev{\Delta t}} = \lastrev{e} \frac{E_x\inp+E_x\midin}{2}-\nu m_e\frac{u_x\inp+u_x \midin}{2}+ eB_0\frac{u_y\ihn+u_y\ihnp}{2},
 \label{eq:ns4}
 \een
 \ben
-m_e \frac{u_y\ihnp-u_y\ihn}{\Delta t} = eN_e \frac{E_y\ihnp + E_y\ihn}{2}- \nu m_e \frac{u_y\ihnp +u_y\ihn}{2}-eB_0 \frac{u_x\midin+u_x\inp}{2},
+m_e \frac{u_y\ihnp-u_y\ihn}{\Delta t} = \lastrev{e}\frac{E_y\ihnp + E_y\ihn}{2}- \nu m_e \frac{u_y\ihnp +u_y\ihn}{2}-eB_0 \frac{u_x\midin+u_x\inp}{2},
 \label{eq:ns401}
 \een
 %\input{grid}

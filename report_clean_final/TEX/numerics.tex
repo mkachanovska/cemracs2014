@@ -101,7 +101,7 @@ given a fixed value of $\epsilon>0$ and $\nu\rightarrow 0$. Without loss of gene
 
 We use the following ingredients:
 \begin{itemize}
- \item The C\'ea's lemma applied to the problem (\ref{vf1dcase}); here \mrev{$\mathbf{E}^{\nu}$ is the exact solution, 
+ \item \lastrev{The C\'ea lemma} applied to the problem (\ref{vf1dcase}); here \mrev{$\mathbf{E}^{\nu}$ is the exact solution, 
  $\mathbf{E}^{\nu,h}$ is the computed solution}, and $C_c$ and $C_i$ are respectively the continuity and the coercivity constants:
 \begin{align}
 \label{eq:cea}
@@ -110,7 +110,7 @@ We use the following ingredients:
  \leq C\nu^{-1}\min_{\mathbf{v}\in \mathbf{V}_h}\|\mathbf{E}^{\nu}-\mathbf{v}\|_{\mathbf{V}},\; C>0.
  \end{split}
 \end{align}
-The last inequality follows from Lemma \ref{lemma:well_posedness} and is still valid for $\nu\rightarrow 0$.   
+The last inequality follows from Lemma \ref{lemma:well_posedness} and \lastrev{is valid} for $\nu\rightarrow 0$.   
 \item The estimate from \cite[Chapter 0]{brenner} on the rate of convergence of the interpolation 
 \begin{align}
 \label{eq:interp}
@@ -128,10 +128,10 @@ for sufficiently small $\nu$, the following expansion is valid \cite[Proposition
 \begin{split}
 \label{eq:exact}
  E_x^{\nu}(x)=\tilde{E}_x^{\nu}+S_{1}^{\nu}(x),\\
- \tilde{E}_x^{\nu}=f_{\nu}(x)\log\rho_{\nu}(x-X_{\nu})+\frac{g_{\nu}(x)}{\rho(x-X_{\nu})},
+ \tilde{E}_x^{\nu}=f_{\nu}(x)\log\rho_{\nu}(x-X_{\nu})+\frac{g_{\nu}(x)}{\rho\lastrev{_{\nu}}(x-X_{\nu})},
  \end{split}
 \end{align}
-where $f_{\nu},\; g_{\nu}, \; S_{1}^{\nu}(x)$ are smooth functions, 
+where \lastrev{$f_{\nu},\; g_{\nu}, \; S_{1}^{\nu}$} are smooth functions, 
 which, together with their derivatives, are bounded independently of $\nu$ for all sufficiently small values of $\nu$; 
 $\rho_{\nu}$ is a smooth function s.t. $\rho_{\nu}(0)=0,$ with the derivative $\rho_{\nu}'(0)=1$, 
 the point $X_{\nu}\approx i\nu c+O(\nu^2)$, for some $c\in\mathbb{R}_{*}$. 
@@ -147,7 +147,7 @@ where $\rho_{\nu},X_{\nu}$ are is in (\ref{eq:exact}),
 and $p_{\nu}(x),\; S_{2}^{\nu}(x)$ are smooth functions, which, together with their derivatives, are bounded independently of $\nu$ 
 for all sufficiently small values of $\nu$.}
 \end{itemize}
-Estimate (\ref{eq:cea}) combined with (\ref{eq:interp}) results in, for some $C>0$,
+\lastrev{Let us recall that we defined the function space  $\mathbf{V}=L^{2}(\Omega)\times H^{1}(\Omega)$. }Estimate (\ref{eq:cea}) combined with (\ref{eq:interp}) results in, for some $C>0$. 
 \begin{align}
   \label{eq:final_est}
   \|E^{\nu}_{x}-E^{\nu,h}_{x}\|_{L^2}%\leq C_1\nu^{-1}h\|\left(E_y^{\nu}\right)''\|_{L_{2}}+C_2\nu^{-1}h^2\|\left(E_x^{\nu}\right)''\|_{L_{2}}
@@ -196,7 +196,7 @@ for some functions $F_{\nu,k}(x),\; k=0,..,3,$ uniformly bounded in $x,\; \nu$ i
 }
 Then there exists $c>0$, s.t. for all sufficiently small $\nu$ 
 \bealn
- \left|\frac{d^2E_x^{\nu}}{dx^2}\right|_{L^2}^{2}&\leq c\int\limits_{-L}^{H}\frac{1}{(x^2+\nu^2)^{3}}dx
+ \left\|\frac{d^2E_x^{\nu}}{dx^2}\right\|_{L^2}^{2}&\leq c\int\limits_{-L}^{H}\frac{1}{(x^2+\nu^2)^{3}}dx
  % &=c\left.
  %\left(\frac{x}{4(x^2+\nu^2)^2}\nu^{-2}+\frac{3x}{8(x^2+\nu^2)}\nu^{-4}+\frac{3}{8}\nu^{-5}\operatorname{atan}\frac{x}{\nu}\right)\right|_{-L}^{H}
  \leq C\nu^{-5},\; 

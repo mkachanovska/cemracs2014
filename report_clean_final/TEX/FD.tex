@@ -241,7 +241,7 @@ where $C>0$ does not depend on $\nu$. Problem~\eqref{vf1dcase} is well-posed in 
 \label{remark:other}
 The above proof is not optimal when the diagonal coefficient is uniformly positive, namely 
 $\alpha(x)>c$ for some $c>0$ on the whole interval $[-L,\; H]$, at least 
-for the case $\theta=0$. In this particular case Problem (\ref{eq:var_form2}) is well-posed for $\nu=0$. More precisely, it can be written 
+for the case $\theta=0$. In this particular case Problem \lastrev{\eqref{vf1dcase}} is well-posed for $\nu=0$. More precisely, it can be written 
 as a system of two equations, the first equation (for $E_y$) being the variational formulation for the Helmholtz equation 
 with the variable coefficient $k^2=(\alpha-\frac{\delta^2}{\alpha})$ \mrev{coupled to boundary conditions (\ref{eq:boundary_conditions_frequency_domain})}, and the second equation being  
 $
@@ -327,7 +327,7 @@ Introducing
 K_{\ell k}=\int\limits_{-L}^{H}\phi'_{k}(x)\bar{\phi}'_{\ell}(x)dx,\qquad
 \left(M^{\alpha,\phi}\right)_{\ell k}=\int\limits_{-L}^{H}(\alpha(x)+i\nu)\bar{\phi}_{\ell}\phi_{k}dx,\\
 I_{km}^{\Gamma}=\bar{\phi}_{m}(-L)\phi_{k}(-L), \\
-\boldsymbol{e}_{x}=\left(e_{11},\ldots,e_{1 N_{1}}\right)^{T},\; \boldsymbol{e}_{y}=\left(e_{21},\ldots,e_{2 N_{1}}\right)^{T},\\
+\boldsymbol{e}_{x}=\left(\lastrev{e_{x1}},\ldots,\lastrev{e_{x N_{1}}}\right)^{T},\; \boldsymbol{e}_{y}=\left(\lastrev{e_{y1}},\ldots,\lastrev{e_{y N_{2}}}\right)^{T},\\
 \boldsymbol{0}_{n} \text{ is an $n$-dimensional zero column vector},
 \eealn
 we rewrite System (\ref{eq:var_form2}) in an antisymmetric block form:
@@ -369,8 +369,8 @@ M^{\alpha,\phi} & -i M^{\delta,\phi,\phi} \\
 \left(
 \begin{matrix}
 \boldsymbol{0}_{N_{1}}\\
-\bar{\phi}_{x}(-L)\\
-\bar{\phi}_{y}(-L)\\
+\bar{\phi}_{\lastrev{1}}(-L)\\
+\bar{\phi}_{\lastrev{2}}(-L)\\
 \vdots\\
 \bar{\phi}_{N_{2}}(-L)
 \end{matrix}
