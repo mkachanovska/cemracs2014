@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.6.26)  15 SEP 2015 15:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.6.26)  15 SEP 2015 15:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1567,7 +1567,7 @@ File: pics_time_domain/res/ey_fixed_x-crop.pdf Graphic file (type pdf)
 
 <use pics_time_domain/res/ey_fixed_x-crop.pdf>
 Package pdftex.def Info: pics_time_domain/res/ey_fixed_x-crop.pdf used on input
- line 107.
+ line 105.
 (pdftex.def)             Requested size: 217.6621pt x 83.01831pt.
 
 <pics_time_domain/res/ey_fixed_x_1e3-crop.pdf, id=572, 410.53375pt x 153.57375p
@@ -1575,7 +1575,7 @@ t>
 File: pics_time_domain/res/ey_fixed_x_1e3-crop.pdf Graphic file (type pdf)
  <use pics_time_domain/res/ey_fixed_x_1e3-crop.pdf>
 Package pdftex.def Info: pics_time_domain/res/ey_fixed_x_1e3-crop.pdf used on i
-nput line 108.
+nput line 106.
 (pdftex.def)             Requested size: 217.6621pt x 81.42181pt.
 
 <pics_time_domain/res/ex_fixed_x_nu1e4-crop.pdf, id=575, 409.53pt x 156.585pt>
@@ -1583,7 +1583,7 @@ File: pics_time_domain/res/ex_fixed_x_nu1e4-crop.pdf Graphic file (type pdf)
 
 <use pics_time_domain/res/ex_fixed_x_nu1e4-crop.pdf>
 Package pdftex.def Info: pics_time_domain/res/ex_fixed_x_nu1e4-crop.pdf used on
- input line 115.
+ input line 113.
 (pdftex.def)             Requested size: 386.95894pt x 147.96404pt.
 
 <pics_time_domain/res/ex_fixed_t-crop.pdf, id=578, 341.275pt x 311.1625pt>
@@ -1591,7 +1591,7 @@ File: pics_time_domain/res/ex_fixed_t-crop.pdf Graphic file (type pdf)
 
 <use pics_time_domain/res/ex_fixed_t-crop.pdf>
 Package pdftex.def Info: pics_time_domain/res/ex_fixed_t-crop.pdf used on input
- line 125.
+ line 123.
 (pdftex.def)             Requested size: 217.6621pt x 198.45961pt.
 
 <pics_time_domain/res/ex_fixed_t_1e3-crop.pdf, id=579, 341.275pt x 313.17pt>
@@ -1599,7 +1599,7 @@ File: pics_time_domain/res/ex_fixed_t_1e3-crop.pdf Graphic file (type pdf)
 
 <use pics_time_domain/res/ex_fixed_t_1e3-crop.pdf>
 Package pdftex.def Info: pics_time_domain/res/ex_fixed_t_1e3-crop.pdf used on i
-nput line 126.
+nput line 124.
 (pdftex.def)             Requested size: 217.6621pt x 199.73999pt.
 
 <pics_time_domain/res/ey_fixed_t_1e3-crop.pdf, id=582, 341.275pt x 154.5775pt>
@@ -1607,7 +1607,7 @@ File: pics_time_domain/res/ey_fixed_t_1e3-crop.pdf Graphic file (type pdf)
 
 <use pics_time_domain/res/ey_fixed_t_1e3-crop.pdf>
 Package pdftex.def Info: pics_time_domain/res/ey_fixed_t_1e3-crop.pdf used on i
-nput line 134.
+nput line 132.
 (pdftex.def)             Requested size: 193.47577pt x 87.63362pt.
 
 <pics_time_domain/res/ey_fixed_x_nu1e4-crop.pdf, id=583, 410.53375pt x 153.5737
@@ -1615,7 +1615,7 @@ nput line 134.
 File: pics_time_domain/res/ey_fixed_x_nu1e4-crop.pdf Graphic file (type pdf)
  <use pics_time_domain/res/ey_fixed_x_nu1e4-crop.pdf>
 Package pdftex.def Info: pics_time_domain/res/ey_fixed_x_nu1e4-crop.pdf used on
- input line 135.
+ input line 133.
 (pdftex.def)             Requested size: 241.84842pt x 90.46945pt.
  [17 <./pics_time_domain/airy/figure_nu1e2-crop.pdf> <./pics_time_domain/airy/f
 igure_nu1e2_2-crop.pdf> <./pics_time_domain/airy/figure_nu1e4-crop.pdf> <./pics
@@ -1625,7 +1625,7 @@ _time_domain/airy/figure_nu1e6-crop.pdf>]
 File: pics_time_domain/res/ex_fixed_t_1e4_2-crop.pdf Graphic file (type pdf)
  <use pics_time_domain/res/ex_fixed_t_1e4_2-crop.pdf>
 Package pdftex.def Info: pics_time_domain/res/ex_fixed_t_1e4_2-crop.pdf used on
- input line 150.
+ input line 148.
 (pdftex.def)             Requested size: 435.32419pt x 166.35301pt.
 ) (./conclusions.tex
 [18 <./pics_time_domain/res/ey_fixed_x-crop.pdf> <./pics_time_domain/res/ey_fix
@@ -1692,7 +1692,7 @@ a/pack/tex/texlive_2015_full-20150523/texmf-dist/fonts/type1/public/amsfonts/cm
 xmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/uma/pack/tex/texl
 ive_2015_full-20150523/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pf
 b>
-Output written on proc.pdf (21 pages, 3126668 bytes).
+Output written on proc.pdf (21 pages, 3126635 bytes).
 PDF statistics:
  1300 PDF objects out of 1440 (max. 8388607)
  1022 compressed objects within 11 object streams
