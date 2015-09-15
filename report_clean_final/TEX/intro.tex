@@ -4,7 +4,7 @@ based on plasma fusion, see the ITER project\footnote{www.iter.org}.
 This article concentrates on studying a phenomenon of hybrid resonance \cite{Stix}, 
 which is observed in experiments (see \cite{reflectometers_2006, reflectometers_2010, Dumont_2005}) and is described
 mathematically as the non-regularity of
-the solutions of Maxwell equations in \mrev{magnetized plasmas} \cite{Despres_2014}. 
+the solutions of Maxwell equations in magnetized plasmas \cite{Despres_2014}. 
 Physically the hybrid resonance corresponds to situations where the electric field becomes
 infinite due to some resonance coupling between the background magnetic field and
 the polarization of the wave.
@@ -15,16 +15,9 @@ hybrid resonance appears in a simpler one-dimensional  model coupling
 fluid equations with the non-electrostatic part of Maxwell equations.
 Since  the mathematics of hybrid resonance is far to be understood
 in dimension greater or equal to two, we restrict this work to dimension one.
-% any open problems exist which prevent for having
-%a mathematically sound multidimensional theory  of hybrid resonance.
-% is an open problem.
 
-
-
-
-\urev{
 To illustrate the hybrid resonance, we consider in this work a %one dimensional 
- time-dependent wave propagation problem leading to the cold plasma model for a single species 
+ time-dependent wave propagation problem leading to the cold plasma model for a single species (\nrev{electrons}) 
 under a uniform in time background magnetic field $\mathbf{B}_0=(0,\;0,\; B_0)$. 
 We restrict our attention to the poloidal plane, which is the plane 
 perpendicular to the direction of the magnetic field. The model can be described by the time-dependent Maxwell system  \cite{Stix}
@@ -33,7 +26,7 @@ perpendicular to the direction of the magnetic field. The model can be described
 \begin{split}
 -\epsilon_0 \partial_t E_x +\partial_y H_z = J_x,\\
 -\epsilon_0 \partial_t E_y -\partial_x H_z = J_y,\\
-\mu_0 \partial_t H_z + \partial_x E_y-\partial_y E_x= 0
+\mu_0 \partial_t H_z + \partial_x E_y-\partial_y E_x= 0,
 \end{split}
 \end{align}
 coupled through the linear electronic current  $\J = eN_e(\mathbf{r}) \ubf$
@@ -45,7 +38,7 @@ m_e \partial_t u_x =\epsilon_0 e E_x+e B_0(\mathbf{r}) u_y -m_e \nu u_x,\\
 m_e \partial_t u_y =\epsilon_0 e E_y-e B_0(\mathbf{r}) u_x -m_e \nu u_y,
 \end{split}
 \end{align}
-where \mrev{$\nu\geq 0$} is the friction  between particles, $e<0$ is the charge of electrons, $m_e$ the electron mass and $N_e$ the electron density. In the cold plasma model, because of the frequencies considered, the electron density 
+where $\nu\geq 0$ is the friction  between particles, $e<0$ is the charge of electrons, $m_e$ the electron mass and $N_e$ the electron density. In the cold plasma model, because of the frequencies considered, the electron density 
 depends on space and is uniform in time. A non-zero value of $\nu$ constitutes a basis for the limiting absorption principle. 
 The unknowns are the electron velocity $\ubf$ and the electromagnetic fields. 
 The energy of this system in a domain $\Omega\in\mathbb R^2$ can be expressed as, see \cite{Despres_2014},
@@ -54,7 +47,7 @@ The energy of this system in a domain $\Omega\in\mathbb R^2$ can be expressed as
 \frac{\epsilon_0 |\E(t,\mathbf{r})|^2}{2}+\frac{ |\B(t,\mathbf{r})|^2}{2\mu_0}+\frac{m_e|\J (t,\mathbf{r})|^2}{2|e|N_e(\mathbf{r})} 
 \right)\mathrm{d}\mathbf{r},
 \een
-and (\ref{eq:main_system}-\ref{eq:electronmove}) yield to
+and (\ref{eq:main_system}-\ref{eq:electronmove}) yield
 \ben
 \frac{d}{dt}{\mathcal E}=-\nu\left(\|u_{x}\|_{L^{2}(\Omega)}^2+\|u_{y}\|_{L^{2}(\Omega)}^2\right)+\text{boundary terms}.
 \een
@@ -86,7 +79,7 @@ hence this case is not of interest for the present work.
  The hybrid resonance is precisely defined 
  where  $\omega_p^2(\mathbf{r})+\omega_c^2(\mathbf{r})=\omega^2$ and $\omega_c(\mathbf{r})\omega_p(\mathbf{r})\neq 0$, i.e. when the diagonal part of the tensor 
 $\uuline{\varepsilon_{\omega}^{0}}(\mathbf{r})$ vanishes and the non-diagonal part remains non-zero.
-As shown in \cite{Despres_2014, singular_solutions}, for a 1D-counterpart of (\ref{eq:model_freq_domain}), in this case the time-harmonic electric field component $E_x$ is not necessarily square 
+As shown in \cite{Despres_2014, singular_solutions}, for a 1D-counterpart of (\ref{eq:model_freq_domain}), in this case the time-harmonic electric field component \nrev{$\hat{E}_x$} is not necessarily square 
 integrable (for a demonstration of this behaviour with the help of a simpler example, namely the Budden problem, see e.g. \cite{Despres_2014}). 
 This apparent paradox is of course the source of important numerical difficulties which are the subject of the present study. 
 
@@ -98,10 +91,10 @@ We consider the frequency domain problem (\ref{eq:model_freq_domain}) posed in a
 \label{eq:boundary_conditions_intro}
 %curl
  {\operatorname{curl}} \
-  \hat{\mathbf{E}} \mrev{+}i \lambda\hat{\mathbf{E}}\wedge \n = \hat{g}_{inc} \equiv
-   {\operatorname{curl}} \ \E_{inc} \mrev{+} i  \lambda\E_{inc}\wedge \n,
+  \hat{\mathbf{E}} +i \lambda\hat{\mathbf{E}}\wedge \n = \hat{g}_{inc} \equiv
+   {\operatorname{curl}} \ \E_{inc} + i  \lambda\E_{inc}\wedge \n,
 \ee
-where $\E_{inc} = \exp \left(i  \lambda x\right)\begin{pmatrix} E_1\\ E_2 \end{pmatrix}$ and \mrev{$\lambda\geq 0$} is 
+where $\E_{inc} = \exp \left(i  \lambda x\right)\begin{pmatrix} E_1\\ E_2 \end{pmatrix}$ and $\lambda\geq 0$ is 
 the frequency of the antenna. At the right boundary we impose $\operatorname{curl} \hat{\E} = 0$. 
 
 
@@ -122,7 +115,7 @@ m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\\
 m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y,
 \end{cases}
 \end{equation}
- posed in the one-dimensional domain $(-L,\; H)$, with \mrev{the corresponding boundary conditions:
+ posed in the one-dimensional domain $(-L,\; H)$, with the corresponding boundary conditions:
  \begin{align}
  \label{eq:boundary_conditions_frequency_domain}
  \begin{split}
@@ -130,7 +123,7 @@ m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y,
   \left.\partial_xE_y\right|_{x=H}=0, 
   \end{split}
  \end{align}
-and the initial conditions for values $\left.E_{x}\right|_{t=0},\; \left.u_{x}\right|_{t=0},\; \left.E_{y}\right|_{t=0}, \; \left.u_{y}\right|_{t=0}, \; \left.H_z\right|_{t=0}$. }
+and the initial conditions for values $\left.E_{x}\right|_{t=0},\; \left.u_{x}\right|_{t=0},\; \left.E_{y}\right|_{t=0}, \; \left.u_{y}\right|_{t=0}, \; \left.H_z\right|_{t=0}$. 
 This is the time-domain model that will be considered in the rest of the article, unless stated otherwise. 
 
 The frequency domain formulation of (\ref{eq:main_model}) for $\nu=0$ is
@@ -150,20 +143,15 @@ The frequency domain formulation of (\ref{eq:main_model}) for $\nu=0$ is
 \right)
 =0,
 \end{align}
-see (\ref{eq:alpha_delta}). Indeed, in a stratified medium, the coefficients $\alpha_{\omega},\;\delta_{\omega}$ depend solely on $x$ and $\omega$.  
-\arev{
-We concentrate on a physical situation of the hybrid resonance, which we define as in \cite{singular_solutions}.
-
+see (\ref{eq:alpha_delta}). Indeed, in a stratified medium, the coefficients $\alpha_{\omega},\;\delta_{\omega}$ depend solely on $x$ and $\omega$. We concentrate on a physical situation of the hybrid resonance, which we define as in \cite{singular_solutions}.
 \begin{df}[of a hybrid resonance]
-Let $\omega\in\mathbb{R}$ be fixed. 
-We will call a point $x_h\in \mathbb{R}$ a hybrid resonance if $\alpha_{\omega}$ has 
-a simple root in $x_h$ and has no other roots in an $\epsilon$-vicinity of this point $B_{\epsilon}(x_h)$, for some $\epsilon>0$, 
+Let $\omega\in\mathbb{R}$ be fixed.
+We will call a point $x_h\in \mathbb{R}$ a hybrid resonance if $\alpha_{\omega}$ has
+a simple root in $x_h$ and has no other roots in an $\epsilon$-vicinity of this point $B_{\epsilon}(x_h)$, for some $\epsilon>0$,
 and $\delta_{\omega}(x_h)\neq 0$.
-The parameter $\nu$ is at the same the physical friction and a regularization parameter.  The hybrid resonance singular solution 
+The parameter $\nu$ is at the same the physical friction and a regularization parameter. The hybrid resonance singular solution
 shows up at $x_h$ at the limit $\nu\rightarrow 0^+$.
 \end{df}
-}
-
 To investigate the behaviour of the solutions at the hybrid resonance, 
 we will study a sequence of the regularized problems, for $\nu\rightarrow 0$. These problems are not the frequency domain expression of \eqref{eq:main_model}, but a simple regularization of \eqref{eq:main_frequency_domain_intro}. This choice will be justified in further sections. The equations read: 
 \begin{align}
@@ -182,77 +170,50 @@ we will study a sequence of the regularized problems, for $\nu\rightarrow 0$. Th
 \right)
 =0,
 \end{align}
-where $\mathrm{Id}$ is the identity matrix. %More details on the connection of this problem with (\ref{eq:main_model}) will be provided in further sections. 
-
- %This domain represents the physical case of a wave sent from a wall facing a plasma. 
- 
-%In  \cite{Despres_2014} it was shown
-%that the time harmonic electric field component $E_x$ in this case is not necessarily square 
-%integrable, and  
-%explicit estimates on the behavior of the solutions of \eqref{eq:main_model} in 1D were provided. 
-
-
-
-%some given 
-%frequency. 
-%We truncate the domain 
-%\ben
-%-curl \E -\imath \lambda\E \wedge \n = g_{inc} = -curl \E_{inc} -\imath\lambda\E_{inc} \wedge \n,
-%\een
-%where $\E_{inc} = \exp \left(\imath \lambda x\right)\begin{pmatrix} E_1\\ E_2 \end{pmatrix}$.
-
-%\begin{remark}
-%	When modelling antennas in plasma physics \mrev{(e.g. in such applications as ITER)}, 
-%	a good choice of boundary condition could be $\lambda = \sqrt{\alpha_{\omega}(-L)}$
-%\end{remark}
+where $\mathrm{Id}$ is the identity matrix. 
 
 The goal of this article is three-fold. 
 First, we investigate the finite element approximation of the 1D 
-frequency domain problem (\ref{eq:seq_regularized}), with a regularized dielectric tensor \mrev{for a small parameter $\nu$}. 
-%linearized with respect to $\nu$.
-We prove the well-posedness of this problem for \mrev{$\nu\neq 0$} in Section~\ref{sec:wellposedness} and 
+frequency domain problem (\ref{eq:seq_regularized}), with a regularized dielectric tensor for a small parameter $\nu$. We prove the well-posedness of this problem for $\nu\neq 0$ in Section~\ref{sec:wellposedness} and 
 demonstrate that the use of  $P_1$ finite elements allows to approximate the singularity 
-of the solution efficiently (Section \ref{sec:freq_dep}). 
-}
-Second, we develop an original scheme based on widely appreciated semi-lagrangian schemes
+of the solution efficiently (Section \ref{sec:freq_dep}). Second, we develop an original scheme based on widely appreciated semi-lagrangian schemes
 for the discretization of time domain Maxwell's equations with a linear current.
 Third, we consider the case $\nu\rightarrow 0$, and study the limiting amplitude solution 
 $\lim\limits_{t\rightarrow +\infty}\lim\limits_{\nu\rightarrow 0}\mathbf{E}(t)$ obtained with the help of 
 the FDTD discretization of \eqref{eq:main_model}, suggested in \cite{stable_yee_plasma_current}. 
 We compare this result with 
-$\hat{\mathbf{E}}\mathrm{e}^{\mrev{-i\omega} t}$, computed in the frequency domain, for $\nu\rightarrow 0$, which corresponds to
+$\hat{\mathbf{E}}\mathrm{e}^{-i\omega t}$, computed in the frequency domain, for $\nu\rightarrow 0$, which corresponds to
 $\lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}\mathbf{E}(t)$.
-\urev{Such a comparison is a way to study the formal commutation relation between the limited absorption and the limiting amplitude principles. 
+Such a comparison is a way to study the formal commutation relation between the limited absorption and the limiting amplitude principles. 
 In application to a non-resonant case of (\ref{eq:main_frequency_domain_intro}), equipped with boundary conditions, the limited absorption principle states that the solution of (\ref{eq:seq_regularized}) 
 would approach the solution of (\ref{eq:main_frequency_domain_intro})
 as $\nu\rightarrow 0$. Similarly, the limiting amplitude principle applied to the problem (\ref{eq:main_model}) 
 states that if the boundary conditions are chosen harmonic in time, e.g. $\left.\partial_x E_y\right|_{x=-L}=\mathrm{e}^{-i\omega_{*} t}$, then the solution of this problem $(\mathbf{E}(t),\;H(t))$ asymptotically ($t\rightarrow +\infty$)
 tends to a steady state of the form $ \left(\hat{\mathbf{E}}(\omega_{*}),\; \hat{H}(\omega_{*})\right)\mathrm{e}^{-i\omega_{*} t}$, where 
 $\left(\hat{\mathbf{E}}(\omega_{*}),\; \hat{H}(\omega_{*})\right)$ is the solution of (\ref{eq:main_model})
-in the frequency domain, with $\omega=\omega_{*}$ and the boundary condition $\left.\partial_x \hat{E}_y\right|_{x=-L}=1$. For more details see e.g. \cite{Morawetz, Eidus}. The commutation between the two principles then writes as}
+in the frequency domain, with $\omega=\omega_{*}$ and the boundary condition $\left.\partial_x \hat{E}_y\right|_{x=-L}=1$. For more details see e.g. \cite{Morawetz, Eidus}. The commutation between the two principles then writes as
 $
 \lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow+\infty}= \lim\limits_{t\rightarrow+\infty}\lim\limits_{\nu\rightarrow 0}$,
 see Figure \ref{fig:limits}. 
-Even though it is true for standard linear wave problems, it is not clear \mrev{if it still holds} in the singular case 
-of the hybrid resonance.
 \begin{figure}
 \begin{tikzpicture}
-   \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em] {
-     \mathbf{E}^{\nu}(t) & \mathbf{E}^{0+}(t)\\
-     \hat{\mathbf{E}}^{\nu}(t)\mathrm{e}^{i\omega t} & 
-    \lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow \infty}\mathbf{E}^{\nu}(t)=\lim\limits_{t\rightarrow \infty}\lim\limits_{\nu\rightarrow 0}\mathbf{E}^{\nu}(t)\\
-     };
- \path[-stealth,font=\scriptsize]    (m-1-1) edge node [left] {$t\rightarrow+\infty$} (m-2-1);
-  \path[-stealth, font=\scriptsize]   (m-1-1) edge node [above] {$\nu\rightarrow 0+$} (m-1-2);
- \path[-stealth, font=\scriptsize]   (m-2-1) edge node [above] {$\nu\rightarrow 0$} (m-2-2);
-  \path[-stealth, font=\scriptsize]   (m-1-2) edge node [right] {$t\rightarrow +\infty$} (m-2-2);
-
-
-  % \path[-stealth] (m-2-1.east) edge node [above] {$\nu\rightarrow 0$} (m-2-2);
-   %(m-1-2) edge node [right] {$\nu\rightarrow 0$} (m-2-2);
+ \matrix (m) [matrix of math nodes,row sep=3em,column sep=4em,minimum width=2em] {
+\mathbf{E}^{\nu}(t) & \mathbf{E}^{0+}(t)\\
+\hat{\mathbf{E}}^{\nu}(t)\mathrm{e}^{i\omega t} &
+\lim\limits_{\nu\rightarrow 0}\lim\limits_{t\rightarrow \infty}\mathbf{E}^{\nu}(t)=\lim\limits_{t\rightarrow \infty}\lim\limits_{\nu\rightarrow 0}\mathbf{E}^{\nu}(t)\\
+};
+\path[-stealth,font=\scriptsize] (m-1-1) edge node [left] {$t\rightarrow+\infty$} (m-2-1);
+\path[-stealth, font=\scriptsize] (m-1-1) edge node [above] {$\nu\rightarrow 0+$} (m-1-2);
+\path[-stealth, font=\scriptsize] (m-2-1) edge node [above] {$\nu\rightarrow 0$} (m-2-2);
+\path[-stealth, font=\scriptsize] (m-1-2) edge node [right] {$t\rightarrow +\infty$} (m-2-2);
+% \path[-stealth] (m-2-1.east) edge node [above] {$\nu\rightarrow 0$} (m-2-2);
+%(m-1-2) edge node [right] {$\nu\rightarrow 0$} (m-2-2);
 \end{tikzpicture}
  \caption{Schematic representation of the equivalence of the limited absorption and limiting amplitude principles.}
 \label{fig:limits}
 \end{figure}
+Even though it is true for standard linear wave problems, it is not clear if it still holds in the singular case 
+of the hybrid resonance.
+
 
 To our knowledge, such numerical studies have not been performed in the existing literature. 

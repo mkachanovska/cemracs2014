@@ -1,7 +1,6 @@
 \section{Time-Dependent Problem Discretization}
-\arev{
 We develop hereafter the discretization of the time-dependent one-dimensional model (\ref{eq:main_model}), for the particular case $\theta=0$. 
-We first show how this system can be discretized thanks to a Yee scheme suggested in \cite{stable_yee_plasma_current}, then a scheme based on semi-lagrangian discretization is employed.}
+We first show how this system can be discretized thanks to a Yee scheme suggested in \cite{stable_yee_plasma_current}, then a scheme based on semi-lagrangian discretization is employed.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{A staggered scheme}
 \label{sec:staggered_discretization}
@@ -13,7 +12,7 @@ We first show how this system can be discretized thanks to a Yee scheme suggeste
 % m_e\partial_t u_x=eE_x+eu_yB_0-\nu m_e u_x,\nonumber\\
 % m_e\partial_t u_y=eE_y-eu_xB_0-\nu m_e u_y.\nonumber
 % \end{align}
-We compute a numerical approximation of~\eqref{eq:main_model} \mrev{with $\theta=0$} on a cartesian grid using the Yee scheme, 
+We compute a numerical approximation of~\eqref{eq:main_model} with $\theta=0$ on a cartesian grid using the Yee scheme, 
 as suggested in \cite{stable_yee_plasma_current}. Let $n$ and $\Delta t$ denote the time step index and the time step, as usual the discrete time is $t_n = n \Delta t$. 
 It is standard (see \cite{Xu_2006,stable_yee_plasma_current }) to discretize the electrical field on the integer time steps, 
 whereas the field $H_z$ on half time steps, $t_{n+1/2}$. The time discretization of the system reads:
@@ -29,7 +28,7 @@ whereas the field $H_z$ on half time steps, $t_{n+1/2}$. The time discretization
 In \lastrev{the} Yee scheme, the different components of the vector fields 
 are defined on staggered points. 
 We summarize this discretization on Fig.~\ref{schemepos} where the positions 
-of \urev{$E_x$}, $u_x$ (black dots), $E_y$, $u_y$ (blue dots) and $H_z$ (red dots) 
+of $E_x$, $u_x$ (black dots), $E_y$, $u_y$ (blue dots) and $H_z$ (red dots) 
 on the discretized grid in space and time are displayed. The fully discretized system then reads
 
 \ben 
@@ -197,7 +196,7 @@ $$
 In our case we used 
 a semi-lagrangian scheme for a time step $\Delta t$.
 In the tests, we used Strang's stencils described in \cite{cedar} with CFL $\nu=0.5$, at order 7. 
-It  yields to the chain 
+It  yields  the chain 
 $(E_y,H_z)_i^n\mapsto ( w,z)_i^n\mapsto ( w,z)_i^{n*}\mapsto (E_y,H_z)_i^{n*} $.
 Here $n*$ denotes the intermediate time step of the algorithm.
 
