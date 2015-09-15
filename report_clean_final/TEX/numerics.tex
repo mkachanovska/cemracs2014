@@ -241,6 +241,7 @@ $H$ & 10 \\
 \caption{The parameters for the problem with the resonance.}
 \label{tab:parameters}
 \end{table}
+
 Denoting by $E_{x}^{\nu,h}$ the solution $E_{x}(x)$ computed on the mesh with width $h$ and 
  absorption $\nu$, and by $E_{x}^{\nu}$ the solution computed on a mesh multiple times finer (more precisely, the reference mesh
 was typically 10-200 times finer, except when the computation was performed for very small values of $h$ when results were compared with results computed on twice finer meshes), let 
@@ -260,6 +261,19 @@ defined in Table \ref{tab:parameters}. In the left figure the dependence of $h_{
 In the right figure we show the computed solutions for this problem (for brevity denoted by $E_{x,y}^{\nu}$) for different values of $\nu$. }
 \label{fig:dependence}
 \end{figure}
+\begin{figure}%[h!]
+\begin{tabular}{cc}
+\includegraphics[height=0.32\textwidth]{pics_frequency_domain/fig_cond_num.pdf}&
+ \includegraphics[height=0.32\textwidth]{pics_frequency_domain/ey_resonance.pdf}
+ \end{tabular}
+ \caption{
+ We consider the problem (\ref{eq:main_frequency_domain}) with the parameters 
+defined in Table \ref{tab:parameters}. The left plot demonstrates the dependence of the condition number of the system (\ref{eq:simple_system}) on $\nu$, for different values of $h$ (the condition 
+ number for $\nu=0$ is not shown, however, for all values of $h$ as shown in the plot, the matrix was non-singular even for $\nu=0$). 
+ The right plot shows $E_{y}^{\nu,h}$ computed on different meshes for small $\nu$. It can be seen that for $h=10^{-2}$ and $h=10^{-3}$ the solutions 
+ computed for $\nu=0$ are almost indistinguishable.}
+ \label{fig:small_nu}
+\end{figure}
 We can see that Estimate (\ref{eq:estimate_h}) is pessimistic compared to the one suggested by (\ref{eq:def_epsilon}), 
 at least for given values of $\epsilon$ and for a chosen range of $\nu>0$.
 \begin{remark}
@@ -271,49 +285,18 @@ and thus the relative error control
  is ensured by choosing $h$ as $\beta_{\epsilon}\nu^{\frac{3}{2}}$, $\beta_{\epsilon}>0$.
 \end{remark}
 
+
+
 In Figure \ref{fig:small_nu} we demonstrate the dependence of the condition number of the matrix of System (\ref{eq:simple_system}) 
 on $\nu$, for several values of $h$.
 Remarkably, for $\nu=0$ the computed matrices are not singular. We do not know the exact reason for this.
 As an additional illustration, we compare the solutions for very small $\nu$ and $\nu=0$ for different meshes in Fig.~\ref{fig:small_nu}. 
-\begin{figure}[htb!]
-\begin{tabular}{cc}
-\includegraphics[height=0.32\textwidth]{pics_frequency_domain/fig_cond_num.pdf}&
- \includegraphics[height=0.32\textwidth]{pics_frequency_domain/ey_resonance.pdf}
- \end{tabular}
- \caption{
- We consider the problem (\ref{eq:main_frequency_domain}) with the parameters 
-defined in Table \ref{tab:parameters}. The left plot demonstrates the dependence of the condition number of the system (\ref{eq:simple_system}) on $\nu$, for different values of $h$ (the condition 
- number for $\nu=0$ is not shown, however, for all values of $h$ as shown in the plot, the matrix was non-singular even for $\nu=0$). 
- The right plot shows $E_{y}^{\nu,h}$ computed on different meshes for small $\nu$. It can be seen that for $h=10^{-2}$ and $h=10^{-3}$ the solutions 
- computed for $\nu=0$ are almost indistinguishable.}
- %It can be seen that for meshes that are coarse 
- %with respect to $\nu$ (e.g. $\nu=10^{-4}, \; h=10^{-2}$, or $\nu=0,\; h=10^{-2}$), the computed solution seems to be only piecewise-continuous in $\nu$, 
- %while for finer meshes and $\nu>0$ the solution seems to be smooth. }
- \label{fig:small_nu}
-\end{figure}
-%\begin{table}[ht!]
-%\begin{tabular}{c|ccccccccc}
-%\diagbox[width=10em]{$h$}{$\nu$}& 100 & 10 & 1 & 0.1 & 1e-2 & 1e-3 & 1e-4 & 1e-8 & 0\\
-% \hline
-%1 & 3.9634&4.3787 &4.987&36.949&42.394& 42.757 &42.79&42.793&42.793\\
-%\hline
-%0.5&      3.9931& 6.87&48.473 & 168.41  &207.34  & 209.63 & 209.83 & 209.85&  209.85\\
-%\hline
-% 0.1&      16.09  &     159.56  &     1146.1   &    8304.1   &     19169  &      20270   &     20344   &     20352   &     20352\\
-% \hline
-%0.05&      64.046  &     637.18  &     4686.2   &     38876 &  1.4e5 &  1.58e5 &   1.58e5 &  1.58e5 &  1.58e5\\
-%\hline
-% 0.01&       1600    &   15921 & 1.2e5  & 1.1e6 & 8.3e6  & 1.8e7   & 1.93e7  & 1.93e7  & 1.93e7\\
-%\end{tabular}
-%\caption{The condition number of the matrix of the system (\ref{eq:simple_system}) for different values of $\nu$ and $h$. }
-%\label{tab:cond_number}
-%\end{table}
+
 
 
 \FloatBarrier
 
 \subsection{A validation of the semi-lagrangian scheme}
-
 With very basic simulation, we show that the numerical strategy 
 based on co-localised semi-lagrangian discretization is valid even for the resonance.
 The numerical tests have been kept to a minimum, and many more are needed to fully validate
@@ -324,11 +307,6 @@ The peak is the hybrid resonance, visible on $E_x$ and $u_x$.
 The total energy $\mathcal E(t)$ is the physical energy. 
 The comparison with Figures \ref{fig:dependence} and \nrev{\ref{fig:resonance_nus_ex_t}} shows that the 
 singular nature of the resonance is captured by this new scheme without any doubt.
-
-Notice that in this case \nrev{ we shifted the computational domain 
-for visualization purposes},
-so that $L=0$ and the point where the resonance occurs is $x_h=20$.
-
 \begin{figure}[h]
 	\begin{center}
 		\begin{tabular}{ccc}
@@ -362,19 +340,9 @@ so that $L=0$ and the point where the resonance occurs is $x_h=20$.
 			why the resonance is now at $x=20$.}
 		\label{fig:vasl}
 	\end{figure}
+	
+Notice that in this case \nrev{ we shifted the computational domain 
+for visualization purposes},
+so that $L=0$ and the point where the resonance occurs is $x_h=20$.
+\FloatBarrier
 
-
-%\subsubsection{No-Resonance Case}
-%We choose the parameters so that in the frequency domain, for the limiting amplitude problem, $\hat{E}_{2}$ satisfies 
-%the Airy equation \cite{}. 
-
-%We set $\omega_c=0$ (thus $\delta(x)=0$), $\omega=1$ (hence $\alpha(x)=1-N_e(x)$), 
-%choose the domain as $[-0.5, 10]$ and set the electron density $N_e(x)=1+x$. Importantly, $N_e(x)>0$ on the whole interval.
-%The boundary conditions in (\ref{eq:bcs}) are chosen as $G=Ai'(0.5)$. 
-%In all the experiments in this section the CFL number was chosen to be equal to 0.5.
-
-
-%First let us fix $\nu=1e-2$. 
-%To demonstrate that the limiting amplitude principle indeed holds, we fix a point $x=x_c$ 
-%inside the domain $(-L,\; H)$ and plot the dependence of the solution $E_{y}^{\nu}(x_c,t), \; \hat{E}_2^{\nu}(x_c)\mathrm{e}^{it}$ 
-%on time $t$ for a range of $t\gg 1$ in Figure \ref{fig:nu1e2_harmon}.  
