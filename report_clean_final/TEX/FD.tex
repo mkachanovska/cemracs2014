@@ -26,9 +26,7 @@ Model (\ref{eq:main_model}) can be rewritten in the frequency domain as
 \delta^{\nu}_{\omega}(x)=\frac{\omega_c(\mathbf{r})\omega_p^2(x)}{\omega(\omega_{\nu}^2-\omega_c^2(x))},
 \eealn
 where the frequency 
-$\omega_{\nu}=\omega+i\nu$ is shifted in the complex plane. The choice of the non-zero plasma friction $\nu>0$ is a regularization of the problem. 
-
-A series expansion as $\nu\rightarrow 0$ gives at leading orders
+$\omega_{\nu}=\omega+i\nu$ is shifted in the complex plane. The choice of the non-zero plasma friction $\nu>0$ is a regularization of the problem. A series expansion as $\nu\rightarrow 0$ gives at leading orders
 \bealn
  \alpha^{\nu}_{\omega}=\alpha_{\omega}+i\nu\frac{\omega_p^2(\omega^2+\omega_c^2)}{\omega(\omega^2-\omega_c^2)^2}=\alpha_{\omega}+i\nu D_{\alpha},\\
  \delta^{\nu}_{\omega}=\delta_{\omega}-i\nu\frac{2\omega_c\omega_p^2}{(\omega^2-\omega_c^2)^2}=\delta_{\omega}+i\nu D_{\delta},
@@ -72,7 +70,7 @@ As a consequence we will consider in this work the simpler regularized system
 \right). 
 \end{align*}
 
-For brevity, from now on we will denote $\frac{\omega^2}{c^2}\alpha_{\omega},\; \frac{\omega^2}{c^2}\delta_{\omega}$ by $\alpha,\; \delta$ and consider a sequence of regularized problems. 
+For brevity, from now on we will denote $\frac{\omega^2}{c^2}\alpha_{\omega},\; \frac{\omega^2}{c^2}\delta_{\omega}$ by $\alpha,\; \delta$ and consider a sequence of regularized problems 
 \begin{align}
 \label{eq:main_frequency_domain}
 \left(
@@ -126,7 +124,7 @@ In this section we study the well-posedness of Problem (\ref{eq:main_frequency_d
 After introducing $\Omega=(-L,\; H)\subset \mathbb R$ and defining the function space  $\mathbf{V}=L^{2}(\Omega)\times H^{1}(\Omega)$, 
 equipped with the norm
 \ben
- \|\mathbf{v}\|_{\mathbf{V}}^2= \|v_1\|_{L^{2}(\Omega)}^2+\|v_2\|_{H^{1}(\Omega)}^2 \qquad   \text{for }\nrev{\mathbf{v}=(v_1,\; v_2)},
+ \|\mathbf{v}\|_{\mathbf{V}}^2= \|v_1\|_{L^{2}(\Omega)}^2+\|v_2\|_{H^{1}(\Omega)}^2 \qquad  \nrev{\text{for }\mathbf{v}=(v_1,\; v_2)},
 \een
 the resulting one-dimensional system reads in the following variational form:
 \begin{align}

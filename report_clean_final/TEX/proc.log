@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.6.26)  15 SEP 2015 14:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.6.26)  15 SEP 2015 15:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**proc.tex
+**proc.tex -save-size=50000
 (./proc.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
@@ -1347,15 +1347,8 @@ File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <8> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 18.
  [1{/usr/uma/pack/tex/texlive_2015_full-20150523/texmf-var/fonts/map/pdftex/upd
-map/pdftex.map}] [2] [3]) (./FD.tex [4] [5] [6]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [7])
-(./timedomain.tex
-Underfull \vbox (badness 1412) has occurred while \output is active []
-
- [8]
-[9]) (./numerics.tex [10]
+map/pdftex.map}] [2] [3]) (./FD.tex [4] [5] [6] [7]) (./timedomain.tex
+[8] [9]) (./numerics.tex
 PGFPlots: reading {pics_frequency_domain/data_airy/E1L2.dat}
 Missing character: There is no ; in font nullfont!
 PGFPlots: reading {pics_frequency_domain/data_airy/E2H1.dat}
@@ -1369,14 +1362,14 @@ so unbounded coords=jump).
 Missing character: There is no ; in font nullfont!
 PGFPlots: reading {pics_frequency_domain/data_airy/H.dat}
 Missing character: There is no ; in font nullfont!
-[11] [12]
+[10] [11] [12]
 Overfull \hbox (7.79704pt too wide) in paragraph at lines 188--191
 []\OT1/cmr/m/n/10 To de-rive a sim-i-lar bound on the sec-ond de-riv-a-tive of 
 $\OML/cmm/m/it/10 E[]$\OT1/cmr/m/n/10 , we as-sume that the main con-tri-bu-tio
 n to $\OMS/cmsy/m/n/10 k [][] k[]$
  []
 
-[13] <pics_frequency_domain/h_nu.pdf, id=323, 340.27126pt x 258.9675pt>
+[13] <pics_frequency_domain/h_nu.pdf, id=325, 340.27126pt x 258.9675pt>
 File: pics_frequency_domain/h_nu.pdf Graphic file (type pdf)
 
 <use pics_frequency_domain/h_nu.pdf>
@@ -1384,7 +1377,7 @@ Package pdftex.def Info: pics_frequency_domain/h_nu.pdf used on input line 254.
 
 (pdftex.def)             Requested size: 203.3907pt x 154.78653pt.
 
-<pics_frequency_domain/res_sol.pdf, id=324, 345.29pt x 324.21124pt>
+<pics_frequency_domain/res_sol.pdf, id=326, 345.29pt x 324.21124pt>
 File: pics_frequency_domain/res_sol.pdf Graphic file (type pdf)
 
 <use pics_frequency_domain/res_sol.pdf>
@@ -1392,7 +1385,7 @@ Package pdftex.def Info: pics_frequency_domain/res_sol.pdf used on input line 2
 56.
 (pdftex.def)             Requested size: 164.85216pt x 154.78653pt.
 
-<pics_frequency_domain/fig_cond_num.pdf, id=336, 346.29375pt x 324.21124pt>
+<pics_frequency_domain/fig_cond_num.pdf, id=338, 346.29375pt x 324.21124pt>
 File: pics_frequency_domain/fig_cond_num.pdf Graphic file (type pdf)
 
 <use pics_frequency_domain/fig_cond_num.pdf>
@@ -1400,14 +1393,14 @@ Package pdftex.def Info: pics_frequency_domain/fig_cond_num.pdf used on input l
 ine 280.
 (pdftex.def)             Requested size: 165.33139pt x 154.78653pt.
 
-<pics_frequency_domain/ey_resonance.pdf, id=337, 345.29pt x 324.21124pt>
+<pics_frequency_domain/ey_resonance.pdf, id=339, 345.29pt x 324.21124pt>
 File: pics_frequency_domain/ey_resonance.pdf Graphic file (type pdf)
 
 <use pics_frequency_domain/ey_resonance.pdf>
 Package pdftex.def Info: pics_frequency_domain/ey_resonance.pdf used on input l
 ine 281.
 (pdftex.def)             Requested size: 164.85216pt x 154.78653pt.
- [14]
+ [14 <./pics_frequency_domain/h_nu.pdf> <./pics_frequency_domain/res_sol.pdf>]
 Package epstopdf Info: Source file: <pics_semilagrange/Ey_moit.eps>
 (epstopdf)                    date: 2015-01-29 17:02:06
 (epstopdf)                    size: 35106 bytes
@@ -1420,7 +1413,7 @@ eps-converted-to.pdf pics_semilagrange/Ey_moit.eps>
 (epstopdf)             \includegraphics on input line 335.
 Package epstopdf Info: Output file is already uptodate.
 
-<pics_semilagrange/Ey_moit-eps-converted-to.pdf, id=357, 505.89pt x 722.7pt>
+<pics_semilagrange/Ey_moit-eps-converted-to.pdf, id=431, 505.89pt x 722.7pt>
 File: pics_semilagrange/Ey_moit-eps-converted-to.pdf Graphic file (type pdf)
 
 <use pics_semilagrange/Ey_moit-eps-converted-to.pdf>
@@ -1439,7 +1432,7 @@ eps-converted-to.pdf pics_semilagrange/Hz_moit.eps>
 (epstopdf)             \includegraphics on input line 337.
 Package epstopdf Info: Output file is already uptodate.
 
-<pics_semilagrange/Hz_moit-eps-converted-to.pdf, id=358, 505.89pt x 722.7pt>
+<pics_semilagrange/Hz_moit-eps-converted-to.pdf, id=432, 505.89pt x 722.7pt>
 File: pics_semilagrange/Hz_moit-eps-converted-to.pdf Graphic file (type pdf)
 
 <use pics_semilagrange/Hz_moit-eps-converted-to.pdf>
@@ -1458,7 +1451,7 @@ eps-converted-to.pdf pics_semilagrange/Ex_moit.eps>
 (epstopdf)             \includegraphics on input line 338.
 Package epstopdf Info: Output file is already uptodate.
 
-<pics_semilagrange/Ex_moit-eps-converted-to.pdf, id=359, 505.89pt x 722.7pt>
+<pics_semilagrange/Ex_moit-eps-converted-to.pdf, id=433, 505.89pt x 722.7pt>
 File: pics_semilagrange/Ex_moit-eps-converted-to.pdf Graphic file (type pdf)
 
 <use pics_semilagrange/Ex_moit-eps-converted-to.pdf>
@@ -1477,7 +1470,7 @@ eps-converted-to.pdf pics_semilagrange/uy_moit.eps>
 (epstopdf)             \includegraphics on input line 343.
 Package epstopdf Info: Output file is already uptodate.
 
-<pics_semilagrange/uy_moit-eps-converted-to.pdf, id=360, 505.89pt x 722.7pt>
+<pics_semilagrange/uy_moit-eps-converted-to.pdf, id=434, 505.89pt x 722.7pt>
 File: pics_semilagrange/uy_moit-eps-converted-to.pdf Graphic file (type pdf)
 
 <use pics_semilagrange/uy_moit-eps-converted-to.pdf>
@@ -1496,7 +1489,7 @@ oit-eps-converted-to.pdf pics_semilagrange/normes_moit.eps>
 (epstopdf)             \includegraphics on input line 345.
 Package epstopdf Info: Output file is already uptodate.
 
-<pics_semilagrange/normes_moit-eps-converted-to.pdf, id=361, 505.89pt x 722.7pt
+<pics_semilagrange/normes_moit-eps-converted-to.pdf, id=435, 505.89pt x 722.7pt
 >
 File: pics_semilagrange/normes_moit-eps-converted-to.pdf Graphic file (type pdf
 )
@@ -1516,21 +1509,20 @@ eps-converted-to.pdf pics_semilagrange/ux_moit.eps>
 (epstopdf)             \includegraphics on input line 347.
 Package epstopdf Info: Output file is already uptodate.
 
-<pics_semilagrange/ux_moit-eps-converted-to.pdf, id=362, 505.89pt x 722.7pt>
+<pics_semilagrange/ux_moit-eps-converted-to.pdf, id=436, 505.89pt x 722.7pt>
 File: pics_semilagrange/ux_moit-eps-converted-to.pdf Graphic file (type pdf)
 
 <use pics_semilagrange/ux_moit-eps-converted-to.pdf>
 Package pdftex.def Info: pics_semilagrange/ux_moit-eps-converted-to.pdf used on
  input line 347.
 (pdftex.def)             Requested size: 505.88875pt x 722.69823pt.
- [15 <./pics_frequency_domain/h_nu.pdf> <./pics_frequency_domain/res_sol.pdf> <
-./pics_frequency_domain/fig_cond_num.pdf> <./pics_frequency_domain/ey_resonance
-.pdf>]) (./absorption.tex
-[16 <./pics_semilagrange/Ey_moit-eps-converted-to.pdf> <./pics_semilagrange/Hz_
-moit-eps-converted-to.pdf> <./pics_semilagrange/Ex_moit-eps-converted-to.pdf> <
-./pics_semilagrange/uy_moit-eps-converted-to.pdf> <./pics_semilagrange/normes_m
-oit-eps-converted-to.pdf> <./pics_semilagrange/ux_moit-eps-converted-to.pdf>]
-<pics_time_domain/airy/figure_nu1e2-crop.pdf, id=550, 412.54124pt x 153.57375pt
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) (./absorption.tex [15 <./pics_frequency_domain/fig_cond_num.pdf> <./pics_freq
+uency_domain/ey_resonance.pdf>]
+<pics_time_domain/airy/figure_nu1e2-crop.pdf, id=510, 412.54124pt x 153.57375pt
 >
 File: pics_time_domain/airy/figure_nu1e2-crop.pdf Graphic file (type pdf)
  <use pics_time_domain/airy/figure_nu1e2-crop.pdf>
@@ -1538,7 +1530,7 @@ Package pdftex.def Info: pics_time_domain/airy/figure_nu1e2-crop.pdf used on in
 put line 51.
 (pdftex.def)             Requested size: 259.8646pt x 96.73788pt.
 
-<pics_time_domain/airy/figure_nu1e2_2-crop.pdf, id=551, 343.2825pt x 150.5625pt
+<pics_time_domain/airy/figure_nu1e2_2-crop.pdf, id=511, 343.2825pt x 150.5625pt
 >
 File: pics_time_domain/airy/figure_nu1e2_2-crop.pdf Graphic file (type pdf)
  <use pics_time_domain/airy/figure_nu1e2_2-crop.pdf>
@@ -1550,8 +1542,11 @@ Overfull \hbox (16.7373pt too wide) in paragraph at lines 50--54
  [][] 
  []
 
-
-<pics_time_domain/airy/figure_nu1e4-crop.pdf, id=556, 416.55624pt x 156.585pt>
+[16 <./pics_semilagrange/Ey_moit-eps-converted-to.pdf> <./pics_semilagrange/Hz_
+moit-eps-converted-to.pdf> <./pics_semilagrange/Ex_moit-eps-converted-to.pdf> <
+./pics_semilagrange/uy_moit-eps-converted-to.pdf> <./pics_semilagrange/normes_m
+oit-eps-converted-to.pdf> <./pics_semilagrange/ux_moit-eps-converted-to.pdf>]
+<pics_time_domain/airy/figure_nu1e4-crop.pdf, id=558, 416.55624pt x 156.585pt>
 File: pics_time_domain/airy/figure_nu1e4-crop.pdf Graphic file (type pdf)
 
 <use pics_time_domain/airy/figure_nu1e4-crop.pdf>
@@ -1559,7 +1554,7 @@ Package pdftex.def Info: pics_time_domain/airy/figure_nu1e4-crop.pdf used on in
 put line 69.
 (pdftex.def)             Requested size: 217.6621pt x 81.82127pt.
 
-<pics_time_domain/airy/figure_nu1e6-crop.pdf, id=557, 429.605pt x 159.59625pt>
+<pics_time_domain/airy/figure_nu1e6-crop.pdf, id=559, 429.605pt x 159.59625pt>
 File: pics_time_domain/airy/figure_nu1e6-crop.pdf Graphic file (type pdf)
 
 <use pics_time_domain/airy/figure_nu1e6-crop.pdf>
@@ -1567,7 +1562,7 @@ Package pdftex.def Info: pics_time_domain/airy/figure_nu1e6-crop.pdf used on in
 put line 70.
 (pdftex.def)             Requested size: 217.6621pt x 80.8621pt.
 
-<pics_time_domain/res/ey_fixed_x-crop.pdf, id=569, 410.53375pt x 156.585pt>
+<pics_time_domain/res/ey_fixed_x-crop.pdf, id=571, 410.53375pt x 156.585pt>
 File: pics_time_domain/res/ey_fixed_x-crop.pdf Graphic file (type pdf)
 
 <use pics_time_domain/res/ey_fixed_x-crop.pdf>
@@ -1575,7 +1570,7 @@ Package pdftex.def Info: pics_time_domain/res/ey_fixed_x-crop.pdf used on input
  line 107.
 (pdftex.def)             Requested size: 217.6621pt x 83.01831pt.
 
-<pics_time_domain/res/ey_fixed_x_1e3-crop.pdf, id=570, 410.53375pt x 153.57375p
+<pics_time_domain/res/ey_fixed_x_1e3-crop.pdf, id=572, 410.53375pt x 153.57375p
 t>
 File: pics_time_domain/res/ey_fixed_x_1e3-crop.pdf Graphic file (type pdf)
  <use pics_time_domain/res/ey_fixed_x_1e3-crop.pdf>
@@ -1583,7 +1578,7 @@ Package pdftex.def Info: pics_time_domain/res/ey_fixed_x_1e3-crop.pdf used on i
 nput line 108.
 (pdftex.def)             Requested size: 217.6621pt x 81.42181pt.
 
-<pics_time_domain/res/ex_fixed_x_nu1e4-crop.pdf, id=573, 409.53pt x 156.585pt>
+<pics_time_domain/res/ex_fixed_x_nu1e4-crop.pdf, id=575, 409.53pt x 156.585pt>
 File: pics_time_domain/res/ex_fixed_x_nu1e4-crop.pdf Graphic file (type pdf)
 
 <use pics_time_domain/res/ex_fixed_x_nu1e4-crop.pdf>
@@ -1591,7 +1586,7 @@ Package pdftex.def Info: pics_time_domain/res/ex_fixed_x_nu1e4-crop.pdf used on
  input line 115.
 (pdftex.def)             Requested size: 386.95894pt x 147.96404pt.
 
-<pics_time_domain/res/ex_fixed_t-crop.pdf, id=576, 341.275pt x 311.1625pt>
+<pics_time_domain/res/ex_fixed_t-crop.pdf, id=578, 341.275pt x 311.1625pt>
 File: pics_time_domain/res/ex_fixed_t-crop.pdf Graphic file (type pdf)
 
 <use pics_time_domain/res/ex_fixed_t-crop.pdf>
@@ -1599,7 +1594,7 @@ Package pdftex.def Info: pics_time_domain/res/ex_fixed_t-crop.pdf used on input
  line 125.
 (pdftex.def)             Requested size: 217.6621pt x 198.45961pt.
 
-<pics_time_domain/res/ex_fixed_t_1e3-crop.pdf, id=577, 341.275pt x 313.17pt>
+<pics_time_domain/res/ex_fixed_t_1e3-crop.pdf, id=579, 341.275pt x 313.17pt>
 File: pics_time_domain/res/ex_fixed_t_1e3-crop.pdf Graphic file (type pdf)
 
 <use pics_time_domain/res/ex_fixed_t_1e3-crop.pdf>
@@ -1607,7 +1602,7 @@ Package pdftex.def Info: pics_time_domain/res/ex_fixed_t_1e3-crop.pdf used on i
 nput line 126.
 (pdftex.def)             Requested size: 217.6621pt x 199.73999pt.
 
-<pics_time_domain/res/ey_fixed_t_1e3-crop.pdf, id=580, 341.275pt x 154.5775pt>
+<pics_time_domain/res/ey_fixed_t_1e3-crop.pdf, id=582, 341.275pt x 154.5775pt>
 File: pics_time_domain/res/ey_fixed_t_1e3-crop.pdf Graphic file (type pdf)
 
 <use pics_time_domain/res/ey_fixed_t_1e3-crop.pdf>
@@ -1615,15 +1610,17 @@ Package pdftex.def Info: pics_time_domain/res/ey_fixed_t_1e3-crop.pdf used on i
 nput line 134.
 (pdftex.def)             Requested size: 193.47577pt x 87.63362pt.
 
-<pics_time_domain/res/ey_fixed_x_nu1e4-crop.pdf, id=581, 410.53375pt x 153.5737
+<pics_time_domain/res/ey_fixed_x_nu1e4-crop.pdf, id=583, 410.53375pt x 153.5737
 5pt>
 File: pics_time_domain/res/ey_fixed_x_nu1e4-crop.pdf Graphic file (type pdf)
  <use pics_time_domain/res/ey_fixed_x_nu1e4-crop.pdf>
 Package pdftex.def Info: pics_time_domain/res/ey_fixed_x_nu1e4-crop.pdf used on
  input line 135.
 (pdftex.def)             Requested size: 241.84842pt x 90.46945pt.
-
-<pics_time_domain/res/ex_fixed_t_1e4_2-crop.pdf, id=586, 651.43375pt x 248.93pt
+ [17 <./pics_time_domain/airy/figure_nu1e2-crop.pdf> <./pics_time_domain/airy/f
+igure_nu1e2_2-crop.pdf> <./pics_time_domain/airy/figure_nu1e4-crop.pdf> <./pics
+_time_domain/airy/figure_nu1e6-crop.pdf>]
+<pics_time_domain/res/ex_fixed_t_1e4_2-crop.pdf, id=773, 651.43375pt x 248.93pt
 >
 File: pics_time_domain/res/ex_fixed_t_1e4_2-crop.pdf Graphic file (type pdf)
  <use pics_time_domain/res/ex_fixed_t_1e4_2-crop.pdf>
@@ -1631,14 +1628,12 @@ Package pdftex.def Info: pics_time_domain/res/ex_fixed_t_1e4_2-crop.pdf used on
  input line 150.
 (pdftex.def)             Requested size: 435.32419pt x 166.35301pt.
 ) (./conclusions.tex
-[17 <./pics_time_domain/airy/figure_nu1e2-crop.pdf> <./pics_time_domain/airy/fi
-gure_nu1e2_2-crop.pdf>] [18 <./pics_time_domain/airy/figure_nu1e4-crop.pdf> <./
-pics_time_domain/airy/figure_nu1e6-crop.pdf> <./pics_time_domain/res/ey_fixed_x
--crop.pdf> <./pics_time_domain/res/ey_fixed_x_1e3-crop.pdf>]) [19 <./pics_time_
-domain/res/ex_fixed_x_nu1e4-crop.pdf> <./pics_time_domain/res/ex_fixed_t-crop.p
-df> <./pics_time_domain/res/ex_fixed_t_1e3-crop.pdf>] [20 <./pics_time_domain/r
-es/ey_fixed_t_1e3-crop.pdf> <./pics_time_domain/res/ey_fixed_x_nu1e4-crop.pdf> 
-<./pics_time_domain/res/ex_fixed_t_1e4_2-crop.pdf>] [21]
+[18 <./pics_time_domain/res/ey_fixed_x-crop.pdf> <./pics_time_domain/res/ey_fix
+ed_x_1e3-crop.pdf> <./pics_time_domain/res/ex_fixed_x_nu1e4-crop.pdf>])
+[19 <./pics_time_domain/res/ex_fixed_t-crop.pdf> <./pics_time_domain/res/ex_fix
+ed_t_1e3-crop.pdf> <./pics_time_domain/res/ey_fixed_t_1e3-crop.pdf> <./pics_tim
+e_domain/res/ey_fixed_x_nu1e4-crop.pdf>] [20 <./pics_time_domain/res/ex_fixed_t
+_1e4_2-crop.pdf>] [21]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 219.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 219.
  (./proc.aux)
@@ -1656,11 +1651,11 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 219.
 Here is how much of TeX's memory you used:
  29925 strings out of 493089
  683896 string characters out of 6124544
- 854108 words of memory out of 5000000
+ 857000 words of memory out of 5000000
  32508 multiletter control sequences out of 15000+600000
  21152 words of font info for 80 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 55i,20n,100p,963b,2212s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,20n,100p,980b,2212s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/uma/pack/tex/texlive_2015_full-20150523/texmf-dist/fonts/type1/public/a
 msfonts/cm/cmbx10.pfb></usr/uma/pack/tex/texlive_2015_full-20150523/texmf-dist/
 fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/uma/pack/tex/texlive_2015_full-2
@@ -1697,7 +1692,7 @@ a/pack/tex/texlive_2015_full-20150523/texmf-dist/fonts/type1/public/amsfonts/cm
 xmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/uma/pack/tex/texl
 ive_2015_full-20150523/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pf
 b>
-Output written on proc.pdf (21 pages, 3125946 bytes).
+Output written on proc.pdf (21 pages, 3126668 bytes).
 PDF statistics:
  1300 PDF objects out of 1440 (max. 8388607)
  1022 compressed objects within 11 object streams
